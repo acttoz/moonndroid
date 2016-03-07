@@ -6,10 +6,11 @@ function fontResize(num) {
 	font_size += num;
 	text_input.css("font-size", font_size + "px");
 	localStorage.setItem("FONT", font_size);
-	var textarea_height;
-	textarea_height= parseInt(text_input.css("height"));
-	textarea_height += (num*5);
-	text_input.css("height", textarea_height + "px");
+	// var textarea_height;
+	// textarea_height= parseInt(text_input.css("height"));
+	// textarea_height += (num*5);
+	// text_input.css("height", textarea_height + "px");
+	fontSizeSet();
 }
  
 function fontSize() {
@@ -17,7 +18,7 @@ function fontSize() {
 	if (font_size != null)
 		$('.content').css("font-size", font_size + "px");
 }
-
+  
 var day = 5;
 
 function daySelect(num) {
@@ -38,22 +39,20 @@ function daySelect(num) {
 
 }
 
-$(function() {
+function fontSizeSet() {
 	for (var i = 1; i < 6; i++) {
 		$("#content" + i).css("height", "1px");
 		$("#content" + i).css("height", (20 + document.getElementById("content" + i).scrollHeight + "px"));
 	}
-});
+}
 
-var swiper = new Swiper('.swiper-container', {
-	pagination : '.swiper-pagination',
-	paginationClickable : true,
-	initialSlide : 5
-});
 
-swiper.once('sliderMove', function() {
-	 $(".swiper-button-next").css("display","none");
-	 $(".swiper-button-prev").css("display","none");
-});
+
+function logOut() {
+	localStorage.setItem("ID","noid");
+	document.location.href = "mobile_index.php";
+
+}
 
 fontSize();
+fontSizeSet();

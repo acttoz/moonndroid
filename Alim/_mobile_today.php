@@ -44,7 +44,6 @@ if ($post_id == null && $_REQUEST[id] == null) {
 							include_once ('./config.php');
 							$week2 = 1;
 
-							
 							if (date("H") < 12) {
 								if (date("w") < 5) {
 									$week2 = date("w");
@@ -53,7 +52,7 @@ if ($post_id == null && $_REQUEST[id] == null) {
 								}
 							} else {
 								if (date("w") < 5) {
-									$week2 = date("w")+1;
+									$week2 = date("w") + 1;
 								} else {
 									$week2 = 1;
 								}
@@ -70,6 +69,10 @@ if ($post_id == null && $_REQUEST[id] == null) {
 							$result2 = mysql_query("SELECT d1,d2,d3,d4,d5,day FROM member WHERE id='${id}' AND class_key='${key}'");
 							$array = mysql_fetch_array($result);
 							$content = mysql_fetch_array($result2);
+							if (empty($content)) {
+								header("Location:http://naver.com");
+								
+							}
 
 							mysql_close($connect);
                                                            ?>
@@ -127,34 +130,34 @@ if ($post_id == null && $_REQUEST[id] == null) {
                   </tr>
                </table>
                 <?
-					if ($content['d5'] != "") {
-						echo ' <div class="content" id="content5">' . nl2br($content['d5']) . '</div><br/>';
+				if ($content['d5'] != "") {
+					echo ' <div class="content" id="content5">' . nl2br($content['d5']) . '</div><br/>';
 
-					}
+				}
                                          ?>
                                          
                                           <div class="content" id="content4"><?
-					if ($content['d4'] == "") {
-						echo "내용없음";
-					} else {
-						echo nl2br($content['d4']);
-					}
+										if ($content['d4'] == "") {
+											echo "내용없음";
+										} else {
+											echo nl2br($content['d4']);
+										}
                                          ?></div><br/>
                                          
                                            <div class="content" id="content3"><?
-					if ($content['d3'] == "") {
-						echo "내용없음";
-					} else {
-						echo nl2br($content['d3']);
-					}
+										if ($content['d3'] == "") {
+											echo "내용없음";
+										} else {
+											echo nl2br($content['d3']);
+										}
                                          ?></div><br/>
                                          
                                           <div class="content" id="content2"><?
-					if ($content['d2'] == "") {
-						echo "내용없음";
-					} else {
-						echo nl2br($content['d2']);
-					}
+										if ($content['d2'] == "") {
+											echo "내용없음";
+										} else {
+											echo nl2br($content['d2']);
+										}
                                          ?></div><br/>
                                          
                       <div class="content" id="content1"><?
@@ -173,19 +176,23 @@ if ($post_id == null && $_REQUEST[id] == null) {
                   </div>
                    
                </div>
+               
                <?
-			if ($platform == 1) {echo '<br>
-                                       <div style="position: relative;">
-                                          <img style="display: block;
-                                             margin-left: auto;
-                                             margin-right: auto;height: 30px; " src="img/landscape_mobile.png" />
-                                       </div>';
+			if ($platform == 1) {echo '<div id="margin">
+            <button type="button" style="width:100%;" class="btn btn-info" onclick=logOut()>
+							로그아웃
+						</button>
+                    </div>';
 			}
-                                 ?>
+                    ?>
+                
+			
+						
+						<br/>
             </div>
          </div>
       </div>
-      <script src="mobile_today.js"></script>
+      <script src="_mobile_today.js"></script>
       <!-- Swiper JS -->
       <!-- Initialize Swiper -->
       <script></script>

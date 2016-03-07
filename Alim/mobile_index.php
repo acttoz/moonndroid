@@ -11,7 +11,7 @@ session_start();
 		<script type="text/javascript">
 			var class_id = localStorage.getItem("ID");
 			var class_key = localStorage.getItem("KEY");
-			if (class_id != null && class_key != null) {
+			if (class_id != "noid" && class_key != null) {
 				 $('<form action="mobile_today.php" method="POST">' + 
     '<input type="hidden" name="platform" value=1>' +
     '<input type="hidden" name="post_id" value="'+class_id+'">' +

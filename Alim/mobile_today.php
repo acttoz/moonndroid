@@ -189,7 +189,7 @@ if ($post_id == null && $_REQUEST[id] == null) {
             </div>
          </div>
       </div>
-      <script src="mobile_today.js"></script>
+      <script src="_mobile_today.js"></script>
       <!-- Swiper JS -->
       <!-- Initialize Swiper -->
       <script></script>
