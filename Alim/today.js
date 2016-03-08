@@ -78,10 +78,10 @@ function upload() {
 				day : $('#content5').attr("day")
 			},
 			success : function(args) {
-				isLoading = false;
 				if (confirm("보내기 완료")) {
 					 location.reload();
 				}
+				isLoading = false;
 			},
 			fail : function(jqXHR, textStatus, errorThrown) {
 				alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);

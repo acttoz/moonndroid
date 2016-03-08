@@ -22,6 +22,21 @@ if (mysql_num_rows($result) == 1) {
 		$_SESSION['class_key']=$row['class_key'];
 		$_SESSION['grade']=$row['grade'];
 		$_SESSION['ban']=$row['ban'];
+		
+		
+		$log="INSERT INTO log ( id,school,name,grade,ban,class_key,time,field ) VALUES ( ";
+		$log=$log ."'" .$_SESSION['id']."',"; 
+		$log=$log ."'" .$_SESSION['school']."',"; 
+		$log=$log ."'" .$_SESSION['name']."',"; 
+		$log=$log ."'" .$_SESSION['grade']."',"; 
+		$log=$log ."'" .$_SESSION['ban']."',"; 
+		$log=$log ."'" .$_SESSION['class_key']."',"; 
+		$log=$log ."'" .date("Y-m-d H:i:s",time())."',"; 
+		$log=$log ."'" ."login"."'"; 
+		$log=$log . ")";
+		mysql_query($log, $connect);
+		
+		
 		echo "success";
 
 } else {

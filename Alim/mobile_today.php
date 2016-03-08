@@ -1,9 +1,12 @@
 <?
 session_start();
 extract($_POST);
+
 if ($post_id == null && $_REQUEST[id] == null) {
 	header('Location: mobile_index.php');
 }
+
+
       ?>
 <!DOCTYPE html>
 <html lang="ko">
@@ -44,7 +47,6 @@ if ($post_id == null && $_REQUEST[id] == null) {
 							include_once ('./config.php');
 							$week2 = 1;
 
-							
 							if (date("H") < 12) {
 								if (date("w") < 5) {
 									$week2 = date("w");
@@ -53,12 +55,13 @@ if ($post_id == null && $_REQUEST[id] == null) {
 								}
 							} else {
 								if (date("w") < 5) {
-									$week2 = date("w")+1;
+									$week2 = date("w") + 1;
 								} else {
 									$week2 = 1;
 								}
 							}
-
+							
+							
 							if ($platform == 1) {
 								$id = $post_id;
 								$key = $post_key;
@@ -66,15 +69,40 @@ if ($post_id == null && $_REQUEST[id] == null) {
 								$id = $_REQUEST[id];
 								$key = $_REQUEST[key];
 							}
+								 
+								 
+								 
+								 
 							$result = mysql_query("SELECT * FROM w_" . $week2 . " WHERE id='" . $id . "'");
 							$result2 = mysql_query("SELECT d1,d2,d3,d4,d5,day FROM member WHERE id='${id}' AND class_key='${key}'");
 							$array = mysql_fetch_array($result);
 							$content = mysql_fetch_array($result2);
-
+							
+							if($content['d1']==""&&$content['d2']==""&&$content['d3']==""&&$content['d4']==""&&$content['d5']==""){
+								$check = mysql_query("SELECT * FROM member WHERE id='${id}' AND class_key='${key}'");
+								if (mysql_num_rows($check) == 0) {
+									echo 
+									"<h4>학급 코드가 일치하지 않습니다.
+									<br/>
+									계정관리 메뉴에 기존 계정 삭제 후 다시 추가해보시기 바랍니다.</h4>";
+									exit;
+								}else{
+									echo 
+									"<h4>탑재된 알림장이 없습니다.
+									<br/>
+									담임선생님이 아직 알림장을 탑재하지 않으신거 같아요..</h4>";
+									exit;
+								}
+							}
+							
+							 
+							
+							
+							
 							mysql_close($connect);
                                                            ?>
                               <td style="color: white;background-color: #59c2d8;" id="week"><?
-							if (!$array['t1'] == "") {
+							if ($array['t1'] != "") {
 								$weeks = array("일", "월", "화", "수", "목", "금", "토");
 								echo "(${weeks[($week2)]})";
 							} else {
@@ -127,34 +155,34 @@ if ($post_id == null && $_REQUEST[id] == null) {
                   </tr>
                </table>
                 <?
-					if ($content['d5'] != "") {
-						echo ' <div class="content" id="content5">' . nl2br($content['d5']) . '</div><br/>';
+				if ($content['d5'] != "") {
+					echo ' <div class="content" id="content5">' . nl2br($content['d5']) . '</div><br/>';
 
-					}
+				}
                                          ?>
                                          
                                           <div class="content" id="content4"><?
-					if ($content['d4'] == "") {
-						echo "내용없음";
-					} else {
-						echo nl2br($content['d4']);
-					}
+										if ($content['d4'] == "") {
+											echo "내용없음";
+										} else {
+											echo nl2br($content['d4']);
+										}
                                          ?></div><br/>
                                          
                                            <div class="content" id="content3"><?
-					if ($content['d3'] == "") {
-						echo "내용없음";
-					} else {
-						echo nl2br($content['d3']);
-					}
+										if ($content['d3'] == "") {
+											echo "내용없음";
+										} else {
+											echo nl2br($content['d3']);
+										}
                                          ?></div><br/>
                                          
                                           <div class="content" id="content2"><?
-					if ($content['d2'] == "") {
-						echo "내용없음";
-					} else {
-						echo nl2br($content['d2']);
-					}
+										if ($content['d2'] == "") {
+											echo "내용없음";
+										} else {
+											echo nl2br($content['d2']);
+										}
                                          ?></div><br/>
                                          
                       <div class="content" id="content1"><?
@@ -175,12 +203,12 @@ if ($post_id == null && $_REQUEST[id] == null) {
                </div>
                
                <?
-	if ($platform == 1) {echo '<div id="margin">
+			if ($platform == 1) {echo '<div id="margin">
             <button type="button" style="width:100%;" class="btn btn-info" onclick=logOut()>
 							로그아웃
 						</button>
                     </div>';
-	}
+			}
                     ?>
                 
 			
