@@ -13,14 +13,21 @@ for ($i = 0; $i < count($mobileKeyWords); $i++) {
    <head>
       <?
 	include_once ('./framework.php');
+
+	if ($_SESSION['class_key'] == "0000") {
+		header("Location: edit_class.php");
+		exit ;
+	}
          ?>
+         
       <link rel="stylesheet" href="./css/jquery-ui.css">
       <script src="//code.jquery.com/jquery-1.10.2.js"></script>
       <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+      <script type="text/javascript" src="./poll/ajax-poll.php"></script>
       <style>
-      	.fill_parent{
-      		width:100%;
-      	}
+		.fill_parent {
+			width: 100%;
+		}
       </style>
    </head>
    <body id="home">
@@ -29,7 +36,7 @@ for ($i = 0; $i < count($mobileKeyWords); $i++) {
 		include_once ('./header.php');
          ?>
          <div id="content">
-            <div id="margin" >
+            <form id="margin" action="_today_db.php" method="get">
             	
                <table class="today_menu">
                   <tr>
@@ -58,11 +65,11 @@ for ($i = 0; $i < count($mobileKeyWords); $i++) {
 
 						$content = mysql_fetch_array($result2);
 						$array = mysql_fetch_array($result);
-
-						if($content['d5'] == ""){
+						$day = (int)$content['day'] + 1;
+						if ($content['d5'] == "") {
 							$sql = "UPDATE member SET today=${today} WHERE id='${_SESSION['id']}'";
 							mysql_query($sql, $connect);
-						}else if ($today != $content['today']) {
+						} else if ($today != $content['today']) {
 							$sql = "UPDATE member SET d1='${content['d2']}',d2='${content['d3']}',d3='${content['d4']}',d4='${content['d5']}',d5='',today=${today} WHERE id='${_SESSION['id']}'";
 							mysql_query($sql, $connect);
 							$result2 = mysql_query("SELECT d1,d2,d3,d4,d5,day,today FROM member WHERE id='${_SESSION[id]}'");
@@ -72,7 +79,7 @@ for ($i = 0; $i < count($mobileKeyWords); $i++) {
                               ?>
                            <tr class="row1">
                               <td rowspan="2">내일(<?
-			 echo $week2[$week];
+							echo $week2[$week];
                               	?>)
                                  <br/>
                                  시간표
@@ -136,10 +143,13 @@ for ($i = 0; $i < count($mobileKeyWords); $i++) {
                      <td class="col3" style="width: 15%">
                      	<div class="btn-group inline fill_parent" style="padding-bottom: 5px; ">
                            <!-- <button type="button"  style="width: 50%" class="btn btn-info" id="previous" onclick="save()">
-                          저장하기
+                          		저장하기
                            </button> -->
-                           <button type="button"  style="width: 100%" class="btn btn-success" id="next" onclick="upload()">
-                           보내기
+                           
+                           	<input type="hidden" name="day" value=<?echo $day;?>>
+                           	<input type="hidden" name="select" value="send">
+                           <button type="submit"  style="width: 100%" class="btn btn-success" id="next">
+                           		보내기
                            </button>
                         </div>
                         
@@ -176,8 +186,8 @@ for ($i = 0; $i < count($mobileKeyWords); $i++) {
                   ?></textarea>
                </textarea>
               
-               <textarea class="contents" id="content5" user_id="<? echo $_SESSION[id]; ?>" day="<? echo $content['day']; ?>" today="<? echo $today; ?>" placeholder="알림장쓰기" style="display:block;"><?
-			
+               <textarea   name="d5" class="contents" id="content5" user_id="<? echo $_SESSION[id]; ?>" day="<? echo $content['day']; ?>" today="<? echo $today; ?>" placeholder="알림장쓰기" style="display:block;"><?
+
 			$s = $week2[date("w")];
 
 			if ($content['d5'] == "") {
@@ -186,15 +196,11 @@ for ($i = 0; $i < count($mobileKeyWords); $i++) {
 				echo $content['d5'];
 			}
                   	?></textarea>
-            </div>
-         </div>
-         <footer><?php
-		include_once ('./footer.php');
-            ?></footer>
-         <div id="dialog-confirm" title="알림" style="display:none;"><?php
-		include_once ('./today_notice.php');
-            ?></div>
-      </div>
+            </form>
+         </div>   <!--content--> 
+         
+        
+      </div>  <!--wrapper-->
       <script src="today.js"></script>
    </body>
 </html>

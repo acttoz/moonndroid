@@ -31,8 +31,8 @@ if ($_REQUEST['select'] == "send") {
     echo "<script>
     
     
-    if (!alert('보내기 완료.(수정할 내용이 있는 경우, 내용을 수정하고 보내기버튼을 누르면 재전송이 가능합니다.)')) {
-					 location.replace('today.php'); 
+    if (confirm('ok')) {
+					 location.replace('_today.php'); 
 				};
     
     

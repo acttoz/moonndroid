@@ -37,7 +37,7 @@ if ($_REQUEST['select'] == "search") {
 
 if ($_REQUEST['select'] == "submit") {
 
-	 $query = mysql_query("SELECT * FROM member WHERE school_id='".$_REQUEST['school_id']."' and grade='".$_REQUEST['grade']."' and ban='".$_REQUEST['ban']."'", $connect);
+	 $query = mysql_query("SELECT * FROM member WHERE school_id='".$_REQUEST['school_id']."' and grade='".$_REQUEST['grade']."' and name='".$_REQUEST['name']."' and ban='".$_REQUEST['ban']."'", $connect);
 	 if (mysql_num_rows($query) == 0) {
 
 		$id = $_REQUEST['user_id'];
