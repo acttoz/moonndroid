@@ -19,9 +19,7 @@ session_start();
          </header>
          <br/>
          <div id="content">
-             <?
-	include_once ('./intro2.html');
-         ?>
+              
          </div>
          <footer>
          	<?php
