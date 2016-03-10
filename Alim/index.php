@@ -23,7 +23,7 @@ for ($i = 0; $i < count($mobileKeyWords); $i++) {
 			if (mUserid != null && mUserPass != null) {
 				fnSign();
 			} else {
-				location.replace("http://alim.dothome.co.kr/login.php");
+				location.replace("login.php");
 			}
 
 			function fnSign() {
