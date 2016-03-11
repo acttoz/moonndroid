@@ -13,7 +13,7 @@ for ($i = 0; $i < count($mobileKeyWords); $i++) {
 ?>
 <!DOCTYPE html>
 <html lang="ko">
-	<head><?
+	<head><?php
 	include_once ('./framework.php');
 		?></head>
 	<body>
