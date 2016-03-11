@@ -1,61 +1,54 @@
-<?
+<?php  
 session_start();
 // 세션시작입니다. 항상젤위에 있어야합니다,,
    ?>
 <!DOCTYPE html>
 <html lang="ko">
-   <head>
-      <?
+<head>
+<?
 	include_once ('./framework.php');
          ?>
-      <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-      <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-   </head>
-   <body id="home">
-      <div id="wrapper">
-         <header id="header">
-            <logo>
-               <a href="" title="스피드알림장">스피드알림장</a>
-            </logo>
-            <nav id="mainMenu">
-               <ul style="top:11px;height:100%">
-                  <li >
-                     <input style="" type="email" class="form-control" id="user_id" placeholder="이메일">
-                  </li>
-                  <li >
-                     <input type="password" class="form-control" id="user_pass" placeholder="Password">
-                  </li>
-                  <li style="padding-top: 5px">
-                     <input type="checkbox" id="login_save">
-                     자동 로그인 
-                  </li>
-                  <li  style="padding-top: 7px">
-                     <a href="#" onclick="fnSign();return false;">로그인</a>
-                  </li>
-                  <li style="padding-top: 7px">
-                     <a href="sign_class.php">회원가입</a>
-                  </li>
-               </ul>
-            </nav>
-         </header>
-         <br/>
-         <div id="content">
-            <biglogo >
-               <IMG class="displayed" src="./img/teaser.png" style="width:90%;padding:5%; display: block; margin-left: auto; margin-right: auto">
-            </biglogo>
-         </div>
-         <footer>
-         	<?php
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body id="home">
+<div id="wrapper">
+  <header id="header">
+    <logo> <a href="" title="스피드알림장">스피드알림장</a> </logo>
+    <nav id="mainMenu">
+      <ul style="top:11px;height:100%">
+        <li >
+          <input style="" type="email" class="form-control" id="user_id" placeholder="이메일">
+        </li>
+        <li >
+          <input type="password" class="form-control" id="user_pass" placeholder="Password">
+        </li>
+        <li style="padding-top: 5px">
+          <input type="checkbox" id="login_save">
+          자동 로그인 </li>
+        <li  style="padding-top: 7px"> <a href="#" onclick="fnSign();return false;">로그인</a> </li>
+        <li style="padding-top: 7px"> <a href="sign_class.php">회원가입</a> </li>
+      </ul>
+    </nav>
+  </header>
+  <br>
+  <div id="content">
+    <biglogo > <br><br><br>
+      <IMG class="displayed" src="./img/teaser.png" style="width:70%; display: block; margin-left: auto; margin-right: auto"> <IMG class="displayed" src="./img/tutorial.png" style="width:70%; display: block; margin-left: auto; margin-right: auto"> </biglogo>
+  </div>
+  <footer>
+    <?php
 			include_once ('./footer.php');
-            ?></footer>
-         <div id="dialog-confirm" title="알림" style="display:none;">
-         	<?php
+            ?>
+  </footer>
+  <div id="dialog-confirm" title="알림" style="display:none;">
+    <?php
 			include_once ('./index_notice.php');
                       ?>
-                      </div>
-      </div>
-      <script type="text/javascript">
+  </div>
+</div>
+<script type="text/javascript">
 		if (localStorage.getItem("ID") != null) {
 			$('#user_id').val(localStorage.getItem("ID"));
 			$('#user_pass').val(localStorage.getItem("PASS"));
@@ -146,5 +139,5 @@ session_start();
 		// });
 		// });
       </script>
-   </body>
+</body>
 </html>
