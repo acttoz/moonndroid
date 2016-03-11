@@ -1,5 +1,6 @@
 <?
 session_start();
+error_reporting(0);
 // 세션시작입니다. 항상젤위에 있어야합니다,,
 ?>
 <!DOCTYPE html>

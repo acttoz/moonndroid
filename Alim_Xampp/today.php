@@ -1,4 +1,5 @@
 <?
+error_reporting(0);
 session_start();
 $mobileKeyWords = array('iPhone', 'iPod', 'BlackBerry', 'Android', 'Windows CE', 'Windows CE;', 'LG', 'MOT', 'SAMSUNG', 'SonyEricsson', 'Mobile', 'Symbian', 'Opera Mobi', 'Opera Mini', 'IEmobile');
 for ($i = 0; $i < count($mobileKeyWords); $i++) {
