@@ -1,0 +1,206 @@
+/* MENU PRINCIPAL */
+#mainMenu ul
+{
+position:absolute;
+right:0;
+top:0;
+width:562px;
+height:127px;
+list-style:none;
+overflow:hidden;
+}
+
+#mainMenu ul li
+{
+text-indent:-90000px;
+height:127px;
+float:left;
+}
+
+#mainMenu ul li a
+{
+display:block;
+width:100%;
+height:127px;
+}
+
+/* LINK MENU HOME */
+#mainMenu ul li.home
+{
+width:117px;
+}
+
+#mainMenu ul li.home a
+{
+background:url(../imagens/menu-combo.gif) no-repeat;
+}
+
+#mainMenu ul li.home a:hover, #home #mainMenu ul li.home a
+{
+background:url(../imagens/menu-combo.gif) 0 -127px no-repeat;
+}
+
+/* LINK MENU SOBRE */
+#mainMenu ul li.sobre
+{
+width:120px;
+}
+
+#mainMenu ul li.sobre a
+{
+background:url(../imagens/menu-combo.gif) -117px 0 no-repeat;
+}
+
+#mainMenu ul li.sobre a:hover, #sobre #mainMenu ul li.sobre a
+{
+background:url(../imagens/menu-combo.gif) -117px -127px no-repeat;
+}
+
+/* LINK MENU PORTFOLIO */
+#mainMenu ul li.portfolio
+{
+width:176px;
+}
+
+#mainMenu ul li.portfolio a
+{
+background:url(../imagens/menu-combo.gif) -237px 0 no-repeat;
+}
+
+#mainMenu ul li.portfolio a:hover, #portfolio #mainMenu ul li.portfolio a
+{
+background:url(../imagens/menu-combo.gif) -237px -127px no-repeat;
+}
+
+/* LINK MENU CONTATO */
+#mainMenu ul li.contato
+{
+width:149px;
+}
+
+#mainMenu ul li.contato a
+{
+background:url(../imagens/menu-combo.gif) -413px 0 no-repeat;
+}
+
+#mainMenu ul li.contato a:hover, #contato #mainMenu ul li.contato a
+{
+background:url(../imagens/menu-combo.gif) -413px -127px no-repeat;
+}
+
+/* MENU EQUIPE */
+#content ul#membrosEquipe
+{
+list-style:none;
+margin:0 0 2em 0;
+padding:0 0 0 12px;
+}
+
+#content ul#membrosEquipe li
+{
+float:left;
+width:223px;
+height:188px;
+margin-right:14px;
+text-indent:-90000px;
+}
+
+#content ul#membrosEquipe li a
+{
+display:block;
+width:223px;
+height:188px;
+}
+
+/* ANDRÉ */
+#content ul#membrosEquipe li.equipeAndre a
+{
+background:url(../imagens/btn-equipe-andre-combo.gif) no-repeat;
+}
+
+#content ul#membrosEquipe li.equipeAndre a:hover, #content.equipeAndre ul#membrosEquipe li.equipeAndre a
+{
+background:url(../imagens/btn-equipe-andre-combo.gif) 0 -188px no-repeat;
+}
+
+/* LEO */
+#content ul#membrosEquipe li.equipeLeo a
+{
+background:url(../imagens/btn-equipe-leo-combo.gif) no-repeat;
+}
+
+#content ul#membrosEquipe li.equipeLeo a:hover, #content.equipeLeo ul#membrosEquipe li.equipeLeo a
+{
+background:url(../imagens/btn-equipe-leo-combo.gif) 0 -188px no-repeat;
+}
+
+/* RODOLFO */
+#content ul#membrosEquipe li.equipeRodolfo a
+{
+background:url(../imagens/btn-equipe-rodolfo-combo.gif) no-repeat;
+}
+
+#content ul#membrosEquipe li.equipeRodolfo a:hover, #content.equipeRodolfo ul#membrosEquipe li.equipeRodolfo a
+{
+background:url(../imagens/btn-equipe-rodolfo-combo.gif) 0 -188px no-repeat;
+}
+
+/* TRABALHE CONOSCO */
+#content ul#membrosEquipe li.equipeTrabalhe
+{
+margin:0;
+}
+
+#content ul#membrosEquipe li.equipeTrabalhe a
+{
+background:url(../imagens/btn-equipe-et-combo.gif) no-repeat;
+}
+
+#content ul#membrosEquipe li.equipeTrabalhe a:hover, #content.equipeTrabalhe ul#membrosEquipe li.equipeTrabalhe a
+{
+background:url(../imagens/btn-equipe-et-combo.gif) 0 -188px no-repeat;
+}
+
+/* LISTA PORTFOLIO */
+#content ul.listaTrabalhos
+{
+list-style:none;
+width:223px;
+float:left;
+margin:0 5px 20px 0;
+}
+
+#content ul.listaTrabalhos#ultimaLista
+{
+margin-right:0;
+}
+
+#content ul.listaTrabalhos li
+{
+display:block;
+margin-bottom:2px;
+}
+
+#content ul.listaTrabalhos li a
+{
+display:block;
+width:100%;
+text-indent:5px;
+padding:2px 0;
+text-decoration:none;
+color:#1e5785;
+background:url(../imagens/bg-itens-lista-trabalhos.png);
+}
+
+#content ul.listaTrabalhos li a:hover
+{
+background:#8fb1cd;
+color:#fff;
+}
+
+#content.bjmDanse ul.listaTrabalhos li.bjmDanse a, #content.botecoVip ul.listaTrabalhos li.botecoVip a, #content.cruzeiro ul.listaTrabalhos li.cruzeiro a, #content.corpoeforma ul.listaTrabalhos li.corpoeforma a, #content.cssExpress ul.listaTrabalhos li.cssExpress a, #content.diavolo ul.listaTrabalhos li.diavolo a, #content.diogoTorres ul.listaTrabalhos li.diogoTorres a, #content.josefina ul.listaTrabalhos li.josefina a, #content.kellyKey ul.listaTrabalhos li.kellyKey a, #content.logicargo ul.listaTrabalhos li.logicargo a, #content.massi ul.listaTrabalhos li.massi a, #content.operaAcari ul.listaTrabalhos li.operaAcari a, #content.cenpes ul.listaTrabalhos li.cenpes a, #content.pinamak ul.listaTrabalhos li.pinamak a, #content.saporito ul.listaTrabalhos li.saporito a, #content.sarmo ul.listaTrabalhos li.sarmo a, #content.slingTraining ul.listaTrabalhos li.slingTraining a, #content.ortoUff ul.listaTrabalhos li.ortoUff a, #content.vrb ul.listaTrabalhos li.vrb a, #content.zukerman ul.listaTrabalhos li.zukerman a, #content.pedroEangela ul.listaTrabalhos li.pedroEangela a, #content.loureiroFranca ul.listaTrabalhos li.loureiroFranca a, #content.stellaAnttunes ul.listaTrabalhos li.stellaAnttunes a, #content.contaai ul.listaTrabalhos li.contaai a, #content.bosqueDaGavea ul.listaTrabalhos li.bosqueDaGavea a, #content.mitsui ul.listaTrabalhos li.mitsui a, #content.leonardoMaia ul.listaTrabalhos li.leonardoMaia a, #content.crfNoticias ul.listaTrabalhos li.crfNoticias a, #content.labofit ul.listaTrabalhos li.labofit a, #content.kzMotos ul.listaTrabalhos li.kzMotos a, #content.estudoAdm ul.listaTrabalhos li.estudoAdm a, #content.cursoClio ul.listaTrabalhos li.cursoClio a, #content.beiju ul.listaTrabalhos li.beiju a, #content.sottomare ul.listaTrabalhos li.sottomare a, #content.orgalent ul.listaTrabalhos li.orgalent a, #content.anaBerredo ul.listaTrabalhos li.anaBerredo a, #content.centralDaPlastica ul.listaTrabalhos li.centralDaPlastica a, #content.pontalEventos ul.listaTrabalhos li.pontalEventos a, #content.sementeira ul.listaTrabalhos li.sementeira a, #content.sinproRio ul.listaTrabalhos li.sinproRio a, #content.quadratta ul.listaTrabalhos li.quadratta a, #content.pilar ul.listaTrabalhos li.pilar a, #content.asasys ul.listaTrabalhos li.asasys a, #content.isas ul.listaTrabalhos li.isas a
+{
+background:#5d8cb3;
+color:#fff;
+font-weight:bold;
+}

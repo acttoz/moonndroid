@@ -1,0 +1,212 @@
+html, body, div, span, object, iframe, logo, p, blockquote, pre, a, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+	 
+}
+html[Attributes Style] {
+	direction: ltr;
+	unicode-bidi: embed;
+	-webkit-locale: "pt-br";
+}
+user agent stylesheethtml {
+	display: block;
+}
+body {
+	margin: 0 auto;
+	height: 100%;
+	text-align: center;
+	color: #666;
+	background-image: url("/img/back.png"); /*You will specify your image path here.*/
+	-moz-background-size: cover;
+	-webkit-background-size: cover;
+	background-size: cover;
+	background-position: top center !important;
+	background-repeat: no-repeat !important;
+	background-attachment: fixed;
+}
+section, article, aside, header, footer, nav, dialog, figure {
+	display: block;
+}
+#home #wrapper {
+	min-height: 100vh;
+}
+
+#wrapper {
+
+	position: relative;
+	width: 100%;
+	margin: 0 auto;
+	text-align: left;
+}
+
+#header {
+	position: relative;
+	width: 100%;
+	height: 60px;
+	margin: 0 auto;
+	background: #FFFFFF
+}
+
+#header logo {
+	position: absolute;
+	top: 12px;
+	left: 26px;
+	text-indent: -90000px;
+	width: 257px;
+	height: 36px;
+	font-size: 12px;
+	overflow: hidden;
+}
+
+#header logo a {
+	display: block;
+	text-decoration: none;
+	width: 343px;
+	height: 49px;
+	background: url(../img/logo.png) no-repeat;
+}
+
+#content {
+	padding-bottom: 50px;
+}
+
+#mainMenu ul {
+	position: absolute;
+	right: 25px;
+	top: 17px;
+	/*width: 350px;*/
+	height: 30px;
+	list-style: none;
+	overflow: hidden;
+}
+
+#mainMenu ul li {
+	height: 30px;
+	float: left;
+	font-size: 15px;
+	margin-left: 40px;
+}
+
+#margin {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.contents {
+	border-radius: 20px;
+	border: none;
+	font-size: 40px;
+	width: 100%;
+	padding: 20px;
+	height: 77vh;
+	outline: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	text-align: left;
+	box-sizing: border-box;
+	background-color: #fffffff;
+	border: 2px solid #ffffff;
+}
+
+@media screen and (max-width: 480px) {
+	.contents {
+		border-radius: 20px;
+		border: none;
+		font-size: 1.5em;
+		width: 100%;
+		padding: 20px;
+		min-height: 400px;
+		outline: none;
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+		text-align: left;
+		box-sizing: border-box;
+		background-color: #fffffff;
+		border: 2px solid #ffffff;
+	}
+}
+
+.contents:focus {
+	outline: none !important;
+	border: 1px solid;
+	border-color: #04A4B5;
+}
+.today_menu {
+	width: 100%;
+	height: 80px;
+}
+
+.today_menu tr {
+	height: 40px;
+}
+.today_menu button {
+	/*width: 85px;*/
+	height: 31px;
+}
+
+.today_menu td {
+	height: 40px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.today_menu .col1 {
+	width: 10%;
+}
+.today_menu .col2 {
+	width: 70%;
+}
+.today_menu .col3 {
+	width: 20%;
+}
+.today_menu .time_table {
+	font-size: 22px;
+	text-align: center;
+	width: 100%;
+	height: 67px;
+	border: 2px solid #04a4b5;
+	border-radius: 5px;
+}
+
+.today_menu .time_table tr {
+	height: 33px;
+}
+.today_menu .time_table .row1 td {
+	color: white;
+	background-color: #59c2d8;
+}
+.today_menu .time_table .row2 td {
+	background-color: #ffffff;
+}
+.today_menu .time_table td {
+
+	border: 2px solid #04a4b5;
+	height: 33px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+footer {
+	text-align: center;
+	color: #ffffff;
+	background: #515151;
+	width: 100%;
+	height: 50px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+.board {
+	display: table-cell;
+	vertical-align: middle;
+	border: 2px solid #ffffff;
+	border-radius: 10px;
+	width: 90%;
+	height: 80px;
+	background-color: #ffffff;
+}
