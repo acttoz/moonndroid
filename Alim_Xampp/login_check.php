@@ -1,8 +1,8 @@
 <?php
 include_once ('./config.php');
 header("Content-Type: text/html; charset=UTF-8");
- 
-// $connect = mysql_connect("localhost", $DB['id'], $DB['pw']) or die("DB Connect Error!!");
+
+$connect = mysql_connect("localhost", $DB['id'], $DB['pw']) or die("DB Connect Error!!");
 
 mysql_query("SET NAMES 'utf8'");
 

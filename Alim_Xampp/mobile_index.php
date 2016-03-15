@@ -18,7 +18,7 @@ session_start();
     '<input type="hidden" name="post_key" value="'+class_key+'">' +
     '</form>').submit();
 			} else {
-				location.replace("http://alim.dothome.co.kr/mobile_login.php");
+				location.replace("mobile_login.php");
 			}
 
 		</script>
