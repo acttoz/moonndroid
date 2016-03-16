@@ -148,7 +148,7 @@ function toNext() {
 				url : "sign_class_db.php",
 				type : 'GET',
 				data : {
-					select : "submit",
+					select : "edit",
 					name : teacher,
 					school : school,
 					school_id : school_id,

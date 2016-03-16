@@ -130,7 +130,7 @@ function toNext() {
 				url : "sign_class_db.php",
 				type : 'GET',
 				data : {
-					select : "submit",
+					select : "sign",
 					name : teacher,
 					school : school,
 					school_id : school_id,
@@ -142,6 +142,7 @@ function toNext() {
 				},
 				success : function(args) {
 					isLoading = false;
+					
 					if (args == "success") {
 						if (window.confirm('회원가입이 완료되었습니다.\n로그인 화면으로 이동합니다.')) {
 							localStorage.removeItem("ID");
