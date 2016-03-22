@@ -1,0 +1,22 @@
+<?
+session_start();
+// 세션시작입니다. 항상젤위에 있어야합니다,,
+?>
+<!DOCTYPE html>
+<html lang="ko">
+	<head></head>
+	<body>
+		<script type="text/javascript">
+			var class_id = localStorage.getItem("ID");
+			var class_key = localStorage.getItem("KEY");
+			if (class_id != null && class_key != null) {
+
+				var url = "http://alim.dothome.co.kr/mobile_today.php?platform=1&id=" + class_id + "&key=" + class_key;
+				location.replace(url);
+			} else {
+				location.replace("http://alim.dothome.co.kr/mobile_login.php");
+			}
+
+		</script>
+	</body>
+</html>
