@@ -1,4 +1,5 @@
 <?
+ini_set("session.cache_expire", 600); // 세션 캐쉬 보관시간 (분)
 session_start();
 // 세션시작입니다. 항상젤위에 있어야합니다,,
 $mobileKeyWords = array('iPhone', 'iPod', 'BlackBerry', 'Android', 'Windows CE', 'Windows CE;', 'LG', 'MOT', 'SAMSUNG', 'SonyEricsson', 'Mobile', 'Symbian', 'Opera Mobi', 'Opera Mini', 'IEmobile');
