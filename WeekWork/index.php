@@ -18,21 +18,16 @@
 		<?php
 		include_once ('./framework.php');
 		?>
-
-		
 	</head>
 
 	<body>
-		<?php
-		// include_once ('./header.php');
-		?>
 		<div id="wrapper">
 
 			<!-- Sidebar -->
 			<div id="sidebar-wrapper">
 				<ul class="sidebar-nav">
 					<li class="sidebar-brand">
-						<a >계정 </a>
+						<a href="#">계정 </a>
 					</li>
 					<li >
 						<a href="#">수정 </a>
@@ -47,15 +42,25 @@
 					<li>
 						<a href="#">전체보기</a>
 					</li>
-					<li>
-						<a href="#">학교</a>
-					</li>
-					<li>
-						<a href="#">4학년</a>
-					</li>
-					<li>
-						<a href="#">정보부</a>
-					</li>
+
+					<?php
+					$sql = "SELECT ch_id,ch_name FROM channel WHERE ";
+					$sql = $sql . "ch_id='" . $_SESSION['ch1'] . "'";
+					$sql = $sql . " OR ch_id='" . $_SESSION['ch2'] . "'";
+					$sql = $sql . " OR ch_id='" . $_SESSION['ch3'] . "'";
+					$sql = $sql . " OR ch_id='" . $_SESSION['ch4'] . "'";
+					$sql = $sql . " OR ch_id='" . $_SESSION['ch5'] . "'";
+
+					$result = mysql_query($sql);
+					while ($row = mysql_fetch_array($result)) {
+						$ch_ids[] = $row['ch_id'];
+						$ch_names[] = $row['ch_name'];
+						echo "<li>                                            ";
+						echo "    <a href=index.php?ch=" . $row['ch_id'] . ">" . $row['ch_name'] . "</a>";
+						echo "</li>       											";
+					}
+					?>
+
 					<li>
 						<a href="#">채널+</a>
 					</li>
@@ -77,32 +82,48 @@
 							<div  id='content'  >
 								<table class="time_table" align="center"  >
 									<tr class="row1" style="border-radius: 10px 0 0 0; ">
-										<td class="cell1" style="border-top-style:none;border-left-style:none; border-radius: 10px 0 0 0; "></td>
-										<td style="border-top-style:none;">월</td>
-										<td style="border-top-style:none;">화</td>
-										<td style="border-top-style:none;">수</td>
-										<td style="border-top-style:none;">목</td>
-										<td class="cell2" style="border-top-style:none;border-right-style:none; border-radius: 0 10px 0 0;">금</td>
+										<td class="cell1" style="border-top-style:none;border-left-style:none; border-radius: 10px 0 0 0; "><?php
+										// $monday = strtotime('monday this week');
+										$monday = 1458486000;
+										echo(int)date("m", $monday) . "월";
+										$weeks[] = date("Y-m-d", strtotime('monday this week'));
+										$weeks[] = date("Y-m-d", strtotime('tuesday this week'));
+										$weeks[] = date("Y-m-d", strtotime('wednesday this week'));
+										$weeks[] = date("Y-m-d", strtotime('thursday this week'));
+										$weeks[] = date("Y-m-d", strtotime('friday this week'));
+										?></td>
+										<td style="border-top-style:none;">월(<?php echo(int)date("d", $monday); ?>) </td>
+										<td style="border-top-style:none;">화(<?php echo(int)date("d", $monday) + 1; ?>) </td>
+										<td style="border-top-style:none;">수(<?php echo(int)date("d", $monday) + 2; ?>) </td>
+										<td style="border-top-style:none;">목(<?php echo(int)date("d", $monday) + 3; ?>) </td>
+										<td class="cell2" style="border-top-style:none;border-right-style:none; border-radius: 0 10px 0 0;"> 금(<?php echo(int)date("d", $monday) + 4; ?>) </td>
 									</tr>
 									<?php
-									// test 변수들
-									$channels = array("학교", "4학년", "정보부");
-									$id = "acttoz";
-									$$result1 = mysql_query("SELECT * FROM w_1 WHERE id='" . $_SESSION[id] . "'");
-									$result2 = mysql_query("SELECT * FROM w_2 WHERE id='" . $_SESSION[id] . "'");
-									$result3 = mysql_query("SELECT * FROM w_3 WHERE id='" . $_SESSION[id] . "'");
-									$result4 = mysql_query("SELECT * FROM w_4 WHERE id='" . $_SESSION[id] . "'");
-									$result5 = mysql_query("SELECT * FROM w_5 WHERE id='" . $_SESSION[id] . "'");
-									$table = array(mysql_fetch_array($result1), mysql_fetch_array($result2), mysql_fetch_array($result3), mysql_fetch_array($result4), mysql_fetch_array($result5));
-
-									for ($i = 0; $i < count($channels); $i++) {
-										echo "<tr>";
-										echo "<td style='border-left-style:none;width: 100px;background-color:#e3f3f7;'>" . $channels[$i] . "</td>";
-										for ($j = 0; $j < 5; $j++) {
-											echo "<td><input w='$j' t='$i' value='" . $table[$j][$i] . "'></td>";
-										}
-										echo "</tr>";
+									// 한 채널의 work 배치(표 한줄 완성)
+									$days = array_fill_keys($weeks, '');
+									$result = mysql_query("SELECT * FROM day WHERE ch_id='" . $ch_ids[1] . "'");
+									while ($row = mysql_fetch_array($result)) {
+										unset($works);
+										$works[] = $row['work1_id'];
+										$works[] = $row['work2_id'];
+										$works[] = $row['work3_id'];
+										$works[] = $row['work4_id'];
+										$works[] = $row['work5_id'];
+										$days[$row['day']] = $works;
 									}
+									echo "<tr>";
+									echo "<td style='border-left-style:none;width: 100px;background-color:#e3f3f7;'>" . $ch_names[1] . "</td>";
+									for ($i = 0; $i < 5; $i++) {
+										$worksList = "";
+										for ($j = 0; $j < 5; $j++) {
+											if(isset($days[$weeks[$i]][$j]))
+											$worksList .= $days[$weeks[$i]][$j]." ";
+										}
+
+										echo "<td><input w='$j' t='$i' value='" . $worksList . "'></td>";
+
+									}
+									echo "</tr>";
 									?>
 								</table>
 								<br/>

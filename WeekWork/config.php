@@ -7,8 +7,19 @@ if (PHP_VERSION >= '5.1.0') {
 define('IMG-DIR',      'img');
 define('FRAME-DIR',      'framework');
 
+//==============================================================================
+// SESSION 설정
+//------------------------------------------------------------------------------
+@ini_set("session.use_trans_sid", 0);    // PHPSESSID를 자동으로 넘기지 않음
+@ini_set("url_rewriter.tags",""); // 링크에 PHPSESSID가 따라다니는것을 무력화함 (해뜰녘님께서 알려주셨습니다.)
+ini_set("session.cache_expire", 600); // 세션 캐쉬 보관시간 (분)
+ini_set("session.gc_maxlifetime", 10800); // session data의 garbage collection 존재 기간을 지정 (초)
+ini_set("session.gc_probability", 1); // session.gc_probability는 session.gc_divisor와 연계하여 gc(쓰레기 수거) 루틴의 시작 확률을 관리합니다. 기본값은 1입니다. 자세한 내용은 session.gc_divisor를 참고하십시오.
+ini_set("session.gc_divisor", 100); // session.gc_divisor는 session.gc_probability와 결합하여 각 세션 초기화 시에 gc(쓰레기 수거) 프로세스를 시작할 확률을 정의합니다. 확률은 gc_probability/gc_divisor를 사용하여 계산합니다. 즉, 1/100은 각 요청시에 GC 프로세스를 시작할 확률이 1%입니다. session.gc_divisor의 기본값은 100입니다.
+session_set_cookie_params(0, '/');
+@session_start();
+//==============================================================================
 
-session_start();
 // error_reporting(0);
 $_SESSION['is_logged'] = TRUE;
 $_SESSION['id'] = "acttoz";
@@ -19,7 +30,6 @@ $_SESSION['ch2'] = 2;
 $_SESSION['ch3'] = null;
 $_SESSION['ch4'] = null;
 $_SESSION['ch5'] = null;
-// 세션시작입니다. 항상젤위에 있어야합니다,,
 $DB['host'] = 'localhost';
 $DB['db'] = 'weekwork';
 $DB['id'] = 'weekwork';
@@ -33,10 +43,6 @@ mysql_query("SET NAMES 'utf8'");
 
 $db = mysql_select_db($DB['db'], $connect) or die("DB Select Error!!");
 
-$result1 = mysql_query("SELECT user_id FROM account");
 
-$row = mysql_fetch_array($result1);
-echo($row[0]);
-mysql_close($connect);
-// $_SESSION['id'] = 'aa';
+
 ?>
