@@ -29,6 +29,9 @@ body {
 section, article, aside, header, footer, nav, dialog, figure {
 	display: block;
 }
+
+
+
 #home #wrapper {
 	min-height: 100vh;
 }
