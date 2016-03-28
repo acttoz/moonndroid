@@ -16,9 +16,7 @@ var tClass = localStorage.getItem("tClass");
 var quiz = localStorage.getItem("quiz");
 var htmls = '';
 var workArray = [];
-var isComplete = 0;
 var flag_work_id;
-// $('#title').html("문항번호: &nbsp; " + quiz);
 getItem = function() {
     if (isLoading)
         return false;
@@ -52,13 +50,17 @@ getItem = function() {
                 obj = $('#' + this.ch_id + ' #' + this.day);
                 if (obj.text() == '+')
                     obj.text("");
-                htmls += '<p class="btn btn-default" style="display:block;margin-top:10px;margin-bottom:10px; " onclick=viewWork(' + this.work_id + ')>';
+                htmls += '<p class="btn btn-default " id="work_' + this.work_id + '"  style="';
+                htmls += 'display:block;margin-top:10px;margin-bottom:10px; " onclick=viewWork(' + this.work_id + ')>';
                 htmls += '⦁ ' + this.work_name;
                 htmls += '</p>';
                 obj.append(htmls);
                 htmls = "";
+                if (this.complete == 1)
+                    setComplete(true, this.work_id);
             });
             obj.html(obj.html().replace(/\n/g, "<br>"));
+            viewWork(1);
 
         }
         isLoading = false;
@@ -80,6 +82,12 @@ getItem();
 
 //edit
 function viewWork(work_id) {
+    if (workArray[work_id]["complete"] == 1) {
+        setComplete(true, work_id);
+    } else {
+        setComplete(false, work_id);
+    }
+
     flag_work_id = work_id;
     editMode(false);
     getReply(work_id);
@@ -89,10 +97,8 @@ function viewWork(work_id) {
     $("#work_content").val(workArray[work_id]["work_content"] + '\n' + workArray[work_id]["user_name"] + '님이 생성함.');
     var user_id = $("#workDate").attr("user");
     if (user_id != workArray[work_id]["user_id"]) {
-        $("#work_edit_btn").attr("disabled", "disabled");
         $("#work_complete_btn").attr("disabled", "disabled");
     } else {
-        $("#work_edit_btn").removeAttr("disabled");
         $("#work_complete_btn").removeAttr("disabled");
     }
 }
@@ -128,11 +134,11 @@ function getReply(work_id) {
                     htmls += '<hr>';
                 htmls += '<p style="display:block;padding-right:5px;">' + this.content + '&nbsp;<span style="font-weight:bold">- ' + this.user_name + '</span>' + '<span style="font-size:12px">(' + this.time + ')</span></p>';
                 countTemp++;
+
             });
             obj.append(htmls);
             htmls = "";
             obj.html(obj.html().replace(/\n/g, "<br>"));
-
         }
         isLoading = false;
 
@@ -172,8 +178,8 @@ function editMode(isEditMode) {
         content.css("border", "1px solid #04A4B5");
         $("#work_edit_btn").text("저장");
         $("#work_edit_btn").attr("class", "btn btn-warning");
-        $("#work_edit_btn").removeAttr("disabled");
-        $("#work_complete_btn").removeAttr("disabled");
+        // $("#work_edit_btn").removeAttr("disabled");
+       
     } else {
         $("#work_edit_btn").text("수정");
         $("#work_edit_btn").attr("class", "btn btn-info");
@@ -184,6 +190,24 @@ function editMode(isEditMode) {
     }
 }
 
+function setComplete(bool, work_id) {
+    if (bool) {
+        $("#work_" + work_id).css("text-decoration", "line-through");
+        $("#work_title").css("text-decoration", "line-through");
+        $("#work_complete_btn").text("완료 표시 취소");
+        $("#work_complete_btn").attr("class", "btn btn-success has-spinner");
+        editMode(false);
+        $("#work_edit_btn").attr("disabled", "disabled");
+    } else {
+        $("#work_edit_btn").removeAttr("disabled");
+        $("#work_" + work_id).css("text-decoration", "none");
+        $("#work_title").css("text-decoration", "none");
+        $("#work_complete_btn").text("완료 표시 하기");
+        $("#work_complete_btn").attr("class", "btn btn-info has-spinner");
+        editMode(true);
+    }
+}
+
 function editWork() {
     editMode(true);
 
@@ -191,20 +215,13 @@ function editWork() {
 
 
 $('.has-spinner').click(function() {
-
+    var isComplete = workArray[flag_work_id]["complete"];
     if (isLoading)
         return false;
 
     var btn = $(this);
-    
+
     $(btn).buttonLoader('start');
-
-
-    if (isComplete == 0) {
-        isComplete = 1;
-    } else {
-        isComplete = 0;
-    }
 
     isLoading = true;
 
@@ -213,7 +230,7 @@ $('.has-spinner').click(function() {
         data : {
             select : "complete",
             work_id : flag_work_id,
-            complete : isComplete
+            complete : ((isComplete - 1) * -1)
         }
 
     });
@@ -221,14 +238,13 @@ $('.has-spinner').click(function() {
     request.done(function(json) {
         setTimeout(function() {
             $(btn).buttonLoader('stop');
+
             if (isComplete == 1) {
-                $("#work_title").css("text-decoration", "line-through");
-                $("#work_complete_btn").text("완료 표시 취소");
-                $("#work_complete_btn").attr("class", "btn btn-success has-spinner");
+                setComplete(false, flag_work_id);
+                workArray[flag_work_id]["complete"] = 0;
             } else {
-                $("#work_title").css("text-decoration","none");
-                $("#work_complete_btn").text("완료 표시 하기");
-                $("#work_complete_btn").attr("class", "btn btn-info has-spinner");
+                setComplete(true, flag_work_id);
+                workArray[flag_work_id]["complete"] = 1;
             }
         }, 1500);
         //do something special
@@ -250,11 +266,9 @@ $('.has-spinner').click(function() {
 });
 
 $(document).ready(function() {
-
-    $('.has-spinner').click(function() {
-
-    });
 });
+
+
 
 function newline(text) {
     var htmls = [];
