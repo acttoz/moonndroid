@@ -21,7 +21,7 @@
     </head>
 
     <body>
-        <div id="wrapper">
+        <div id="wrapper" class="toggled">
 
             <!-- Sidebar -->
             <div id="sidebar-wrapper">
@@ -72,9 +72,8 @@
                 </ul>
 
             </div>
-            <!-- /#sidebar-wrapper -->
-            <!-- <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a> -->
-            <!-- Page Content -->
+            
+             <a href="#menu-toggle" class="btn btn-info glyphicon glyphicon-align-justify" style="font-size:15px" id="menu-toggle"></a>
 
             <div id="page-content-wrapper">
                 <div class="container-fluid">
@@ -82,17 +81,22 @@
                         <div class="col-lg-12">
                             <div  id='content'  >
                     <h1>WeekWork</h1>
-                                <table class="time_table" align="center"  >
+                                <table class="time_table" style="table-layout: fixed;" align="center"  >
                                     <tr class="row1" style="border-radius: 10px 0 0 0; ">
                                         <td class="cell1 center" style="border-top-style:none;border-left-style:none; border-radius: 10px 0 0 0; "><?php
                                         // $monday = strtotime('monday this week');
                                         $monday = 1458486000;
                                         echo(int)date("m", $monday) . "월";
-                                        $weeks[] = date("Y-m-d", strtotime('monday this week'));
-                                        $weeks[] = date("Y-m-d", strtotime('tuesday this week'));
-                                        $weeks[] = date("Y-m-d", strtotime('wednesday this week'));
-                                        $weeks[] = date("Y-m-d", strtotime('thursday this week'));
-                                        $weeks[] = date("Y-m-d", strtotime('friday this week'));
+                                        $weeks[] = "2016-03-21";
+                                        $weeks[] = "2016-03-22";
+                                        $weeks[] = "2016-03-23";
+                                        $weeks[] = "2016-03-24";
+                                        $weeks[] = "2016-03-25";
+                                        // $weeks[] = date("Y-m-d", strtotime('monday this week'));
+                                        // $weeks[] = date("Y-m-d", strtotime('tuesday this week'));
+                                        // $weeks[] = date("Y-m-d", strtotime('wednesday this week'));
+                                        // $weeks[] = date("Y-m-d", strtotime('thursday this week'));
+                                        // $weeks[] = date("Y-m-d", strtotime('friday this week'));
                                         ?></td>
                                         <td class="center" style="border-top-style:none;">월(<?php echo(int)date("d", $monday); ?>)
                                         </td>
@@ -108,7 +112,7 @@
                                     <?php
                                     // 한 채널의 work 배치(표 한줄 완성)
                                     for ($i = 0; $i < count($ch_ids); $i++) {
-                                        echo "<tr id='" . $ch_ids[$i] . "'>";
+                                        echo "<tr id='" . $ch_ids[$i] . "' ch_name='" . $ch_names[$i] . "'>";
 
                                         if ($i < (count($ch_ids) - 1)) {
                                             echo "<td class='center' style='border-left-style:none;width: 60px;background-color:#e3f3f7;'>" . $ch_names[$i] . "</td>";
@@ -117,41 +121,70 @@
                                         }
                                         for ($j = 0; $j < 5; $j++) {
                                             if ($i == (count($ch_ids) - 1) && $j == (4)) {
-                                                echo "<td style='border-right-style:none;border-bottom-style:none; border-radius: 0 0 10px 0;text-align:center;font-size:30px' class='work' id='" . $weeks[$j] . "' onclick=workList(" . $ch_ids[$i] . ",'" . $weeks[$j] . "')>+</td>";
+                                                echo "<td style='border-right-style:none;border-bottom-style:none; border-radius: 0 0 10px 0;text-align:center;font-size:30px' class='work' id='" . $weeks[$j] . "')>";
                                             } else
-                                                echo "<td style='text-align:center;font-size:30px' class='work' id='" . $weeks[$j] . "' onclick=workList(" . $ch_ids[$i] . ",'" . $weeks[$j] . "')>+</td>";
+                                                echo "<td style='text-align:center;font-size:30px' class='work' id='" . $weeks[$j] . "')>";
+                                            echo '<p class="btn btn-default" style="display:block;margin-top:10px;margin-bottom:10px; " onclick=newWork(' . $ch_ids[$i]. ',"' . $ch_names[$i] . '","' . $weeks[$j] . '")>+</p>';
                                         }
+
+                                        echo "</td>";
+
                                         echo "</tr>";
                                     }
                                     ?>
                                 </table>
                                 <br/>
                                 
-                                <div id="workList" style="<!-- display: none -->">
-                                <h1>3월 23일 / 4학년</h1>
-                                 <table class="time_table" align="center"  >
+                                <div id="workList" style="<!-- display: none -->;">
+                                <h1 id="workDate"  user="<?php echo $_SESSION["id"]; ?>" >제목</h1> 
+                                 <table class="time_table" style="table-layout: fixed" align="center"  >
                                     <tr class="" style="border-radius: 10px 0 0 0; ">
-                                        <td class="content " style="width:60%;border-top-style:none;border-left-style:none; border-right-color:white;border-bottom-color:white; border-radius: 10px 0 0 0; font-weight: bold;font-size:20px ">수행평가 제출
-                                        <td class="content " style="width:20%;border-top-style:none;border-bottom-color:white; border-left-color:white; font-weight: bold;font-size:10px "><img style="float:right;padding-right:10px;padding-top: 10px" width="60px" src="img/diskette.png" />
+                                        <td colspan="3" class="content"  style="width:30%;border-top-style:none;border-left-style:none; border-right-color:white;border-bottom-color:white; border-radius: 10px 0 0 0; font-weight: bold;font-size:20px "><input id="work_title" placeholder="제목"  value="work"></td>
+                                         <td class="content "style="padding-right:10px;width:15%;border-top-style:none;border-bottom-color:white; border-left-color:white; font-weight: bold;font-size:10px ">
+                                            <button id="work_file"  type="button" class="btn btn-info" id="submit_btn" onclick=fnSign()>
+                                                                                        파일첨부
+                                            </button>
+                                         </td>
                                         
-                                        <td rowspan="2"   class="content" style="border-top-style:none;border-right-style:none; border-radius: 0 10px 0 0;"> 채팅
+                                        <td  colspan="5" rowspan="2"  class="content" style="vertical-align:top ;  width:70%;border-top-style:none;border-right-style:none; border-radius: 0 10px 0 0;">
+                                            <div id="reply" style="height: 50vh; overflow-y:scroll; ">
+                                            
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr class="" style="border-radius: 10px 0 0 0; ">
-                                        <td class="content " rowspan="2" colspan="2" style="border-bottom-style:none;border-left-style:none; border-radius: 0 0 0 10px; ">수행평가 제출
-                                                    1반 국어 <br/>
-                                                    2반 수학,사회<br/>
-                                                    3반 과학<br/>
-                                                    4반 음악,체육<br/>
-                                                    5반 미술,도덕<br/>
-                                                    <br/>
-                                                                                                                임의로 나누었으니 제출해주세요.<br/>                                       
+                                        <td class="content " colspan="4" style="padding-right:10px;padding-left:10px; border-bottom-style:none;border-left-style:none;">
+                                            <div  style=" ">
+                                                <textarea  class="contents" id="work_content" placeholder="설명" ></textarea>                                           
+
+</div>                                            </td>                                  
+                                          
                                     </tr>
                                     <tr>
+                                        <td colspan="3"  class="content " style="padding:10px;width:20%;border-left-style:none;border-bottom-style:none; border-right-color:white; font-weight: bold;font-size:10px; border-radius: 0 0 0 10px; ">
+                                            <button id="work_edit_btn" style="width:100%;height: 100%;" type="button" class="btn btn-info" onclick=editWork()>
+                                                                                        수정
+                                            </button>
+                                         </td>
+                                          <td colspan="1"  class="content " style="padding:10px;width:20%;border-left-style:none;border-bottom-style:none;   font-weight: bold;font-size:10px;  ">
+                                            <button id="work_complete_btn" style="width:100%;height: 100%;" type="button" class="btn btn-info has-spinner">
+                                                                                        완료 표시하기
+                                            </button>
+                                         </td>
+                                         
+                                        <td   class="content " colspan="4" style="width:100%;padding-left:5px;padding-top:0px;padding-right:5px;padding-bottom:0px; border-top-style:none;border-bottom-style:none; border-right-color:white; font-weight: bold;font-size:10px ">
+                                                        <textarea id="reply_input" type="email" style="height:100%; width:100%" class="form-control" name="user_id" id="user_id" checked="0" placeholder="댓글을 입력하세요."></textarea>
+                                         </td>
+                                         <td class="content " style="width:10%;padding:5px; border-bottom-style:none;border-right-style:none; border-left-color:white; border-radius: 0 0 10px  0;">
+                                           <p class = "tpbutton btn-toolbar" style="text-align:center">
+                                                <a id="reply_file" class = "btn   btn-info" style="margin-bottom:1px;width:90%"  href = "#" target = "_texturepack">파일 첨부</a>
+                                                <a id="reply_submit" class = "btn   btn-info" style="margin-top:1px;width: 90%" href = "#" target = "_texturepack">저         장</a>
+                                            </p>
+                                         </td>
+                                          
+                                    </tr>
+                                    
                                         
-                                        <td class="content" style="width:80%;border-top-style:none;border-right-style:none; border-radius: 0 0 10px  0;"> <span style=" ">댓글:</span> <input style=" ">
-                                        </td>
-                                        </tr>
                                     
                                 </table>
                                 </div>

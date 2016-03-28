@@ -6,9 +6,13 @@
 <link href="framework/css/index.css" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <script src="framework/js/placeholder.js"></script>
+<script src="framework/js/jquery_buttonLoader_min.js"></script>
 <link href="framework/css/timetable.css" rel="stylesheet" type="text/css">
+<link href="framework/css/buttonLoader.css" rel="stylesheet" type="text/css">
 <link href="framework/css/simple-sidebar.css" rel="stylesheet">
+
  <?php include_once("./framework/lib.php"); ?>
 <!--[if lt IE 9]>
 <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
