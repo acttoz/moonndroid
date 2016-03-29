@@ -73,7 +73,7 @@
 
             </div>
             
-             <a href="#menu-toggle" class="btn btn-info glyphicon glyphicon-align-justify" style="font-size:15px" id="menu-toggle"></a>
+             <!-- <a href="#menu-toggle" class="btn btn-info glyphicon glyphicon-align-justify" style="font-size:15px" id="menu-toggle"></a> -->
 
             <div id="page-content-wrapper">
                 <div class="container-fluid">
@@ -124,7 +124,7 @@
                                                 echo "<td style='border-right-style:none;border-bottom-style:none; border-radius: 0 0 10px 0;text-align:center;font-size:30px' class='work' id='" . $weeks[$j] . "')>";
                                             } else
                                                 echo "<td style='text-align:center;font-size:30px' class='work' id='" . $weeks[$j] . "')>";
-                                            echo '<p class="btn btn-default" style="display:block;margin-top:10px;margin-bottom:10px; " onclick=newWork(' . $ch_ids[$i]. ',"' . $ch_names[$i] . '","' . $weeks[$j] . '")>+</p>';
+                                            echo '<button class="btn btn-default work" style="display:block;margin-top:10px;margin-bottom:10px; " onclick=newWork(' . $ch_ids[$i]. ',"' . $ch_names[$i] . '","' . $weeks[$j] . '")>+</button>';
                                         }
 
                                         echo "</td>";
@@ -135,19 +135,19 @@
                                 </table>
                                 <br/>
                                 
-                                <div id="workList" style="<!-- display: none -->;">
+                                <div id="workList" style="display: none;">
                                 <h1 id="workDate"  user="<?php echo $_SESSION["id"]; ?>" >제목</h1> 
                                  <table class="time_table" style="table-layout: fixed" align="center"  >
                                     <tr class="" style="border-radius: 10px 0 0 0; ">
                                         <td colspan="3" class="content"  style="width:30%;border-top-style:none;border-left-style:none; border-right-color:white;border-bottom-color:white; border-radius: 10px 0 0 0; font-weight: bold;font-size:20px "><input id="work_title" placeholder="제목"  value="work"></td>
                                          <td class="content "style="padding-right:10px;width:15%;border-top-style:none;border-bottom-color:white; border-left-color:white; font-weight: bold;font-size:10px ">
-                                            <button id="work_file"  type="button" class="btn btn-info" id="submit_btn" onclick=fnSign()>
+                                            <button id="work_file"  type="button" style="width:100%" class="btn btn-info" id="submit_btn" onclick=fnSign()>
                                                                                         파일첨부
                                             </button>
                                          </td>
                                         
                                         <td  colspan="5" rowspan="2"  class="content" style="vertical-align:top ;  width:70%;border-top-style:none;border-right-style:none; border-radius: 0 10px 0 0;">
-                                            <div id="reply" style="height: 50vh; overflow-y:scroll; ">
+                                            <div id="reply" style=" overflow-y:scroll;margin-top:15px;margin-right:10px;margin-bottom: 10px ">
                                             
                                             </div>
                                         </td>
@@ -162,23 +162,28 @@
                                     </tr>
                                     <tr>
                                         <td colspan="3"  class="content " style="padding:10px;width:20%;border-left-style:none;border-bottom-style:none; border-right-color:white; font-weight: bold;font-size:10px; border-radius: 0 0 0 10px; ">
-                                            <button id="work_edit_btn" style="width:100%;height: 100%;" type="button" class="btn btn-info" onclick=editWork()>
+                                            <div class="btn-group " style=" width:100%;">
+                                            <button id="work_edit_btn" style="width:50%;height: 50px;" type="button" class="btn btn-info" onclick="editMode()">
                                                                                         수정
                                             </button>
+                                            <button id="work_delete_btn" style="width:50%;height: 50px;" type="button" class="btn btn-danger">
+                                                                                        삭제
+                                            </button>
+                                            </div>
                                          </td>
                                           <td colspan="1"  class="content " style="padding:10px;width:20%;border-left-style:none;border-bottom-style:none;   font-weight: bold;font-size:10px;  ">
-                                            <button id="work_complete_btn" style="width:100%;height: 100%;" type="button" class="btn btn-info has-spinner">
+                                            <button id="work_complete_btn" style="width:100%;height: 50px;" type="button" class="btn btn-info has-spinner">
                                                                                         완료 표시하기
                                             </button>
                                          </td>
                                          
                                         <td   class="content " colspan="4" style="width:100%;padding-left:5px;padding-top:0px;padding-right:5px;padding-bottom:0px; border-top-style:none;border-bottom-style:none; border-right-color:white; font-weight: bold;font-size:10px ">
-                                                        <textarea id="reply_input" type="email" style="height:100%; width:100%" class="form-control" name="user_id" id="user_id" checked="0" placeholder="댓글을 입력하세요."></textarea>
+                                                        <textarea id="reply_input" type="email" style="height:100%; width:100%" class="form-control"   checked="0" placeholder="댓글을 입력하세요."></textarea>
                                          </td>
                                          <td class="content " style="width:10%;padding:5px; border-bottom-style:none;border-right-style:none; border-left-color:white; border-radius: 0 0 10px  0;">
                                            <p class = "tpbutton btn-toolbar" style="text-align:center">
-                                                <a id="reply_file" class = "btn   btn-info" style="margin-bottom:1px;width:90%"  href = "#" target = "_texturepack">파일 첨부</a>
-                                                <a id="reply_submit" class = "btn   btn-info" style="margin-top:1px;width: 90%" href = "#" target = "_texturepack">저         장</a>
+                                                <a id="reply_file" class = "btn   btn-info" style="margin-bottom:1px;width:90%">파일 첨부</a>
+                                                <a id="reply_submit" class = "btn   btn-info" style="margin-top:1px;width: 90%">저         장</a>
                                             </p>
                                          </td>
                                           

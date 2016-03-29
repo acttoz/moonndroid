@@ -98,6 +98,10 @@ section, article, aside, header, footer, nav, dialog, figure {
 	margin-right: 20px;
 }
 
+h1{
+    margin-top: 0px;
+}
+
 
 @media screen and (max-width: 480px) {
 	.contents {
@@ -195,6 +199,6 @@ footer {
 	border: 2px solid #ffffff;
 	border-radius: 10px;
 	width: 90%;
-	height: 80px;
+	height: 50px;
 	background-color: #ffffff;
 }

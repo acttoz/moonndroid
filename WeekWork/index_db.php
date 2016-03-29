@@ -47,6 +47,7 @@ if ($_REQUEST['select'] == "week") {
     $sql = $sql . " OR work.ch_id='" . $_SESSION['ch3'] . "'";
     $sql = $sql . " OR work.ch_id='" . $_SESSION['ch4'] . "'";
     $sql = $sql . " OR work.ch_id='" . $_SESSION['ch5'] . "'";
+    $sql = $sql . " ORDER BY work_id DESC";
     $result = mysql_query($sql);
     while ($array = mysql_fetch_array($result)) {
         $results[] = array('work_id' => $array['work_id'], 'work_name' => $array['work_name'], 'work_content' => $array['work_content'], 'file_path' => $array['file_path'], 'complete' => $array['complete'], 'day' => $array['day'], 'ch_id' => $array['ch_id'], 'user_name' => $array['user_name'], 'user_id' => $array['user_id']);
@@ -64,7 +65,7 @@ if ($_REQUEST['select'] == "reply") {
     $results = array();
     while ($array = mysql_fetch_array($result)) {
         $datetime = new DateTime($array['time']);
-        $time = $datetime -> format('y').".".$datetime -> format('m').".".$datetime -> format('d');
+        $time = $datetime -> format('y').".".$datetime -> format('m').".".$datetime -> format('d').".".$datetime -> format('H').":".$datetime -> format('i');
         $results[] = array('reply_id' => $array['reply_id'], 'content' => $array['content'], 'time' => $time, 'user_id' => $array['user_id'], 'work_id' => $array['work_id'], 'file_path' => $array['file_path'], 'user_name' => $array['user_name']);
     }
 
@@ -75,7 +76,30 @@ if ($_REQUEST['select'] == "reply") {
 }
 
 if ($_REQUEST['select'] == "complete") {
-    mysql_query("UPDATE work SET complete=${_REQUEST['complete']} WHERE work_id=${_REQUEST['work_id']}");
+    mysql_query("UPDATE work SET complete=${_REQUEST['complete']} WHERE work_id=${_REQUEST['work_id']}" );
+}
+
+if ($_REQUEST['select'] == "delWork") {
+    mysql_query("DELETE FROM work WHERE work_id=${_REQUEST['work_id']}" );
+}
+if ($_REQUEST['select'] == "delReply") {
+    mysql_query("DELETE FROM reply WHERE reply_id=${_REQUEST['reply_id']}" );
+}
+
+if ($_REQUEST['select'] == "sendWork") {
+	if($_REQUEST['work_id']==0){
+	   $sql="INSERT INTO work (work_name,work_content,day,ch_id,user_id) VALUE ('${_REQUEST['work_name']}','${_REQUEST['work_content']}','${_REQUEST['day']}','${_REQUEST['ch_id']}','${_SESSION['id']}')";
+    }else{	    
+	   $sql="UPDATE work SET work_name='${_REQUEST['work_name']}',work_content='${_REQUEST['work_content']}' WHERE work_id='${_REQUEST['work_id']}'";
+	}
+	mysql_query($sql);
+}
+
+if ($_REQUEST['select'] == "sendReply") {
+    $dt = new DateTime();
+    $time= $dt->format('Y-m-d H:i:s');
+	$sql="INSERT INTO reply (content,time,user_id,work_id) VALUE ('${_REQUEST['content']}','${time}','${_SESSION['id']}','${_REQUEST['work_id']}')";
+	mysql_query($sql);
 }
 ///////////////////////////////////
 
