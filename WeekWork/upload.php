@@ -12,7 +12,7 @@ if (!$_FILES['file']['name']) {
         echo "history.back();</script>";
         exit ;
     }
-
+ 
     $date = date("YmdHis", time());
     $dir = "./files/";
     $file_hash = $date . $_FILES['file']['name'];
