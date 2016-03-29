@@ -43,7 +43,7 @@ getItem = function() {
                 workArray[this.work_id] = {
                     "work_name" : this.work_name,
                     "work_content" : this.work_content,
-                    "file_path" : this.file_path,
+                    "file_id" : this.file_id,
                     "day" : this.day,
                     "complete" : this.complete,
                     "ch_id" : this.ch_id,
@@ -61,11 +61,11 @@ getItem = function() {
                     setComplete(true, this.work_id);
             });
             obj.html(obj.html().replace(/\n/g, "<br>"));
-            viewWork(1);
 
         }
         isLoading = false;
         $("#workList").css("display", "none");
+        viewWork(1);
 
     });
 
@@ -88,6 +88,7 @@ function viewWork(work_id) {
         setComplete(true, work_id);
 
     flag_work_id = work_id;
+    $("#work_id").val(flag_work_id);
     getReply(work_id);
     var date = new Date(workArray[work_id]["day"]);
     $("#workDate").text((date.getMonth() + 1) + "월 " + date.getDate() + "일 / " + $("#" + workArray[work_id]["ch_id"]).attr("ch_name") + " / " + workArray[work_id]["user_name"] + '님이 생성함.');
@@ -106,6 +107,7 @@ function viewWork(work_id) {
 function newWork(ch_id, ch_name, mDate) {
     $("#workList").css("display", "block");
     flag_work_id = 0;
+    $("#work_id").val(flag_work_id);
     resetWork();
     editMode();
     var date = new Date(mDate);
@@ -120,6 +122,8 @@ function newWork(ch_id, ch_name, mDate) {
         "day" : mDate,
         "ch_id" : ch_id
     };
+    $("#work_day").val(mDate);
+    $("#work_ch_id").val(ch_id);
 }
 
 function editMode() {
@@ -223,7 +227,7 @@ function sendWork(title, content) {
 
 $("#work_delete_btn").click(function() {
 
-    if (confirm("삭제 후에는 복구가 불가능합니다.\n삭제하시겠습니까?")) {
+    if (confirm("삭제 후에는 복구가 불가능합니다.\n삭제하시겠습니까?"+flag_work_id)) {
 
     } else {
         return false;
