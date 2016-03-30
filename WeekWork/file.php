@@ -1,5 +1,4 @@
 <?php
-header("Content-type: text/html; charset=utf-8");
 include_once ('./config.php');
 // echo $_POST['work_id'];
 // echo $_POST['work_name'];
@@ -86,7 +85,8 @@ if ($_REQUEST['select'] == "del") {
 }
 
 if ($_POST['select'] == "reply") {
-    echo "reply";
+    $file_name;
+    $file_hash;
     if ($_FILES['reply_file']['name']) {
         if (strlen($_FILES['reply_file']['name']) > 255) {
             echo "<script>alert('파일 이름이 너무 깁니다.');";
@@ -106,24 +106,20 @@ if ($_POST['select'] == "reply") {
                 exit ;
             }
         }
-        $query = "insert into files (name, hash) 
-              values('" . $_FILES['reply_file']['name'] . "', 
-              '" . $file_hash . "')";
-        mysql_query($query);
-        $file_id = mysql_insert_id();
+        $file_name=$_FILES['reply_file']['name'];
     } else {
-        $file_id = 0;
+        $file_name='0';
+        $file_hash='0';
     }
     $dt = new DateTime();
     $time = $dt -> format('Y-m-d H:i:s');
 
-    $sql = "INSERT INTO reply (content,time,user_id,work_id,file_id) VALUE ('${_REQUEST['reply_content']}','${time}','${_SESSION['id']}','${_REQUEST['work_id']}','${file_id}')";
+    $sql = "INSERT INTO reply (content,time,user_id,work_id,file_name,file_hash) VALUE ('${_REQUEST['reply_content']}','${time}','${_SESSION['id']}','${_REQUEST['work_id']}','${file_name}','${file_hash}')";
 
     mysql_query($sql);
 
     mysql_close($connect);
 
-    header('Location: index.php');
 
 }
 ?>

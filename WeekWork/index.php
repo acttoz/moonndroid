@@ -135,7 +135,7 @@
                                 </table>
                                 <br>
                                 
-                                <form id="workList"  target="_blank" style="display: none;" action="file.php" method="post" enctype="multipart/form-data" onsubmit="return formValidate();">
+                                <form id="workList"  style="display: none;" action="file.php" method="post" enctype="multipart/form-data"  onsubmit="return formValidate();">
                                 <h1 id="workDate"  user="<?php echo $_SESSION["id"]; ?>" >제목</h1> 
                                 <input id="work_id" type="hidden" name="work_id" value=0/>
                                 <input id="flag_select" type="hidden" name="select" value="upload"/>
@@ -204,7 +204,7 @@
                                                         <textarea id="reply_input" type="text" name="reply_content" style="height:100%; width:100%" class="form-control"   checked="0" placeholder="댓글을 입력하세요."></textarea>
                                          </td>
                                          <td class="content " style="width:100%;padding:0px; border-bottom-style:none;border-right-style:none; border-left-color:white; border-radius: 0 0 10px  0;">
-                                                <button id="reply_submit" class = "btn   btn-info" type="submit" name="submit" style="margin-top:1px;width: 90%;height:100%;">저         장</button>
+                                                <input id="reply_submit" class = "btn   btn-info" type="submit" name="submit" style="margin-top:1px;width: 90%;height:100%;"/>
                                          </td>
                                           
                                     </tr>

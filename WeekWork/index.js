@@ -381,6 +381,29 @@ $('.has-spinner').click(function() {
     return true;
 
 });
+$('#reply_submit').click(function() {
+    $('#workList').ajaxForm({
+        //보내기전 validation check가 필요할경우
+        beforeSubmit : function(data, frm, opt) {
+            var title = $("#reply_input");
+            if (title.val().replace(/\s/g, '') == "") {
+                alert("내용을 입력하세요.");
+                return false;
+            } else {
+                return true;
+            }
+        },
+        //submit이후의 처리
+        success : function(responseText, statusText) {
+             getReply(flag_work_id);
+        },
+        //ajax error
+        error : function() {
+            alert("에러발생!!");
+        }
+    });
+
+});
 
 $(document).ready(function() {
     getItem();
@@ -396,13 +419,7 @@ function formValidate() {
             return true;
         }
     } else {
-        var title = $("#reply_input");
-        if (title.val().replace(/\s/g, '') == "") {
-            alert("내용을 입력하세요.");
-            return false;
-        } else {
-            return true;
-        }
+
     }
 }
 

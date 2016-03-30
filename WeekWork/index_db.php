@@ -66,7 +66,7 @@ if ($_REQUEST['select'] == "reply") {
     while ($array = mysql_fetch_array($result)) {
         $datetime = new DateTime($array['time']);
         $time = $datetime -> format('y').".".$datetime -> format('m').".".$datetime -> format('d').".".$datetime -> format('H').":".$datetime -> format('i');
-        $results[] = array('reply_id' => $array['reply_id'], 'content' => $array['content'], 'time' => $time, 'user_id' => $array['user_id'], 'work_id' => $array['work_id'], 'file_id' => $array['file_id'], 'user_name' => $array['user_name']);
+        $results[] = array('reply_id' => $array['reply_id'], 'content' => $array['content'], 'time' => $time, 'user_id' => $array['user_id'], 'work_id' => $array['work_id'], 'file_name' => $array['file_name'], 'file_hash' => $array['file_hash'], 'user_name' => $array['user_name']);
     }
 
     $data = array('week' => $results);
