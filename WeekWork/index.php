@@ -135,10 +135,10 @@
                                 </table>
                                 <br>
                                 
-                                <form id="workList" style="display: none;" action="file.php" method="post" enctype="multipart/form-data" onsubmit="return formValidate();">
+                                <form id="workList"  target="_blank" style="display: none;" action="file.php" method="post" enctype="multipart/form-data" onsubmit="return formValidate();">
                                 <h1 id="workDate"  user="<?php echo $_SESSION["id"]; ?>" >제목</h1> 
                                 <input id="work_id" type="hidden" name="work_id" value=0/>
-                                <input id="select" type="hidden" name="select" value="upload"/>
+                                <input id="flag_select" type="hidden" name="select" value="upload"/>
                                 <input id="work_day" type="hidden" name="work_day" value=0/>
                                 <input id="work_ch_id" type="hidden" name="work_ch_id" value=0/>
                                  <table class="time_table" style="table-layout: fixed" align="center"  >
@@ -148,7 +148,7 @@
                                             </td>
                                          
                                         
-                                        <td  colspan="5" rowspan="3"  class="content" style="vertical-align:top ;  width:70%;border-top-style:none; border-right-style:none; border-radius: 0 10px 0 0;">
+                                        <td  colspan="5" rowspan="2"  class="content" style="vertical-align:top ;  width:70%;border-top-style:none; border-right-style:none; border-radius: 0 10px 0 0;">
                                             <div id="reply" style="overflow-y:scroll;margin-top:15px;margin-right:10px;margin-bottom: 10px ">
                                             
                                             </div>
@@ -176,6 +176,9 @@
                                                  </button>
                                              </div>
                                          </td> 
+                                        <td colspan="5" class="content "style="padding-left: 10px; padding-right:10px;width:15%;border-right-style:none;border-top-style:none;border-bottom-color:white; ">
+                                            <input type="file" name="reply_file" id="reply_file_add"  />
+                                         </td> 
                                     </tr>
                                     <tr>
                                         <td colspan="3"  class="content " style="padding:10px;width:20%;border-left-style:none;border-bottom-style:none; border-right-color:white; font-weight: bold;font-size:10px; border-radius: 0 0 0 10px; ">
@@ -198,13 +201,10 @@
                                          </td>
                                          
                                         <td   class="content " colspan="4" style="width:100%;padding-left:5px;padding-top:0px;padding-right:5px;padding-bottom:0px; border-top-style:none;border-bottom-style:none; border-right-color:white; font-weight: bold;font-size:10px ">
-                                                        <textarea id="reply_input" type="email" style="height:100%; width:100%" class="form-control"   checked="0" placeholder="댓글을 입력하세요."></textarea>
+                                                        <textarea id="reply_input" type="text" name="reply_content" style="height:100%; width:100%" class="form-control"   checked="0" placeholder="댓글을 입력하세요."></textarea>
                                          </td>
-                                         <td class="content " style="width:10%;padding:5px; border-bottom-style:none;border-right-style:none; border-left-color:white; border-radius: 0 0 10px  0;">
-                                           <p class = "tpbutton btn-toolbar" style="text-align:center">
-                                                <a id="reply_file" class = "btn   btn-info" style="margin-bottom:1px;width:90%">파일 첨부</a>
-                                                <a id="reply_submit" class = "btn   btn-info" style="margin-top:1px;width: 90%">저         장</a>
-                                            </p>
+                                         <td class="content " style="width:100%;padding:0px; border-bottom-style:none;border-right-style:none; border-left-color:white; border-radius: 0 0 10px  0;">
+                                                <button id="reply_submit" class = "btn   btn-info" type="submit" name="submit" style="margin-top:1px;width: 90%;height:100%;">저         장</button>
                                          </td>
                                           
                                     </tr>

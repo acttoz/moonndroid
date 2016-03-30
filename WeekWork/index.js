@@ -177,8 +177,7 @@ function newWork(ch_id, ch_name, mDate) {
     $("#work_content").text("");
     $("#work_content").val("");
     $("#reply").html("");
-    $("#reply_submit").attr("disabled", "disabled");
-    $("#reply_file").attr("disabled", "disabled");
+
     workArray[0] = {
         "day" : mDate,
         "ch_id" : ch_id,
@@ -194,7 +193,7 @@ function editMode() {
     var title = $("#work_title");
     var content = $("#work_content");
 
-    // flag_isEditing = true;
+    flag_isEditing = true;
     title.attr("readonly", false);
     content.attr("readonly", false);
     title.css("border", "1px solid #04a4b5");
@@ -202,9 +201,12 @@ function editMode() {
     work_complete_btn.attr("disabled", "disabled");
     work_edit_btn.css("display", "none");
     work_save_btn.css("display", "block");
+    $("#reply_submit").attr("disabled", "disabled");
+    $("#reply_file").attr("disabled", "disabled");
     if (workArray[flag_work_id]["file_id"] == 0) {
         work_file_add.css("display", "block");
     }
+    $("#flag_select").val("upload");
 }
 
 function setComplete(bool, work_id) {
@@ -246,6 +248,9 @@ function resetWork() {
     work_save_btn.css("display", "none");
     flag_isEditing = false;
     work_file_btns.css("display", "none");
+    work_file_add.css("display", "none");
+    work_file_add.replaceWith( work_file_add = work_file_add.clone(true));
+    $("#flag_select").val("reply");
 }
 
 
@@ -274,8 +279,9 @@ $("#work_file_del").click(function() {
     });
 
     request.done(function() {
+        work_file_btns.css("display", "none");
+        work_file_add.css("display", "block");
         isLoading = false;
-        getItem();
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
@@ -381,14 +387,39 @@ $(document).ready(function() {
 });
 
 function formValidate() {
-    var title = $("#work_title");
-    if (title.val().replace(/\s/g, '') == "") {
-        alert("제목 입력은 필수입니다.");
-        return false;
+    if (flag_isEditing) {
+        var title = $("#work_title");
+        if (title.val().replace(/\s/g, '') == "") {
+            alert("제목 입력은 필수입니다.");
+            return false;
+        } else {
+            return true;
+        }
     } else {
-        return true;
+        var title = $("#reply_input");
+        if (title.val().replace(/\s/g, '') == "") {
+            alert("내용을 입력하세요.");
+            return false;
+        } else {
+            return true;
+        }
     }
 }
+
+
+$('#work_file_add').bind('change', function() {
+    if (1050000 < this.files[0].size) {
+        alert('1MB이하의 용량만 업로드 가능합니다.');
+        work_file_add.replaceWith( work_file_add = work_file_add.clone(true));
+    }
+});
+$('#reply_file_add').bind('change', function() {
+    if (1050000 < this.files[0].size) {
+        var temp = $('#reply_file_add');
+        alert('1MB이하의 용량만 업로드 가능합니다.');
+        temp.replaceWith( temp = temp.clone(true));
+    }
+});
 
 function newline(text) {
     var htmls = [];

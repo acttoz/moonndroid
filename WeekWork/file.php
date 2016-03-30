@@ -84,4 +84,46 @@ if ($_REQUEST['select'] == "del") {
     mysql_query("UPDATE work SET file_id=0 WHERE file_id=${_REQUEST['file_id']}");
     mysql_close($connect);
 }
+
+if ($_POST['select'] == "reply") {
+    echo "reply";
+    if ($_FILES['reply_file']['name']) {
+        if (strlen($_FILES['reply_file']['name']) > 255) {
+            echo "<script>alert('파일 이름이 너무 깁니다.');";
+            echo "history.back();</script>";
+            exit ;
+        }
+
+        $date = date("YmdHis", time());
+        $dir = "./files/";
+        $file_hash = $date . $_FILES['reply_file']['name'];
+        $file_hash = md5($file_hash);
+        $upfile = $dir . $file_hash;
+
+        if (is_uploaded_file($_FILES['reply_file']['tmp_name'])) {
+            if (!move_uploaded_file($_FILES['reply_file']['tmp_name'], $upfile)) {
+                echo "upload error";
+                exit ;
+            }
+        }
+        $query = "insert into files (name, hash) 
+              values('" . $_FILES['reply_file']['name'] . "', 
+              '" . $file_hash . "')";
+        mysql_query($query);
+        $file_id = mysql_insert_id();
+    } else {
+        $file_id = 0;
+    }
+    $dt = new DateTime();
+    $time = $dt -> format('Y-m-d H:i:s');
+
+    $sql = "INSERT INTO reply (content,time,user_id,work_id,file_id) VALUE ('${_REQUEST['reply_content']}','${time}','${_SESSION['id']}','${_REQUEST['work_id']}','${file_id}')";
+
+    mysql_query($sql);
+
+    mysql_close($connect);
+
+    header('Location: index.php');
+
+}
 ?>

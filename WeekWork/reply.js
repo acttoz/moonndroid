@@ -88,8 +88,7 @@ function delReply(reply_id) {
 
 $('#reply_submit').click(function() {
 
-    if ($("#reply_input").val().replace(/\s/g, '') == "")
-        return false;
+     
 
     if (isLoading)
         return false;
