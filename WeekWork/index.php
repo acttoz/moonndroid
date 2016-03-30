@@ -133,13 +133,14 @@
                                     }
                                     ?>
                                 </table>
-                                <br/>
+                                <br>
                                 
-                                <form id="workList" style="display: none;" action="upload.php" method="post" enctype="multipart/form-data">
+                                <form id="workList" style="display: none;" action="file.php" method="post" enctype="multipart/form-data" onsubmit="return formValidate();">
                                 <h1 id="workDate"  user="<?php echo $_SESSION["id"]; ?>" >제목</h1> 
-                                <input id="work_id" type="hidden" name="work_id" value=0>
-                                <input id="work_day" type="hidden" name="work_day" value=0>
-                                <input id="work_ch_id" type="hidden" name="work_ch_id" value=0>
+                                <input id="work_id" type="hidden" name="work_id" value=0/>
+                                <input id="select" type="hidden" name="select" value="upload"/>
+                                <input id="work_day" type="hidden" name="work_day" value=0/>
+                                <input id="work_ch_id" type="hidden" name="work_ch_id" value=0/>
                                  <table class="time_table" style="table-layout: fixed" align="center"  >
                                     <tr class="" style="border-radius: 10px 0 0 0; ">
                                         <td colspan="5" class="content"  style="width:40%;border-top-style:none;border-left-style:none;  border-bottom-color:white; border-radius: 10px 0 0 0; font-weight: bold;font-size:20px ">
@@ -156,22 +157,34 @@
                                     <tr class="" style="border-radius: 10px 0 0 0; ">
                                         <td class="content " colspan="5" style="padding-right:10px;padding-left:10px; border-bottom-style:none;border-left-style:none;">
                                             <div  style=" ">
-                                                <textarea  class="contents" type="text" name="work_content" id="work_content" placeholder="설명" ></textarea>                                           
+                                                <textarea  class="contents" type="text" name="work_content" id="work_content" placeholder="설명" ></textarea>                                                                                           
 
-</div>                                            </td>    
+
+                                            </div></td>    
                              
                                           
                                     </tr>
                                     <tr>
-                                        <td colspan="5" class="content "style="padding-right:10px;width:15%;border-top-style:none;border-bottom-color:white; ">
-                                            <input type="file" name="file" id="file" value="파일첨부">
+                                        <td colspan="5" class="content "style="padding-left: 10px; padding-right:10px;width:15%;border-left-style:none;border-top-style:none;border-bottom-color:white; ">
+                                            <input type="file" name="file" id="work_file_add" style="display:none"/>
+                                            <div id="work_file_btns" class="btn-group" style="display:none; width:100%;">
+                                             <button id="work_file_down" class="btn btn-info" type="button" style="width:70%;height:100%" >
+                                                 첨부파일
+                                                 </button>
+                                             <button id="work_file_del" class="btn btn-danger" type="button" style="width:30%;height:100%" >
+삭제
+                                                 </button>
+                                             </div>
                                          </td> 
                                     </tr>
                                     <tr>
                                         <td colspan="3"  class="content " style="padding:10px;width:20%;border-left-style:none;border-bottom-style:none; border-right-color:white; font-weight: bold;font-size:10px; border-radius: 0 0 0 10px; ">
                                             <div class="btn-group " style=" width:100%;">
-                                            <button id="work_edit_btn" name="submit" style="width:50%;height: 50px;" type="submit" class="btn btn-info">
+                                            <button id="work_edit_btn"type="button" style="width:50%;height: 50px;" class="btn btn-info" onclick="editMode()">
                                                                                         수정
+                                            </button>
+                                            <button id="work_save_btn" name="submit" style="width:50%;height: 50px;display:none" type="submit" class="btn btn-info btn-warning" >
+                                                                                        저장
                                             </button>
                                             <button id="work_delete_btn" style="width:50%;height: 50px;" type="button" class="btn btn-danger">
                                                                                         삭제
@@ -221,6 +234,7 @@
 
         <!-- Menu Toggle Script -->
         <script src="index.js"></script>
+        <script src="reply.js"></script>
 
         <?php
         include_once ("./tail.php");

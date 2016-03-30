@@ -74,6 +74,19 @@ if ($_REQUEST['select'] == "reply") {
         echo json_encode2($data);
 
 }
+if ($_REQUEST['select'] == "file") {
+    $sql = "SELECT * FROM files WHERE file_id=${_REQUEST['file_id']}";
+    $result = mysql_query($sql);
+    $results = array();
+    while ($array = mysql_fetch_array($result)) {
+        $results[] = array('name' => $array['name'], 'hash' => $array['hash']);
+    }
+
+    $data = array('week' => $results);
+    if (!empty($results))
+        echo json_encode2($data);
+
+}
 
 if ($_REQUEST['select'] == "complete") {
     mysql_query("UPDATE work SET complete=${_REQUEST['complete']} WHERE work_id=${_REQUEST['work_id']}" );
@@ -82,6 +95,7 @@ if ($_REQUEST['select'] == "complete") {
 if ($_REQUEST['select'] == "delWork") {
     mysql_query("DELETE FROM reply WHERE work_id=${_REQUEST['work_id']}" );
     mysql_query("DELETE FROM work WHERE work_id=${_REQUEST['work_id']}" );
+    mysql_query("DELETE FROM files WHERE file_id=${_REQUEST['file_id']}" );
 }
 if ($_REQUEST['select'] == "delReply") {
     mysql_query("DELETE FROM reply WHERE reply_id=${_REQUEST['reply_id']}" );

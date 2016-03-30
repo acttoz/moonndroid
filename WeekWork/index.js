@@ -12,13 +12,25 @@ $("#menu-toggle").click(function(e) {
 // }
 // };
 var isLoading = false;
+var isLoadingFile = false;
 var tClass = localStorage.getItem("tClass");
 var quiz = localStorage.getItem("quiz");
 var htmls = '';
 var workArray = [];
+var fileInfo = [];
 var flag_work_id;
 var flag_isEditing = false;
 var wUser_id = $("#workDate").attr("user");
+
+var work_complete_btn = $("#work_complete_btn");
+var work_edit_btn = $("#work_edit_btn");
+var work_delete_btn = $("#work_delete_btn");
+var work_save_btn = $("#work_save_btn");
+var work_file_btns = $("#work_file_btns");
+var work_file_add = $("#work_file_add");
+var work_file_down = $("#work_file_down");
+var work_file_del = $("#work_file_del");
+
 getItem = function() {
     if (isLoading)
         return false;
@@ -86,7 +98,6 @@ function viewWork(work_id) {
     resetWork();
     if (workArray[work_id]["complete"] == 1)
         setComplete(true, work_id);
-
     flag_work_id = work_id;
     $("#work_id").val(flag_work_id);
     getReply(work_id);
@@ -96,12 +107,63 @@ function viewWork(work_id) {
     $("#work_content").val(workArray[work_id]["work_content"]);
 
     if (wUser_id != workArray[work_id]["user_id"]) {
-        $("#work_complete_btn").attr("disabled", "disabled");
-        $("#work_edit_btn").attr("disabled", "disabled");
-        $("#work_delete_btn").attr("disabled", "disabled");
+        work_complete_btn.attr("disabled", "disabled");
+        work_edit_btn.attr("disabled", "disabled");
+        work_delete_btn.attr("disabled", "disabled");
+    }
+    if (workArray[flag_work_id]["file_id"] != 0) {
+        getFileInfo(workArray[flag_work_id]["file_id"]);
     }
 
 }
+
+function getFileInfo(file_id) {
+    if (isLoadingFile)
+        return false;
+    isLoadingFile = true;
+    var request = $.ajax("index_db.php", {
+
+        type : "GET",
+        dataType : "json",
+        contentType : "application/json; charset=utf-8",
+        data : {
+            select : "file",
+            file_id : file_id
+        }
+
+    });
+
+    request.done(function(json) {
+        if ( typeof json === "object" && json.week.length > 0) {
+
+            $(json.week).each(function() {
+                fileInfo = {
+                    "file_id" : file_id,
+                    "name" : this.name,
+                    "hash" : this.hash
+                };
+
+            });
+        }
+        work_file_down.text("파일 : " + fileInfo["name"]);
+        work_file_btns.css("display", "block");
+        isLoadingFile = false;
+
+    });
+
+    request.fail(function(jqXHR, textStatus, errorThrown) {
+        alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+
+        isLoadingFile = false;
+    });
+    // parsing end
+
+    return true;
+}
+
+work_file_down.click(function() {
+    document.location = "./file.php?select=download&name=" + fileInfo["name"] + "&hash=" + fileInfo["hash"];
+});
 
 //new
 function newWork(ch_id, ch_name, mDate) {
@@ -109,7 +171,6 @@ function newWork(ch_id, ch_name, mDate) {
     flag_work_id = 0;
     $("#work_id").val(flag_work_id);
     resetWork();
-    editMode();
     var date = new Date(mDate);
     $("#workDate").text((date.getMonth() + 1) + "월 " + date.getDate() + "일 / " + ch_name);
     $("#work_title").val("");
@@ -120,32 +181,29 @@ function newWork(ch_id, ch_name, mDate) {
     $("#reply_file").attr("disabled", "disabled");
     workArray[0] = {
         "day" : mDate,
-        "ch_id" : ch_id
+        "ch_id" : ch_id,
+        "file_id" : 0
     };
     $("#work_day").val(mDate);
     $("#work_ch_id").val(ch_id);
+    work_file_add.css("display", "none");
+    editMode();
 }
 
 function editMode() {
     var title = $("#work_title");
     var content = $("#work_content");
 
-    if (!flag_isEditing) {
-
-        flag_isEditing = true;
-        title.attr("readonly", false);
-        content.attr("readonly", false);
-        title.css("border", "1px solid #04a4b5");
-        content.css("border", "1px solid #04A4B5");
-        $("#work_complete_btn").attr("disabled", "disabled");
-        $("#work_edit_btn").text("저장");
-        $("#work_edit_btn").attr("class", "btn btn-warning");
-    } else {
-        if (title.val().replace(/\s/g, '') == "") {
-            alert("제목 입력은 필수입니다.");
-        } else {
-            sendWork(title.val(), content.val());
-        }
+    // flag_isEditing = true;
+    title.attr("readonly", false);
+    content.attr("readonly", false);
+    title.css("border", "1px solid #04a4b5");
+    content.css("border", "1px solid #04A4B5");
+    work_complete_btn.attr("disabled", "disabled");
+    work_edit_btn.css("display", "none");
+    work_save_btn.css("display", "block");
+    if (workArray[flag_work_id]["file_id"] == 0) {
+        work_file_add.css("display", "block");
     }
 }
 
@@ -158,7 +216,7 @@ function setComplete(bool, work_id) {
         $("#reply_submit").attr("disabled", "disabled");
         $("#reply_file").attr("disabled", "disabled");
         $("#work_complete_btn").attr("class", "btn btn-success has-spinner");
-        $("#work_edit_btn").attr("disabled", "disabled");
+        work_edit_btn.attr("disabled", "disabled");
     } else {
 
         $("#work_" + work_id).css("text-decoration", "none");
@@ -175,59 +233,25 @@ function resetWork() {
     title.attr("readonly", true);
     content.attr("readonly", true);
     title.css("text-decoration", "none");
-    $("#work_edit_btn").text("수정");
-    $("#work_edit_btn").attr("class", "btn btn-info");
-    $("#work_edit_btn").removeAttr("disabled");
+    work_edit_btn.text("수정");
+    work_edit_btn.attr("class", "btn btn-info");
+    work_edit_btn.removeAttr("disabled");
     $("#work_delete_btn").removeAttr("disabled");
     $("#work_complete_btn").attr("class", "btn btn-info has-spinner");
     $("#work_complete_btn").text("완료 표시 하기");
     $("#work_complete_btn").removeAttr("disabled");
     $("#reply_submit").removeAttr("disabled");
     $("#reply_file").removeAttr("disabled");
+    work_edit_btn.css("display", "block");
+    work_save_btn.css("display", "none");
     flag_isEditing = false;
-}
-
-//sendWork
-function sendWork(title, content) {
-
-    if (isLoading)
-        return false;
-
-    isLoading = true;
-    var request = $.ajax("index_db.php", {
-        type : "GET",
-        data : {
-            select : "sendWork",
-            work_id : flag_work_id,
-            work_name : title,
-            work_content : content,
-            day : workArray[flag_work_id]["day"],
-            ch_id : workArray[flag_work_id]["ch_id"]
-        }
-
-    });
-
-    request.done(function() {
-        if (!alert("성공")) {
-            isLoading = false;
-            getItem();
-        }
-    });
-
-    request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
-
-        isLoading = false;
-    });
-    // parsing end
-
-    return true;
+    work_file_btns.css("display", "none");
 }
 
 
-$("#work_delete_btn").click(function() {
+$("#work_file_del").click(function() {
 
-    if (confirm("삭제 후에는 복구가 불가능합니다.\n삭제하시겠습니까?"+flag_work_id)) {
+    if (confirm("삭제 후에는 복구가 불가능합니다.\n파일을 삭제하시겠습니까?")) {
 
     } else {
         return false;
@@ -238,11 +262,13 @@ $("#work_delete_btn").click(function() {
 
     isLoading = true;
 
-    var request = $.ajax("index_db.php", {
+    var request = $.ajax("file.php", {
         type : "GET",
         data : {
-            select : "delWork",
-            work_id : flag_work_id
+            select : "del",
+            file_id : fileInfo["file_id"],
+            name : fileInfo["name"],
+            hash : fileInfo["hash"]
         }
 
     });
@@ -261,10 +287,14 @@ $("#work_delete_btn").click(function() {
 
     return true;
 });
+$("#work_delete_btn").click(function() {
 
-//reply
-function getReply(work_id) {
-    $("#reply").empty();
+    if (confirm("삭제 후에는 복구가 불가능합니다.\n삭제하시겠습니까?")) {
+
+    } else {
+        return false;
+    }
+
     if (isLoading)
         return false;
 
@@ -272,111 +302,21 @@ function getReply(work_id) {
 
     var request = $.ajax("index_db.php", {
         type : "GET",
-        dataType : "json",
-        contentType : "application/json; charset=utf-8",
         data : {
-            select : "reply",
-            work_id : work_id
-        }
-
-    });
-
-    request.done(function(json) {
-        var obj = $("#reply");
-        htmls = "";
-        var countTemp = 0;
-        if ( typeof json === "object" && json.week.length > 0) {
-            $(json.week).each(function() {
-                if (countTemp != 0)
-                    htmls += '<hr>';
-                htmls += '<p style=" padding-right:5px;">' + this.content + '&nbsp;<span style="font-weight:bold">- ' + this.user_name + '</span>' + '<span style="font-size:12px">(' + this.time + ')</span>';
-                htmls += '<br><button class="btn btn-info reply_clip"  >첨부파일</button>';
-                if (wUser_id == this.user_id)
-                    htmls += ' <button class="btn btn-info reply_clip" onclick=delReply(' + this.reply_id + ')>삭제</button>';
-                htmls += '</p>';
-                countTemp++;
-            });
-            obj.append(htmls);
-            htmls = "";
-            // obj.html(obj.html().replace(/\n/g, "<br>"));
-            obj.scrollTop(obj[0].scrollHeight);
-        }
-        isLoading = false;
-
-    });
-
-    request.fail(function(jqXHR, textStatus, errorThrown) {
-        // alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
-
-        isLoading = false;
-    });
-    // parsing end
-
-    return true;
-}
-
-function delReply(reply_id) {
-
-    if (isLoading)
-        return false;
-
-    isLoading = true;
-    var request = $.ajax("index_db.php", {
-        type : "GET",
-        data : {
-            select : "delReply",
-            reply_id : reply_id
-        }
-
-    });
-
-    request.done(function() {
-        isLoading = false;
-        getReply(flag_work_id);
-
-    });
-
-    request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
-        $("#work_complete_btn").buttonLoader('stop');
-
-        isLoading = false;
-    });
-    // parsing end
-
-    return true;
-}
-
-
-$('#reply_submit').click(function() {
-
-    if ($("#reply_input").val().replace(/\s/g, '') == "")
-        return false;
-
-    if (isLoading)
-        return false;
-
-    isLoading = true;
-    var request = $.ajax("index_db.php", {
-        type : "GET",
-        data : {
-            select : "sendReply",
+            select : "delWork",
             work_id : flag_work_id,
-            content : $("#reply_input").val()
+            file_id : workArray[flag_work_id]["file_id"]
         }
 
     });
 
     request.done(function() {
         isLoading = false;
-        $("#reply_input").val("");
-        getReply(flag_work_id);
-
+        getItem();
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
         alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
-        $("#work_complete_btn").buttonLoader('stop');
 
         isLoading = false;
     });
@@ -439,6 +379,16 @@ $('.has-spinner').click(function() {
 $(document).ready(function() {
     getItem();
 });
+
+function formValidate() {
+    var title = $("#work_title");
+    if (title.val().replace(/\s/g, '') == "") {
+        alert("제목 입력은 필수입니다.");
+        return false;
+    } else {
+        return true;
+    }
+}
 
 function newline(text) {
     var htmls = [];

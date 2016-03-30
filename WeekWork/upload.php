@@ -6,7 +6,7 @@ include_once ('./config.php');
 // echo $_POST['work_content'];
 // echo $_POST['work_day'];
 // echo $_POST['work_ch_id'];
-if (!$_FILES['file']['name']) {
+if ($_FILES['file']['name']) {
     if (strlen($_FILES['file']['name']) > 255) {
         echo "<script>alert('파일 이름이 너무 깁니다.');";
         echo "history.back();</script>";
@@ -31,7 +31,7 @@ if (!$_FILES['file']['name']) {
     mysql_query($query);
     $file_id = mysql_insert_id();
 }else{
-    $file_id = null;
+    $file_id = 0;
 }
 
 
@@ -39,7 +39,7 @@ if (!$_FILES['file']['name']) {
 if ($_POST['work_id'] == 0) {
     $sql = "INSERT INTO work (work_name,work_content,day,ch_id,user_id,file_id) VALUE ('${_POST['work_name']}','${_POST['work_content']}','${_POST['work_day']}','${_POST['work_ch_id']}','${_SESSION['id']}',${file_id})";
 } else {
-    $sql = "UPDATE work SET work_name='${_POST['work_name']}',work_content='${_POST['work_content']}' WHERE work_id='${_POST['work_id']}'";
+    $sql = "UPDATE work SET work_name='${_POST['work_name']}',work_content='${_POST['work_content']}',file_id=${file_id} WHERE work_id='${_POST['work_id']}'";
 }
 mysql_query($sql);
 
