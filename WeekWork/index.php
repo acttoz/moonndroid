@@ -137,13 +137,26 @@
                                 
                                 <form id="workList"  style="display: none;" action="file.php" method="post" enctype="multipart/form-data"  onsubmit="return formValidate();">
                                 <h1 id="workDate"  user="<?php echo $_SESSION["id"]; ?>" >제목</h1> 
-                                <input id="work_id" type="hidden" name="work_id" value=0/>
+                                <input id="work_id" type="hidden" name="work_id" value=
+                                <?php
+                                if (isset($_REQUEST['work_id'])) {
+                                    echo $_REQUEST['work_id'];
+                                } else {
+                                    echo 0;
+                                }
+                                ?>
+                                />
                                 <input id="flag_select" type="hidden" name="select" value="upload"/>
                                 <input id="work_day" type="hidden" name="work_day" value=0/>
                                 <input id="work_ch_id" type="hidden" name="work_ch_id" value=0/>
                                  <table class="time_table" style="table-layout: fixed" align="center"  >
                                     <tr class="" style="border-radius: 10px 0 0 0; ">
-                                        <td colspan="5" class="content"  style="width:40%;border-top-style:none;border-left-style:none;  border-bottom-color:white; border-radius: 10px 0 0 0; font-weight: bold;font-size:20px ">
+                                        <td colspan="1"  class="content " style="padding:10px;width:7%;border-top-style:none;border-left-style:none; border-right-color:white; border-bottom-color:white; border-radius: 10px 0 0 0; font-weight: bold;font-size:20px ">
+                                           
+                                            <button id="work_complete_btn" style="width:100%;height: 50px;" type="button" class="btn btn-info has-spinner glyphicon">
+                                            </button>
+                                         </td>
+                                        <td colspan="4" class="content"  style="width:40%;border-top-style:none;border-left-color:white;  border-bottom-color:white; font-weight: bold;font-size:20px ">
                                             <input id="work_title" type="text" name="work_name" placeholder="제목"/>
                                             </td>
                                          
@@ -168,11 +181,11 @@
                                         <td colspan="5" class="content "style="padding-left: 10px; padding-right:10px;width:15%;border-left-style:none;border-top-style:none;border-bottom-color:white; ">
                                             <input type="file" name="file" id="work_file_add" style="display:none"/>
                                             <div id="work_file_btns" class="btn-group" style="display:none; width:100%;">
-                                             <button id="work_file_down" class="btn btn-info" type="button" style="width:70%;height:100%" >
+                                             <button id="work_file_down" class="btn btn-info" type="button" style="width:88%;height:100%" >
                                                  첨부파일
                                                  </button>
-                                             <button id="work_file_del" class="btn btn-danger" type="button" style="width:30%;height:100%" >
-삭제
+                                             <button id="work_file_del" class="btn btn-danger glyphicon glyphicon-trash" type="button" style="width:12%;height:100%" >
+
                                                  </button>
                                              </div>
                                          </td> 
@@ -181,23 +194,18 @@
                                          </td> 
                                     </tr>
                                     <tr>
-                                        <td colspan="3"  class="content " style="padding:10px;width:20%;border-left-style:none;border-bottom-style:none; border-right-color:white; font-weight: bold;font-size:10px; border-radius: 0 0 0 10px; ">
-                                            <div class="btn-group " style=" width:100%;">
-                                            <button id="work_edit_btn"type="button" style="width:50%;height: 50px;" class="btn btn-info" onclick="editMode()">
+                                        
+                                          <td colspan="5"  class="content " style="padding:10px;width:80%;border-left-style:none;border-bottom-style:none;   font-weight: bold;font-size:10px;  ">
+                                             <div class="btn-group " style=" width:100%;">
+                                            <button id="work_edit_btn"type="button" style="width:80%;height: 50px;" class="btn btn-info" onclick="editMode()">
                                                                                         수정
                                             </button>
-                                            <button id="work_save_btn" name="submit" style="width:50%;height: 50px;display:none" type="submit" class="btn btn-info btn-warning" >
+                                            <button id="work_save_btn" name="submit" style="width:80%;height: 50px;display:none" type="submit" class="btn btn-info btn-warning" >
                                                                                         저장
                                             </button>
-                                            <button id="work_delete_btn" style="width:50%;height: 50px;" type="button" class="btn btn-danger">
-                                                                                        삭제
+                                            <button id="work_delete_btn" style="width:20%;height: 50px;" type="button" class="btn btn-danger glyphicon glyphicon-trash">
                                             </button>
                                             </div>
-                                         </td>
-                                          <td colspan="2"  class="content " style="padding:10px;width:20%;border-left-style:none;border-bottom-style:none;   font-weight: bold;font-size:10px;  ">
-                                            <button id="work_complete_btn" style="width:100%;height: 50px;" type="button" class="btn btn-info has-spinner">
-                                                                                        완료 표시하기
-                                            </button>
                                          </td>
                                          
                                         <td   class="content " colspan="4" style="width:100%;padding-left:5px;padding-top:0px;padding-right:5px;padding-bottom:0px; border-top-style:none;border-bottom-style:none; border-right-color:white; font-weight: bold;font-size:10px ">

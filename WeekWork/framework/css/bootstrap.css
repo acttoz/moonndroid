@@ -268,7 +268,6 @@ th {
 }
 .glyphicon {
   position: relative;
-  top: 1px;
   display: inline-block;
   font-family: 'Glyphicons Halflings';
   font-style: normal;
@@ -3312,8 +3311,8 @@ fieldset[disabled] .btn-info:active,
 .btn-info.disabled.active,
 .btn-info[disabled].active,
 fieldset[disabled] .btn-info.active {
-  background-color: #5bc0de;
-  border-color: #46b8da;
+  background-color: #addfee;
+  border-color: #addfee;
 }
 .btn-info .badge {
   color: #5bc0de;
@@ -3444,8 +3443,8 @@ fieldset[disabled] .btn-danger:active,
 .btn-danger.disabled.active,
 .btn-danger[disabled].active,
 fieldset[disabled] .btn-danger.active {
-  background-color: #d9534f;
-  border-color: #d43f3a;
+  background-color: #eeb2b0;
+  border-color: #eeb2b0;
 }
 .btn-danger .badge {
   color: #d9534f;

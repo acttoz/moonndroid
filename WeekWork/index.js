@@ -18,7 +18,7 @@ var quiz = localStorage.getItem("quiz");
 var htmls = '';
 var workArray = [];
 var fileInfo = [];
-var flag_work_id;
+var flag_work_id = 0;
 var flag_isEditing = false;
 var wUser_id = $("#workDate").attr("user");
 
@@ -30,6 +30,139 @@ var work_file_btns = $("#work_file_btns");
 var work_file_add = $("#work_file_add");
 var work_file_down = $("#work_file_down");
 var work_file_del = $("#work_file_del");
+var reply_file_add = $('#reply_file_add');
+
+//edit
+function viewWork(work_id) {
+    resetWork();
+
+    flag_work_id = work_id;
+    $("#work_id").val(work_id);
+    var date = new Date(workArray[work_id]["day"]);
+    $("#workDate").text((date.getMonth() + 1) + "월 " + date.getDate() + "일 / " + $("#" + workArray[work_id]["ch_id"]).attr("ch_name") + " / " + workArray[work_id]["user_name"] + '님이 생성함.');
+    $("#work_title").val(workArray[work_id]["work_name"]);
+    $("#work_content").val(workArray[work_id]["work_content"]);
+    if (workArray[work_id]["complete"] == 1) {
+        setComplete(true, work_id);
+        if (wUser_id == workArray[work_id]["user_id"]) {
+            on(work_complete_btn);
+        }
+    } else {
+        setComplete(false, work_id);
+        if (wUser_id == workArray[work_id]["user_id"]) {
+            on(work_complete_btn);
+
+        }
+        //my work
+
+    }
+    if (workArray[flag_work_id]["file_id"] != 0) {
+        //if file exist
+        getFileInfo(workArray[flag_work_id]["file_id"]);
+    }
+
+    getReply(work_id);
+    $("#workList").css("display", "block");
+
+}
+
+function resetWork() {
+
+    var title = $("#work_title");
+    var content = $("#work_content");
+    title.css("border", "0px solid #04a4b5");
+    content.css("border", "0px solid #04A4B5");
+    title.attr("readonly", true);
+    content.attr("readonly", true);
+    title.css("text-decoration", "none");
+    content.css("text-decoration", "none");
+    work_edit_btn.text("수정");
+    work_edit_btn.css("display", "block");
+    off(work_edit_btn);
+    off(work_delete_btn);
+    off(work_complete_btn);
+    work_complete_btn.attr("class", "btn btn-success has-spinner glyphicon glyphicon-unchecked");
+    on($("#reply_submit"));
+    $("#reply_file_add").css("display", "block");
+    work_save_btn.css("display", "none");
+    flag_isEditing = false;
+    work_file_btns.css("display", "none");
+    work_file_add.css("display", "none");
+    work_file_add.replaceWith( work_file_add = work_file_add.clone(true));
+    reply_file_add.replaceWith( reply_file_add = reply_file_add.clone(true));
+    off($("#work_file_del"));
+    $("#flag_select").val("reply");
+    //reset work_board
+    flag_work_id = 0;
+    $("#work_id").val(flag_work_id);
+    $("#work_title").val("");
+    $("#work_content").val("");
+    $("#reply").html("");
+}
+
+work_file_down.click(function() {
+    document.location = "./file.php?select=download&name=" + fileInfo["name"] + "&hash=" + fileInfo["hash"];
+});
+
+//new
+function newWork(ch_id, ch_name, mDate) {
+    resetWork();
+
+    var date = new Date(mDate);
+    $("#workDate").text((date.getMonth() + 1) + "월 " + date.getDate() + "일 / " + ch_name);
+    workArray[0] = {
+        "day" : mDate,
+        "ch_id" : ch_id,
+        "file_id" : 0
+    };
+    $("#work_day").val(mDate);
+    $("#work_ch_id").val(ch_id);
+    editMode();
+
+    $("#workList").css("display", "block");
+}
+
+function editMode() {
+    var title = $("#work_title");
+    var content = $("#work_content");
+
+    flag_isEditing = true;
+    title.attr("readonly", false);
+    content.attr("readonly", false);
+    title.css("border", "1px solid #04a4b5");
+    content.css("border", "1px solid #04A4B5");
+
+    off(work_complete_btn);
+    on($("#work_file_del"));
+    work_edit_btn.css("display", "none");
+    work_save_btn.css("display", "block");
+    off($("#reply_submit"));
+    $("#reply_file_add").css("display", "none");
+    if (workArray[flag_work_id]["file_id"] == 0) {
+        work_file_add.css("display", "block");
+    }
+    $("#work_id").val(flag_work_id);
+    $("#flag_select").val("upload");
+
+}
+
+function setComplete(bool, work_id) {
+    if (bool) {
+        $("#work_" + work_id).css("text-decoration", "line-through");
+        $("#work_title").css("text-decoration", "line-through");
+        $("#work_content").css("text-decoration", "line-through");
+        work_complete_btn.attr("class", "btn btn-success has-spinner glyphicon glyphicon-check");
+        off(work_edit_btn);
+        off(work_delete_btn);
+    } else {
+        $("#work_" + work_id).css("text-decoration", "none");
+        $("#work_title").css("text-decoration", "none");
+        $("#work_content").css("text-decoration", "none");
+        work_complete_btn.attr("class", "btn btn-success has-spinner glyphicon glyphicon-unchecked");
+        on(work_edit_btn);
+        on(work_delete_btn);
+    }
+}
 
 getItem = function() {
     if (isLoading)
@@ -76,13 +209,13 @@ getItem = function() {
 
         }
         isLoading = false;
-        $("#workList").css("display", "none");
-        viewWork(1);
-
+        $("#workList").css("display","none");
+        if (flag_work_id != 0)
+            viewWork(flag_work_id);
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+        alert("getItem jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
 
         isLoading = false;
     });
@@ -91,31 +224,6 @@ getItem = function() {
     return true;
 
 };
-
-//edit
-function viewWork(work_id) {
-    $("#workList").css("display", "block");
-    resetWork();
-    if (workArray[work_id]["complete"] == 1)
-        setComplete(true, work_id);
-    flag_work_id = work_id;
-    $("#work_id").val(flag_work_id);
-    getReply(work_id);
-    var date = new Date(workArray[work_id]["day"]);
-    $("#workDate").text((date.getMonth() + 1) + "월 " + date.getDate() + "일 / " + $("#" + workArray[work_id]["ch_id"]).attr("ch_name") + " / " + workArray[work_id]["user_name"] + '님이 생성함.');
-    $("#work_title").val(workArray[work_id]["work_name"]);
-    $("#work_content").val(workArray[work_id]["work_content"]);
-
-    if (wUser_id != workArray[work_id]["user_id"]) {
-        work_complete_btn.attr("disabled", "disabled");
-        work_edit_btn.attr("disabled", "disabled");
-        work_delete_btn.attr("disabled", "disabled");
-    }
-    if (workArray[flag_work_id]["file_id"] != 0) {
-        getFileInfo(workArray[flag_work_id]["file_id"]);
-    }
-
-}
 
 function getFileInfo(file_id) {
     if (isLoadingFile)
@@ -152,105 +260,13 @@ function getFileInfo(file_id) {
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+        alert("getFile jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
 
         isLoadingFile = false;
     });
     // parsing end
 
     return true;
-}
-
-work_file_down.click(function() {
-    document.location = "./file.php?select=download&name=" + fileInfo["name"] + "&hash=" + fileInfo["hash"];
-});
-
-//new
-function newWork(ch_id, ch_name, mDate) {
-    $("#workList").css("display", "block");
-    flag_work_id = 0;
-    $("#work_id").val(flag_work_id);
-    resetWork();
-    var date = new Date(mDate);
-    $("#workDate").text((date.getMonth() + 1) + "월 " + date.getDate() + "일 / " + ch_name);
-    $("#work_title").val("");
-    $("#work_content").text("");
-    $("#work_content").val("");
-    $("#reply").html("");
-
-    workArray[0] = {
-        "day" : mDate,
-        "ch_id" : ch_id,
-        "file_id" : 0
-    };
-    $("#work_day").val(mDate);
-    $("#work_ch_id").val(ch_id);
-    work_file_add.css("display", "none");
-    editMode();
-}
-
-function editMode() {
-    var title = $("#work_title");
-    var content = $("#work_content");
-
-    flag_isEditing = true;
-    title.attr("readonly", false);
-    content.attr("readonly", false);
-    title.css("border", "1px solid #04a4b5");
-    content.css("border", "1px solid #04A4B5");
-    work_complete_btn.attr("disabled", "disabled");
-    work_edit_btn.css("display", "none");
-    work_save_btn.css("display", "block");
-    $("#reply_submit").attr("disabled", "disabled");
-    $("#reply_file").attr("disabled", "disabled");
-    if (workArray[flag_work_id]["file_id"] == 0) {
-        work_file_add.css("display", "block");
-    }
-    $("#flag_select").val("upload");
-}
-
-function setComplete(bool, work_id) {
-    resetWork();
-    if (bool) {
-        $("#work_" + work_id).css("text-decoration", "line-through");
-        $("#work_title").css("text-decoration", "line-through");
-        $("#work_complete_btn").text("완료 표시 취소");
-        $("#reply_submit").attr("disabled", "disabled");
-        $("#reply_file").attr("disabled", "disabled");
-        $("#work_complete_btn").attr("class", "btn btn-success has-spinner");
-        work_edit_btn.attr("disabled", "disabled");
-    } else {
-
-        $("#work_" + work_id).css("text-decoration", "none");
-
-    }
-}
-
-function resetWork() {
-
-    var title = $("#work_title");
-    var content = $("#work_content");
-    title.css("border", "0px solid #04a4b5");
-    content.css("border", "0px solid #04A4B5");
-    title.attr("readonly", true);
-    content.attr("readonly", true);
-    title.css("text-decoration", "none");
-    work_edit_btn.text("수정");
-    work_edit_btn.attr("class", "btn btn-info");
-    work_edit_btn.removeAttr("disabled");
-    $("#work_delete_btn").removeAttr("disabled");
-    $("#work_complete_btn").attr("class", "btn btn-info has-spinner");
-    $("#work_complete_btn").text("완료 표시 하기");
-    $("#work_complete_btn").removeAttr("disabled");
-    $("#reply_submit").removeAttr("disabled");
-    $("#reply_file").removeAttr("disabled");
-    work_edit_btn.css("display", "block");
-    work_save_btn.css("display", "none");
-    flag_isEditing = false;
-    work_file_btns.css("display", "none");
-    work_file_add.css("display", "none");
-    work_file_add.replaceWith( work_file_add = work_file_add.clone(true));
-    $("#flag_select").val("reply");
 }
 
 
@@ -278,7 +294,8 @@ $("#work_file_del").click(function() {
 
     });
 
-    request.done(function() {
+    request.done(function(args) {
+        workArray[flag_work_id]["file_id"] = 0;
         work_file_btns.css("display", "none");
         work_file_add.css("display", "block");
         isLoading = false;
@@ -311,13 +328,15 @@ $("#work_delete_btn").click(function() {
         data : {
             select : "delWork",
             work_id : flag_work_id,
-            file_id : workArray[flag_work_id]["file_id"]
+            file_id : workArray[flag_work_id]["file_id"],
+            hash : fileInfo["hash"]
         }
 
     });
 
     request.done(function() {
         isLoading = false;
+        resetWork();
         getItem();
     });
 
@@ -331,14 +350,14 @@ $("#work_delete_btn").click(function() {
     return true;
 });
 
-$('.has-spinner').click(function() {
+$('#work_complete_btn').click(function() {
     var isComplete = workArray[flag_work_id]["complete"];
     if (isLoading)
         return false;
 
-    var btn = $(this);
+    // var btn = $(this);
 
-    $(btn).buttonLoader('start');
+    // $(btn).buttonLoader('start');
 
     isLoading = true;
 
@@ -353,17 +372,17 @@ $('.has-spinner').click(function() {
     });
 
     request.done(function() {
-        setTimeout(function() {
-            $(btn).buttonLoader('stop');
+        // setTimeout(function() {
+        // $(btn).buttonLoader('stop');
 
-            if (isComplete == 1) {
-                setComplete(false, flag_work_id);
-                workArray[flag_work_id]["complete"] = 0;
-            } else {
-                setComplete(true, flag_work_id);
-                workArray[flag_work_id]["complete"] = 1;
-            }
-        }, 1500);
+        if (isComplete == 1) {
+            workArray[flag_work_id]["complete"] = 0;
+            setComplete(false, flag_work_id);
+        } else {
+            workArray[flag_work_id]["complete"] = 1;
+            setComplete(true, flag_work_id);
+        }
+        // }, 1500);
         //do something special
 
         isLoading = false;
@@ -395,7 +414,37 @@ $('#reply_submit').click(function() {
         },
         //submit이후의 처리
         success : function(responseText, statusText) {
-             getReply(flag_work_id);
+            reply_file_add.replaceWith( reply_file_add = reply_file_add.clone(true));
+            $("#reply_input").val("");
+            getReply(flag_work_id);
+
+        },
+        //ajax error
+        error : function() {
+            alert("에러발생!!");
+        }
+    });
+
+});
+
+$('#work_save_btn').click(function() {
+    $('#workList').ajaxForm({
+        //보내기전 validation check가 필요할경우
+        beforeSubmit : function(data, frm, opt) {
+
+            var title = $("#work_title");
+            if (title.val().replace(/\s/g, '') == "") {
+                alert("제목 입력은 필수입니다.");
+                return false;
+            } else {
+                return true;
+            }
+        },
+        //submit이후의 처리
+        success : function(responseText, statusText) {
+            flag_work_id = responseText;
+            getItem();
+
         },
         //ajax error
         error : function() {
@@ -410,16 +459,12 @@ $(document).ready(function() {
 });
 
 function formValidate() {
-    if (flag_isEditing) {
-        var title = $("#work_title");
-        if (title.val().replace(/\s/g, '') == "") {
-            alert("제목 입력은 필수입니다.");
-            return false;
-        } else {
-            return true;
-        }
+    var title = $("#work_title");
+    if (title.val().replace(/\s/g, '') == "") {
+        alert("제목 입력은 필수입니다.");
+        return false;
     } else {
-
+        return true;
     }
 }
 
@@ -432,9 +477,8 @@ $('#work_file_add').bind('change', function() {
 });
 $('#reply_file_add').bind('change', function() {
     if (1050000 < this.files[0].size) {
-        var temp = $('#reply_file_add');
         alert('1MB이하의 용량만 업로드 가능합니다.');
-        temp.replaceWith( temp = temp.clone(true));
+        reply_file_add.replaceWith( reply_file_add = reply_file_add.clone(true));
     }
 });
 
@@ -448,7 +492,26 @@ function newline(text) {
     return htmls.join("<br>");
 }
 
+function off(obj) {
+    obj.attr("disabled", "disabled");
+}
+
+function on(obj) {
+    obj.removeAttr("disabled");
+}
+
 // setInterval(function() {
 // getItem();
 // drawChart();
 // }, 5000);
+
+/*
+ ajax form data listing
+ $.each(data, function(key, value) {
+ $.each(value, function(key, value) {
+ console.log(key + value);
+ });
+ });
+
+ */
+

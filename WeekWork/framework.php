@@ -13,7 +13,7 @@
 <link href="framework/css/timetable.css" rel="stylesheet" type="text/css">
 <link href="framework/css/buttonLoader.css" rel="stylesheet" type="text/css">
 <link href="framework/css/simple-sidebar.css" rel="stylesheet">
-
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
  <?php include_once("./framework/lib.php"); ?>
 <!--[if lt IE 9]>
 <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>

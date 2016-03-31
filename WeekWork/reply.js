@@ -32,7 +32,7 @@ function getReply(work_id) {
                     htmls += '">' + this.file_name + '</a>';
                 }
                 if (wUser_id == this.user_id)
-                    htmls += ' <button class="btn btn-danger reply_clip glyphicon glyphicon-remove" type="button"  onclick=delReply(' + this.reply_id + ')></button>';
+                    htmls += ' <button class="btn btn-danger reply_x glyphicon glyphicon-trash" type="button"  onclick=delReply(' + this.reply_id + ',"' + this.file_hash + '")></button>';
                 htmls += '</p>';
                 countTemp++;
             });
@@ -55,22 +55,23 @@ function getReply(work_id) {
     return true;
 }
 
-function delReply(reply_id) {
+function delReply(reply_id, hash) {
 
     if (isLoading)
         return false;
 
     isLoading = true;
-    var request = $.ajax("index_db.php", {
+    var request = $.ajax("file.php", {
         type : "GET",
         data : {
             select : "delReply",
-            reply_id : reply_id
+            reply_id : reply_id,
+            hash : hash
         }
 
     });
 
-    request.done(function() {
+    request.done(function(args) {
         isLoading = false;
         getReply(flag_work_id);
 
@@ -78,7 +79,6 @@ function delReply(reply_id) {
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
         alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
-        $("#work_complete_btn").buttonLoader('stop');
 
         isLoading = false;
     });

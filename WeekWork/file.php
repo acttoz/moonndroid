@@ -1,12 +1,12 @@
 <?php
 include_once ('./config.php');
-// echo $_POST['work_id'];
-// echo $_POST['work_name'];
-// echo $_POST['work_content'];
-// echo $_POST['work_day'];
-// echo $_POST['work_ch_id'];
-if ($_POST['select'] == "upload") {
-    if ($_FILES['file']['name']) {
+// echo $_REQUEST['work_id'];
+// echo $_REQUEST['work_name'];
+// echo $_REQUEST['work_content'];
+// echo $_REQUEST['work_day'];
+// echo $_REQUEST['work_ch_id'];
+if ($_REQUEST['select'] == "upload") {
+    if (!empty($_FILES['file']['name'])) {
         if (strlen($_FILES['file']['name']) > 255) {
             echo "<script>alert('파일 이름이 너무 깁니다.');";
             echo "history.back();</script>";
@@ -31,19 +31,23 @@ if ($_POST['select'] == "upload") {
         mysql_query($query);
         $file_id = mysql_insert_id();
     } else {
-        $file_id = 0;
+        if ($_REQUEST['work_id'] != 0)
+            $file_id = mysql_result(mysql_query("SELECT file_id FROM work where work_id=${_REQUEST['work_id']}"), 0);
+        else
+            $file_id = 0;
     }
-
-    if ($_POST['work_id'] == 0) {
-        $sql = "INSERT INTO work (work_name,work_content,day,ch_id,user_id,file_id) VALUE ('${_POST['work_name']}','${_POST['work_content']}','${_POST['work_day']}','${_POST['work_ch_id']}','${_SESSION['id']}',${file_id})";
+    $work_id;
+    if ($_REQUEST['work_id'] == 0) {
+        $sql = "INSERT INTO work (work_name,work_content,day,ch_id,user_id,file_id) VALUE ('${_REQUEST['work_name']}','${_REQUEST['work_content']}','${_REQUEST['work_day']}','${_REQUEST['work_ch_id']}','${_SESSION['id']}',${file_id})";
+        mysql_query($sql);
+        $work_id = mysql_insert_id();
     } else {
-        $sql = "UPDATE work SET work_name='${_POST['work_name']}',work_content='${_POST['work_content']}',file_id=${file_id} WHERE work_id='${_POST['work_id']}'";
+        $sql = "UPDATE work SET work_name='${_REQUEST['work_name']}',work_content='${_REQUEST['work_content']}',file_id=${file_id} WHERE work_id='${_REQUEST['work_id']}'";
+        mysql_query($sql);
+        $work_id = $_REQUEST['work_id'];
     }
-    mysql_query($sql);
-
+    echo $work_id;
     mysql_close($connect);
-
-    header('Location: index.php');
 
 }
 
@@ -70,6 +74,7 @@ if ($_REQUEST['select'] == "download") {
         exit ;
     }
 }
+
 if ($_REQUEST['select'] == "del") {
 
     $dir = "./files/";
@@ -79,12 +84,22 @@ if ($_REQUEST['select'] == "del") {
         echo "file delete error";
         exit ;
     }
-    mysql_query("delete from files where file_id=" . $_GET['file_id']);
+    mysql_query("delete from files where file_id=" . $_REQUEST['file_id']);
     mysql_query("UPDATE work SET file_id=0 WHERE file_id=${_REQUEST['file_id']}");
     mysql_close($connect);
 }
+if ($_REQUEST['select'] == "delReply") {
 
-if ($_POST['select'] == "reply") {
+    $dir = "./files/";
+    $filehash = $_REQUEST['hash'];
+    if (!unlink($dir . $filehash)) {
+    }
+
+    mysql_query("DELETE FROM reply WHERE reply_id=${_REQUEST['reply_id']}");
+    mysql_close($connect);
+}
+
+if ($_REQUEST['select'] == "reply") {
     $file_name;
     $file_hash;
     if ($_FILES['reply_file']['name']) {
@@ -106,10 +121,10 @@ if ($_POST['select'] == "reply") {
                 exit ;
             }
         }
-        $file_name=$_FILES['reply_file']['name'];
+        $file_name = $_FILES['reply_file']['name'];
     } else {
-        $file_name='0';
-        $file_hash='0';
+        $file_name = '0';
+        $file_hash = '0';
     }
     $dt = new DateTime();
     $time = $dt -> format('Y-m-d H:i:s');
@@ -119,7 +134,6 @@ if ($_POST['select'] == "reply") {
     mysql_query($sql);
 
     mysql_close($connect);
-
 
 }
 ?>
