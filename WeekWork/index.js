@@ -51,7 +51,8 @@ function viewWork(work_id) {
         setComplete(false, work_id);
         if (wUser_id == workArray[work_id]["user_id"]) {
             on(work_complete_btn);
-
+            on(work_edit_btn);
+            on(work_delete_btn);
         }
         //my work
 
@@ -67,7 +68,6 @@ function viewWork(work_id) {
 }
 
 function resetWork() {
-
     var title = $("#work_title");
     var content = $("#work_content");
     title.css("border", "0px solid #04a4b5");
@@ -98,6 +98,7 @@ function resetWork() {
     $("#work_title").val("");
     $("#work_content").val("");
     $("#reply").html("");
+    setComplete(false);
 }
 
 work_file_down.click(function() {
@@ -134,6 +135,7 @@ function editMode() {
 
     off(work_complete_btn);
     on($("#work_file_del"));
+    off(work_delete_btn);
     work_edit_btn.css("display", "none");
     work_save_btn.css("display", "block");
     off($("#reply_submit"));
@@ -152,15 +154,11 @@ function setComplete(bool, work_id) {
         $("#work_title").css("text-decoration", "line-through");
         $("#work_content").css("text-decoration", "line-through");
         work_complete_btn.attr("class", "btn btn-success has-spinner glyphicon glyphicon-check");
-        off(work_edit_btn);
-        off(work_delete_btn);
     } else {
         $("#work_" + work_id).css("text-decoration", "none");
         $("#work_title").css("text-decoration", "none");
         $("#work_content").css("text-decoration", "none");
         work_complete_btn.attr("class", "btn btn-success has-spinner glyphicon glyphicon-unchecked");
-        on(work_edit_btn);
-        on(work_delete_btn);
     }
 }
 
@@ -196,7 +194,7 @@ getItem = function() {
                     "user_name" : this.user_name
                 };
                 obj = $('#' + this.ch_id + ' #' + this.day);
-                htmls += '<p class="btn btn-default work" id="work_' + this.work_id + '"  style="';
+                htmls += '<p class="btn btn-default work" id="work_' + this.work_id + '"  style="background:#cfebf2;';
                 htmls += 'display:block;margin-top:10px;margin-bottom:10px; " onclick=viewWork(' + this.work_id + ')>';
                 htmls += '⦁ ' + this.work_name;
                 htmls += '</p>';
@@ -209,7 +207,7 @@ getItem = function() {
 
         }
         isLoading = false;
-        $("#workList").css("display","none");
+        $("#workList").css("display", "none");
         if (flag_work_id != 0)
             viewWork(flag_work_id);
     });
@@ -272,11 +270,8 @@ function getFileInfo(file_id) {
 
 $("#work_file_del").click(function() {
 
-    if (confirm("삭제 후에는 복구가 불가능합니다.\n파일을 삭제하시겠습니까?")) {
-
-    } else {
+    if (!confirm("삭제 후에는 복구가 불가능합니다.\n파일을 삭제하시겠습니까?"))
         return false;
-    }
 
     if (isLoading)
         return false;
@@ -311,12 +306,13 @@ $("#work_file_del").click(function() {
     return true;
 });
 $("#work_delete_btn").click(function() {
-
-    if (confirm("삭제 후에는 복구가 불가능합니다.\n삭제하시겠습니까?")) {
-
-    } else {
+    if (!isEmpty($('#reply'))) {
+        alert("댓글이 있는 글은 삭제가 불가능합니다.");
         return false;
     }
+
+    if (!confirm("삭제 후에는 복구가 불가능합니다.\n삭제하시겠습니까?"))
+        return false;
 
     if (isLoading)
         return false;
@@ -334,7 +330,8 @@ $("#work_delete_btn").click(function() {
 
     });
 
-    request.done(function() {
+    request.done(function(args) {
+        alert(args);
         isLoading = false;
         resetWork();
         getItem();
@@ -349,6 +346,11 @@ $("#work_delete_btn").click(function() {
 
     return true;
 });
+
+function isEmpty(el) {
+    return !$.trim(el.html())
+}
+
 
 $('#work_complete_btn').click(function() {
     var isComplete = workArray[flag_work_id]["complete"];
@@ -377,11 +379,10 @@ $('#work_complete_btn').click(function() {
 
         if (isComplete == 1) {
             workArray[flag_work_id]["complete"] = 0;
-            setComplete(false, flag_work_id);
         } else {
             workArray[flag_work_id]["complete"] = 1;
-            setComplete(true, flag_work_id);
         }
+        viewWork(flag_work_id);
         // }, 1500);
         //do something special
 
@@ -498,6 +499,10 @@ function off(obj) {
 
 function on(obj) {
     obj.removeAttr("disabled");
+}
+
+function isEmpty(el) {
+    return !$.trim(el.html());
 }
 
 // setInterval(function() {

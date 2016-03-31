@@ -19,11 +19,12 @@ function getReply(work_id) {
 
     request.done(function(json) {
         var obj = $("#reply");
+        var replyCount = 0;
         htmls = "";
-        var countTemp = 0;
+       
         if ( typeof json === "object" && json.week.length > 0) {
             $(json.week).each(function() {
-                if (countTemp != 0)
+                if (replyCount != 0)
                     htmls += '<hr>';
                 htmls += '<p style=" padding-right:5px;">' + this.content + '&nbsp;<span style="font-weight:bold">- ' + this.user_name + '</span>' + '<span style="font-size:12px">(' + this.time + ')</span>&nbsp;&nbsp;&nbsp;';
                 if (this.file_name != '0') {
@@ -34,7 +35,7 @@ function getReply(work_id) {
                 if (wUser_id == this.user_id)
                     htmls += ' <button class="btn btn-danger reply_x glyphicon glyphicon-trash" type="button"  onclick=delReply(' + this.reply_id + ',"' + this.file_hash + '")></button>';
                 htmls += '</p>';
-                countTemp++;
+                replyCount++;
             });
             obj.append(htmls);
             htmls = "";

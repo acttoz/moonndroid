@@ -94,11 +94,13 @@ if ($_REQUEST['select'] == "complete") {
 
 if ($_REQUEST['select'] == "delWork") {
     $dir = "./files/";
-    $filehash = $_REQUEST['hash'];
 
-    if (!unlink($dir . $filehash)) {
-        echo "file delete error";
-        exit ;
+    if (!empty($_REQUEST['hash'])) {
+        $filehash = $_REQUEST['hash'];
+
+        if (!unlink($dir . $filehash)) {
+            echo "error";
+        }
     }
     mysql_query("DELETE FROM work WHERE work_id=${_REQUEST['work_id']}");
     mysql_query("DELETE FROM files WHERE file_id=${_REQUEST['file_id']}");
