@@ -37,12 +37,13 @@ if ($_REQUEST['select'] == "upload") {
             $file_id = 0;
     }
     $work_id;
+    $work_content = htmlspecialchars($_REQUEST['work_content'], ENT_QUOTES);
     if ($_REQUEST['work_id'] == 0) {
-        $sql = "INSERT INTO work (work_name,work_content,day,ch_id,user_id,file_id) VALUE ('${_REQUEST['work_name']}','${_REQUEST['work_content']}','${_REQUEST['work_day']}','${_REQUEST['work_ch_id']}','${_SESSION['id']}',${file_id})";
+        $sql = "INSERT INTO work (work_name,work_content,day,ch_id,user_id,file_id) VALUE ('${_REQUEST['work_name']}','${work_content}','${_REQUEST['work_day']}','${_REQUEST['work_ch_id']}','${_SESSION['id']}',${file_id})";
         mysql_query($sql);
         $work_id = mysql_insert_id();
     } else {
-        $sql = "UPDATE work SET work_name='${_REQUEST['work_name']}',work_content='${_REQUEST['work_content']}',file_id=${file_id} WHERE work_id='${_REQUEST['work_id']}'";
+        $sql = "UPDATE work SET work_name='${_REQUEST['work_name']}',work_content='${work_content}',file_id=${file_id} WHERE work_id='${_REQUEST['work_id']}'";
         mysql_query($sql);
         $work_id = $_REQUEST['work_id'];
     }
@@ -128,8 +129,8 @@ if ($_REQUEST['select'] == "reply") {
     }
     $dt = new DateTime();
     $time = $dt -> format('Y-m-d H:i:s');
-
-    $sql = "INSERT INTO reply (content,time,user_id,work_id,file_name,file_hash) VALUE ('${_REQUEST['reply_content']}','${time}','${_SESSION['id']}','${_REQUEST['work_id']}','${file_name}','${file_hash}')";
+    $reply_content = nl2br(htmlspecialchars($_REQUEST['reply_content']));
+    $sql = "INSERT INTO reply (content,time,user_id,work_id,file_name,file_hash) VALUE ('${reply_content}','${time}','${_SESSION['id']}','${_REQUEST['work_id']}','${file_name}','${file_hash}')";
 
     mysql_query($sql);
 

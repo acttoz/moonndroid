@@ -9,10 +9,9 @@
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <script src="framework/js/placeholder.js"></script>
 <script src="framework/js/jquery.form.min.js"></script>
-<script src="framework/js/jquery_buttonLoader_min.js"></script>
+<script src="framework/js/jquery-loader.js"></script>
 <link href="framework/css/timetable.css" rel="stylesheet" type="text/css">
-<link href="framework/css/buttonLoader.css" rel="stylesheet" type="text/css">
-<link href="framework/css/simple-sidebar.css" rel="stylesheet">
+<link href="framework/css/loader.css" rel="stylesheet" type="text/css">
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
  <?php include_once("./framework/lib.php"); ?>
 <!--[if lt IE 9]>

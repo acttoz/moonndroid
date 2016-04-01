@@ -5,14 +5,10 @@ $sql = $sql . " OR ch_id='" . $_SESSION['ch2'] . "'";
 $sql = $sql . " OR ch_id='" . $_SESSION['ch3'] . "'";
 $sql = $sql . " OR ch_id='" . $_SESSION['ch4'] . "'";
 $sql = $sql . " OR ch_id='" . $_SESSION['ch5'] . "'";
-
 $result = mysql_query($sql);
 while ($row = mysql_fetch_array($result)) {
     $ch_ids[] = $row['ch_id'];
     $ch_names[] = $row['ch_name'];
-    echo "<li>                                            ";
-    echo "    <a href=index.php?ch=" . $row['ch_id'] . ">" . $row['ch_name'] . "</a>";
-    echo "</li>                                                 ";
 }
 ?>
 <LINK REL="SHORTCUT ICON" HREF="./favicon.ico" />
@@ -25,18 +21,18 @@ while ($row = mysql_fetch_array($result)) {
         <ul>
 
             <li >
-                <a href="timetable.php">기초 시간표</a>
+                <a href="#">WeekWork</a>
             </li>
             <li >
-                <a href="today.php">알림장</a>
+                <a href="#">채널 설정</a>
             </li>
             <li >
-                <a href="help.php">고객지원</a>
+                <a href="#">질문&답변</a>
             </li>
-
-            <li>
-
+            <li >
+                <a href="#">계정 관리</a>
             </li>
+             
         </ul>
     </nav>
 </header>

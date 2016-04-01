@@ -1,8 +1,3 @@
-$("#menu-toggle").click(function(e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
-});
-
 // var console = console || {
 // log : function() {
 // },
@@ -194,7 +189,7 @@ getItem = function() {
                     "user_name" : this.user_name
                 };
                 obj = $('#' + this.ch_id + ' #' + this.day);
-                htmls += '<p class="btn btn-default work" id="work_' + this.work_id + '"  style="background:#cfebf2;';
+                htmls += '<p class="btn btn-default work" id="work_' + this.work_id + '"  style="background:#cfebf2;border-color:#cfebf2;';
                 htmls += 'display:block;margin-top:10px;margin-bottom:10px; " onclick=viewWork(' + this.work_id + ')>';
                 htmls += '⦁ ' + this.work_name;
                 htmls += '</p>';
@@ -331,7 +326,6 @@ $("#work_delete_btn").click(function() {
     });
 
     request.done(function(args) {
-        alert(args);
         isLoading = false;
         resetWork();
         getItem();
@@ -348,7 +342,7 @@ $("#work_delete_btn").click(function() {
 });
 
 function isEmpty(el) {
-    return !$.trim(el.html())
+    return !$.trim(el.html());
 }
 
 
@@ -432,6 +426,30 @@ $('#work_save_btn').click(function() {
     $('#workList').ajaxForm({
         //보내기전 validation check가 필요할경우
         beforeSubmit : function(data, frm, opt) {
+            $data = {
+                autoCheck : true,
+                size : 32,
+                bgColor : '#fff',
+                bgOpacity : 0.5,
+                fontColor : '#000',
+                title : '',
+                isOnly : true
+            };
+            $('body').loader.open($data);
+            // switch ($(this).data('target')){
+            // case 'body':
+            //
+            // break;
+            // case 'self':
+            // $(this).loader($data);
+            // break;
+            // case 'form':
+            // $('form').loader($data);
+            // break;
+            // case 'close':
+            // $.loader.close(true);
+
+            // }
 
             var title = $("#work_title");
             if (title.val().replace(/\s/g, '') == "") {
@@ -443,6 +461,7 @@ $('#work_save_btn').click(function() {
         },
         //submit이후의 처리
         success : function(responseText, statusText) {
+            $('body').loader.close(true);
             flag_work_id = responseText;
             getItem();
 
@@ -471,13 +490,13 @@ function formValidate() {
 
 
 $('#work_file_add').bind('change', function() {
-    if (1050000 < this.files[0].size) {
+    if (10500000 < this.files[0].size) {
         alert('1MB이하의 용량만 업로드 가능합니다.');
         work_file_add.replaceWith( work_file_add = work_file_add.clone(true));
     }
 });
 $('#reply_file_add').bind('change', function() {
-    if (1050000 < this.files[0].size) {
+    if (10500000 < this.files[0].size) {
         alert('1MB이하의 용량만 업로드 가능합니다.');
         reply_file_add.replaceWith( reply_file_add = reply_file_add.clone(true));
     }
