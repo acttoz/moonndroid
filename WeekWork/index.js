@@ -172,7 +172,7 @@ getItem = function() {
         }
 
     });
-
+    $.overlay.show('ajax');
     request.done(function(json) {
         $(".work > p").remove();
         var obj;
@@ -205,6 +205,8 @@ getItem = function() {
         $("#workList").css("display", "none");
         if (flag_work_id != 0)
             viewWork(flag_work_id);
+
+        $.overlay.hide('ajax');
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
@@ -272,7 +274,7 @@ $("#work_file_del").click(function() {
         return false;
 
     isLoading = true;
-
+    $.overlay.show('ajax');
     var request = $.ajax("file.php", {
         type : "GET",
         data : {
@@ -285,6 +287,7 @@ $("#work_file_del").click(function() {
     });
 
     request.done(function(args) {
+        $.overlay.hide('ajax');
         workArray[flag_work_id]["file_id"] = 0;
         work_file_btns.css("display", "none");
         work_file_add.css("display", "block");
@@ -313,7 +316,7 @@ $("#work_delete_btn").click(function() {
         return false;
 
     isLoading = true;
-
+    $.overlay.show('ajax');
     var request = $.ajax("index_db.php", {
         type : "GET",
         data : {
@@ -326,6 +329,7 @@ $("#work_delete_btn").click(function() {
     });
 
     request.done(function(args) {
+        $.overlay.hide('ajax');
         isLoading = false;
         resetWork();
         getItem();
@@ -399,6 +403,7 @@ $('#reply_submit').click(function() {
     $('#workList').ajaxForm({
         //보내기전 validation check가 필요할경우
         beforeSubmit : function(data, frm, opt) {
+            $.overlay.show('ajax');
             var title = $("#reply_input");
             if (title.val().replace(/\s/g, '') == "") {
                 alert("내용을 입력하세요.");
@@ -409,6 +414,7 @@ $('#reply_submit').click(function() {
         },
         //submit이후의 처리
         success : function(responseText, statusText) {
+            $.overlay.hide('ajax');
             reply_file_add.replaceWith( reply_file_add = reply_file_add.clone(true));
             $("#reply_input").val("");
             getReply(flag_work_id);
@@ -426,30 +432,8 @@ $('#work_save_btn').click(function() {
     $('#workList').ajaxForm({
         //보내기전 validation check가 필요할경우
         beforeSubmit : function(data, frm, opt) {
-            $data = {
-                autoCheck : true,
-                size : 32,
-                bgColor : '#fff',
-                bgOpacity : 0.5,
-                fontColor : '#000',
-                title : '',
-                isOnly : true
-            };
-            $('body').loader.open($data);
-            // switch ($(this).data('target')){
-            // case 'body':
-            //
-            // break;
-            // case 'self':
-            // $(this).loader($data);
-            // break;
-            // case 'form':
-            // $('form').loader($data);
-            // break;
-            // case 'close':
-            // $.loader.close(true);
 
-            // }
+            $.overlay.show('ajax');
 
             var title = $("#work_title");
             if (title.val().replace(/\s/g, '') == "") {
@@ -461,7 +445,7 @@ $('#work_save_btn').click(function() {
         },
         //submit이후의 처리
         success : function(responseText, statusText) {
-            $('body').loader.close(true);
+            $.overlay.hide('ajax');
             flag_work_id = responseText;
             getItem();
 
@@ -476,6 +460,11 @@ $('#work_save_btn').click(function() {
 
 $(document).ready(function() {
     getItem();
+
+});
+
+$(".overlay_ctrl").click(function() {
+    $.overlay.hide('ajax');
 });
 
 function formValidate() {

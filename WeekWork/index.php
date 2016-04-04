@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" >
 
     <?php
     include_once ('./config.php');
@@ -20,18 +20,17 @@
         ?>
     </head>
 
-    <body>
+    <body >
  <?php
-        include_once ('./header.php');
+include_once ('./header.php');
          ?>
-        <div id="wrapper"  >
+        <div id="wrapper">
            
                             <div  id='content'  >
                                 <table class="time_table" style="table-layout: fixed;" align="center"  >
                                     <tr class="row1" style="border-radius: 10px 0 0 0; ">
                                         <td class="cell1 center" style="border-top-style:none;border-left-style:none; border-radius: 10px 0 0 0; "><?php
-                                        
-                                        
+
                                         // $monday = strtotime('monday this week');
                                         $monday = 1458486000;
                                         echo(int)date("m", $monday) . "월";
@@ -183,7 +182,9 @@
 
         </div>
         <!-- /#wrapper -->
-
+<div class="overlay">
+    <button class="btn-danger btn overlay_ctrl"  style="float:left; width:100px">X</button>
+</div>
         <!-- Menu Toggle Script -->
         <script src="index.js"></script>
         <script src="reply.js"></script>
