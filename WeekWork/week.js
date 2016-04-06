@@ -163,7 +163,7 @@ getItem = function() {
 
     isLoading = true;
 
-    var request = $.ajax("index_db.php", {
+    var request = $.ajax("db.php", {
         type : "GET",
         dataType : "json",
         contentType : "application/json; charset=utf-8",
@@ -223,7 +223,7 @@ function getFileInfo(file_id) {
     if (isLoadingFile)
         return false;
     isLoadingFile = true;
-    var request = $.ajax("index_db.php", {
+    var request = $.ajax("db.php", {
 
         type : "GET",
         dataType : "json",
@@ -302,6 +302,7 @@ $("#work_file_del").click(function() {
 
     return true;
 });
+
 $("#work_delete_btn").click(function() {
     if (!isEmpty($('#reply'))) {
         alert("댓글이 있는 글은 삭제가 불가능합니다.");
@@ -316,7 +317,7 @@ $("#work_delete_btn").click(function() {
 
     isLoading = true;
     $.overlay.show('ajax');
-    var request = $.ajax("index_db.php", {
+    var request = $.ajax("db.php", {
         type : "GET",
         data : {
             select : "delWork",
@@ -360,7 +361,7 @@ $('#work_complete_btn').click(function() {
 
     isLoading = true;
 
-    var request = $.ajax("index_db.php", {
+    var request = $.ajax("db.php", {
         type : "GET",
         data : {
             select : "complete",
@@ -398,6 +399,7 @@ $('#work_complete_btn').click(function() {
     return true;
 
 });
+
 $('#reply_submit').click(function() {
     $('#workList').ajaxForm({
         //보내기전 validation check가 필요할경우

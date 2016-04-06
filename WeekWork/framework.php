@@ -1,4 +1,3 @@
-<title>스피드 알림장 3</title >
 <meta http-equiv='Content-Type' content='text/html' charset='utf-8'>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name= "viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=no" />
@@ -13,7 +12,9 @@
 <link href="framework/css/timetable.css" rel="stylesheet" type="text/css">
 <link href="framework/css/loader.css" rel="stylesheet" type="text/css">
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
- <?php include_once("./framework/lib.php"); ?>
+<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"/>
+
+ <title>WeekWork</title>
 <!--[if lt IE 9]>
 <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->

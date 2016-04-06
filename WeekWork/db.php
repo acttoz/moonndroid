@@ -3,14 +3,63 @@ include_once ('./config.php');
 
 ///////////////////////////////////////
 
+if ($_REQUEST['select'] == "idcheck") {
+
+    $query = mysql_query("SELECT * FROM w_account WHERE user_id ='" . $_REQUEST['user_id'] . "'", $connect);
+
+    if (mysql_num_rows($query) == 0) {
+
+        echo "success";
+
+    } else {
+        echo "fail";
+    }
+
+}
+
+if ($_REQUEST['select'] == "submit") {
+
+    $id = $_REQUEST['user_id'];
+    $sql = "INSERT INTO w_account ( user_id,user_pw,user_name,user_mail) VALUES ( ";
+    $sql = $sql . "'" . $_REQUEST['user_id'] . "',";
+    $sql = $sql . "'" . $_REQUEST['user_pw'] . "',";
+    $sql = $sql . "'" . $_REQUEST['user_name'] . "',";
+    $sql = $sql . "'" . $_REQUEST['user_mail'] . "')";
+    mysql_query($sql, $connect);
+}
+
+if ($_REQUEST['select'] == "login") {
+    $result = mysql_query("SELECT * FROM w_account WHERE user_id ='${_REQUEST['user_id']}' AND user_pw='${_REQUEST['user_pass']}'", $connect);
+
+    if (mysql_num_rows($result) == 1) {
+        $row = mysql_fetch_assoc($result);
+
+        $_SESSION['is_logged'] = TRUE;
+        $_SESSION['id'] = $row['user_id'];
+        $_SESSION['school'] = $row['school_id'];
+        $_SESSION['name'] = $row['user_name'];
+        $_SESSION['ch1'] = $row['ch1_id'];
+        $_SESSION['ch2'] = $row['ch2_id'];
+        $_SESSION['ch3'] = $row['ch3_id'];
+        $_SESSION['ch4'] = $row['ch4_id'];
+        $_SESSION['ch5'] = $row['ch5_id'];
+
+        echo "success";
+
+    } else {
+        echo "fail";
+    }
+
+}
+
 if ($_REQUEST['select'] == "week") {
 
-    $sql = "SELECT work.*,account.user_name FROM work INNER JOIN account ON work.user_id = account.user_id WHERE ";
-    $sql = $sql . " work.ch_id='" . $_SESSION['ch1'] . "'";
-    $sql = $sql . " OR work.ch_id='" . $_SESSION['ch2'] . "'";
-    $sql = $sql . " OR work.ch_id='" . $_SESSION['ch3'] . "'";
-    $sql = $sql . " OR work.ch_id='" . $_SESSION['ch4'] . "'";
-    $sql = $sql . " OR work.ch_id='" . $_SESSION['ch5'] . "'";
+    $sql = "SELECT w_work.*,w_account.user_name FROM w_work INNER JOIN w_account ON w_work.user_id = w_account.user_id WHERE ";
+    $sql = $sql . " w_work.ch_id='" . $_SESSION['ch1'] . "'";
+    $sql = $sql . " OR w_work.ch_id='" . $_SESSION['ch2'] . "'";
+    $sql = $sql . " OR w_work.ch_id='" . $_SESSION['ch3'] . "'";
+    $sql = $sql . " OR w_work.ch_id='" . $_SESSION['ch4'] . "'";
+    $sql = $sql . " OR w_work.ch_id='" . $_SESSION['ch5'] . "'";
     $sql = $sql . " ORDER BY work_id DESC";
     $result = mysql_query($sql);
     while ($array = mysql_fetch_array($result)) {
@@ -24,7 +73,7 @@ if ($_REQUEST['select'] == "week") {
 }
 
 if ($_REQUEST['select'] == "reply") {
-    $sql = "SELECT reply.*,account.user_name FROM reply INNER JOIN account ON reply.user_id = account.user_id WHERE reply.work_id=${_REQUEST['work_id']}";
+    $sql = "SELECT w_reply.*,w_account.user_name FROM w_reply INNER JOIN w_account ON w_reply.user_id = w_account.user_id WHERE w_reply.work_id=${_REQUEST['work_id']}";
     $result = mysql_query($sql);
     $results = array();
     while ($array = mysql_fetch_array($result)) {
@@ -39,7 +88,7 @@ if ($_REQUEST['select'] == "reply") {
 
 }
 if ($_REQUEST['select'] == "file") {
-    $sql = "SELECT * FROM files WHERE file_id=${_REQUEST['file_id']}";
+    $sql = "SELECT * FROM w_files WHERE file_id=${_REQUEST['file_id']}";
     $result = mysql_query($sql);
     $results = array();
     while ($array = mysql_fetch_array($result)) {
@@ -53,7 +102,7 @@ if ($_REQUEST['select'] == "file") {
 }
 
 if ($_REQUEST['select'] == "complete") {
-    mysql_query("UPDATE work SET complete=${_REQUEST['complete']} WHERE work_id=${_REQUEST['work_id']}");
+    mysql_query("UPDATE w_work SET complete=${_REQUEST['complete']} WHERE work_id=${_REQUEST['work_id']}");
 }
 
 if ($_REQUEST['select'] == "delWork") {
@@ -66,15 +115,15 @@ if ($_REQUEST['select'] == "delWork") {
             echo "error";
         }
     }
-    mysql_query("DELETE FROM work WHERE work_id=${_REQUEST['work_id']}");
-    mysql_query("DELETE FROM files WHERE file_id=${_REQUEST['file_id']}");
+    mysql_query("DELETE FROM w_work WHERE work_id=${_REQUEST['work_id']}");
+    mysql_query("DELETE FROM w_files WHERE file_id=${_REQUEST['file_id']}");
 }
 
 if ($_REQUEST['select'] == "sendWork") {
     if ($_REQUEST['work_id'] == 0) {
-        $sql = "INSERT INTO work (work_name,work_content,day,ch_id,user_id) VALUE ('${_REQUEST['work_name']}','${_REQUEST['work_content']}','${_REQUEST['day']}','${_REQUEST['ch_id']}','${_SESSION['id']}')";
+        $sql = "INSERT INTO w_work (work_name,work_content,day,ch_id,user_id) VALUE ('${_REQUEST['work_name']}','${_REQUEST['work_content']}','${_REQUEST['day']}','${_REQUEST['ch_id']}','${_SESSION['id']}')";
     } else {
-        $sql = "UPDATE work SET work_name='${_REQUEST['work_name']}',work_content='${_REQUEST['work_content']}' WHERE work_id='${_REQUEST['work_id']}'";
+        $sql = "UPDATE w_work SET work_name='${_REQUEST['work_name']}',work_content='${_REQUEST['work_content']}' WHERE work_id='${_REQUEST['work_id']}'";
     }
     mysql_query($sql);
 }
@@ -82,7 +131,7 @@ if ($_REQUEST['select'] == "sendWork") {
 if ($_REQUEST['select'] == "sendReply") {
     $dt = new DateTime();
     $time = $dt -> format('Y-m-d H:i:s');
-    $sql = "INSERT INTO reply (content,time,user_id,work_id) VALUE ('${_REQUEST['content']}','${time}','${_SESSION['id']}','${_REQUEST['work_id']}')";
+    $sql = "INSERT INTO w_reply (content,time,user_id,work_id) VALUE ('${_REQUEST['content']}','${time}','${_SESSION['id']}','${_REQUEST['work_id']}')";
     mysql_query($sql);
 }
 ///////////////////////////////////

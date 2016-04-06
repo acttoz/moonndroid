@@ -4,8 +4,6 @@ if (PHP_VERSION >= '5.1.0') {
     date_default_timezone_set("Asia/Seoul");
 }
 
-define('IMG-DIR',      'img');
-define('FRAME-DIR',      'framework');
 
 //==============================================================================
 // SESSION 설정
@@ -21,18 +19,10 @@ session_set_cookie_params(0, '/');
 //==============================================================================
 
 // error_reporting(0);
-$_SESSION['is_logged'] = TRUE;
-$_SESSION['id'] = "acttoz";
-$_SESSION['school'] = 1;
-$_SESSION['name'] = "문병무";
-$_SESSION['ch1'] = 1;
-$_SESSION['ch2'] = 2;
-$_SESSION['ch3'] = 3;
-$_SESSION['ch4'] = null;
-$_SESSION['ch5'] = null;
+
 $DB['host'] = 'localhost';
-$DB['db'] = 'weekwork';
-$DB['id'] = 'weekwork';
+$DB['db'] = 'alim';
+$DB['id'] = 'alim';
 $DB['pw'] = '0453acac';
 
 header("Content-Type: text/html; charset=UTF-8");

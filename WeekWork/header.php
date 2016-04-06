@@ -1,5 +1,12 @@
 <?php
-$sql = "SELECT ch_id,ch_name FROM channel WHERE ";
+
+if(empty($_SESSION['ch1'])){
+    header("Location:channel.php");
+    exit;
+}
+
+
+$sql = "SELECT ch_id,ch_name FROM w_channel WHERE ";
 $sql = $sql . "ch_id='" . $_SESSION['ch1'] . "'";
 $sql = $sql . " OR ch_id='" . $_SESSION['ch2'] . "'";
 $sql = $sql . " OR ch_id='" . $_SESSION['ch3'] . "'";
@@ -10,16 +17,42 @@ while ($row = mysql_fetch_array($result)) {
     $ch_ids[] = $row['ch_id'];
     $ch_names[] = $row['ch_name'];
 }
+
+if (empty($_REQUEST['week'])) {
+    $this_week = 0;
+}else{
+    $this_week=$_REQUEST['week'];
+}
+
+$tempweek = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday');
+for ($i = 0; $i < 5; $i++) {
+    $weeks[] = date("Y-m-d", strtotime($tempweek[$i].' '.$this_week.' week'));
+}
 ?>
+
 <LINK REL="SHORTCUT ICON" HREF="./favicon.ico" />
 <header id="header">
 
     <logo>
-        <a href="" title="스피드알림장3">스피드알림장3</a>
+        <a href="./week.php"></a>
     </logo>
     <nav id="mainMenu">
         <ul>
 
+            <li >
+                <a href="week.php?week=<?php echo (int)$this_week-4;?>" class="glyphicon-text glyphicon-fast-backward"></a>
+            </li>
+            <li>
+                <a href="week.php?week=<?php echo (int)$this_week-1;?>" class="glyphicon-text glyphicon-arrow-left"></a>
+            </li>
+            <li>
+                <a href="week.php?week=<?php echo (int)$this_week+1;?>" class="glyphicon-text glyphicon-arrow-right"></a>
+            </li>
+            <li>
+                <a href="week.php?week=<?php echo (int)$this_week+4;?>" class="glyphicon-text glyphicon-fast-forward"></a>
+            </li>
+            <li>
+            </li>
             <li >
                 <a href="#">WeekWork</a>
             </li>
@@ -32,7 +65,7 @@ while ($row = mysql_fetch_array($result)) {
             <li >
                 <a href="#">계정 관리</a>
             </li>
-             
+
         </ul>
     </nav>
 </header>

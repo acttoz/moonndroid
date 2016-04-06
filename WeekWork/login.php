@@ -52,16 +52,15 @@
                 } else {
 
                     $.ajax({
-                        url : "db.php",
+                        url : "login_check.php",
                         type : 'POST',
                         cache : false,
                         data : {
-                            select:"login",
                             user_id : mUserid,
                             user_pass : mUserPass
                         },
                         success : function(args) {
-                            if (args == "success") {
+                            if (args == "success ") {
 
                                 if (document.getElementById("login_save").checked) {
                                     localStorage.setItem("ID", mUserid);
@@ -71,9 +70,9 @@
                                     localStorage.clear();
                                 }
 
-                                document.location.href = "week.php";
+                                document.location.href = "today.php";
                             } else {
-                                alert("아이디나 비밀번호가 맞지 않습니다.");
+                                alert("이메일이나 비밀번호가 맞지 않습니다.");
 
                             }
                         }
@@ -96,7 +95,26 @@
                 }
             });
 
-           
+            // $(function() {
+            // $("#dialog-confirm").css("display", "block");
+            // $("#dialog-confirm").scrollTop("0");
+            //
+            // $("#dialog-confirm").dialog({
+            // resizable : false,
+            // width : 800,
+            // height : 540,
+            // modal : true,
+            //
+            // buttons : {
+            // "확인" : function() {
+            // $(this).dialog("close");
+            // }
+            // },
+            // open : function() {
+            // $(this).scrollTop(0);
+            // }
+            // });
+            // });
         </script>
     </body>
 </html>

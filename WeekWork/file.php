@@ -25,25 +25,25 @@ if ($_REQUEST['select'] == "upload") {
                 exit ;
             }
         }
-        $query = "insert into files (name, hash) 
+        $query = "insert into w_files (name, hash) 
               values('" . $_FILES['file']['name'] . "', 
               '" . $file_hash . "')";
         mysql_query($query);
         $file_id = mysql_insert_id();
     } else {
         if ($_REQUEST['work_id'] != 0)
-            $file_id = mysql_result(mysql_query("SELECT file_id FROM work where work_id=${_REQUEST['work_id']}"), 0);
+            $file_id = mysql_result(mysql_query("SELECT file_id FROM w_work where work_id=${_REQUEST['work_id']}"), 0);
         else
             $file_id = 0;
     }
     $work_id;
     $work_content = htmlspecialchars($_REQUEST['work_content'], ENT_QUOTES);
     if ($_REQUEST['work_id'] == 0) {
-        $sql = "INSERT INTO work (work_name,work_content,day,ch_id,user_id,file_id) VALUE ('${_REQUEST['work_name']}','${work_content}','${_REQUEST['work_day']}','${_REQUEST['work_ch_id']}','${_SESSION['id']}',${file_id})";
+        $sql = "INSERT INTO w_work (work_name,work_content,day,ch_id,user_id,file_id) VALUE ('${_REQUEST['work_name']}','${work_content}','${_REQUEST['work_day']}','${_REQUEST['work_ch_id']}','${_SESSION['id']}',${file_id})";
         mysql_query($sql);
         $work_id = mysql_insert_id();
     } else {
-        $sql = "UPDATE work SET work_name='${_REQUEST['work_name']}',work_content='${work_content}',file_id=${file_id} WHERE work_id='${_REQUEST['work_id']}'";
+        $sql = "UPDATE w_work SET work_name='${_REQUEST['work_name']}',work_content='${work_content}',file_id=${file_id} WHERE work_id='${_REQUEST['work_id']}'";
         mysql_query($sql);
         $work_id = $_REQUEST['work_id'];
     }
@@ -85,8 +85,8 @@ if ($_REQUEST['select'] == "del") {
         echo "file delete error";
         exit ;
     }
-    mysql_query("delete from files where file_id=" . $_REQUEST['file_id']);
-    mysql_query("UPDATE work SET file_id=0 WHERE file_id=${_REQUEST['file_id']}");
+    mysql_query("delete from w_files where file_id=" . $_REQUEST['file_id']);
+    mysql_query("UPDATE w_work SET file_id=0 WHERE file_id=${_REQUEST['file_id']}");
     mysql_close($connect);
 }
 if ($_REQUEST['select'] == "delReply") {
@@ -96,7 +96,7 @@ if ($_REQUEST['select'] == "delReply") {
     if (!unlink($dir . $filehash)) {
     }
 
-    mysql_query("DELETE FROM reply WHERE reply_id=${_REQUEST['reply_id']}");
+    mysql_query("DELETE FROM w_reply WHERE reply_id=${_REQUEST['reply_id']}");
     mysql_close($connect);
 }
 
@@ -130,7 +130,7 @@ if ($_REQUEST['select'] == "reply") {
     $dt = new DateTime();
     $time = $dt -> format('Y-m-d H:i:s');
     $reply_content = nl2br(htmlspecialchars($_REQUEST['reply_content']));
-    $sql = "INSERT INTO reply (content,time,user_id,work_id,file_name,file_hash) VALUE ('${reply_content}','${time}','${_SESSION['id']}','${_REQUEST['work_id']}','${file_name}','${file_hash}')";
+    $sql = "INSERT INTO w_reply (content,time,user_id,work_id,file_name,file_hash) VALUE ('${reply_content}','${time}','${_SESSION['id']}','${_REQUEST['work_id']}','${file_name}','${file_hash}')";
 
     mysql_query($sql);
 

@@ -61,7 +61,7 @@ section, article, aside, header, footer, nav, dialog, figure {
 	top: 12px;
 	left: 26px;
 	text-indent: -90000px;
-	width: 257px;
+	width: 313px;
 	height: 36px;
 	font-size: 12px;
 	overflow: hidden;
@@ -72,7 +72,7 @@ section, article, aside, header, footer, nav, dialog, figure {
 	text-decoration: none;
 	width: 343px;
 	height: 49px;
-	background: url(/img/logo.png) no-repeat;
+	background: url(../../img/logo.png) no-repeat;
 }
 
 #content {
