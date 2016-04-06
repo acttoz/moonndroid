@@ -1,8 +1,12 @@
 <?php
 
 if(empty($_SESSION['ch1'])){
-    header("Location:channel.php");
-    exit;
+    echo "<script>";
+    echo "if(!alert('기본 채널(학교)을 선택해야 이용이 가능합니다.'))";
+    echo "location.href='channel.php';";
+    echo "</script>";
+    // header("Location:channel.php");
+    // exit;
 }
 
 
@@ -54,7 +58,7 @@ for ($i = 0; $i < 5; $i++) {
             <li>
             </li>
             <li >
-                <a href="#">WeekWork</a>
+                <a href="week.php">WeekWork</a>
             </li>
             <li >
                 <a href="#">채널 설정</a>
