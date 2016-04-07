@@ -124,14 +124,14 @@ session_start();
 				<div class="form-group">
 					<label class="col-sm-2 control-label" style="font-size: 13px;" >학급코드(<red style="color: red; font-size: 12px;">숫자4자리</red>)</label>
 					<div class="col-sm-10">
-						<input type="number" maxlength="4" oninput="maxLengthCheck(this)" id="class_pass" class="form-control" placeholder="우리반의 알림장을 받기 위해서는 이 비밀번호를 알아야 합니다.학부모와 학생들에게 알려주세요.">
+						<input  maxlength="4"  id="class_pass" class="form-control" placeholder="우리반의 알림장을 받기 위해서는 이 비밀번호를 알아야 합니다.학부모와 학생들에게 알려주세요.">
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="col-sm-2 control-label" style="font-size: 13px;" >학급코드 한번더</label>
 					<div class="col-sm-10">
-						<input type="number" maxlength="4" oninput="maxLengthCheck(this)" id="class_pass2" class="form-control" placeholder="학급코드를 한번더 정확히 입력해주세요.">
+						<input   maxlength="4"   id="class_pass2" class="form-control" placeholder="학급코드를 한번더 정확히 입력해주세요.">
 					</div>
 				</div>
 				<div class="form-group">
