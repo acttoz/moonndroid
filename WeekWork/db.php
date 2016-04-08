@@ -2,6 +2,85 @@
 include_once ('./config.php');
 
 ///////////////////////////////////////
+if ($_REQUEST['select'] == "sign_school") {
+    //make school
+    $sql = "INSERT INTO w_school (no,school_name) VALUE ('${_REQUEST['no']}','${_REQUEST['school_name']}')";
+    mysql_query($sql);
+    $school_id = mysql_insert_id();
+    //make ch_0
+    $sql = "INSERT INTO w_channel (school_id,ch_name,pw) VALUE (" . $school_id . ",'학교','${_REQUEST['pw']}')";
+    $sql = $sql . ",(" . $school_id . ",'1학년','0')";
+    $sql = $sql . ",(" . $school_id . ",'2학년','0')";
+    $sql = $sql . ",(" . $school_id . ",'3학년','0')";
+    $sql = $sql . ",(" . $school_id . ",'4학년','0')";
+    $sql = $sql . ",(" . $school_id . ",'5학년','0')";
+    $sql = $sql . ",(" . $school_id . ",'6학년','0');";
+    mysql_query($sql);
+    logInCh(mysql_insert_id(),true);
+    header("location:channel.php");
+}
+
+if ($_REQUEST['select'] == "sign_ch") {
+    //make ch_0
+    $sql = "UPDATE w_channel SET pw=${_REQUEST['pw']} WHERE ch_id=${_REQUEST['ch_id']}";
+    mysql_query($sql);
+    logInCh($_REQUEST['ch_id'],false);
+    header("location:channel.php");
+}
+
+if ($_REQUEST['select'] == "login_ch") {
+    logInCh($_REQUEST['ch_id'],$_REQUEST['isschool']);
+    header("location:channel.php");
+}
+if ($_REQUEST['select'] == "get_channel") {
+    getCh($_REQUEST['school_id']);
+}
+
+if ($_REQUEST['select'] == "get_school") {
+    $query = mysql_query("SELECT school_id FROM w_school where no=${_REQUEST['no']}");
+    if (mysql_num_rows($query) != 0) {
+        //login
+        $school_id = mysql_result($query, 0);
+        getCh($school_id);
+    } else {
+        //sign
+        echo 0;
+    }
+}
+
+function getCh($school_id) {
+    $result2 = mysql_query("SELECT * FROM w_channel WHERE school_id =" . $school_id);
+    while ($array2 = mysql_fetch_array($result2)) {
+        $results[] = array('ch_id' => $array2['ch_id'], 'ch_name' => $array2['ch_name'], 'pw' => $array2['pw']);
+    }
+    $data = array('list' => $results);
+    echo json_encode($data);
+}
+
+function logInCh($ch_id,$isschool) {
+    if ($isschool)
+        $ch_num = 1;
+    else
+        $ch_num = 2;
+
+    mysql_query("UPDATE w_account SET ch" . $ch_num . "_id=" . $ch_id . "  WHERE user_id=${_SESSION['id']}");
+    $_SESSION['ch' . $ch_num] = $ch_id;
+
+}
+
+if ($_REQUEST['select'] == "search") {
+
+    $result2 = mysql_query("SELECT * FROM school_cho WHERE school LIKE '%" . $_REQUEST['word'] . "%' ORDER BY school ASC");
+
+    while ($array2 = mysql_fetch_array($result2)) {
+        $results[] = array('school' => $array2['school'], 'no' => $array2['no'], 'pw' => $array2['pw']);
+    }
+
+    $data = array('list' => $results);
+
+    echo json_encode($data);
+
+}
 
 if ($_REQUEST['select'] == "idcheck") {
 
@@ -139,37 +218,4 @@ if ($_REQUEST['select'] == "sendReply") {
 mysql_close($connect);
 
 ///////////////////////////////////
-
-function json_encode2($data) {
-
-    switch (gettype($data)) {
-        case 'boolean' :
-            return $data ? 'true' : 'false';
-        case 'integer' :
-        case 'double' :
-            return $data;
-        case 'string' :
-            return '"' . strtr($data, array('\\' => '\\\\', '"' => '\\"')) . '"';
-        case 'array' :
-            $rel = false;
-            // relative array?
-            $key = array_keys($data);
-            foreach ($key as $v) {
-                if (!is_int($v)) {
-                    $rel = true;
-                    break;
-                }
-            }
-
-            $arr = array();
-            foreach ($data as $k => $v) {
-                $arr[] = ($rel ? '"' . strtr($k, array('\\' => '\\\\', '"' => '\\"')) . '":' : '') . json_encode2($v);
-            }
-
-            return $rel ? '{' . join(',', $arr) . '}' : '[' . join(',', $arr) . ']';
-        default :
-            return '""';
-    }
-
-}
 ?>
