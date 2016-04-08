@@ -16,7 +16,7 @@ if ($_REQUEST['select'] == "sign_school") {
     $sql = $sql . ",(" . $school_id . ",'5학년','0')";
     $sql = $sql . ",(" . $school_id . ",'6학년','0');";
     mysql_query($sql);
-    logInCh(mysql_insert_id(),true);
+    logInCh(mysql_insert_id(), 1);
     header("location:channel.php");
 }
 
@@ -24,12 +24,12 @@ if ($_REQUEST['select'] == "sign_ch") {
     //make ch_0
     $sql = "UPDATE w_channel SET pw=${_REQUEST['pw']} WHERE ch_id=${_REQUEST['ch_id']}";
     mysql_query($sql);
-    logInCh($_REQUEST['ch_id'],false);
+    logInCh($_REQUEST['ch_id'], 0);
     header("location:channel.php");
 }
 
 if ($_REQUEST['select'] == "login_ch") {
-    logInCh($_REQUEST['ch_id'],$_REQUEST['isschool']);
+    logInCh($_REQUEST['ch_id'], $_REQUEST['isschool']);
     header("location:channel.php");
 }
 if ($_REQUEST['select'] == "get_channel") {
@@ -57,12 +57,12 @@ function getCh($school_id) {
     echo json_encode($data);
 }
 
-function logInCh($ch_id,$isschool) {
-    if ($isschool)
+function logInCh($ch_id, $isschool) {
+    if ($isschool==1) {
         $ch_num = 1;
-    else
+    } else {
         $ch_num = 2;
-
+    }
     mysql_query("UPDATE w_account SET ch" . $ch_num . "_id=" . $ch_id . "  WHERE user_id=${_SESSION['id']}");
     $_SESSION['ch' . $ch_num] = $ch_id;
 

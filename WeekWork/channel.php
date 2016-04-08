@@ -60,7 +60,7 @@
         </header>
         <div id="wrapper">
             <br>
-            <table class="time_table" style="table-layout: fixed" align="center"  >
+            <table class="time_table" style="table-layout: fixed;height: 400px;" align="center"  >
                 <tr class="" style="border-radius: 10px 0 0 0; ">
                     <!-- 학교제목  -->
                     <td  class="content"  style="height:70px;width:10%;border-radius:10px 0 0 0; border-left-style:none;border-top-style:none;   font-weight: bold;font-size:25px "> 학교 </td>
@@ -93,12 +93,13 @@
                             $school_name = $row['school_name'];
                         }
 
-                        echo "<button id='school_name' class='btn btn-default' style=' height:70px;font-size:20px;' onclick='school()' >" . $school_name . "(수정하기)</button>";
+                        echo "<button id='school_name' class='btn btn-default' style=' height:70px;font-size:20px;' onclick='school()' >" . $school_name . "(재설정)</button>";
                     }
                     ?></td>
 
                     <!-- 검색리스트  -->
                     <td    class="content" rowspan="2" style="vertical-align:top ;  width:50%;border-top-style:none; border-right-style:none; border-radius: 0 10px 10px 0;">
+                        <div id="list_group" style="display:none">
                         <div id="search_group" class="form-group">
                     <div class="col-sm-8">
                         <input type="text" id="search_input" class="form-control" name="school_word" placeholder="검색할 학교 이름을 입력하세요." value="덕">
@@ -115,7 +116,7 @@
                         </li>
                           </ul>
                                 <!-- sign_school  -->                                                                                                
-                        <div class="form-group" id="sign_school" style="display:block">
+                        <div class="form-group" id="sign_school" style="display:none">
                             <hr>
                            <h4 id="ch_name">학교</h4>
                             <div class="col-sm-8">
@@ -167,10 +168,11 @@
                     if (count($ch_ids) > 1) {
                         for ($i = 1; $i < count($ch_ids); $i++) {
 
-                            echo "<button class='btn btn-default' style='margin-bottom:10px;height:70px;font-size:20px;' onclick='delChannel(" . $ch_ids[$i] . ")'>" . $ch_names[$i] . "</button>";
+                            echo "<button class='btn btn-default' style='margin-bottom:10px;height:70px;font-size:20px;' onclick='channel()'>" . $ch_names[$i] . "(재설정)</button>";
                         }
+                    } else if (count($ch_ids) == 1) {
+                        echo "<button class='btn btn-info' style='height:70px;font-size:30px;' onclick='channel()' >+</button>";
                     }
-                    // echo "<button class='btn btn-info' style='height:70px;font-size:30px;' onclick='channel()' >+</button>";
                     ?></td>
                 </tr>
             </table>
@@ -181,10 +183,8 @@
         <!-- /#wrapper -->
         <!-- Menu Toggle Script -->
         <script src="/js/sign.js"></script>
-<script>
-var school_id =  '<?= $school_id ?>';
-var school_name =  '<?= $school_name ?>';
-</script>
+<script>var school_id = '<?= $school_id ?>';
+    var school_name =  '<?= $school_name ?>';</script>
         <?php
         include_once ("./tail.php");
         ?>

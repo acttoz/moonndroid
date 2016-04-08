@@ -176,7 +176,7 @@ getItem = function() {
     request.done(function(json) {
         $(".work > p").remove();
         var obj;
-        if ( typeof json === "object" && json.week.length > 0) {
+        if (json.week != null && typeof json === "object" && json.week.length > 0) {
             $(json.week).each(function() {
                 workArray[this.work_id] = {
                     "work_name" : this.work_name,

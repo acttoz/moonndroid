@@ -67,7 +67,7 @@ for ($i = 0; $i < 5; $i++) {
                 <a href="#">질문&답변</a>
             </li>
             <li >
-                <a href="#">계정 관리</a>
+                <a href="#"><?php echo $_SESSION['name']; ?></a>
             </li>
 
         </ul>

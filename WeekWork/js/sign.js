@@ -9,14 +9,17 @@ var currentChId = 0;
 var currentChName = 0;
 var flag_isSchool = false;
 
-
 function school() {
-    flag_isSchool=true;
+    var htmls = '';
+    $('#school_list').html(htmls);
+    flag_isSchool = true;
     $("#search_group").css("display", "block");
+    $("#list_group").css("display", "block");
 }
 
 function channel() {
-    flag_isSchool=false;
+    flag_isSchool = false;
+    $("#list_group").css("display", "block");
     $("#search_group").css("display", "none");
 
     var htmls = '';
@@ -49,9 +52,9 @@ function channel() {
                     htmls += '<li class="list-group-item" style="height:60px;" onclick="';
 
                     if (this.pw == 0)
-                        htmls += 'signChMode(' + this.ch_id + ',\''+this.ch_name+'\')">';
+                        htmls += 'signChMode(' + this.ch_id + ',\'' + this.ch_name + '\')">';
                     else
-                        htmls += 'loginChMode(' + this.ch_id + ',\''+this.pw+'\',\''+this.ch_name+'\')">';
+                        htmls += 'loginChMode(' + this.ch_id + ',\'' + this.pw + '\',\'' + this.ch_name + '\')">';
 
                     htmls += '<label>' + this.ch_name + '</label>';
                     htmls += '</li>';
@@ -240,7 +243,8 @@ function loginChMode(ch_id, ch_pw, schoolName) {
 
     console.log(currentChPw);
 }
-function signChMode(ch_id,ch_name) {
+
+function signChMode(ch_id, ch_name) {
     $("#sign_school").css("display", "none");
     $("#login_ch").css("display", "none");
     $("#sign_ch").css("display", "block");
@@ -252,14 +256,18 @@ function signChMode(ch_id,ch_name) {
 function signSchool() {
     location.href = "db.php?select=sign_school&no=" + currentSchoolNo + "&school_name=" + currentChName + "&pw=" + $("#pw_create").val();
 }
+
 function signCh() {
     location.href = "db.php?select=sign_ch&ch_id=" + currentChId + "&pw=" + $("#ch_pw_create").val();
 }
 
 function loginCh() {
-    if ($("#pw_input").val() == currentChPw)
-        location.href = "db.php?select=login_ch&ch_id=" + currentChId+"&isschool="+flag_isSchool;
-    else
+    if ($("#pw_input").val() == currentChPw) {
+        if (flag_isSchool)
+            location.href = "db.php?select=login_ch&ch_id=" + currentChId + "&isschool=1";
+        else
+            location.href = "db.php?select=login_ch&ch_id=" + currentChId + "&isschool=0";
+    } else
         alert("암호가 맞지 않습니다.");
 }
 
