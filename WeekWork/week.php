@@ -68,7 +68,7 @@ echo (int)date("m", strtotime($weeks[0])) . "월";
                                 <br>
                                 
                                 <form id="workList"  style="display: none;" action="file.php" method="post" enctype="multipart/form-data"  onsubmit="return formValidate();">
-                                <h2 id="workDate"  user="<?php echo $_SESSION["id"]; ?>" >제목</h2> 
+                                <h2 id="workDate"  user="<?php echo $_SESSION["w_id"]; ?>" >제목</h2> 
                                 <input id="work_id" type="hidden" name="work_id" value=
                                 <?php
                                 if (isset($_REQUEST['work_id'])) {

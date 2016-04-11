@@ -15,6 +15,10 @@
         <link href="framework/css/sign.css" rel="stylesheet" type="text/css">
         <?php
         include_once ('./framework.php');
+        if (empty($_SESSION['w_is_logged']) || $_SESSION['w_is_logged'] == FALSE) {
+            header("location:index.php");
+            exit ;
+        }
         ?>
     </head>
 
@@ -49,10 +53,10 @@
                         <a href="#">학년 설정</a>
                     </li>
                     <li >
-                        <a href="#">질문&답변</a>
+                        <a href="qna.php">질문&답변</a>
                     </li>
                     <li >
-                        <a href="#">계정 관리</a>
+                        <a href="#"><?php echo $_SESSION['w_name']; ?></a>
                     </li>
 
                 </ul>
@@ -67,16 +71,16 @@
 
                     <!-- 학교   -->
                     <td  class="content"    style="width:40%;border-top-style:none; font-weight: bold;font-size:20px "><?php
-                    if (empty($_SESSION['ch1'])) {
+                    if (empty($_SESSION['w_ch1'])) {
                         echo "<button class='btn btn-info' style='height:70px;font-size:30px;' onclick='school()'>+</button>";
                     } else {
 
                         $sql = "SELECT * FROM w_channel WHERE ";
-                        $sql = $sql . "ch_id='" . $_SESSION['ch1'] . "'";
-                        $sql = $sql . " OR ch_id='" . $_SESSION['ch2'] . "'";
-                        $sql = $sql . " OR ch_id='" . $_SESSION['ch3'] . "'";
-                        $sql = $sql . " OR ch_id='" . $_SESSION['ch4'] . "'";
-                        $sql = $sql . " OR ch_id='" . $_SESSION['ch5'] . "'";
+                        $sql = $sql . "ch_id='" . $_SESSION['w_ch1'] . "'";
+                        $sql = $sql . " OR ch_id='" . $_SESSION['w_ch2'] . "'";
+                        $sql = $sql . " OR ch_id='" . $_SESSION['w_ch3'] . "'";
+                        $sql = $sql . " OR ch_id='" . $_SESSION['w_ch4'] . "'";
+                        $sql = $sql . " OR ch_id='" . $_SESSION['w_ch5'] . "'";
                         $result = mysql_query($sql);
                         $school_id = 0;
                         while ($row = mysql_fetch_array($result)) {
@@ -183,8 +187,10 @@
         <!-- /#wrapper -->
         <!-- Menu Toggle Script -->
         <script src="/js/sign.js"></script>
-<script>var school_id = '<?= $school_id ?>';
-    var school_name =  '<?= $school_name ?>';</script>
+<script>var school_id =  '<?= $school_id ?>
+            ';
+            var school_name =  '
+<?= $school_name ?>';</script>
         <?php
         include_once ("./tail.php");
         ?>

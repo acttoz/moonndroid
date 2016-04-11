@@ -63,8 +63,8 @@ function logInCh($ch_id, $isschool) {
     } else {
         $ch_num = 2;
     }
-    mysql_query("UPDATE w_account SET ch" . $ch_num . "_id=" . $ch_id . "  WHERE user_id=${_SESSION['id']}");
-    $_SESSION['ch' . $ch_num] = $ch_id;
+    mysql_query("UPDATE w_account SET ch" . $ch_num . "_id=" . $ch_id . "  WHERE user_id=${_SESSION['w_id']}");
+    $_SESSION['w_ch' . $ch_num] = $ch_id;
 
 }
 
@@ -113,15 +113,16 @@ if ($_REQUEST['select'] == "login") {
     if (mysql_num_rows($result) == 1) {
         $row = mysql_fetch_assoc($result);
 
-        $_SESSION['is_logged'] = TRUE;
-        $_SESSION['id'] = $row['user_id'];
-        $_SESSION['school'] = $row['school_id'];
-        $_SESSION['name'] = $row['user_name'];
-        $_SESSION['ch1'] = $row['ch1_id'];
-        $_SESSION['ch2'] = $row['ch2_id'];
-        $_SESSION['ch3'] = $row['ch3_id'];
-        $_SESSION['ch4'] = $row['ch4_id'];
-        $_SESSION['ch5'] = $row['ch5_id'];
+        $_SESSION['w_is_logged'] = TRUE;
+        $_SESSION['w_id'] = $row['user_id'];
+        $_SESSION['w_school'] = $row['school_id'];
+        $_SESSION['w_name'] = $row['user_name'];
+        $_SESSION['w_email'] = $row['user_mail'];
+        $_SESSION['w_ch1'] = $row['ch1_id'];
+        $_SESSION['w_ch2'] = $row['ch2_id'];
+        $_SESSION['w_ch3'] = $row['ch3_id'];
+        $_SESSION['w_ch4'] = $row['ch4_id'];
+        $_SESSION['w_ch5'] = $row['ch5_id'];
 
         echo "success";
 
@@ -134,11 +135,11 @@ if ($_REQUEST['select'] == "login") {
 if ($_REQUEST['select'] == "week") {
 
     $sql = "SELECT w_work.*,w_account.user_name FROM w_work INNER JOIN w_account ON w_work.user_id = w_account.user_id WHERE ";
-    $sql = $sql . " w_work.ch_id='" . $_SESSION['ch1'] . "'";
-    $sql = $sql . " OR w_work.ch_id='" . $_SESSION['ch2'] . "'";
-    $sql = $sql . " OR w_work.ch_id='" . $_SESSION['ch3'] . "'";
-    $sql = $sql . " OR w_work.ch_id='" . $_SESSION['ch4'] . "'";
-    $sql = $sql . " OR w_work.ch_id='" . $_SESSION['ch5'] . "'";
+    $sql = $sql . " w_work.ch_id='" . $_SESSION['w_ch1'] . "'";
+    $sql = $sql . " OR w_work.ch_id='" . $_SESSION['w_ch2'] . "'";
+    $sql = $sql . " OR w_work.ch_id='" . $_SESSION['w_ch3'] . "'";
+    $sql = $sql . " OR w_work.ch_id='" . $_SESSION['w_ch4'] . "'";
+    $sql = $sql . " OR w_work.ch_id='" . $_SESSION['w_ch5'] . "'";
     $sql = $sql . " ORDER BY work_id DESC";
     $result = mysql_query($sql);
     while ($array = mysql_fetch_array($result)) {
@@ -200,7 +201,7 @@ if ($_REQUEST['select'] == "delWork") {
 
 if ($_REQUEST['select'] == "sendWork") {
     if ($_REQUEST['work_id'] == 0) {
-        $sql = "INSERT INTO w_work (work_name,work_content,day,ch_id,user_id) VALUE ('${_REQUEST['work_name']}','${_REQUEST['work_content']}','${_REQUEST['day']}','${_REQUEST['ch_id']}','${_SESSION['id']}')";
+        $sql = "INSERT INTO w_work (work_name,work_content,day,ch_id,user_id) VALUE ('${_REQUEST['work_name']}','${_REQUEST['work_content']}','${_REQUEST['day']}','${_REQUEST['ch_id']}','${_SESSION['w_id']}')";
     } else {
         $sql = "UPDATE w_work SET work_name='${_REQUEST['work_name']}',work_content='${_REQUEST['work_content']}' WHERE work_id='${_REQUEST['work_id']}'";
     }
@@ -210,7 +211,7 @@ if ($_REQUEST['select'] == "sendWork") {
 if ($_REQUEST['select'] == "sendReply") {
     $dt = new DateTime();
     $time = $dt -> format('Y-m-d H:i:s');
-    $sql = "INSERT INTO w_reply (content,time,user_id,work_id) VALUE ('${_REQUEST['content']}','${time}','${_SESSION['id']}','${_REQUEST['work_id']}')";
+    $sql = "INSERT INTO w_reply (content,time,user_id,work_id) VALUE ('${_REQUEST['content']}','${time}','${_SESSION['w_id']}','${_REQUEST['work_id']}')";
     mysql_query($sql);
 }
 ///////////////////////////////////
