@@ -34,7 +34,7 @@ function channel() {
         return false;
 
     isLoading = true;
-    var request = $.ajax("../../db.php", {
+    var request = $.ajax("db.php", {
         type : "GET",
         dataType : "json",
         contentType : "application/json; charset=utf-8",
@@ -95,7 +95,7 @@ var fnSchool = function() {
         return false;
 
     isLoading = true;
-    var request = $.ajax("../../db.php", {
+    var request = $.ajax("db.php", {
         type : "GET",
         dataType : "json",
         contentType : "application/json; charset=utf-8",
@@ -145,7 +145,7 @@ function getSchoolPw(schoolNo, schoolName) {
         return false;
 
     isLoading = true;
-    var request = $.ajax("../../db.php", {
+    var request = $.ajax("db.php", {
         type : "GET",
         dataType : "json",
         contentType : "application/json; charset=utf-8",
@@ -190,7 +190,7 @@ function getChPw(ch_name) {
         return false;
 
     isLoading = true;
-    var request = $.ajax("../../db.php", {
+    var request = $.ajax("db.php", {
         type : "GET",
         dataType : "json",
         contentType : "application/json; charset=utf-8",
@@ -284,7 +284,7 @@ var fnChannel = function() {
         return false;
 
     isLoading = true;
-    var request = $.ajax("../../db.php", {
+    var request = $.ajax("db.php", {
         type : "GET",
         dataType : "json",
         contentType : "application/json; charset=utf-8",
@@ -328,7 +328,7 @@ function schoolClick(id, school) {
 
 }
 
-function signUp() {
+function sign_up() {
     var mUserid = $("form #user_id").val();
     var teacher = $("form #teacher_name").val();
     var mUserPass = $("form #user_pass").val();
@@ -358,7 +358,7 @@ function signUp() {
             return false;
         isLoading = true;
         $.ajax({
-            url : "../db.php",
+            url : "db.php",
             type : 'GET',
             data : {
                 select : "submit",
@@ -383,7 +383,7 @@ function signUp() {
     }
 }
 
-function idCheck() {
+function id_check() {
     var mUserid = $("form #user_id").val();
 
     if (!mUserid) {
@@ -395,7 +395,7 @@ function idCheck() {
             return false;
         isLoading = true;
         $.ajax({
-            url : "../db.php",
+            url : "db.php",
             type : 'GET',
             cache : false,
             data : {

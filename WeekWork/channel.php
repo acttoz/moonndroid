@@ -186,11 +186,9 @@
         </div>
         <!-- /#wrapper -->
         <!-- Menu Toggle Script -->
-        <script src="/js/sign.js"></script>
-<script>var school_id =  '<?= $school_id ?>
-            ';
-            var school_name =  '
-<?= $school_name ?>';</script>
+        <script src="./sign.js"></script>
+<script>var school_id =   '<?= $school_id ?>';
+    var school_name =  '<?= $school_name ?>';</script>
         <?php
         include_once ("./tail.php");
         ?>

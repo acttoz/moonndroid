@@ -38,7 +38,7 @@ function signUp() {
             return false;
         isLoading = true;
         $.ajax({
-            url : "../db.php",
+            url : "db.php",
             type : 'GET',
             data : {
                 select : "account",

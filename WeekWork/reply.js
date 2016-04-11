@@ -6,7 +6,7 @@ function getReply(work_id) {
 
     isLoading = true;
 
-    var request = $.ajax("index_db.php", {
+    var request = $.ajax("db.php", {
         type : "GET",
         dataType : "json",
         contentType : "application/json; charset=utf-8",

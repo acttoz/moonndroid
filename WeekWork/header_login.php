@@ -4,7 +4,7 @@
     <nav id="mainMenu">
       <ul style="top:11px;height:100%">
         <li >
-          <input style="" type="email" class="form-control" id="user_id" placeholder="아이디">
+          <input style="" class="form-control" id="user_id" placeholder="아이디">
         </li>
         <li >
           <input type="password" class="form-control" id="user_pass" placeholder="비밀번호">

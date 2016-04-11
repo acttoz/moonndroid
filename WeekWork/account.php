@@ -86,7 +86,7 @@
         </div>
         <!-- /#wrapper -->
         <!-- Menu Toggle Script -->
-        <script src="/js/account.js"></script>
+        <script src="./account.js"></script>
 
         <?php
         include_once ("./tail.php");

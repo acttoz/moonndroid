@@ -171,7 +171,7 @@ echo (int)date("m", strtotime($weeks[0])) . "월";
 </div>
         <!-- Menu Toggle Script -->
         <script src="week.js"></script>
-        <script src="./js/reply.js"></script>
+        <script src="reply.js"></script>
 
         <?php
         include_once ("./tail.php");

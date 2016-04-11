@@ -38,7 +38,7 @@
                             <input type="email" class="form-control" name="user_id" id="user_id" checked="0" placeholder="비밀번호 재발급에 이용되므로 사용중인 이메일을 입력하세요.">
                         </div>
                         <div class="col-sm-2">
-                            <button type="button" class="btn btn-info form-control" id="submit_btn" onclick=idCheck()>
+                            <button type="button" class="btn btn-info form-control" id="submit_btn" onclick="id_check()">
                                 중복확인
                             </button>
                         </div>
@@ -66,7 +66,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" ></label>
                         <div class="col-sm-10">
-                            <button type="button" class="btn btn-info form-control" id="submit_btn" onclick=signUp()>
+                            <button type="button" class="btn btn-info form-control" id="submit_btn" onclick="sign_up()">
                                 가입하기
                             </button>
                         </div>
@@ -83,7 +83,7 @@
         </div>
         <!-- /#wrapper -->
         <!-- Menu Toggle Script -->
-        <script src="/js/sign.js"></script>
+        <script src="./sign.js"></script>
 
         <?php
         include_once ("./tail.php");

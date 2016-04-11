@@ -28,8 +28,6 @@
         <!-- /#wrapper -->
         <div class="overlay overlay_ctrl" ></div>
         <!-- Menu Toggle Script -->
-        <script src="week.js"></script>
-        <script src="./js/reply.js"></script>
 
         <?php
         include_once ("./tail.php");
