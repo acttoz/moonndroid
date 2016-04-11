@@ -28,7 +28,7 @@
         <header id="header">
 
             <logo>
-                <a href="./week.php"></a>
+                <a href="./index.php"></a>
             </logo>
             <nav id="mainMenu">
                 <ul>
@@ -106,10 +106,10 @@
                         <div id="list_group" style="display:none">
                         <div id="search_group" class="form-group">
                     <div class="col-sm-8">
-                        <input type="text" id="search_input" class="form-control" name="school_word" placeholder="검색할 학교 이름을 입력하세요." value="덕">
+                        <input type="text" id="search_input" class="form-control" name="school_word" placeholder="검색할 학교 이름을 입력하세요.">
                     </div>
                     <div class="col-sm-4">
-                        <button type="button" id="search_button" class="btn btn-info form-control" onclick=fnSchool()>
+                        <button type="button" id="search_button" class="btn btn-info form-control" onclick="fnSchool()">
                             검색하기
                         </button>
                     </div>
@@ -127,7 +127,7 @@
                                 <input type="text" id="pw_create" class="form-control numeric" placeholder="숫자 네자리" maxlength="4" onkeypress="return fn_press(event, 'numbers');" onkeydown="fn_press_han(this);" style="ime-mode:disabled;"/>
                             </div>
                             <div class="col-sm-4">
-                                <button type="button" id="search_button" class="btn btn-success form-control" onclick=signSchool()>
+                                <button type="button" id="search_button" class="btn btn-success form-control" onclick="signSchool()">
                                                                                         암호 생성하기
                                 </button>
                             </div>
@@ -187,9 +187,9 @@
         <!-- /#wrapper -->
         <!-- Menu Toggle Script -->
         <script src="./sign.js"></script>
-<script>var school_id =   '<?= $school_id ?>';
-    var school_name =  '<?= $school_name ?>';</script>
-        <?php
+<script>var school_id =    '<?= $school_id ?>';
+            var school_name =  '<?= $school_name ?>';</script>
+            <?php
         include_once ("./tail.php");
         ?>
     </body>

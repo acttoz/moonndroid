@@ -94,7 +94,7 @@ echo (int)date("m", strtotime($weeks[0])) . "월";
                                          
                                         
                                         <td  colspan="5" rowspan="2"  class="content" style="vertical-align:top ;  width:70%;border-top-style:none; border-right-style:none; border-radius: 0 10px 0 0;">
-                                            <div id="reply" style="overflow-y:scroll;margin-top:15px;margin-right:10px;margin-bottom: 10px ">
+                                            <div id="reply" style="text-align:left; overflow-y:scroll;margin:10px;">
                                             
                                             </div>
                                         </td>

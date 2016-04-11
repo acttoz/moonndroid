@@ -24,12 +24,6 @@ function channel() {
 
     var htmls = '';
     $('#school_list').html(htmls);
-    var word = $("#search_input").val();
-    if (!word) {
-        alert("검색어를 입력하세요..!!");
-        $("#search_input").focus();
-        return false;
-    }
     if (isLoading)
         return false;
 

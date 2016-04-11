@@ -63,7 +63,7 @@ function logInCh($ch_id, $isschool) {
     } else {
         $ch_num = 2;
     }
-    mysql_query("UPDATE w_account SET ch" . $ch_num . "_id=" . $ch_id . "  WHERE user_id=${_SESSION['w_id']}");
+    mysql_query("UPDATE w_account SET ch" . $ch_num . "_id=" . $ch_id . "  WHERE user_id='${_SESSION['w_id']}'");
     $_SESSION['w_ch' . $ch_num] = $ch_id;
 
 }

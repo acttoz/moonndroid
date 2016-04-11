@@ -1,6 +1,6 @@
 <LINK REL="SHORTCUT ICON" HREF="./favicon.ico" />
 <header id="header">
-    <logo> <a href="" title="WeekWork"></a> </logo>
+    <logo> <a href="index.php" title="WeekWork"></a> </logo>
     <nav id="mainMenu">
       <ul style="top:11px;height:100%">
         <li >
