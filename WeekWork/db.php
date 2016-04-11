@@ -96,9 +96,19 @@ if ($_REQUEST['select'] == "idcheck") {
 
 }
 
+if ($_REQUEST['select'] == "account") {
+
+    $sql = "UPDATE w_account SET user_pw=";
+    $sql = $sql . "'" . $_REQUEST['user_pw'] . "',";
+    $sql = $sql . "user_name=";
+    $sql = $sql . "'" . $_REQUEST['user_name'] . "',";
+    $sql = $sql . "user_mail=";
+    $sql = $sql . "'" . $_REQUEST['user_mail'] . "'";
+    $sql = $sql . " WHERE user_id=${_SESSION['w_id']}";
+    mysql_query($sql, $connect);
+}
 if ($_REQUEST['select'] == "submit") {
 
-    $id = $_REQUEST['user_id'];
     $sql = "INSERT INTO w_account ( user_id,user_pw,user_name,user_mail) VALUES ( ";
     $sql = $sql . "'" . $_REQUEST['user_id'] . "',";
     $sql = $sql . "'" . $_REQUEST['user_pw'] . "',";

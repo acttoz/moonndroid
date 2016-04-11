@@ -31,7 +31,6 @@ function signUp() {
         return;
     } else if (mUserPass != mUserPass2) {
         alert("비밀번호가 일치하지 않습니다.");
-        select_school.user_pass2.focus();
         return;
     } else {
 
@@ -42,15 +41,14 @@ function signUp() {
             url : "../db.php",
             type : 'GET',
             data : {
-                select : "submit",
+                select : "account",
                 user_name : teacher,
-                user_id : mUserid,
                 user_pw : mUserPass,
                 user_mail : $("#email").val()
             },
             success : function(args) {
                 isLoading = false;
-                if (!alert(args + '회원가입이 완료되었습니다.\n로그인 화면으로 이동합니다.')) {
+                if (!alert('회원 정보 수정 완료.')) {
                     localStorage.removeItem("ID");
                     document.location.href = "index.php";
                 }
