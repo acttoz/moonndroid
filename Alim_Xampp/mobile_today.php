@@ -147,14 +147,14 @@ if ($post_id == null && $_REQUEST[id] == null) {
                         </table>
                      </td>
                      <td class="col3" style="padding-top: 3px; ">
-                        <button type="button" class="btn btn-info" id="font_plus" onclick=fontResize(5)>
+                        <button type="button" class="btn btn-info" id="font_plus" onclick="font_plus()">
                         <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                         </button>
                      </td>
                   </tr>
                   <tr>
                      <td class="col3" style="padding-bottom: 4px; ">
-                        <button type="button" class="btn btn-info" id="font_minus" onclick=fontResize(-5)>
+                        <button type="button" class="btn btn-info" id="font_minus" onclick="font_minus()">
                         <span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
                         </button>
                      </td>
@@ -210,7 +210,7 @@ if ($post_id == null && $_REQUEST[id] == null) {
                
                <?
             if ($platform == 1) {echo '<div id="margin">
-            <button type="button" style="width:100%;" class="btn btn-info" onclick=logOut()>
+            <button type="button" style="width:100%;" class="btn btn-info" onclick=logout()>
 							로그아웃
 						</button>
                     </div>';

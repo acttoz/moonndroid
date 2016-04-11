@@ -1,15 +1,20 @@
-function fontResize(num) {
-
+function font_plus() {
 	var font_size;
 	var text_input = $('.content');
 	font_size = parseInt(text_input.css("font-size"));
-	font_size += num;
+	font_size += 5;
 	text_input.css("font-size", font_size + "px");
 	localStorage.setItem("FONT", font_size);
-	// var textarea_height;
-	// textarea_height= parseInt(text_input.css("height"));
-	// textarea_height += (num*5);
-	// text_input.css("height", textarea_height + "px");
+	fontSizeSet();
+}
+
+function font_minus() {
+	var font_size;
+	var text_input = $('.content');
+	font_size = parseInt(text_input.css("font-size"));
+	font_size -= 5;
+	text_input.css("font-size", font_size + "px");
+	localStorage.setItem("FONT", font_size);
 	fontSizeSet();
 }
  
@@ -34,7 +39,7 @@ function daySelect(num) {
 		day = 5;
 
 	document.getElementById("content" + day).style.display = "block";
-	document.getElementById("content" + day)
+	document.getElementById("content" + day);
 	resize();
 
 }
@@ -48,7 +53,7 @@ function fontSizeSet() {
 
 
 
-function logOut() {
+function logout() {
 	localStorage.setItem("ID","noid");
 	document.location.href = "mobile_index.php";
 
