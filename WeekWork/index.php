@@ -11,8 +11,10 @@
     <body id="home">
         <div id="wrapper">
             <div id="content">
+                <br>
                 <!-- <IMG class="displayed" src=" " style="width:70%; display: block; margin-left: auto; margin-right: auto"> -->
                 <IMG class="displayed" src="./img/tutorial.png" style="width:800px; display: block; margin-left: auto; margin-right: auto">
+                <br>
             </div>
             <footer>
                 <?php
@@ -26,9 +28,9 @@
             </div>
         </div>
         <script type="text/javascript">
-            if (localStorage.getItem("ID") != null) {
-                $('#user_id').val(localStorage.getItem("ID"));
-                $('#user_pass').val(localStorage.getItem("PASS"));
+            if (localStorage.getItem("W_ID") != null) {
+                $('#user_id').val(localStorage.getItem("W_ID"));
+                $('#user_pass').val(localStorage.getItem("W_PASS"));
                 document.getElementById("login_save").checked = true;
             }
             /*****
@@ -64,8 +66,8 @@
                             if (args == "success") {
 
                                 if (document.getElementById("login_save").checked) {
-                                    localStorage.setItem("ID", mUserid);
-                                    localStorage.setItem("PASS", mUserPass);
+                                    localStorage.setItem("W_ID", mUserid);
+                                    localStorage.setItem("W_PASS", mUserPass);
                                 } else {
 
                                     localStorage.clear();

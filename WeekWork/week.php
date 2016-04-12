@@ -28,17 +28,17 @@ include_once ('./header.php');
                                 <table class="time_table" style="table-layout: fixed;" align="center"  >
                                     <tr class="row1" style="border-radius: 10px 0 0 0; ">
                                         <td class=" cell1 center " style="width:120px;font-size:25px;border-top-style:none;border-left-style:none; border-radius: 10px 0 0 0; "><?php
-echo (int)date("m", strtotime($weeks[0])) . "월";
+                                        echo(int)date("m", strtotime($weeks[0])) . "월";
                                         ?></td>
-                                        <td class="center" style="border-top-style:none;">월요일<span style="font-size:17px;">(<?php echo (int)date("d", strtotime($weeks[0]))."일"; ?>)
+                                        <td class="center" style="border-top-style:none;">월요일<span style="font-size:17px;">(<?php echo(int)date("d", strtotime($weeks[0])) . "일"; ?>)
                                         </span></td>
-                                        <td class="center" style="border-top-style:none;">화요일<span style="font-size:17px;">(<?php echo (int)date("d", strtotime($weeks[1]))."일"; ?>)
+                                        <td class="center" style="border-top-style:none;">화요일<span style="font-size:17px;">(<?php echo(int)date("d", strtotime($weeks[1])) . "일"; ?>)
                                         </span></td>
-                                        <td class="center" style="border-top-style:none;">수요일<span style="font-size:17px;">(<?php echo (int)date("d", strtotime($weeks[2]))."일"; ?>)
+                                        <td class="center" style="border-top-style:none;">수요일<span style="font-size:17px;">(<?php echo(int)date("d", strtotime($weeks[2])) . "일"; ?>)
                                        </span> </td>
-                                        <td class="center" style="border-top-style:none;">목요일<span style="font-size:17px;">(<?php echo (int)date("d", strtotime($weeks[3]))."일"; ?>)
+                                        <td class="center" style="border-top-style:none;">목요일<span style="font-size:17px;">(<?php echo(int)date("d", strtotime($weeks[3])) . "일"; ?>)
                                        </span> </td>
-                                        <td class="cell2 center" style="border-top-style:none;border-right-style:none; border-radius: 0 10px 0 0;"> 금요일<span style="font-size:17px;">(<?php echo (int)date("d", strtotime($weeks[4]))."일"; ?>)
+                                        <td class="cell2 center" style="border-top-style:none;border-right-style:none; border-radius: 0 10px 0 0;"> 금요일<span style="font-size:17px;">(<?php echo(int)date("d", strtotime($weeks[4])) . "일"; ?>)
                                         </span></td>
                                     </tr>
                                     <?php
@@ -53,9 +53,9 @@ echo (int)date("m", strtotime($weeks[0])) . "월";
                                         }
                                         for ($j = 0; $j < 5; $j++) {
                                             if ($i == (count($ch_ids) - 1) && $j == (4)) {
-                                                echo "<td style='border-right-style:none;border-bottom-style:none; border-radius: 0 0 10px 0;text-align:center;font-size:30px' class='work' id='" . $weeks[$j] . "')>";
+                                                echo "<td style='border-right-style:none;border-bottom-style:none; border-radius: 0 0 10px 0;text-align:center;font-size:30px' class='work' id='" . $weeks[$j] . "'>";
                                             } else
-                                                echo "<td style='text-align:center;font-size:30px' class='work' id='" . $weeks[$j] . "')>";
+                                                echo "<td style='text-align:center;font-size:30px' class='work' id='" . $weeks[$j] . "'>";
                                             echo '<button class="btn btn-default work" style="display:block;margin-top:10px;margin-bottom:10px;" onclick="newWork(' . $ch_ids[$i] . ',\'' . $ch_names[$i] . '\',\'' . $weeks[$j] . '\')">+</button>';
                                         }
 
@@ -88,19 +88,19 @@ echo (int)date("m", strtotime($weeks[0])) . "월";
                                             <button id="work_complete_btn" style="height: 50px;" type="button" class="btn btn-info has-spinner glyphicon">
                                             </button>
                                          </td>
-                                        <td colspan="4" class="content"  style="width:40%;border-top-style:none;border-left-color:white;  border-bottom-color:white; font-weight: bold;font-size:20px ">
+                                        <td  class="content"  style="width:40%;border-top-style:none;border-left-color:white;  border-bottom-color:white; font-weight: bold;font-size:20px ">
                                             <input id="work_title" style="height:40px;width:100%;" type="text" name="work_name" placeholder="제목"/>
                                             </td>
                                          
                                         
-                                        <td  colspan="5" rowspan="2"  class="content" style="vertical-align:top ;  width:70%;border-top-style:none; border-right-style:none; border-radius: 0 10px 0 0;">
+                                        <td rowspan="2"  class="content" style="vertical-align:top;  width:70%;border-top-style:none; border-right-style:none; border-radius: 0 10px 0 0;">
                                             <div id="reply" style="text-align:left; overflow-y:scroll;margin:10px;">
                                             
                                             </div>
                                         </td>
                                     </tr>
                                     <tr class="" style="border-radius: 10px 0 0 0; ">
-                                        <td class="content " colspan="5" style="border-bottom-style:none;border-left-style:none;">
+                                        <td class="content " colspan="2" style="border-bottom-style:none;border-left-style:none;">
                                             <div  style=" ">
                                                 <textarea  class="contents" type="text" name="work_content" id="work_content" placeholder="설명" ></textarea>                                                                                           
 
@@ -110,7 +110,7 @@ echo (int)date("m", strtotime($weeks[0])) . "월";
                                           
                                     </tr>
                                     <tr>
-                                        <td colspan="5" class="content "style="width:15%;border-left-style:none;border-top-style:none;border-bottom-color:white; ">
+                                        <td colspan="2" class="content" style="width:15%;border-left-style:none;border-top-style:none;border-bottom-color:white; ">
                                             <input class="file" type="file" name="file" id="work_file_add" style="display:none"/>
                                             <div id="work_file_btns" class="btn-group" style="display:none; width:100%;">
                                              <button id="work_file_down" class="btn btn-info" type="button" style="width:88%;height:35px" >
@@ -121,15 +121,19 @@ echo (int)date("m", strtotime($weeks[0])) . "월";
                                                  </button>
                                              </div>
                                          </td> 
-                                        <td colspan="5" class="content "style="width:15%;border-right-style:none;border-top-style:none;border-bottom-color:white; ">
+                                        <td class="content" style="width:15%;border-right-style:none;border-top-style:none;border-bottom-color:white; ">
+                                              <div class="form-group" style="">
+                                            <div class="col-sm-12">
                                             <input class="file" type="file" name="reply_file" id="reply_file_add"  />
+                                            </div>
+                                            </div>
                                          </td> 
                                     </tr>
                                     <tr>
                                         
-                                          <td colspan="5"  class="content " style="width:80%;border-left-style:none;border-bottom-style:none;   font-weight: bold;font-size:10px;border-radius: 0 0 0 10px  ;  ">
-                                             <div class="btn-group " style=" width:100%;">
-                                            <button id="work_edit_btn"type="button" style="width:80%;height: 50px;" class="btn btn-info" onclick="editMode()">
+                                          <td colspan="2"  class="content" style="width:40%;border-left-style:none;border-bottom-style:none;   font-weight: bold;font-size:10px;border-radius: 0 0 0 10px  ;  ">
+                                             <div class="btn-group" style=" width:100%;">
+                                            <button id="work_edit_btn" type="button" style="width:80%;height: 50px;" class="btn btn-info" onclick="editMode()">
                                                                                         수정
                                             </button>
                                             <button id="work_save_btn" name="submit" style="width:80%;height: 50px;display:none" type="submit" class="btn btn-info btn-warning" >
@@ -140,13 +144,21 @@ echo (int)date("m", strtotime($weeks[0])) . "월";
                                             </div>
                                          </td>
                                          
-                                        <td   class="content " colspan="4" style="width:100%; border-top-style:none;border-bottom-style:none; border-right-color:white; font-weight: bold;font-size:10px ">
-                                                        <textarea id="reply_input" type="text" name="reply_content" style="height:50px; width:100%" class="form-control"   checked="0" placeholder="댓글을 입력하세요."></textarea>
-                                         </td>
-                                         <td class="content " style="width:100%;border-bottom-style:none;border-right-style:none; border-left-color:white; border-radius: 0 0 10px  0;">
-                                                <input id="reply_submit" class = "btn   btn-info" type="submit" name="submit" style="margin-top:1px;width: 100%;height:50px;" value="댓글 달기"/>
-                                         </td>
+                                                        
+                                                
+
+                                         <td class="content"  style="width:10%;border-bottom-style:none;border-right-style:none; border-left-color:white; border-radius: 0 0 10px  0;">
                                           
+                                        <div class="form-group" style="">
+                                            <div class="col-sm-8">
+                                                <textarea id="reply_input" type="text" name="reply_content" style="height:50px; width:100%" class="form-control"   checked="0" placeholder="댓글을 입력하세요."></textarea>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <input id="reply_submit" class = "btn btn-info form-control" type="submit" name="submit" style="margin-top:1px;width: 100%px;height:50px;" value="댓글 달기"/>
+                                            </div>
+                                        </div>
+                                          
+                                          </td>
                                     </tr>
                                     
                                         

@@ -1,11 +1,5 @@
-<meta http-equiv='Content-Type' content='text/html' charset='utf-8'>
 <?php
 include_once ('./config.php');
-// echo $_REQUEST['work_id'];
-// echo $_REQUEST['work_name'];
-// echo $_REQUEST['work_content'];
-// echo $_REQUEST['work_day'];
-// echo $_REQUEST['work_ch_id'];
 if ($_REQUEST['select'] == "upload") {
     if (!empty($_FILES['file']['name'])) {
         if (strlen($_FILES['file']['name']) > 255) {
@@ -55,12 +49,11 @@ if ($_REQUEST['select'] == "upload") {
 
 if ($_REQUEST['select'] == "download") {
     $dir = "./files/";
-    $filename = $_REQUEST['name'];
+    $filename = urldecode($_REQUEST['name']);
     $filehash = $_REQUEST['hash'];
-
     if (file_exists($dir . $filehash)) {
         header("Content-Type: Application/octet-stream");
-        header("Content-Disposition: attachment; filename=" . $filename);
+        header("Content-Disposition: attachment; filename=\"" . iconv('UTF-8','CP949',$filename) . "\"");
         header("Content-Transfer-Encoding: binary");
         header("Content-Length: " . filesize($dir . $filehash));
 

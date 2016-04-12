@@ -97,7 +97,10 @@ function resetWork() {
 }
 
 work_file_down.click(function() {
-    document.location = "./file.php?select=download&name=" + fileInfo["name"] + "&hash=" + fileInfo["hash"];
+    var encoded=encodeURIComponent(fileInfo["name"]);
+    alert(encoded);
+    // document.location = "./file.php?select=download&name=" + fileInfo["name"] + "&hash=" + fileInfo["hash"];
+    location.href = "./file.php?select=download&name=" + encoded + "&hash=" + fileInfo["hash"];
 });
 
 //new

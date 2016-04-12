@@ -88,7 +88,7 @@ function getStartAndEndDate($week, $year) {
                 <a href="channel.php">학년 설정</a>
             </li>
             <li >
-                <a href="qna.php">질문&답변</a>
+                <a href="qna.php">질문 게시판</a>
             </li>
             <li >
                 <a href="account.php"><?php echo $_SESSION['w_name']; ?></a>
