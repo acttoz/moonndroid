@@ -1,9 +1,9 @@
 //reply
 function getReply(work_id) {
-    $("#reply").empty();
     if (isLoading)
         return false;
 
+    $("#reply").empty();
     isLoading = true;
 
     var request = $.ajax("db.php", {

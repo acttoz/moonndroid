@@ -27,7 +27,7 @@ include_once ('./header.php');
                             <div  id='content'  >
                                 <table class="time_table" style="table-layout: fixed;" align="center"  >
                                     <tr class="row1" style="border-radius: 10px 0 0 0; ">
-                                        <td class=" cell1 center " style="font-size:25px;border-top-style:none;border-left-style:none; border-radius: 10px 0 0 0; "><?php
+                                        <td class=" cell1 center " style="width:120px;font-size:25px;border-top-style:none;border-left-style:none; border-radius: 10px 0 0 0; "><?php
 echo (int)date("m", strtotime($weeks[0])) . "월";
                                         ?></td>
                                         <td class="center" style="border-top-style:none;">월요일<span style="font-size:17px;">(<?php echo (int)date("d", strtotime($weeks[0]))."일"; ?>)
@@ -56,7 +56,7 @@ echo (int)date("m", strtotime($weeks[0])) . "월";
                                                 echo "<td style='border-right-style:none;border-bottom-style:none; border-radius: 0 0 10px 0;text-align:center;font-size:30px' class='work' id='" . $weeks[$j] . "')>";
                                             } else
                                                 echo "<td style='text-align:center;font-size:30px' class='work' id='" . $weeks[$j] . "')>";
-                                            echo '<button class="btn btn-default work" style="display:block;margin-top:10px;margin-bottom:10px; " onclick=newWork(' . $ch_ids[$i] . ',"' . $ch_names[$i] . '","' . $weeks[$j] . '")>+</button>';
+                                            echo '<button class="btn btn-default work" style="display:block;margin-top:10px;margin-bottom:10px;" onclick="newWork(' . $ch_ids[$i] . ',\'' . $ch_names[$i] . '\',\'' . $weeks[$j] . '\')">+</button>';
                                         }
 
                                         echo "</td>";
@@ -83,13 +83,13 @@ echo (int)date("m", strtotime($weeks[0])) . "월";
                                 <input id="work_ch_id" type="hidden" name="work_ch_id" value=0/>
                                  <table class="time_table" style="table-layout: fixed" align="center"  >
                                     <tr class="" style="border-radius: 10px 0 0 0; ">
-                                        <td colspan="1"  class="content " style=" width:7%;border-top-style:none;border-left-style:none; border-right-color:white; border-bottom-color:white; border-radius: 10px 0 0 0; font-weight: bold;font-size:20px ">
+                                        <td   class="content " style=" width:7%;border-top-style:none;border-left-style:none; border-right-color:white; border-bottom-color:white; border-radius: 10px 0 0 0; font-weight: bold;font-size:20px ">
                                            
                                             <button id="work_complete_btn" style="height: 50px;" type="button" class="btn btn-info has-spinner glyphicon">
                                             </button>
                                          </td>
                                         <td colspan="4" class="content"  style="width:40%;border-top-style:none;border-left-color:white;  border-bottom-color:white; font-weight: bold;font-size:20px ">
-                                            <input id="work_title" type="text" name="work_name" placeholder="제목"/>
+                                            <input id="work_title" style="height:40px;width:100%;" type="text" name="work_name" placeholder="제목"/>
                                             </td>
                                          
                                         

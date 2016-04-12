@@ -1,3 +1,4 @@
+<meta http-equiv='Content-Type' content='text/html' charset='utf-8'>
 <?php
 include_once ('./config.php');
 // echo $_REQUEST['work_id'];

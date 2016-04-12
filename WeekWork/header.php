@@ -24,17 +24,35 @@ while ($row = mysql_fetch_array($result)) {
     $ch_ids[] = $row['ch_id'];
     $ch_names[] = $row['ch_name'];
 }
-
+$ddate = date('Y-m-d');
+$date = new DateTime($ddate);
+$week = $date -> format("W");
+$year = $date -> format("y");
 if (empty($_REQUEST['week'])) {
+
+    echo $array[0];
+    echo $array[1];
+
     $this_week = 0;
 } else {
     $this_week = $_REQUEST['week'];
 }
+$week += $this_week;
 
-$tempweek = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday');
-for ($i = 0; $i < 5; $i++) {
-    $weeks[] = date("Y-m-d", strtotime($tempweek[$i] . ' ' . $this_week . ' week'));
+$weeks = getStartAndEndDate($week, $year);
+function getStartAndEndDate($week, $year) {
+
+    $time = strtotime("1 January $year", time());
+    $day = date('w', $time);
+    $time += ((7 * $week) + 1 - $day) * 24 * 3600;
+
+    for ($i = 0; $i < 5; $i++) {
+        $return[$i] = date('Y-m-d', $time);
+        $time += 24 * 3600;
+    }
+    return $return;
 }
+
 ?>
 
 <LINK REL="SHORTCUT ICON" HREF="./favicon.ico" />
@@ -51,6 +69,9 @@ for ($i = 0; $i < 5; $i++) {
             </li>
             <li>
                 <a href="week.php?week=<?php echo(int)$this_week - 1; ?>" class="glyphicon-text glyphicon-arrow-left"></a>
+            </li>
+            <li>
+                <a href="week.php" class="glyphicon-text glyphicon-stop"></a>
             </li>
             <li>
                 <a href="week.php?week=<?php echo(int)$this_week + 1; ?>" class="glyphicon-text glyphicon-arrow-right"></a>

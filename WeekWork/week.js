@@ -189,9 +189,17 @@ getItem = function() {
                     "user_name" : this.user_name
                 };
                 obj = $('#' + this.ch_id + ' #' + this.day);
-                htmls += '<p class="btn btn-default work" id="work_' + this.work_id + '"  style="background:#cfebf2;border-color:#cfebf2;';
-                htmls += 'display:block;margin-top:10px;margin-bottom:10px; " onclick=viewWork(' + this.work_id + ')>';
+                htmls += '<p class="btn btn-default work " id="work_' + this.work_id + '"  style="border-color:#cfebf2;';
+
+                if (this.user_id == wUser_id)
+                    htmls += 'background:#cfdaf2;';
+                else
+                    htmls += 'background:#cfebf2;';
+
+                htmls += 'display:block;margin-top:10px;margin-bottom:10px; " onclick="viewWork(' + this.work_id + ')">';
                 htmls += '⦁ ' + this.work_name;
+                if (this.file_id != 0)
+                    htmls += '&nbsp;&nbsp;<span style="color:#eb625e" class="glyphicon glyphicon-paperclip"></span>';
                 htmls += '</p>';
                 obj.prepend(htmls);
                 htmls = "";
@@ -374,6 +382,7 @@ $('#work_complete_btn').click(function() {
     request.done(function() {
         // setTimeout(function() {
         // $(btn).buttonLoader('stop');
+        isLoading = false;
 
         if (isComplete == 1) {
             workArray[flag_work_id]["complete"] = 0;
@@ -383,8 +392,6 @@ $('#work_complete_btn').click(function() {
         viewWork(flag_work_id);
         // }, 1500);
         //do something special
-
-        isLoading = false;
 
     });
 

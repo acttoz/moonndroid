@@ -11,8 +11,8 @@
     <body id="home">
         <div id="wrapper">
             <div id="content">
-                <IMG class="displayed" src=" " style="width:70%; display: block; margin-left: auto; margin-right: auto">
-                <IMG class="displayed" src="./img/tutorial.png" style="width:70%; display: block; margin-left: auto; margin-right: auto">
+                <!-- <IMG class="displayed" src=" " style="width:70%; display: block; margin-left: auto; margin-right: auto"> -->
+                <IMG class="displayed" src="./img/tutorial.png" style="width:800px; display: block; margin-left: auto; margin-right: auto">
             </div>
             <footer>
                 <?php
