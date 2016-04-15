@@ -97,8 +97,7 @@ function resetWork() {
 }
 
 work_file_down.click(function() {
-    var encoded=encodeURIComponent(fileInfo["name"]);
-    alert(encoded);
+    var encoded = encodeURIComponent(fileInfo["name"]);
     // document.location = "./file.php?select=download&name=" + fileInfo["name"] + "&hash=" + fileInfo["hash"];
     location.href = "./file.php?select=download&name=" + encoded + "&hash=" + fileInfo["hash"];
 });
@@ -414,12 +413,12 @@ $('#reply_submit').click(function() {
     $('#workList').ajaxForm({
         //보내기전 validation check가 필요할경우
         beforeSubmit : function(data, frm, opt) {
-            $.overlay.show('ajax');
             var title = $("#reply_input");
             if (title.val().replace(/\s/g, '') == "") {
                 alert("내용을 입력하세요.");
                 return false;
             } else {
+                $.overlay.show('ajax');
                 return true;
             }
         },
@@ -444,13 +443,12 @@ $('#work_save_btn').click(function() {
         //보내기전 validation check가 필요할경우
         beforeSubmit : function(data, frm, opt) {
 
-            $.overlay.show('ajax');
-
             var title = $("#work_title");
             if (title.val().replace(/\s/g, '') == "") {
                 alert("제목 입력은 필수입니다.");
                 return false;
             } else {
+                $.overlay.show('ajax');
                 return true;
             }
         },

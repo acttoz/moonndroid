@@ -21,7 +21,7 @@ if ($_REQUEST['select'] == "upload") {
             }
         }
         $query = "insert into w_files (name, hash) 
-              values('" . $_FILES['file']['name'] . "', 
+              values('" . $_FILES['file']['name'] ."(".$_SESSION['w_name'].")". "', 
               '" . $file_hash . "')";
         mysql_query($query);
         $file_id = mysql_insert_id();
@@ -116,7 +116,7 @@ if ($_REQUEST['select'] == "reply") {
                 exit ;
             }
         }
-        $file_name = $_FILES['reply_file']['name'];
+        $file_name = $_FILES['reply_file']['name']."(".$_SESSION['w_name'].")";
     } else {
         $file_name = '0';
         $file_hash = '0';
