@@ -35,7 +35,7 @@
                     <div class="form-group" style="">
                         <label  class="col-sm-2 control-label" >아이디</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="user_id" id="user_id" checked="0" placeholder="비밀번호 재발급에 이용되므로 사용중인 이메일을 입력하세요." value="<?PHP echo $_SESSION['w_id'] ?>" readonly>
+                            <input type="text" class="form-control" name="user_id" id="user_id" checked="0" placeholder="비밀번호 재발급에 이용되므로 사용중인 이메일을 입력하세요." value="<?PHP echo $_SESSION['w_id'] ?>" readonly>
                         </div>
                     </div>
 

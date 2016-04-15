@@ -19,19 +19,19 @@ function signUp() {
 
     if (!teacher) {
         alert("이름을 입력하세요..!!");
-        return;
+        return false;
     }   else if (!mUserPass) {
         alert("비밀번호를 입력하세요..!!");
-        return;
+        return false;
     } else if (!mUserPass2) {
         alert("비밀번호 확인을 입력하세요..!!");
-        return;
+        return false;
     } else if (!$("#email").val()) {
         alert("이메일을 입력해 주세요...!!");
-        return;
+        return false;
     } else if (mUserPass != mUserPass2) {
         alert("비밀번호가 일치하지 않습니다.");
-        return;
+        return false;
     } else {
 
         if (isLoading)
@@ -49,7 +49,7 @@ function signUp() {
             success : function(args) {
                 isLoading = false;
                 if (!alert('회원 정보 수정 완료.')) {
-                    localStorage.removeItem("ID");
+                    localStorage.removeItem("W_ID");
                     document.location.href = "index.php";
                 }
 

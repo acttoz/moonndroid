@@ -5,10 +5,10 @@
         include_once ('./framework.php');
         ?>
     </head>
-    <?php
-    include_once ('./header_login.php');
-?>
     <body id="home">
+        <?php
+        include_once ('./header_login.php');
+        ?>
         <div id="wrapper">
             <div id="content">
                 <br>
@@ -58,7 +58,7 @@
                         type : 'POST',
                         cache : false,
                         data : {
-                            select:"login",
+                            select : "login",
                             user_id : mUserid,
                             user_pass : mUserPass
                         },
@@ -98,7 +98,6 @@
                 }
             });
 
-           
         </script>
     </body>
 </html>

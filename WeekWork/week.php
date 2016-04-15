@@ -69,15 +69,13 @@ include_once ('./header.php');
                                 
                                 <form id="workList"  style="display: none;" action="file.php" method="post" enctype="multipart/form-data"  onsubmit="return formValidate();">
                                 <h2 id="workDate"  user="<?php echo $_SESSION["w_id"]; ?>" >제목</h2> 
-                                <input id="work_id" type="hidden" name="work_id" value=
-                                <?php
+                                <input id="work_id" type="hidden" name="work_id" value=<?php
                                 if (isset($_REQUEST['work_id'])) {
                                     echo $_REQUEST['work_id'];
                                 } else {
                                     echo 0;
                                 }
-                                ?>
-                                />
+                                ?>/>
                                 <input id="flag_select" type="hidden" name="select" value="upload"/>
                                 <input id="work_day" type="hidden" name="work_day" value=0/>
                                 <input id="work_ch_id" type="hidden" name="work_ch_id" value=0/>
@@ -101,11 +99,11 @@ include_once ('./header.php');
                                     </tr>
                                     <tr class="" style="border-radius: 10px 0 0 0; ">
                                         <td class="content " colspan="2" style="border-bottom-style:none;border-left-style:none;">
-                                            <div  style=" ">
-                                                <textarea  class="contents" type="text" name="work_content" id="work_content" placeholder="설명" ></textarea>                                                                                           
+                                                <textarea class="contents" type="text" name="work_content" id="work_content" placeholder="설명" ></textarea>                                                                                           
+                                                <p style="white-space: pre-wrap" class="contents" id="work_content_view"></p>                                                                                           
 
 
-                                            </div></td>    
+                                             </td>    
                              
                                           
                                     </tr>
@@ -153,8 +151,11 @@ include_once ('./header.php');
                                             <div class="col-sm-8">
                                                 <textarea id="reply_input" type="text" name="reply_content" style="height:50px; width:100%" class="form-control"   checked="0" placeholder="댓글을 입력하세요."></textarea>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <input id="reply_submit" class = "btn btn-info form-control" type="submit" name="submit" style="margin-top:1px;width: 100%px;height:50px;" value="댓글 달기"/>
+                                            <div class="col-sm-2">
+                                                <input id="reply_submit" class = "btn btn-info form-control" type="submit" name="submit" style="margin-top:1px;width: 100%px;height:50px;" value="저장"/>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <input  class = "btn btn-info form-control" type="button" name="submit" style="margin-top:1px;width: 100%px;height:50px;" onclick="reply_complete()" value="완료"/>
                                             </div>
                                         </div>
                                           

@@ -37,6 +37,11 @@ function viewWork(work_id) {
     $("#workDate").text((date.getMonth() + 1) + "월 " + date.getDate() + "일 / " + $("#" + workArray[work_id]["ch_id"]).attr("ch_name") + " / " + workArray[work_id]["user_name"] + '님이 생성함.');
     $("#work_title").val(workArray[work_id]["work_name"]);
     $("#work_content").val(workArray[work_id]["work_content"]);
+    $("#work_content_view").text(workArray[work_id]["work_content"]);
+    $("#work_content_view").each(function() {
+        $(this).html($(this).html().replace(/((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/g, '<a href="$1">$1</a> '));
+
+    });
     if (workArray[work_id]["complete"] == 1) {
         setComplete(true, work_id);
         if (wUser_id == workArray[work_id]["user_id"]) {
@@ -69,6 +74,8 @@ function resetWork() {
     content.css("border", "0px solid #04A4B5");
     title.attr("readonly", true);
     content.attr("readonly", true);
+    content.css("display", "none");
+    $("#work_content_view").css("display", "block");
     title.css("text-decoration", "none");
     content.css("text-decoration", "none");
     work_edit_btn.text("수정");
@@ -129,7 +136,10 @@ function editMode() {
     content.attr("readonly", false);
     title.css("border", "1px solid #04a4b5");
     content.css("border", "1px solid #04A4B5");
-
+    content.css("display", "block");
+    content.css("height","1px");
+    content.css("height",20 + document.getElementById("work_content").scrollHeight + "px");
+    $("#work_content_view").css("display", "none");
     off(work_complete_btn);
     on($("#work_file_del"));
     off(work_delete_btn);
@@ -520,6 +530,11 @@ function on(obj) {
 
 function isEmpty(el) {
     return !$.trim(el.html());
+}
+
+function nl2br(str, is_xhtml) {
+    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
+    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 }
 
 

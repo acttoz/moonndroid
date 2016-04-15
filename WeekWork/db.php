@@ -104,7 +104,8 @@ if ($_REQUEST['select'] == "account") {
     $sql = $sql . "'" . $_REQUEST['user_name'] . "',";
     $sql = $sql . "user_mail=";
     $sql = $sql . "'" . $_REQUEST['user_mail'] . "'";
-    $sql = $sql . " WHERE user_id=${_SESSION['w_id']}";
+    $sql = $sql . " WHERE user_id='${_SESSION['w_id']}'";
+    echo $sql;
     mysql_query($sql, $connect);
 }
 if ($_REQUEST['select'] == "submit") {
@@ -163,7 +164,7 @@ if ($_REQUEST['select'] == "week") {
 }
 
 if ($_REQUEST['select'] == "reply") {
-    $sql = "SELECT w_reply.*,w_account.user_name FROM w_reply INNER JOIN w_account ON w_reply.user_id = w_account.user_id WHERE w_reply.work_id=${_REQUEST['work_id']}";
+    $sql = "SELECT w_reply.*,w_account.user_name FROM w_reply INNER JOIN w_account ON w_reply.user_id = w_account.user_id WHERE w_reply.work_id=${_REQUEST['work_id']} ORDER BY time ASC ";
     $result = mysql_query($sql);
     $results = array();
     while ($array = mysql_fetch_array($result)) {
@@ -221,7 +222,7 @@ if ($_REQUEST['select'] == "sendWork") {
 if ($_REQUEST['select'] == "sendReply") {
     $dt = new DateTime();
     $time = $dt -> format('Y-m-d H:i:s');
-    $sql = "INSERT INTO w_reply (content,time,user_id,work_id) VALUE ('${_REQUEST['content']}','${time}','${_SESSION['w_id']}','${_REQUEST['work_id']}')";
+    $sql = "INSERT INTO w_reply (content,time,user_id,work_id,file_name,file_hash) VALUE ('완료','${time}','${_SESSION['w_id']}','${_REQUEST['work_id']}','0','0')";
     mysql_query($sql);
 }
 ///////////////////////////////////

@@ -330,22 +330,22 @@ function sign_up() {
 
     if (!teacher) {
         alert("이름을 입력하세요..!!");
-        return;
+        return false;
     } else if (!idChecked) {
         alert("아이디 중복확인을 해주세요..!!");
-        return;
+        return false; 
     } else if (!mUserPass) {
         alert("비밀번호를 입력하세요..!!");
-        return;
+        return false;
     } else if (!mUserPass2) {
         alert("비밀번호 확인을 입력하세요..!!");
-        return;
+        return false;
     } else if (!$("#email").val()) {
         alert("이메일을 입력해 주세요...!!");
-        return;
+        return false;
     } else if (mUserPass != mUserPass2) {
         alert("비밀번호가 일치하지 않습니다.");
-        return;
+        return false;
     } else {
 
         if (isLoading)
@@ -382,7 +382,7 @@ function id_check() {
 
     if (!mUserid) {
         alert("아이디를 입력하세요..!!");
-        return;
+        return false;
     } else {
 
         if (isLoading)
