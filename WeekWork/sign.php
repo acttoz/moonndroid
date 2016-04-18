@@ -19,14 +19,20 @@
     </head>
 
     <body >
-        <?php
-        include_once ('./header_login.php');
-        ?>
+        <LINK REL="SHORTCUT ICON" HREF="./favicon.ico" />
+<header id="header">
+    <logo> <a href="index.php" title="WeekWork"></a> </logo>
+    <nav id="mainMenu">
+      <ul style="top:11px;height:100%">
+       
+      </ul>
+    </nav>
+  </header>
         <div id="wrapper">
             <div  id='content'  >
                 <form class="form-horizontal" id="margin" name="select_school" method="post" style="">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" >이     름</label>
+                        <label class="col-sm-2 control-label" >이     름(예:2반 홍길동)</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="teacher_name" placeholder="작성자 항목에 표시되는 이름이므로 정확히 입력해 주세요.">
                         </div>
