@@ -20,9 +20,12 @@ if ($_REQUEST['select'] == "upload") {
                 exit ;
             }
         }
+        //auto file naming
+        // $query = "insert into w_files (name, hash)
+        // values('" . $_FILES['file']['name'] . "',
+        // '" . $file_hash . "')";
         $query = "insert into w_files (name, hash) 
-              values('" . $_FILES['file']['name'] ."(".$_SESSION['w_name'].")". "', 
-              '" . $file_hash . "')";
+              values('(" . $_SESSION['w_name'] . ")" . $_FILES['file']['name'] . "','" . $file_hash . "')";
         mysql_query($query);
         $file_id = mysql_insert_id();
     } else {
@@ -34,11 +37,13 @@ if ($_REQUEST['select'] == "upload") {
     $work_id;
     $work_content = htmlspecialchars($_REQUEST['work_content'], ENT_QUOTES);
     if ($_REQUEST['work_id'] == 0) {
-        $sql = "INSERT INTO w_work (work_name,work_content,day,ch_id,user_id,file_id) VALUE ('${_REQUEST['work_name']}','${work_content}','${_REQUEST['work_day']}','${_REQUEST['work_ch_id']}','${_SESSION['w_id']}',${file_id})";
+        $sql = "INSERT INTO w_work (work_name,work_content,day,ch_id,user_id,file_id) VALUE ('${_REQUEST['work_name']}'
+        ,'${work_content}','${_REQUEST['work_day']}','${_REQUEST['work_ch_id']}','${_SESSION['w_id']}',${file_id})";
         mysql_query($sql);
         $work_id = mysql_insert_id();
     } else {
-        $sql = "UPDATE w_work SET work_name='${_REQUEST['work_name']}',work_content='${work_content}',file_id=${file_id} WHERE work_id='${_REQUEST['work_id']}'";
+        $sql = "UPDATE w_work SET work_name='${_REQUEST['work_name']}',work_content='${work_content}'
+        ,file_id=${file_id} WHERE work_id='${_REQUEST['work_id']}'";
         mysql_query($sql);
         $work_id = $_REQUEST['work_id'];
     }
@@ -53,7 +58,7 @@ if ($_REQUEST['select'] == "download") {
     $filehash = $_REQUEST['hash'];
     if (file_exists($dir . $filehash)) {
         header("Content-Type: Application/octet-stream");
-        header("Content-Disposition: attachment; filename=\"" . iconv('UTF-8','CP949',$filename) . "\"");
+        header("Content-Disposition: attachment; filename=\"" . iconv('UTF-8', 'CP949', $filename) . "\"");
         header("Content-Transfer-Encoding: binary");
         header("Content-Length: " . filesize($dir . $filehash));
 
@@ -116,7 +121,9 @@ if ($_REQUEST['select'] == "reply") {
                 exit ;
             }
         }
-        $file_name = $_FILES['reply_file']['name']."(".$_SESSION['w_name'].")";
+        //auto file naming
+        // $file_name = $_FILES['reply_file']['name'];
+        $file_name = "(" . $_SESSION['w_name'] . ")" . $_FILES['reply_file']['name'];
     } else {
         $file_name = '0';
         $file_hash = '0';
@@ -124,7 +131,8 @@ if ($_REQUEST['select'] == "reply") {
     $dt = new DateTime();
     $time = $dt -> format('Y-m-d H:i:s');
     $reply_content = nl2br(htmlspecialchars($_REQUEST['reply_content']));
-    $sql = "INSERT INTO w_reply (content,time,user_id,work_id,file_name,file_hash) VALUE ('${reply_content}','${time}','${_SESSION['w_id']}','${_REQUEST['work_id']}','${file_name}','${file_hash}')";
+    $sql = "INSERT INTO w_reply (content,time,user_id,work_id,file_name,file_hash) VALUE ('${reply_content}'
+    ,'${time}','${_SESSION['w_id']}','${_REQUEST['work_id']}','${file_name}','${file_hash}')";
 
     mysql_query($sql);
 
