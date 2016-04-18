@@ -122,7 +122,7 @@
                                 <!-- sign_school  -->                                                                                                
                         <div class="form-group" id="sign_school" style="display:none">
                             <hr>
-                           <h4 id="ch_name">학교</h4>
+                           <h4 id="ch_name" style="white-space: pre-wrap">학교</h4>
                             <div class="col-sm-8">
                                 <input type="text" id="pw_create" class="form-control numeric" placeholder="숫자 네자리" maxlength="4" onkeypress="return fn_press(event, 'numbers');" onkeydown="fn_press_han(this);" style="ime-mode:disabled;"/>
                             </div>
@@ -135,7 +135,7 @@
                                 <!-- sign_ch  -->                                                                                                
                         <div class="form-group" id="sign_ch" style="display:none">
                             <hr>
-                           <h4 id="ch_name">학년</h4>
+                           <h4 id="ch_name" style="white-space: pre-wrap">학년</h4>
                             <div class="col-sm-8">
                                 <input type="text" id="ch_pw_create" class="form-control numeric" placeholder="숫자 네자리" maxlength="4" onkeypress="return fn_press(event, 'numbers');" onkeydown="fn_press_han(this);" style="ime-mode:disabled;"/>
                             </div>
@@ -150,7 +150,7 @@
                                 <!-- login_ch  -->                                                                                                
                         <div class="form-group" id="login_ch" style="display:none">
                         <hr>
-                         <h4 id="ch_name">학년</h4>
+                         <h4 id="ch_name" style="white-space: pre-wrap">학년</h4>
                         <div class="col-sm-8">
                             <input type="text" id="pw_input" class="form-control numeric" placeholder="숫자 네자리" maxlength="4" onkeypress="return fn_press(event, 'numbers');" onkeydown="fn_press_han(this);" style="ime-mode:disabled;"/>
                         </div>

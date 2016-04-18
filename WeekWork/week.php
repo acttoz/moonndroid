@@ -30,16 +30,27 @@ include_once ('./header.php');
                                         <td class=" cell1 center " style="width:120px;font-size:25px;border-top-style:none;border-left-style:none; border-radius: 10px 0 0 0; "><?php
                                         echo(int)date("m", strtotime($weeks[0])) . "월";
                                         ?></td>
-                                        <td class="center" style="border-top-style:none;">월요일<span style="font-size:17px;">(<?php echo(int)date("d", strtotime($weeks[0])) . "일"; ?>)
-                                        </span></td>
-                                        <td class="center" style="border-top-style:none;">화요일<span style="font-size:17px;">(<?php echo(int)date("d", strtotime($weeks[1])) . "일"; ?>)
-                                        </span></td>
-                                        <td class="center" style="border-top-style:none;">수요일<span style="font-size:17px;">(<?php echo(int)date("d", strtotime($weeks[2])) . "일"; ?>)
-                                       </span> </td>
-                                        <td class="center" style="border-top-style:none;">목요일<span style="font-size:17px;">(<?php echo(int)date("d", strtotime($weeks[3])) . "일"; ?>)
-                                       </span> </td>
-                                        <td class="cell2 center" style="border-top-style:none;border-right-style:none; border-radius: 0 10px 0 0;"> 금요일<span style="font-size:17px;">(<?php echo(int)date("d", strtotime($weeks[4])) . "일"; ?>)
-                                        </span></td>
+                                        <td class="center" style="padding-top: 20px;border-top-style:none;vertical-align: top">
+                                            월요일
+                                            <span style="font-size:17px;vertical-align: top">(<?php echo(int)date("d", strtotime($weeks[0])) . "일"; ?>)</span>
+                                            <span class="week" style="font-size:17px;white-space: pre-wrap; "  id="<?php echo $weeks[0]; ?>"> </span>
+                                        </td>
+                                        <td class="center" style="padding-top: 20px;border-top-style:none;vertical-align: top">화요일
+                                            <span style="font-size:17px;">(<?php echo(int)date("d", strtotime($weeks[1])) . "일"; ?>)</span>
+                                            <span class="week" style="font-size:17px;white-space: pre-wrap; " id="<?php echo $weeks[1]; ?>"> </span>
+                                        </td>
+                                        <td class="center" style="padding-top: 20px;border-top-style:none;vertical-align: top">수요일
+                                            <span style="font-size:17px;">(<?php echo(int)date("d", strtotime($weeks[2])) . "일"; ?>)</span>
+                                            <span class="week" style="font-size:17px;white-space: pre-wrap; "  id="<?php echo $weeks[2]; ?>"> </span>
+                                        </td>
+                                        <td class="center" style="padding-top: 20px;border-top-style:none;vertical-align: top">목요일
+                                            <span style="font-size:17px;">(<?php echo(int)date("d", strtotime($weeks[3])) . "일"; ?>) </span>
+                                            <span class="week" style="font-size:17px;white-space: pre-wrap; "  id="<?php echo $weeks[3]; ?>"> </span>
+                                       </td>
+                                        <td class="cell2 center" style="padding-top: 20px;border-top-style:none;border-right-style:none; border-radius: 0 10px 0 0;vertical-align: top">금요일 
+                                            <span style="font-size:17px;">(<?php echo(int)date("d", strtotime($weeks[4])) . "일"; ?>) </span>
+                                            <span class="week" style="font-size:17px;white-space: pre-wrap; "  id="<?php echo $weeks[4]; ?>"> </span>
+                                       </td>
                                     </tr>
                                     <?php
                                     // 한 채널의 work 배치(표 한줄 완성)

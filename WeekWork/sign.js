@@ -220,7 +220,7 @@ function getChPw(ch_name) {
 
 function signSchoolMode(schoolNo, schoolName) {
     $("#sign_school").css("display", "block");
-    $("#sign_school #ch_name").text(schoolName);
+    $("#sign_school #ch_name").text(schoolName+"의 비밀번호를 설정합니다.\n학교의 선생님들께만 알려주세요.");
     $("#login_ch").css("display", "none");
     $("#sign_ch").css("display", "none");
     currentSchoolNo = schoolNo;
@@ -230,7 +230,7 @@ function signSchoolMode(schoolNo, schoolName) {
 function loginChMode(ch_id, ch_pw, schoolName) {
     $("#sign_school").css("display", "none");
     $("#login_ch").css("display", "block");
-    $("#login_ch #ch_name").text(schoolName);
+    $("#login_ch #ch_name").text(schoolName+"는 이미 생성된 학교입니다.\n비밀번호를 입력하고 가입해주세요.");
     $("#sign_ch").css("display", "none");
     currentChPw = ch_pw;
     currentChId = ch_id;
@@ -242,7 +242,7 @@ function signChMode(ch_id, ch_name) {
     $("#sign_school").css("display", "none");
     $("#login_ch").css("display", "none");
     $("#sign_ch").css("display", "block");
-    $("#sign_ch #ch_name").text(ch_name);
+    $("#sign_ch #ch_name").text(ch_name+"의 비밀번호를 설정합니다.\n동학년 선생님들께만 알려주세요.");
     currentChId = ch_id;
 
 }

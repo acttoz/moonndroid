@@ -137,8 +137,8 @@ function editMode() {
     title.css("border", "1px solid #04a4b5");
     content.css("border", "1px solid #04A4B5");
     content.css("display", "block");
-    content.css("height","1px");
-    content.css("height",20 + document.getElementById("work_content").scrollHeight + "px");
+    content.css("height", "1px");
+    content.css("height", 20 + document.getElementById("work_content").scrollHeight + "px");
     $("#work_content_view").css("display", "none");
     off(work_complete_btn);
     on($("#work_file_del"));
@@ -229,13 +229,45 @@ getItem = function() {
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("getItem jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
 
         isLoading = false;
+        location.reload();
     });
     // parsing end
 
     return true;
+
+};
+getEvent = function() {
+    var request = $.ajax("https://apis.sktelecom.com/v1/eventday/days", {
+        type : "GET",
+        dataType : "json",
+        contentType : "application/json; charset=utf-8",
+        data : {
+            year : 2016
+        },
+        beforeSend : function(xhr) {
+            xhr.setRequestHeader("TDCProjectKey","5a83a756-bdf5-4b7c-9841-8b1e362c1f34");
+            xhr.setRequestHeader("Content-Type","text/html; charset=UTF-8");
+        },
+    });
+    request.done(function(json) {
+        if (json.results != null && typeof json === "object" && json.results.length > 0) {
+            $(json.results).each(function() {
+                if (this.type == "s")
+                    return;
+                $(".week#" + this.year + "-" + this.month + "-" + this.day).text("\n" + this.name);
+                if (this.type == "h" || this.type == "i" || this.type.indexOf('h') != -1)
+                    $(".week#" + this.year + "-" + this.month + "-" + this.day).parent().css("background", "#eb625e");
+
+            });
+
+        }
+    });
+
+    request.fail(function(jqXHR, textStatus, errorThrown) {
+        alert("공사중");
+    });
 
 };
 
@@ -479,6 +511,7 @@ $('#work_save_btn').click(function() {
 
 $(document).ready(function() {
     getItem();
+    getEvent();
 
 });
 
