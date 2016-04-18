@@ -28,6 +28,7 @@ $ddate = date('Y-m-d');
 $date = new DateTime($ddate);
 $week = $date -> format("W");
 $year = $date -> format("y");
+
 if (empty($_REQUEST['week'])) {
 
     echo $array[0];
@@ -53,7 +54,13 @@ function getStartAndEndDate($week, $year) {
     return $return;
 }
 
+$eventyear1 = new DateTime($weeks[0]);
+$eventyear= $eventyear1 -> format("Y");
 ?>
+
+<script>
+var year = '<?= $eventyear ?>';
+</script>
 
 <LINK REL="SHORTCUT ICON" HREF="./favicon.ico" />
 <header id="header">

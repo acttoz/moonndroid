@@ -239,12 +239,13 @@ getItem = function() {
 
 };
 getEvent = function() {
+    console.log(year);
     var request = $.ajax("https://apis.sktelecom.com/v1/eventday/days", {
         type : "GET",
         dataType : "json",
         contentType : "application/json; charset=utf-8",
         data : {
-            year : 2016
+            year : year
         },
         beforeSend : function(xhr) {
             xhr.setRequestHeader("TDCProjectKey","5a83a756-bdf5-4b7c-9841-8b1e362c1f34");
