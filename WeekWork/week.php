@@ -217,6 +217,7 @@ include_once ('./header.php');
 
 <script>
 var news = '<?= $_SESSION['w_news'] ?>';
+
 </script>
         <!-- Menu Toggle Script -->
         <script src="week.js"></script>

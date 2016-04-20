@@ -65,7 +65,8 @@ function viewWork(work_id) {
     getReply(work_id);
     $("#workList").css("display", "block");
 
-    newArray.push(""+work_id);
+    newArray.push("" + work_id);
+    console.log(newArray);
     newArray = $.unique(newArray);
     upNew();
 }
@@ -92,12 +93,16 @@ upNew = function() {
 
 };
 
-
 function setNew() {
-    $.each(newArray, function(id, value) {
-        $(".work > div#" + value).remove();
-    });
-    $.post("news.php", {"news": newArray.join("-")});
+
+    if (newArray.length > 0) {
+        $.each(newArray, function(id, value) {
+            $(".work > div#" + value).remove();
+        });
+        $.post("news.php", {
+            "news" : newArray.join("-")
+        });
+    }
 }
 
 function resetWork() {
@@ -261,10 +266,12 @@ getItem = function() {
             viewWork(flag_work_id);
 
         $.overlay.hide('ajax');
-        
-        newArray = news.split("-");
-        newArray=$.unique(newArray);
-        setNew();
+
+        if (news != "") {
+            newArray = news.split("-");
+            newArray = $.unique(newArray);
+            setNew();
+        }
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
@@ -275,8 +282,6 @@ getItem = function() {
     return true;
 
 };
-
-
 
 getEvent = function() {
     var request = $.ajax("https://apis.sktelecom.com/v1/eventday/days", {
