@@ -215,10 +215,6 @@ include_once ('./header.php');
 <div class="overlay overlay_ctrl" >
 </div>
 
-<script>
-var news = '<?= $_SESSION['w_news'] ?>';
-
-</script>
         <!-- Menu Toggle Script -->
         <script src="week.js"></script>
         <script src="reply.js"></script>

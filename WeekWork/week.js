@@ -66,10 +66,36 @@ function viewWork(work_id) {
     $("#workList").css("display", "block");
 
     newArray.push("" + work_id);
-    console.log(newArray);
     newArray = $.unique(newArray);
     upNew();
 }
+
+getNew = function() {
+    var request = $.ajax("db.php", {
+        type : "GET",
+        contentType : "application/json; charset=utf-8",
+        data : {
+            select : "get_new"
+        }
+
+    });
+    request.done(function(news) {
+
+        if (news != "") {
+            newArray = news.split("-");
+            newArray = $.unique(newArray);
+            setNew();
+        }
+
+    });
+
+    request.fail(function(jqXHR, textStatus, errorThrown) {
+    });
+    // parsing end
+
+    return true;
+
+};
 
 upNew = function() {
     var request = $.ajax("db.php", {
@@ -98,9 +124,6 @@ function setNew() {
     if (newArray.length > 0) {
         $.each(newArray, function(id, value) {
             $(".work > div#" + value).remove();
-        });
-        $.post("news.php", {
-            "news" : newArray.join("-")
         });
     }
 }
@@ -267,11 +290,9 @@ getItem = function() {
 
         $.overlay.hide('ajax');
 
-        if (news != "") {
-            newArray = news.split("-");
-            newArray = $.unique(newArray);
-            setNew();
-        }
+        getNew();
+        
+        
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {

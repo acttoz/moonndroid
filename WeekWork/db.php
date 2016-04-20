@@ -134,7 +134,6 @@ if ($_REQUEST['select'] == "login") {
         $_SESSION['w_ch3'] = $row['ch3_id'];
         $_SESSION['w_ch4'] = $row['ch4_id'];
         $_SESSION['w_ch5'] = $row['ch5_id'];
-        $_SESSION['w_news'] = $row['news'];
 
         echo "success";
 
@@ -206,6 +205,10 @@ if ($_REQUEST['select'] == "complete") {
 
 if ($_REQUEST['select'] == "up_new") {
     mysql_query("UPDATE w_account SET news='${_REQUEST['news']}' WHERE user_id ='${_SESSION['w_id']}'");
+}
+if ($_REQUEST['select'] == "get_new") {
+        
+    echo mysql_result(mysql_query("SELECT news FROM w_account where user_id='${_SESSION['w_id']}'"), 0);
 }
 
 if ($_REQUEST['select'] == "delWork") {
