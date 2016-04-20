@@ -36,8 +36,9 @@ if ($_REQUEST['select'] == "upload") {
     }
     $work_id;
     $work_content = htmlspecialchars($_REQUEST['work_content'], ENT_QUOTES);
+    $work_name = htmlspecialchars($_REQUEST['work_name'], ENT_QUOTES);
     if ($_REQUEST['work_id'] == 0) {
-        $sql = "INSERT INTO w_work (work_name,work_content,day,ch_id,user_id,file_id) VALUE ('${_REQUEST['work_name']}'
+        $sql = "INSERT INTO w_work (work_name,work_content,day,ch_id,user_id,file_id) VALUE ('${work_name}'
         ,'${work_content}','${_REQUEST['work_day']}','${_REQUEST['work_ch_id']}','${_SESSION['w_id']}',${file_id})";
         mysql_query($sql);
         $work_id = mysql_insert_id();
@@ -130,7 +131,7 @@ if ($_REQUEST['select'] == "reply") {
     }
     $dt = new DateTime();
     $time = $dt -> format('Y-m-d H:i:s');
-    $reply_content = nl2br(htmlspecialchars($_REQUEST['reply_content']));
+    $reply_content = nl2br(htmlspecialchars($_REQUEST['reply_content'], ENT_QUOTES));
     $sql = "INSERT INTO w_reply (content,time,user_id,work_id,file_name,file_hash) VALUE ('${reply_content}'
     ,'${time}','${_SESSION['w_id']}','${_REQUEST['work_id']}','${file_name}','${file_hash}')";
 

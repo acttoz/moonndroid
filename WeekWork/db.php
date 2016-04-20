@@ -58,7 +58,7 @@ function getCh($school_id) {
 }
 
 function logInCh($ch_id, $isschool) {
-    if ($isschool==1) {
+    if ($isschool == 1) {
         $ch_num = 1;
     } else {
         $ch_num = 2;
@@ -134,6 +134,7 @@ if ($_REQUEST['select'] == "login") {
         $_SESSION['w_ch3'] = $row['ch3_id'];
         $_SESSION['w_ch4'] = $row['ch4_id'];
         $_SESSION['w_ch5'] = $row['ch5_id'];
+        $_SESSION['w_news'] = $row['news'];
 
         echo "success";
 
@@ -142,10 +143,12 @@ if ($_REQUEST['select'] == "login") {
     }
 
 }
+ 
 
 if ($_REQUEST['select'] == "week") {
 
-    $sql = "SELECT w_work.*,w_account.user_name FROM w_work INNER JOIN w_account ON w_work.user_id = w_account.user_id WHERE ";
+    $sql = "SELECT w_work.*,w_account.user_name,w_account.news FROM w_work INNER JOIN w_account ON w_work.user_id
+     = w_account.user_id WHERE ";
     $sql = $sql . " w_work.ch_id='" . $_SESSION['w_ch1'] . "'";
     $sql = $sql . " OR w_work.ch_id='" . $_SESSION['w_ch2'] . "'";
     $sql = $sql . " OR w_work.ch_id='" . $_SESSION['w_ch3'] . "'";
@@ -154,7 +157,11 @@ if ($_REQUEST['select'] == "week") {
     $sql = $sql . " ORDER BY work_id DESC";
     $result = mysql_query($sql);
     while ($array = mysql_fetch_array($result)) {
-        $results[] = array('work_id' => $array['work_id'], 'work_name' => $array['work_name'], 'work_content' => $array['work_content'], 'file_id' => $array['file_id'], 'complete' => $array['complete'], 'day' => $array['day'], 'ch_id' => $array['ch_id'], 'user_name' => $array['user_name'], 'user_id' => $array['user_id']);
+        $work_name = htmlspecialchars_decode($array['work_name'], ENT_QUOTES);
+        $work_decoded = htmlspecialchars_decode($array['work_content'], ENT_QUOTES);
+        $results[] = array('work_id' => $array['work_id'], 'work_name' => $work_name,'new' => $array['new'],
+         'work_content' => $work_decoded, 'file_id' => $array['file_id'], 'complete' => $array['complete'],
+          'day' => $array['day'], 'ch_id' => $array['ch_id'], 'user_name' => $array['user_name'], 'user_id' => $array['user_id']);
     }
 
     $data = array('week' => $results);
@@ -168,9 +175,10 @@ if ($_REQUEST['select'] == "reply") {
     $result = mysql_query($sql);
     $results = array();
     while ($array = mysql_fetch_array($result)) {
+        $reply_decoded = htmlspecialchars_decode($array['content'], ENT_QUOTES);
         $datetime = new DateTime($array['time']);
         $time = $datetime -> format('y') . "." . $datetime -> format('m') . "." . $datetime -> format('d') . "." . $datetime -> format('H') . ":" . $datetime -> format('i');
-        $results[] = array('reply_id' => $array['reply_id'], 'content' => $array['content'], 'time' => $time, 'user_id' => $array['user_id'], 'work_id' => $array['work_id'], 'file_name' => $array['file_name'], 'file_hash' => $array['file_hash'], 'user_name' => $array['user_name']);
+        $results[] = array('reply_id' => $array['reply_id'], 'content' => $reply_decoded, 'time' => $time, 'user_id' => $array['user_id'], 'work_id' => $array['work_id'], 'file_name' => $array['file_name'], 'file_hash' => $array['file_hash'], 'user_name' => $array['user_name']);
     }
 
     $data = array('week' => $results);
@@ -194,6 +202,10 @@ if ($_REQUEST['select'] == "file") {
 
 if ($_REQUEST['select'] == "complete") {
     mysql_query("UPDATE w_work SET complete=${_REQUEST['complete']} WHERE work_id=${_REQUEST['work_id']}");
+}
+
+if ($_REQUEST['select'] == "up_new") {
+    mysql_query("UPDATE w_account SET news='${_REQUEST['news']}' WHERE user_id ='${_SESSION['w_id']}'");
 }
 
 if ($_REQUEST['select'] == "delWork") {

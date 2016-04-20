@@ -12,6 +12,7 @@ var tClass = localStorage.getItem("tClass");
 var quiz = localStorage.getItem("quiz");
 var htmls = '';
 var workArray = [];
+var newArray = [];
 var fileInfo = [];
 var flag_work_id = 0;
 var flag_isEditing = false;
@@ -39,8 +40,7 @@ function viewWork(work_id) {
     $("#work_content").val(workArray[work_id]["work_content"]);
     $("#work_content_view").text(workArray[work_id]["work_content"]);
     $("#work_content_view").each(function() {
-        $(this).html($(this).html().replace(/((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/g, '<a href="$1">$1</a> '));
-
+        $(this).html($(this).html().replace(/((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/g, '<a href="$1"  target="_blank">$1</a> '));
     });
     if (workArray[work_id]["complete"] == 1) {
         setComplete(true, work_id);
@@ -65,6 +65,39 @@ function viewWork(work_id) {
     getReply(work_id);
     $("#workList").css("display", "block");
 
+    newArray.push(""+work_id);
+    newArray = $.unique(newArray);
+    upNew();
+}
+
+upNew = function() {
+    var request = $.ajax("db.php", {
+        type : "GET",
+        contentType : "application/json; charset=utf-8",
+        data : {
+            select : "up_new",
+            news : newArray.join("-")
+        }
+
+    });
+    request.done(function() {
+        setNew();
+    });
+
+    request.fail(function(jqXHR, textStatus, errorThrown) {
+    });
+    // parsing end
+
+    return true;
+
+};
+
+
+function setNew() {
+    $.each(newArray, function(id, value) {
+        $(".work > div#" + value).remove();
+    });
+    $.post("news.php", {"news": newArray.join("-")});
 }
 
 function resetWork() {
@@ -170,14 +203,12 @@ function setComplete(bool, work_id) {
 }
 
 getItem = function() {
-    if (isLoading)
-        return false;
-
-    isLoading = true;
-
     var request = $.ajax("db.php", {
         type : "GET",
         dataType : "json",
+        complete : setTimeout(function() {
+            getItem();
+        }, 60000),
         contentType : "application/json; charset=utf-8",
         data : {
             select : "week"
@@ -187,6 +218,7 @@ getItem = function() {
     $.overlay.show('ajax');
     request.done(function(json) {
         $(".work > p").remove();
+        $(".work > div").remove();
         var obj;
         if (json.week != null && typeof json === "object" && json.week.length > 0) {
             $(json.week).each(function() {
@@ -201,45 +233,52 @@ getItem = function() {
                     "user_name" : this.user_name
                 };
                 obj = $('#' + this.ch_id + ' #' + this.day);
-                htmls += '<p class="btn btn-default work " id="work_' + this.work_id + '"  style="border-color:#cfebf2;';
+                htmls += '<div id=' + this.work_id + ' style="width:100%;text-align:left"><img id=' + this.work_id + ' src="./img/new.png" style="float:left;height:26px;width:40px;position:absolute;float:right"></img></div>';
+                htmls += '<p class="btn btn-default work" id="work_' + this.work_id + '"  style="border-color:#cfebf2;';
 
                 if (this.user_id == wUser_id)
                     htmls += 'background:#cfdaf2;';
                 else
                     htmls += 'background:#cfebf2;';
 
-                htmls += 'display:block;margin-top:10px;margin-bottom:10px; " onclick="viewWork(' + this.work_id + ')">';
-                htmls += '⦁ ' + this.work_name;
+                htmls += 'display:block;margin-top:0px;margin-bottom:10px; " onclick="viewWork(' + this.work_id + ')">';
                 if (this.file_id != 0)
-                    htmls += '&nbsp;&nbsp;<span style="color:#eb625e" class="glyphicon glyphicon-paperclip"></span>';
+                    htmls += '<span style="color:#eb625e" class="glyphicon glyphicon-paperclip">&nbsp;</span>';
+                else
+                    htmls += '⦁ ';
+                htmls += this.work_name;
                 htmls += '</p>';
                 obj.prepend(htmls);
                 htmls = "";
                 if (this.complete == 1)
                     setComplete(true, this.work_id);
+
             });
 
         }
-        isLoading = false;
         $("#workList").css("display", "none");
         if (flag_work_id != 0)
             viewWork(flag_work_id);
 
         $.overlay.hide('ajax');
+        
+        newArray = news.split("-");
+        newArray=$.unique(newArray);
+        setNew();
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-
-        isLoading = false;
-        location.reload();
+        alert("일시적인 오류입니다. 이 현상이 계속되면 관리자에게 문의해주세요.");
     });
     // parsing end
 
     return true;
 
 };
+
+
+
 getEvent = function() {
-    console.log(year);
     var request = $.ajax("https://apis.sktelecom.com/v1/eventday/days", {
         type : "GET",
         dataType : "json",
@@ -248,8 +287,8 @@ getEvent = function() {
             year : year
         },
         beforeSend : function(xhr) {
-            xhr.setRequestHeader("TDCProjectKey","5a83a756-bdf5-4b7c-9841-8b1e362c1f34");
-            xhr.setRequestHeader("Content-Type","text/html; charset=UTF-8");
+            xhr.setRequestHeader("TDCProjectKey", "5a83a756-bdf5-4b7c-9841-8b1e362c1f34");
+            xhr.setRequestHeader("Content-Type", "text/html; charset=UTF-8");
         },
     });
     request.done(function(json) {
@@ -267,7 +306,7 @@ getEvent = function() {
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("공사중");
+        alert("일시적인 오류입니다. 이 현상이 계속되면 관리자에게 문의해주세요.");
     });
 
 };
@@ -532,13 +571,13 @@ function formValidate() {
 
 
 $('#work_file_add').bind('change', function() {
-    if (1050000 < this.files[0].size) {
+    if (3050000 < this.files[0].size) {
         alert('1MB이하의 용량만 업로드 가능합니다.');
         work_file_add.replaceWith( work_file_add = work_file_add.clone(true));
     }
 });
 $('#reply_file_add').bind('change', function() {
-    if (1050000 < this.files[0].size) {
+    if (3050000 < this.files[0].size) {
         alert('1MB이하의 용량만 업로드 가능합니다.');
         reply_file_add.replaceWith( reply_file_add = reply_file_add.clone(true));
     }

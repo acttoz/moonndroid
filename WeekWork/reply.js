@@ -41,8 +41,8 @@ function getReply(work_id) {
         fail : function(jqXHR, textStatus, errorThrown) {
             // alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
 
-        },
-        timeout : 10000,
+        }
+        
     });
 
 }
