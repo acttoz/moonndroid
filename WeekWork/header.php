@@ -86,8 +86,6 @@ var year = '<?= $eventyear ?>';
             <li>
                 <a href="week.php?week=<?php echo(int)$this_week + 4; ?>" class="glyphicon-text glyphicon-fast-forward"></a>
             </li>
-            <li>
-            </li>
             <li >
                 <a href="week.php">WeekWork</a>
             </li>

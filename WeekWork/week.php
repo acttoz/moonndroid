@@ -71,7 +71,7 @@ include_once ('./header.php');
                                                     else
                                                         echo "<td style='text-align:center;font-size:30px' class='work' id='" . $weeks[$j] . "'>";
                                                 }
-                                                echo '<button class="btn btn-default work" style="display:block;margin-top:10px;margin-bottom:10px;" onclick="newWork(' . $ch_ids[$i] . ',\'' . $ch_names[$i] . '\',\'' . $weeks[$j] . '\')">+</button>';
+                                                echo '<button class="btn btn-default work" style="border:1px solid #cfebf2; display:block;margin-top:10px;margin-bottom:10px;" onclick="newWork(' . $ch_ids[$i] . ',\'' . $ch_names[$i] . '\',\'' . $weeks[$j] . '\')">+</button>';
                                             }
                                         } else {
                                             echo "<td class='center' style='border-left-style:none;border-bottom-style:none; border-radius: 0 0 0 10px;width: 60px;background-color:#e3f3f7;'>" . $ch_names[$i] . "</td>";
@@ -87,7 +87,7 @@ include_once ('./header.php');
                                                     else
                                                         echo "<td style='border-bottom-style:none;text-align:center;font-size:30px' class='work' id='" . $weeks[$j] . "'>";
                                                 }
-                                                echo '<button class="btn btn-default work" style="display:block;margin-top:10px;margin-bottom:10px;" onclick="newWork(' . $ch_ids[$i] . ',\'' . $ch_names[$i] . '\',\'' . $weeks[$j] . '\')">+</button>';
+                                                echo '<button class="btn btn-default work" style="border:1px solid #cfebf2;display:block;margin-top:10px;margin-bottom:10px;" onclick="newWork(' . $ch_ids[$i] . ',\'' . $ch_names[$i] . '\',\'' . $weeks[$j] . '\')">+</button>';
                                             }
                                         }
 

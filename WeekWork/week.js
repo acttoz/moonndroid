@@ -219,11 +219,15 @@ function editMode() {
 function setComplete(bool, work_id) {
     if (bool) {
         $("#work_" + work_id).css("text-decoration", "line-through");
+        $("#work_" + work_id).css("color", "rgba(255,255,255,0.5)");
+        $("#work_title").css("color", "rgba(0,0,0,0.2)");
         $("#work_title").css("text-decoration", "line-through");
         $("#work_content").css("text-decoration", "line-through");
         work_complete_btn.attr("class", "btn btn-success has-spinner glyphicon glyphicon-check");
     } else {
         $("#work_" + work_id).css("text-decoration", "none");
+        $("#work_" + work_id).css("color", "rgba(0,0,0,1.0)");
+        $("#work_title").css("color", "rgba(0,0,0,1.0)");
         $("#work_title").css("text-decoration", "none");
         $("#work_content").css("text-decoration", "none");
         work_complete_btn.attr("class", "btn btn-success has-spinner glyphicon glyphicon-unchecked");
@@ -236,7 +240,7 @@ getItem = function() {
         dataType : "json",
         complete : setTimeout(function() {
             getItem();
-        }, 60000),
+        }, 600000),
         contentType : "application/json; charset=utf-8",
         data : {
             select : "week"
@@ -261,7 +265,7 @@ getItem = function() {
                     "user_name" : this.user_name
                 };
                 obj = $('#' + this.ch_id + ' #' + this.day);
-                htmls += '<div id=' + this.work_id + ' style="width:100%;text-align:left"><img id=' + this.work_id + ' src="./img/new.png" style="float:left;height:26px;width:40px;position:absolute;float:right"></img></div>';
+                htmls += '<div id=' + this.work_id + ' style="width:100%;text-align:right;padding-right:40px"><img id=' + this.work_id + ' src="./img/new.png" style="height:26px;width:40px;position:absolute;float:right"></img></div>';
                 htmls += '<p class="btn btn-default work" id="work_' + this.work_id + '"  style="border-color:#cfebf2;';
 
                 if (this.user_id == wUser_id)
@@ -296,7 +300,7 @@ getItem = function() {
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("일시적인 오류입니다. 이 현상이 계속되면 관리자에게 문의해주세요.");
+        alert("일시적인 오류입니다. 이 현상이 계속되면 관리자에게 문의해주세요.Item");
     });
     // parsing end
 
@@ -332,7 +336,7 @@ getEvent = function() {
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("일시적인 오류입니다. 이 현상이 계속되면 관리자에게 문의해주세요.");
+        alert("일시적인 오류입니다. 이 현상이 계속되면 관리자에게 문의해주세요.Event");
     });
 
 };

@@ -12,6 +12,10 @@ table {
     white-space: nowrap; /*<td>보다 내용이 길경우 줄바꿈 되는것을 막아준다.*/
 }
 
+.work{
+    border: none;
+}
+
 .reply_x{
     width:auto;
     height:28px;
