@@ -219,8 +219,8 @@ function editMode() {
 function setComplete(bool, work_id) {
     if (bool) {
         $("#work_" + work_id).css("text-decoration", "line-through");
-        $("#work_" + work_id).css("color", "rgba(255,255,255,0.5)");
-        $("#work_title").css("color", "rgba(0,0,0,0.2)");
+        $("#work_" + work_id).css("color", "rgba(255,255,255,0.7)");
+        $("#work_title").css("color", "rgba(0,0,0,0.3)");
         $("#work_title").css("text-decoration", "line-through");
         $("#work_content").css("text-decoration", "line-through");
         work_complete_btn.attr("class", "btn btn-success has-spinner glyphicon glyphicon-check");
