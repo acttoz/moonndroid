@@ -15,7 +15,7 @@
         <link href="framework/css/sign.css" rel="stylesheet" type="text/css">
         <?php
         include_once ('./framework.php');
-        if (empty($_SESSION['w_is_logged']) || $_SESSION['w_is_logged'] == FALSE) {
+        if (empty($_SESSION['is_logged']) || $_SESSION['is_logged'] == FALSE) {
             header("location:index.php");
             exit ;
         }
@@ -45,7 +45,8 @@
                     <li>
                         <a href="week.php?week=<?php echo(int)$this_week + 4; ?>" class="glyphicon-text glyphicon-fast-forward"></a>
                     </li>
-                    <li></li>
+                    <li>
+                    </li>
                     <li >
                         <a href="week.php">WeekWork</a>
                     </li>
@@ -53,10 +54,10 @@
                         <a href="#">학년 설정</a>
                     </li>
                     <li >
-                        <a href="qna.php">질문&답변</a>
+                        <a href="qna.php">문의 게시판</a>
                     </li>
                     <li >
-                        <a href="#"><?php echo $_SESSION['w_name']; ?></a>
+                        <a href="#"><?php echo $_SESSION['name']; ?></a>
                     </li>
 
                 </ul>
@@ -71,113 +72,135 @@
 
                     <!-- 학교   -->
                     <td  class="content"    style="width:40%;border-top-style:none; font-weight: bold;font-size:20px "><?php
-                    if (empty($_SESSION['w_ch1'])) {
-                        echo "<button class='btn btn-info' style='height:70px;font-size:30px;' onclick='school()'>+</button>";
-                    } else {
 
-                        $sql = "SELECT * FROM w_channel WHERE ";
-                        $sql = $sql . "ch_id='" . $_SESSION['w_ch1'] . "'";
-                        $sql = $sql . " OR ch_id='" . $_SESSION['w_ch2'] . "'";
-                        $sql = $sql . " OR ch_id='" . $_SESSION['w_ch3'] . "'";
-                        $sql = $sql . " OR ch_id='" . $_SESSION['w_ch4'] . "'";
-                        $sql = $sql . " OR ch_id='" . $_SESSION['w_ch5'] . "'";
-                        $result = mysql_query($sql);
-                        $school_id = 0;
-                        while ($row = mysql_fetch_array($result)) {
-                            $ch_ids[] = $row['ch_id'];
-                            $ch_names[] = $row['ch_name'];
-                            $school_id = $row['school_id'];
-                        }
-
-                        $sql = "SELECT * FROM w_school WHERE ";
-                        $sql = $sql . "school_id='" . $school_id . "'";
-                        $result = mysql_query($sql);
-                        $school_name = "";
-                        while ($row = mysql_fetch_array($result)) {
-                            $school_name = $row['school_name'];
-                        }
-
-                        echo "<button id='school_name' class='btn btn-default' style=' height:70px;font-size:20px;' onclick='school()' >" . $school_name . "(재설정)</button>";
-                    }
+                    echo $_SESSION['school'];
                     ?></td>
 
                     <!-- 검색리스트  -->
-                    <td    class="content" rowspan="2" style="vertical-align:top ;  width:50%;border-top-style:none; border-right-style:none; border-radius: 0 10px 10px 0;">
-                        <div id="list_group" style="display:none">
-                        <div id="search_group" class="form-group">
-                    <div class="col-sm-8">
-                        <input type="text" id="search_input" class="form-control" name="school_word" placeholder="검색할 학교 이름을 입력하세요.">
-                    </div>
-                    <div class="col-sm-4">
-                        <button type="button" id="search_button" class="btn btn-info form-control" onclick="fnSchool()">
-                            검색하기
-                        </button>
-                    </div>
-                </div>
-                        <ul class="" id="school_list" style="list-style-type:none; height: auto;height: 400px; overflow-x: hidden; margin-top:60px;margin-right:10px;margin-bottom: 10px ">
-                        <li>
-                            <a href="#" class="list-group-item">검색 결과 없음</a>
-                        </li>
-                          </ul>
-                                <!-- sign_school  -->                                                                                                
-                        <div class="form-group" id="sign_school" style="display:none">
-                            <hr>
-                           <h4 id="ch_name" style="white-space: pre-wrap">학교</h4>
+                    <td    class="content" style=" width:50%;border-top-style:none; border-right-style:none; border-radius: 0 10px 0 0;"><?php
+
+                    $sql = "SELECT * FROM w_channel WHERE ";
+                    $sql = $sql . "school_no='" . $_SESSION['school_id'] . "'";
+                    $result = mysql_query($sql);
+                    $results;
+                    $ch_login_list = array();
+                    while ($row = mysql_fetch_array($result)) {
+                        if($row['grade']==0)
+                            $ch_login_list['school'] = array('grade'=>$row['grade'],'ch_id' => $row['ch_id'], 'pw' => $row['pw']);
+                        else if($row['grade']==10)
+                            $ch_login_list['me'] = array('grade'=>$row['grade'],'ch_id' => $row['ch_id'], 'pw' => $row['pw']);
+                        else
+                            $ch_login_list['grade'] = array('grade'=>$row['grade'],'ch_id' => $row['ch_id'], 'pw' => $row['pw']);
+                    }
+
+                    //로그인 됨  ch_school!=0 or ch_grade!=0
+                    if ($_SESSION['ch_school'] != 0) {
+                        echo '로그인됨';
+                    } else{
+                        //채널이 생성 안됨  w_channel테이블의 school_no 컬럼이 일치하는 row가 없음.
+                        echo '
+                          <div class="form-group" id="sign_school" style="display:block">
+                           <h4 id="ch_name" style="white-space: pre-wrap">';
+                        if (!empty($ch_login_list['school']))
+                            echo '학교 채널 생성자가 정한 비밀번호를 입력해주세요.';
+                        else {
+                            echo '학교 채널이 생성되지 않았습니다. 학교 채널 비밀번호를 생성해주세요.';
+                        }
+                                echo '</h4>
+                                
+                                
                             <div class="col-sm-8">
-                                <input type="text" id="pw_create" class="form-control numeric" placeholder="숫자 네자리" maxlength="4" onkeypress="return fn_press(event, 'numbers');" onkeydown="fn_press_han(this);" style="ime-mode:disabled;"/>
+                                <input type="text" id="school_pw" class="form-control numeric" placeholder="숫자 네자리" maxlength="4" onkeypress="return fn_press(event, \'numbers\');" onkeydown="fn_press_han(this);" style="ime-mode:disabled;"/>
                             </div>
                             <div class="col-sm-4">
-                                <button type="button" id="search_button" class="btn btn-success form-control" onclick="signSchool()">
-                                                                                        암호 생성하기
-                                </button>
+                                <button type="button" class="btn btn-success form-control" onclick="';
+                                 if (!empty($ch_login_list['school']))
+                            echo 'login_ch(0,'.$ch_login_list['school']['ch_id'].')';
+                        else {
+                            echo 'sign_ch(0,'.$_SESSION['school_id'].')';
+                            
+                        }
+                          
+                                echo '">';
+                                                                                       if (!empty($ch_login_list['school']))
+                            echo '로그인';
+                        else {
+                            echo '암호 생성하기';
+                        }
+                          
+                                echo '</button>
                             </div>
                         </div>
-                                <!-- sign_ch  -->                                                                                                
-                        <div class="form-group" id="sign_ch" style="display:none">
-                            <hr>
-                           <h4 id="ch_name" style="white-space: pre-wrap">학년</h4>
-                            <div class="col-sm-8">
-                                <input type="text" id="ch_pw_create" class="form-control numeric" placeholder="숫자 네자리" maxlength="4" onkeypress="return fn_press(event, 'numbers');" onkeydown="fn_press_han(this);" style="ime-mode:disabled;"/>
-                            </div>
-                            <div class="col-sm-4">
-                                <button type="button" id="search_button" class="btn btn-success form-control" onclick=signCh()>
-                                                                                        암호 생성하기
-                                </button>
-                            </div>
-                        </div>
-                        
-                        
-                                <!-- login_ch  -->                                                                                                
-                        <div class="form-group" id="login_ch" style="display:none">
-                        <hr>
-                         <h4 id="ch_name" style="white-space: pre-wrap">학년</h4>
-                        <div class="col-sm-8">
-                            <input type="text" id="pw_input" class="form-control numeric" placeholder="숫자 네자리" maxlength="4" onkeypress="return fn_press(event, 'numbers');" onkeydown="fn_press_han(this);" style="ime-mode:disabled;"/>
-                        </div>
-                        <div class="col-sm-4">
-                            <button type="button" id="search_button" class="btn btn-info form-control" onclick=loginCh()>
-                                가입하기
-                            </button>
-                        </div>
-                    </div>
+                        ';
+                    }
+                        ?>
+                      
+                     
                     </td>
-</div>
                 </tr>
                 <tr style="">
                     <!-- 학년제목  -->
                     <td  class="content"  style=" width:10%;border-radius:0 0 0 10px; border-left-style:none;border-bottom-style:none; font-weight: bold;font-size:25px "> 학년 </td>
 
                     <!-- 학년 리스트  -->
-                    <td  class="content"  style=" width:40%;border-style:none;border-left-color:white;  border-bottom-color:white; font-weight: bold;font-size:20px "><?php
-                    if (count($ch_ids) > 1) {
-                        for ($i = 1; $i < count($ch_ids); $i++) {
-
-                            echo "<button class='btn btn-default' style='margin-bottom:10px;height:70px;font-size:20px;' onclick='channel()'>" . $ch_names[$i] . "(재설정)</button>";
-                        }
-                    } else if (count($ch_ids) == 1) {
-                        echo "<button class='btn btn-info' style='height:70px;font-size:30px;' onclick='channel()' >+</button>";
-                    }
+                    <td  class="content"  style=" width:40%;border-style:none;border-bottom-style:none;border-left-color:white; font-weight: bold;font-size:20px "><?php
+                    // if (count($ch_ids) > 1) {
+                    // for ($i = 1; $i < count($ch_ids); $i++) {
+                    //
+                    // echo "<button class='btn btn-default' style='margin-bottom:10px;height:70px;font-size:20px;' onclick='channel()'>" . $ch_names[$i] . "(재설정)</button>";
+                    // }
+                    // } else if (count($ch_ids) == 1) {
+                    // echo "<button class='btn btn-info' style='height:70px;font-size:30px;' onclick='channel()' >+</button>";
+                    // }
+                    echo $_SESSION['grade'] . '학년';
                     ?></td>
+                    
+                    <td    class="content" style=" width:50%;border-bottom-style:none; border-right-style:none; border-radius: 0 0 10px 0;"><?php
+
+                   
+                    if ($_SESSION['ch_grade'] != 0) {
+                        echo '로그인됨';
+                    } else{
+                        //채널이 생성 안됨  w_channel테이블의 school_no 컬럼이 일치하는 row가 없음.
+                        echo '
+                          <div class="form-group" id="sign_school" style="display:block">
+                           <h4 id="ch_name" style="white-space: pre-wrap">';
+                        if (!empty($ch_login_list['grade']))
+                            echo $ch_login_list['grade']['grade'].'학년 채널 생성자가 정한 비밀번호를 입력해주세요.';
+                        else {
+                            echo $_SESSION['grade'].'학년 채널이 생성되지 않았습니다. <br>학년 채널 비밀번호를 생성해주세요.';
+                        }
+                                echo '</h4>
+                                
+                                
+                            <div class="col-sm-8">
+                                <input type="text" id="grade_pw" class="form-control numeric" placeholder="숫자 네자리" maxlength="4" onkeypress="return fn_press(event, \'numbers\');" onkeydown="fn_press_han(this);" style="ime-mode:disabled;"/>
+                            </div>
+                            <div class="col-sm-4">
+                                <button type="button" class="btn btn-success form-control" onclick="';
+                                 if (!empty($ch_login_list['grade']))
+                            echo 'login_ch('.$ch_login_list['grade']['grade'].','.$ch_login_list['grade']['ch_id'].')';
+                        else {
+                            echo 'sign_ch('.$_SESSION['grade'].','.$_SESSION['school_id'].')';
+                            
+                        }
+                          
+                                echo '">';
+                                                                                       if (!empty($ch_login_list['grade']))
+                            echo '로그인';
+                        else {
+                            echo '암호 생성하기';
+                        }
+                          
+                                echo '</button>
+                            </div>
+                        </div>
+                        ';
+                    }
+                        ?>
+                      
+                     
+                    </td>
                 </tr>
             </table>
 
@@ -187,10 +210,11 @@
         <!-- /#wrapper -->
         <!-- Menu Toggle Script -->
         <script src="./sign.js"></script>
-<script>var school_id =    '<?= $school_id ?>';
-            var school_name =  '<?= $school_name ?>';</script>
+<script>var school_pw = '<?= $ch_login_list['school']['pw'] ?>';
+    var grade_pw =  '<?= $ch_login_list['grade']['pw'] ?>';
+    </script>
             <?php
-        include_once ("./tail.php");
+            include_once ("./tail.php");
         ?>
     </body>
 

@@ -1,30 +1,31 @@
 <?php
-if (empty($_SESSION['w_is_logged']) || $_SESSION['w_is_logged'] == FALSE) {
+if (empty($_SESSION['is_logged']) || $_SESSION['is_logged'] == FALSE) {
     header("location:index.php");
     exit ;
 }
 
-if (empty($_SESSION['w_ch1'])) {
+if ($_SESSION['ch_school']==0) {
     echo "<script>";
-    echo "if(!alert('기본 학년(학교)을 선택해야 이용이 가능합니다.'))";
+    echo "if(!alert('학교와 학년 로그인이 필요합니다.'))";
     echo "location.href='channel.php';";
     echo "</script>";
-    // header("Location:channel.php");
-    // exit;
 }
 
-$sql = "SELECT ch_id,ch_name FROM w_channel WHERE ";
-$sql = $sql . "ch_id='" . $_SESSION['w_ch1'] . "'";
-$sql = $sql . " OR ch_id='" . $_SESSION['w_ch2'] . "'";
-$sql = $sql . " OR ch_id='" . $_SESSION['w_ch3'] . "'";
-$sql = $sql . " OR ch_id='" . $_SESSION['w_ch4'] . "'";
-$sql = $sql . " OR ch_id='" . $_SESSION['w_ch5'] . "'";
-$result = mysql_query($sql);
-while ($row = mysql_fetch_array($result)) {
-    $ch_ids[] = $row['ch_id'];
-    $ch_names[] = $row['ch_name'];
-}
+// $sql = "SELECT ch_id,ch_name FROM w_channel WHERE ";
+// $sql = $sql . "ch_id='" . $_SESSION['w_ch1'] . "'";
+// $sql = $sql . " OR ch_id='" . $_SESSION['w_ch2'] . "'";
+// $sql = $sql . " OR ch_id='" . $_SESSION['w_ch3'] . "'";
+// $sql = $sql . " OR ch_id='" . $_SESSION['w_ch4'] . "'";
+// $sql = $sql . " OR ch_id='" . $_SESSION['w_ch5'] . "'";
+// $result = mysql_query($sql);
+// while ($row = mysql_fetch_array($result)) {
+// $ch_ids[] = $row['ch_id'];
+// $ch_names[] = $row['ch_name'];
+// }
+$ch_ids = array($_SESSION['ch_school'],$_SESSION['ch_school'],$_SESSION['ch_school']);
+$ch_names = array($_SESSION['school'],$_SESSION['grade'].'학년',$_SESSION['name']);
 $ddate = date('Y-m-d');
+
 $date = new DateTime($ddate);
 $week = $date -> format("W");
 $year = $date -> format("y");
@@ -55,12 +56,10 @@ function getStartAndEndDate($week, $year) {
 }
 
 $eventyear1 = new DateTime($weeks[0]);
-$eventyear= $eventyear1 -> format("Y");
+$eventyear = $eventyear1 -> format("Y");
 ?>
 
-<script>
-var year = '<?= $eventyear ?>';
-</script>
+<script>var year =  '<?= $eventyear ?>';</script>
 
 <LINK REL="SHORTCUT ICON" HREF="./favicon.ico" />
 <header id="header">
@@ -96,7 +95,7 @@ var year = '<?= $eventyear ?>';
                 <a href="qna.php">질문 게시판</a>
             </li>
             <li >
-                <a href="account.php"><?php echo $_SESSION['w_name']; ?></a>
+                <a href="account.php"><?php echo $_SESSION['name']; ?></a>
             </li>
 
         </ul>

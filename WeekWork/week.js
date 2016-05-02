@@ -601,13 +601,13 @@ function formValidate() {
 
 
 $('#work_file_add').bind('change', function() {
-    if (3050000 < this.files[0].size) {
+    if (5050000 < this.files[0].size) {
         alert('1MB이하의 용량만 업로드 가능합니다.');
         work_file_add.replaceWith( work_file_add = work_file_add.clone(true));
     }
 });
 $('#reply_file_add').bind('change', function() {
-    if (3050000 < this.files[0].size) {
+    if (5050000 < this.files[0].size) {
         alert('1MB이하의 용량만 업로드 가능합니다.');
         reply_file_add.replaceWith( reply_file_add = reply_file_add.clone(true));
     }

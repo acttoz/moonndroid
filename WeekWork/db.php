@@ -22,14 +22,14 @@ if ($_REQUEST['select'] == "sign_school") {
 
 if ($_REQUEST['select'] == "sign_ch") {
     //make ch_0
-    $sql = "UPDATE w_channel SET pw=${_REQUEST['pw']} WHERE ch_id=${_REQUEST['ch_id']}";
+    $sql = "INSERT INTO w_channel (school_no,grade,pw) VALUE ('${_REQUEST['school_no']}','${_REQUEST['grade']}','${_REQUEST['pw']}')";
     mysql_query($sql);
-    logInCh($_REQUEST['ch_id'], 0);
+    logInCh(mysql_insert_id(), $_REQUEST['grade']);
     header("location:channel.php");
 }
 
 if ($_REQUEST['select'] == "login_ch") {
-    logInCh($_REQUEST['ch_id'], $_REQUEST['isschool']);
+    logInCh($_REQUEST['ch_id'], $_REQUEST['grade']);
     header("location:channel.php");
 }
 if ($_REQUEST['select'] == "get_channel") {
@@ -57,14 +57,16 @@ function getCh($school_id) {
     echo json_encode($data);
 }
 
-function logInCh($ch_id, $isschool) {
-    if ($isschool == 1) {
-        $ch_num = 1;
+function logInCh($ch_id, $grade) {
+    if ($grade == 0) {
+        $ch_num = '_school';
+    } else if ($grade == 10) {
+        $ch_num = '_me';
     } else {
-        $ch_num = 2;
+        $ch_num = '_grade';
     }
-    mysql_query("UPDATE w_account SET ch" . $ch_num . "_id=" . $ch_id . "  WHERE user_id='${_SESSION['w_id']}'");
-    $_SESSION['w_ch' . $ch_num] = $ch_id;
+    mysql_query("UPDATE member SET ch" . $ch_num . "=" . $ch_id . "  WHERE id='${_SESSION['id']}'");
+    $_SESSION['ch' . $ch_num] = $ch_id;
 
 }
 
@@ -84,7 +86,7 @@ if ($_REQUEST['select'] == "search") {
 
 if ($_REQUEST['select'] == "idcheck") {
 
-    $query = mysql_query("SELECT * FROM w_account WHERE user_id ='" . $_REQUEST['user_id'] . "'", $connect);
+    $query = mysql_query("SELECT * FROM member WHERE id ='" . $_REQUEST['user_id'] . "'", $connect);
 
     if (mysql_num_rows($query) == 0) {
 
@@ -98,69 +100,75 @@ if ($_REQUEST['select'] == "idcheck") {
 
 if ($_REQUEST['select'] == "account") {
 
-    $sql = "UPDATE w_account SET user_pw=";
+    $sql = "UPDATE member SET pass=";
     $sql = $sql . "'" . $_REQUEST['user_pw'] . "',";
-    $sql = $sql . "user_name=";
+    $sql = $sql . "name=";
     $sql = $sql . "'" . $_REQUEST['user_name'] . "',";
-    $sql = $sql . "user_mail=";
-    $sql = $sql . "'" . $_REQUEST['user_mail'] . "'";
-    $sql = $sql . " WHERE user_id='${_SESSION['w_id']}'";
+    $sql = $sql . " WHERE id='${_SESSION['id']}'";
     echo $sql;
     mysql_query($sql, $connect);
 }
-if ($_REQUEST['select'] == "submit") {
-
-    $sql = "INSERT INTO w_account ( user_id,user_pw,user_name,user_mail) VALUES ( ";
-    $sql = $sql . "'" . $_REQUEST['user_id'] . "',";
-    $sql = $sql . "'" . $_REQUEST['user_pw'] . "',";
-    $sql = $sql . "'" . $_REQUEST['user_name'] . "',";
-    $sql = $sql . "'" . $_REQUEST['user_mail'] . "')";
-    mysql_query($sql, $connect);
+if ($_REQUEST['select'] == "sign") {
+    $query = mysql_query("SELECT * FROM member WHERE school_id='" . $_REQUEST['school_id'] . "' and grade='" . $_REQUEST['grade'] . "' and name='" . $_REQUEST['name'] . "' and ban='" . $_REQUEST['ban'] . "'", $connect);
+    if (mysql_num_rows($query) == 0) {
+        $sql = "INSERT INTO member (id ,pass ,name,school,school_id,grade,ban) VALUES ( ";
+        $sql = $sql . "'" . $_REQUEST['user_id'] . "',";
+        $sql = $sql . "'" . $_REQUEST['user_pass'] . "',";
+        $sql = $sql . "'" . $_REQUEST['name'] . "',";
+        $sql = $sql . "'" . $_REQUEST['school'] . "',";
+        $sql = $sql . "'" . $_REQUEST['school_id'] . "',";
+        $sql = $sql . "'" . $_REQUEST['grade'] . "',";
+        $sql = $sql . "'" . $_REQUEST['ban'] . "')";
+        mysql_query($sql, $connect);
+        $_SESSION['id'] = $_REQUEST['user_id'] ;
+        
+        $sql = "INSERT INTO w_channel (school_no,grade,pw) VALUE ('${_REQUEST['school_id']}',10,'0')";
+        mysql_query($sql);
+        logInCh(mysql_insert_id(), 10);
+        echo "success";
+    } else {
+        echo "fail";
+    }
 }
 
 if ($_REQUEST['select'] == "login") {
-    $result = mysql_query("SELECT * FROM w_account WHERE user_id ='${_REQUEST['user_id']}' AND user_pw='${_REQUEST['user_pass']}'", $connect);
+
+    $result = mysql_query("SELECT * FROM member WHERE id ='${_REQUEST['user_id']}' AND pass='${_REQUEST['user_pass']}'", $connect);
 
     if (mysql_num_rows($result) == 1) {
         $row = mysql_fetch_assoc($result);
-
-        $_SESSION['w_is_logged'] = TRUE;
-        $_SESSION['w_id'] = $row['user_id'];
-        $_SESSION['w_school'] = $row['school_id'];
-        $_SESSION['w_name'] = $row['user_name'];
-        $_SESSION['w_email'] = $row['user_mail'];
-        $_SESSION['w_ch1'] = $row['ch1_id'];
-        $_SESSION['w_ch2'] = $row['ch2_id'];
-        $_SESSION['w_ch3'] = $row['ch3_id'];
-        $_SESSION['w_ch4'] = $row['ch4_id'];
-        $_SESSION['w_ch5'] = $row['ch5_id'];
+        $_SESSION['is_logged'] = TRUE;
+        $_SESSION['id'] = $row['id'];
+        $_SESSION['name'] = $row['name'];
+        $_SESSION['school'] = $row['school'];
+        $_SESSION['school_id'] = $row['school_id'];
+        $_SESSION['grade'] = $row['grade'];
+        $_SESSION['ban'] = $row['ban'];
+        $_SESSION['ch_school'] = $row['ch_school'];
+        $_SESSION['ch_grade'] = $row['ch_grade'];
+        $_SESSION['ch_me'] = $row['ch_me'];
+        $_SESSION['class_key'] = $row['class_key'];
 
         echo "success";
 
     } else {
         echo "fail";
     }
-
 }
- 
 
 if ($_REQUEST['select'] == "week") {
 
-    $sql = "SELECT w_work.*,w_account.user_name,w_account.news FROM w_work INNER JOIN w_account ON w_work.user_id
-     = w_account.user_id WHERE ";
-    $sql = $sql . " w_work.ch_id='" . $_SESSION['w_ch1'] . "'";
-    $sql = $sql . " OR w_work.ch_id='" . $_SESSION['w_ch2'] . "'";
-    $sql = $sql . " OR w_work.ch_id='" . $_SESSION['w_ch3'] . "'";
-    $sql = $sql . " OR w_work.ch_id='" . $_SESSION['w_ch4'] . "'";
-    $sql = $sql . " OR w_work.ch_id='" . $_SESSION['w_ch5'] . "'";
+    $sql = "SELECT w_work.*,member.name,member.news FROM w_work INNER JOIN member ON w_work.user_id
+     = member.id WHERE ";
+    $sql = $sql . " w_work.ch_id='" . $_SESSION['ch_school'] . "'";
+    $sql = $sql . " OR w_work.ch_id='" . $_SESSION['ch_grade'] . "'";
+    $sql = $sql . " OR w_work.ch_id='" . $_SESSION['ch_me'] . "'";
     $sql = $sql . " ORDER BY work_id DESC";
     $result = mysql_query($sql);
     while ($array = mysql_fetch_array($result)) {
         $work_name = htmlspecialchars_decode($array['work_name'], ENT_QUOTES);
         $work_decoded = htmlspecialchars_decode($array['work_content'], ENT_QUOTES);
-        $results[] = array('work_id' => $array['work_id'], 'work_name' => $work_name,'new' => $array['new'],
-         'work_content' => $work_decoded, 'file_id' => $array['file_id'], 'complete' => $array['complete'],
-          'day' => $array['day'], 'ch_id' => $array['ch_id'], 'user_name' => $array['user_name'], 'user_id' => $array['user_id']);
+        $results[] = array('work_id' => $array['work_id'], 'work_name' => $work_name, 'new' => $array['new'], 'work_content' => $work_decoded, 'file_id' => $array['file_id'], 'complete' => $array['complete'], 'day' => $array['day'], 'ch_id' => $array['ch_id'], 'user_name' => $array['user_name'], 'user_id' => $array['user_id']);
     }
 
     $data = array('week' => $results);
@@ -170,7 +178,7 @@ if ($_REQUEST['select'] == "week") {
 }
 
 if ($_REQUEST['select'] == "reply") {
-    $sql = "SELECT w_reply.*,w_account.user_name FROM w_reply INNER JOIN w_account ON w_reply.user_id = w_account.user_id WHERE w_reply.work_id=${_REQUEST['work_id']} ORDER BY time ASC ";
+    $sql = "SELECT w_reply.*,member.name FROM w_reply INNER JOIN member ON w_reply.user_id = member.id WHERE w_reply.work_id=${_REQUEST['work_id']} ORDER BY time ASC ";
     $result = mysql_query($sql);
     $results = array();
     while ($array = mysql_fetch_array($result)) {
@@ -204,11 +212,11 @@ if ($_REQUEST['select'] == "complete") {
 }
 
 if ($_REQUEST['select'] == "up_new") {
-    mysql_query("UPDATE w_account SET news='${_REQUEST['news']}' WHERE user_id ='${_SESSION['w_id']}'");
+    mysql_query("UPDATE member SET news='${_REQUEST['news']}' WHERE id ='${_SESSION['id']}'");
 }
 if ($_REQUEST['select'] == "get_new") {
-        
-    echo mysql_result(mysql_query("SELECT news FROM w_account where user_id='${_SESSION['w_id']}'"), 0);
+
+    echo mysql_result(mysql_query("SELECT news FROM member where id='${_SESSION['id']}'"), 0);
 }
 
 if ($_REQUEST['select'] == "delWork") {
@@ -225,21 +233,21 @@ if ($_REQUEST['select'] == "delWork") {
     mysql_query("DELETE FROM w_files WHERE file_id=${_REQUEST['file_id']}");
 }
 
-if ($_REQUEST['select'] == "sendWork") {
-    if ($_REQUEST['work_id'] == 0) {
-        $sql = "INSERT INTO w_work (work_name,work_content,day,ch_id,user_id) VALUE ('${_REQUEST['work_name']}','${_REQUEST['work_content']}','${_REQUEST['day']}','${_REQUEST['ch_id']}','${_SESSION['w_id']}')";
-    } else {
-        $sql = "UPDATE w_work SET work_name='${_REQUEST['work_name']}',work_content='${_REQUEST['work_content']}' WHERE work_id='${_REQUEST['work_id']}'";
-    }
-    mysql_query($sql);
-}
-
-if ($_REQUEST['select'] == "sendReply") {
-    $dt = new DateTime();
-    $time = $dt -> format('Y-m-d H:i:s');
-    $sql = "INSERT INTO w_reply (content,time,user_id,work_id,file_name,file_hash) VALUE ('완료','${time}','${_SESSION['w_id']}','${_REQUEST['work_id']}','0','0')";
-    mysql_query($sql);
-}
+// if ($_REQUEST['select'] == "sendWork") {
+// if ($_REQUEST['work_id'] == 0) {
+// $sql = "INSERT INTO w_work (work_name,work_content,day,ch_id,user_id) VALUE ('${_REQUEST['work_name']}','${_REQUEST['work_content']}','${_REQUEST['day']}','${_REQUEST['ch_id']}','${_SESSION['w_id']}')";
+// } else {
+// $sql = "UPDATE w_work SET work_name='${_REQUEST['work_name']}',work_content='${_REQUEST['work_content']}' WHERE work_id='${_REQUEST['work_id']}'";
+// }
+// mysql_query($sql);
+// }
+//
+// if ($_REQUEST['select'] == "sendReply") {
+// $dt = new DateTime();
+// $time = $dt -> format('Y-m-d H:i:s');
+// $sql = "INSERT INTO w_reply (content,time,user_id,work_id,file_name,file_hash) VALUE ('완료','${time}','${_SESSION['w_id']}','${_REQUEST['work_id']}','0','0')";
+// mysql_query($sql);
+// }
 ///////////////////////////////////
 
 mysql_close($connect);
