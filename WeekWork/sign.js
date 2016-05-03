@@ -9,71 +9,71 @@ var currentChId = 0;
 var currentChName = 0;
 var flag_isSchool = false;
 
-function school() {
-    var htmls = '';
-    $('#school_list').html(htmls);
-    flag_isSchool = true;
-    $("#search_group").css("display", "block");
-    $("#list_group").css("display", "block");
-}
-
-function channel() {
-    flag_isSchool = false;
-    $("#list_group").css("display", "block");
-    $("#search_group").css("display", "none");
-
-    var htmls = '';
-    $('#school_list').html(htmls);
-    if (isLoading)
-        return false;
-
-    isLoading = true;
-    var request = $.ajax("db.php", {
-        type : "GET",
-        dataType : "json",
-        contentType : "application/json; charset=utf-8",
-        data : {
-            select : 'get_channel',
-            school_id : school_id
-        }
-
-    });
-
-    request.done(function(json) {
-        if (json.list != null && typeof json === "object" && json.list.length > 0) {
-            $(json.list).each(function() {
-                if (this.ch_name != "학교") {
-                    htmls += '<li class="list-group-item" style="height:60px;" onclick="';
-
-                    if (this.pw == 0)
-                        htmls += 'signChMode(' + this.ch_id + ',\'' + this.ch_name + '\')">';
-                    else
-                        htmls += 'loginChMode(' + this.ch_id + ',\'' + this.pw + '\',\'' + this.ch_name + '\')">';
-
-                    htmls += '<label>' + this.ch_name + '</label>';
-                    htmls += '</li>';
-                }
-
-            });
-            $('#school_list').html(htmls);
-        } else {
-            htmls = '<li><a href="#"  class="list-group-item" value="' + '0' + '">' + '검색결과가 없습니다.  <br/>대한초등학교의 경우 "대한"만 입력해보세요.<br/>신축 학교는 서버에 없을 수 있으니 메일주시면 바로 추가해드리겠습니다.<br/> 문의(acttoz@naver.com).' + '</a></li>';
-            $('#school_list').html(htmls);
-        }
-        htmls = "";
-        isLoading = false;
-
-    });
-
-    request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("오류발생 \n jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
-
-        isLoading = false;
-    });
-    // parsing end
-
-    return true;
-}
+// function school() {
+// var htmls = '';
+// $('#school_list').html(htmls);
+// flag_isSchool = true;
+// $("#search_group").css("display", "block");
+// $("#list_group").css("display", "block");
+// }
+//
+// function channel() {
+// flag_isSchool = false;
+// $("#list_group").css("display", "block");
+// $("#search_group").css("display", "none");
+//
+// var htmls = '';
+// $('#school_list').html(htmls);
+// if (isLoading)
+// return false;
+//
+// isLoading = true;
+// var request = $.ajax("db.php", {
+// type : "GET",
+// dataType : "json",
+// contentType : "application/json; charset=utf-8",
+// data : {
+// select : 'get_channel',
+// school_id : school_id
+// }
+//
+// });
+//
+// request.done(function(json) {
+// if (json.list != null && typeof json === "object" && json.list.length > 0) {
+// $(json.list).each(function() {
+// if (this.ch_name != "학교") {
+// htmls += '<li class="list-group-item" style="height:60px;" onclick="';
+//
+// if (this.pw == 0)
+// htmls += 'signChMode(' + this.ch_id + ',\'' + this.ch_name + '\')">';
+// else
+// htmls += 'loginChMode(' + this.ch_id + ',\'' + this.pw + '\',\'' + this.ch_name + '\')">';
+//
+// htmls += '<label>' + this.ch_name + '</label>';
+// htmls += '</li>';
+// }
+//
+// });
+// $('#school_list').html(htmls);
+// } else {
+// htmls = '<li><a href="#"  class="list-group-item" value="' + '0' + '">' + '검색결과가 없습니다.  <br/>대한초등학교의 경우 "대한"만 입력해보세요.<br/>신축 학교는 서버에 없을 수 있으니 메일주시면 바로 추가해드리겠습니다.<br/> 문의(acttoz@naver.com).' + '</a></li>';
+// $('#school_list').html(htmls);
+// }
+// htmls = "";
+// isLoading = false;
+//
+// });
+//
+// request.fail(function(jqXHR, textStatus, errorThrown) {
+// alert("오류발생 \n jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+//
+// isLoading = false;
+// });
+// // parsing end
+//
+// return true;
+// }
 
 var fnSchool = function() {
 
@@ -129,129 +129,129 @@ var fnSchool = function() {
     return true;
 
 };
-function getSchoolPw(schoolNo, schoolName) {
-    var htmls = '';
-    var word = $("#search_input").val();
-    if (!word) {
-        alert("검색어를 입력하세요..!!");
-        $("#search_input").focus();
-        return false;
-    }
-    if (isLoading)
-        return false;
+// function getSchoolPw(schoolNo, schoolName) {
+// var htmls = '';
+// var word = $("#search_input").val();
+// if (!word) {
+// alert("검색어를 입력하세요..!!");
+// $("#search_input").focus();
+// return false;
+// }
+// if (isLoading)
+// return false;
+//
+// isLoading = true;
+// var request = $.ajax("db.php", {
+// type : "GET",
+// dataType : "json",
+// contentType : "application/json; charset=utf-8",
+// data : {
+// select : 'get_school',
+// no : schoolNo
+// }
+//
+// });
+//
+// request.done(function(json) {
+// if (json.list != null && typeof json === "object" && json.list.length > 0) {
+// loginChMode($(json.list).get(0).ch_id, $(json.list).get(0).pw, schoolName);
+// } else {
+// signSchoolMode(schoolNo, schoolName);
+// }
+// isLoading = false;
+//
+// });
+//
+// request.fail(function(jqXHR, textStatus, errorThrown) {
+// alert("오류발생 \n jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+//
+// isLoading = false;
+// });
+// // parsing end
+//
+// return true;
+//
+// }
+//
+// function getChPw(ch_name) {
+// alert('<?php= $school_id ?>');
+// var htmls = '';
+// var word = $("#search_input").val();
+// if (!word) {
+// alert("검색어를 입력하세요..!!");
+// $("#search_input").focus();
+// return false;
+// }
+// if (isLoading)
+// return false;
+//
+// isLoading = true;
+// var request = $.ajax("db.php", {
+// type : "GET",
+// dataType : "json",
+// contentType : "application/json; charset=utf-8",
+// data : {
+// select : 'get_ch',
+// school_id : school_id
+// }
+//
+// });
+//
+// request.done(function(json) {
+// if (json.list != null && typeof json === "object" && json.list.length > 0) {
+// $(json.list).each(function() {
+// loginChMode(this.ch_id, this.pw, schoolName);
+// });
+// } else {
+// signSchoolMode(schoolNo, schoolName);
+// }
+// isLoading = false;
+//
+// });
+//
+// request.fail(function(jqXHR, textStatus, errorThrown) {
+// alert("오류발생 \n jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+//
+// isLoading = false;
+// });
+// // parsing end
+//
+// return true;
+//
+// }
 
-    isLoading = true;
-    var request = $.ajax("db.php", {
-        type : "GET",
-        dataType : "json",
-        contentType : "application/json; charset=utf-8",
-        data : {
-            select : 'get_school',
-            no : schoolNo
-        }
-
-    });
-
-    request.done(function(json) {
-        if (json.list != null && typeof json === "object" && json.list.length > 0) {
-            loginChMode($(json.list).get(0).ch_id, $(json.list).get(0).pw, schoolName);
-        } else {
-            signSchoolMode(schoolNo, schoolName);
-        }
-        isLoading = false;
-
-    });
-
-    request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("오류발생 \n jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
-
-        isLoading = false;
-    });
-    // parsing end
-
-    return true;
-
-}
-
-function getChPw(ch_name) {
-    alert('<?php= $school_id ?>');
-    var htmls = '';
-    var word = $("#search_input").val();
-    if (!word) {
-        alert("검색어를 입력하세요..!!");
-        $("#search_input").focus();
-        return false;
-    }
-    if (isLoading)
-        return false;
-
-    isLoading = true;
-    var request = $.ajax("db.php", {
-        type : "GET",
-        dataType : "json",
-        contentType : "application/json; charset=utf-8",
-        data : {
-            select : 'get_ch',
-            school_id : school_id
-        }
-
-    });
-
-    request.done(function(json) {
-        if (json.list != null && typeof json === "object" && json.list.length > 0) {
-            $(json.list).each(function() {
-                loginChMode(this.ch_id, this.pw, schoolName);
-            });
-        } else {
-            signSchoolMode(schoolNo, schoolName);
-        }
-        isLoading = false;
-
-    });
-
-    request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("오류발생 \n jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
-
-        isLoading = false;
-    });
-    // parsing end
-
-    return true;
-
-}
-
-function signSchoolMode(schoolNo, schoolName) {
-    $("#sign_school").css("display", "block");
-    $("#sign_school #ch_name").text(schoolName + "의 비밀번호를 설정합니다.\n학교의 선생님들께만 알려주세요.");
-    $("#login_ch").css("display", "none");
-    $("#sign_ch").css("display", "none");
-    currentSchoolNo = schoolNo;
-    currentChName = schoolName;
-}
-
-function loginChMode(ch_id, ch_pw, schoolName) {
-    $("#sign_school").css("display", "none");
-    $("#login_ch").css("display", "block");
-    $("#login_ch #ch_name").text(schoolName + "는 이미 생성된 학교입니다.\n비밀번호를 입력하고 가입해주세요.");
-    $("#sign_ch").css("display", "none");
-    currentChPw = ch_pw;
-    currentChId = ch_id;
-
-    console.log(currentChPw);
-}
-
-function signChMode(ch_id, ch_name) {
-    $("#sign_school").css("display", "none");
-    $("#login_ch").css("display", "none");
-    $("#sign_ch").css("display", "block");
-    $("#sign_ch #ch_name").text(ch_name + "의 비밀번호를 설정합니다.\n동학년 선생님들께만 알려주세요.");
-    currentChId = ch_id;
-
-}
-
-function sign_school(ch_id, ch_pw) {
-    location.href = "db.php?select=sign_school&school_no=" + currentSchoolNo + "&grade=" + currentChName + "&pw=" + $("#pw_create").val();
-}
+// function signSchoolMode(schoolNo, schoolName) {
+// $("#sign_school").css("display", "block");
+// $("#sign_school #ch_name").text(schoolName + "의 비밀번호를 설정합니다.\n학교의 선생님들께만 알려주세요.");
+// $("#login_ch").css("display", "none");
+// $("#sign_ch").css("display", "none");
+// currentSchoolNo = schoolNo;
+// currentChName = schoolName;
+// }
+//
+// function loginChMode(ch_id, ch_pw, schoolName) {
+// $("#sign_school").css("display", "none");
+// $("#login_ch").css("display", "block");
+// $("#login_ch #ch_name").text(schoolName + "는 이미 생성된 학교입니다.\n비밀번호를 입력하고 가입해주세요.");
+// $("#sign_ch").css("display", "none");
+// currentChPw = ch_pw;
+// currentChId = ch_id;
+//
+// console.log(currentChPw);
+// }
+//
+// function signChMode(ch_id, ch_name) {
+// $("#sign_school").css("display", "none");
+// $("#login_ch").css("display", "none");
+// $("#sign_ch").css("display", "block");
+// $("#sign_ch #ch_name").text(ch_name + "의 비밀번호를 설정합니다.\n동학년 선생님들께만 알려주세요.");
+// currentChId = ch_id;
+//
+// }
+//
+// function sign_school(ch_id, ch_pw) {
+// location.href = "db.php?select=sign_school&school_no=" + currentSchoolNo + "&grade=" + currentChName + "&pw=" + $("#pw_create").val();
+// }
 
 function sign_ch(grade, school_no) {
     var pw = 0;
@@ -259,7 +259,10 @@ function sign_ch(grade, school_no) {
         pw = $("#school_pw").val();
     else
         pw = $("#grade_pw").val();
-    location.href = "db.php?select=sign_ch&school_no=" + school_no + "&grade=" + grade + "&pw=" + pw;
+
+    if (confirm("암호를 '" + pw + "'로 설정합니다.")) {
+        location.href = "db.php?select=sign_ch&school_no=" + school_no + "&grade=" + grade + "&pw=" + pw;
+    }
 }
 
 function login_ch(grade, ch_id) {
@@ -280,60 +283,60 @@ function login_ch(grade, ch_id) {
     location.href = "db.php?select=login_ch&ch_id=" + ch_id + "&grade=" + grade;
 }
 
-var fnChannel = function() {
-
-    var htmls = '';
-    $('#school_list').html(htmls);
-    if (!word) {
-        alert("검색어를 입력하세요..!!");
-        $("#search_input").focus();
-        return false;
-    }
-    if (isLoading)
-        return false;
-
-    isLoading = true;
-    var request = $.ajax("db.php", {
-        type : "GET",
-        dataType : "json",
-        contentType : "application/json; charset=utf-8",
-        data : {
-            select : 'search',
-            word : word
-        }
-
-    });
-
-    request.done(function(json) {
-        if (json.list != null && typeof json === "object" && json.list.length > 0) {
-            $(json.list).each(function() {
-                htmls += '<li class="list-group-item" style="height:60px;" onclick="getSchoolPw(' + this.no + ',\'' + this.school + '\')"><label>' + this.school + '</label>';
-                htmls += '</li>';
-
-            });
-        }
-        $('#school_list').html(htmls);
-        htmls = "";
-        isLoading = false;
-
-    });
-
-    request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("오류발생 \n jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
-
-        isLoading = false;
-    });
-    // parsing end
-
-    return true;
-
-};
-
+// var fnChannel = function() {
+//
+// var htmls = '';
+// $('#school_list').html(htmls);
+// if (!word) {
+// alert("검색어를 입력하세요..!!");
+// $("#search_input").focus();
+// return false;
+// }
+// if (isLoading)
+// return false;
+//
+// isLoading = true;
+// var request = $.ajax("db.php", {
+// type : "GET",
+// dataType : "json",
+// contentType : "application/json; charset=utf-8",
+// data : {
+// select : 'search',
+// word : word
+// }
+//
+// });
+//
+// request.done(function(json) {
+// if (json.list != null && typeof json === "object" && json.list.length > 0) {
+// $(json.list).each(function() {
+// htmls += '<li class="list-group-item" style="height:60px;" onclick="getSchoolPw(' + this.no + ',\'' + this.school + '\')"><label>' + this.school + '</label>';
+// htmls += '</li>';
+//
+// });
+// }
+// $('#school_list').html(htmls);
+// htmls = "";
+// isLoading = false;
+//
+// });
+//
+// request.fail(function(jqXHR, textStatus, errorThrown) {
+// alert("오류발생 \n jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+//
+// isLoading = false;
+// });
+// // parsing end
+//
+// return true;
+//
+// };
+//
 function schoolClick(id, school) {
 
-    $("#selected_school").val(school);
-    $("#selected_school").attr("school_id", id);
-    $("#selected_school").attr("school_name", school);
+$("#selected_school").val(school);
+$("#selected_school").attr("school_id", id);
+$("#selected_school").attr("school_name", school);
 
 }
 
@@ -396,9 +399,9 @@ function toNext() {
                             localStorage.removeItem("ID");
                             document.location.href = "index.php";
                         }
-                    } else if(args=="fail"){
+                    } else if (args == "fail") {
                         alert("오류발생:이미 가입된 학급입니다. 관리자에게 문의하세요. acttoz@naver.com");
-                    }else{
+                    } else {
                         alert(args);
                     }
 

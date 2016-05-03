@@ -110,7 +110,7 @@
                                 
                                 
                             <div class="col-sm-8">
-                                <input type="text" id="school_pw" class="form-control numeric" placeholder="숫자 네자리" maxlength="4" onkeypress="return fn_press(event, \'numbers\');" onkeydown="fn_press_han(this);" style="ime-mode:disabled;"/>
+                                <input type="text" id="school_pw" class="form-control numeric" placeholder="숫자 네자리" maxlength="4" style="ime-mode:disabled;"/>
                             </div>
                             <div class="col-sm-4">
                                 <button type="button" class="btn btn-success form-control" onclick="';
@@ -122,7 +122,7 @@
                         }
                           
                                 echo '">';
-                                                                                       if (!empty($ch_login_list['school']))
+                      if (!empty($ch_login_list['school']))
                             echo '로그인';
                         else {
                             echo '암호 생성하기';
@@ -174,7 +174,7 @@
                                 
                                 
                             <div class="col-sm-8">
-                                <input type="text" id="grade_pw" class="form-control numeric" placeholder="숫자 네자리" maxlength="4" onkeypress="return fn_press(event, \'numbers\');" onkeydown="fn_press_han(this);" style="ime-mode:disabled;"/>
+                                <input type="text" id="grade_pw" class="form-control numeric" placeholder="숫자 네자리" maxlength="4" style="ime-mode:disabled;"/>
                             </div>
                             <div class="col-sm-4">
                                 <button type="button" class="btn btn-success form-control" onclick="';

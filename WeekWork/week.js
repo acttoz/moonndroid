@@ -554,7 +554,6 @@ $('#work_save_btn').click(function() {
     $('#workList').ajaxForm({
         //보내기전 validation check가 필요할경우
         beforeSubmit : function(data, frm, opt) {
-
             var title = $("#work_title");
             if (title.val().replace(/\s/g, '') == "") {
                 alert("제목 입력은 필수입니다.");

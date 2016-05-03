@@ -25,7 +25,7 @@ if ($_REQUEST['select'] == "upload") {
         // values('" . $_FILES['file']['name'] . "',
         // '" . $file_hash . "')";
         $query = "insert into w_files (name, hash) 
-              values('(" . $_SESSION['w_name'] . ")" . $_FILES['file']['name'] . "','" . $file_hash . "')";
+              values('(" . $_SESSION['name'] . ")" . $_FILES['file']['name'] . "','" . $file_hash . "')";
         mysql_query($query);
         $file_id = mysql_insert_id();
     } else {
@@ -39,7 +39,7 @@ if ($_REQUEST['select'] == "upload") {
     $work_name = htmlspecialchars($_REQUEST['work_name'], ENT_QUOTES);
     if ($_REQUEST['work_id'] == 0) {
         $sql = "INSERT INTO w_work (work_name,work_content,day,ch_id,user_id,file_id) VALUE ('${work_name}'
-        ,'${work_content}','${_REQUEST['work_day']}','${_REQUEST['work_ch_id']}','${_SESSION['w_id']}',${file_id})";
+        ,'${work_content}','${_REQUEST['work_day']}','${_REQUEST['work_ch_id']}','${_SESSION['id']}',${file_id})";
         mysql_query($sql);
         $work_id = mysql_insert_id();
     } else {
@@ -124,7 +124,7 @@ if ($_REQUEST['select'] == "reply") {
         }
         //auto file naming
         // $file_name = $_FILES['reply_file']['name'];
-        $file_name = "(" . $_SESSION['w_name'] . ")" . $_FILES['reply_file']['name'];
+        $file_name = "(" . $_SESSION['name'] . ")" . $_FILES['reply_file']['name'];
     } else {
         $file_name = '0';
         $file_hash = '0';
@@ -133,7 +133,7 @@ if ($_REQUEST['select'] == "reply") {
     $time = $dt -> format('Y-m-d H:i:s');
     $reply_content = nl2br(htmlspecialchars($_REQUEST['reply_content'], ENT_QUOTES));
     $sql = "INSERT INTO w_reply (content,time,user_id,work_id,file_name,file_hash) VALUE ('${reply_content}'
-    ,'${time}','${_SESSION['w_id']}','${_REQUEST['work_id']}','${file_name}','${file_hash}')";
+    ,'${time}','${_SESSION['id']}','${_REQUEST['work_id']}','${file_name}','${file_hash}')";
 
     mysql_query($sql);
 

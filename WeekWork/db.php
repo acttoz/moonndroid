@@ -168,7 +168,7 @@ if ($_REQUEST['select'] == "week") {
     while ($array = mysql_fetch_array($result)) {
         $work_name = htmlspecialchars_decode($array['work_name'], ENT_QUOTES);
         $work_decoded = htmlspecialchars_decode($array['work_content'], ENT_QUOTES);
-        $results[] = array('work_id' => $array['work_id'], 'work_name' => $work_name, 'new' => $array['new'], 'work_content' => $work_decoded, 'file_id' => $array['file_id'], 'complete' => $array['complete'], 'day' => $array['day'], 'ch_id' => $array['ch_id'], 'user_name' => $array['user_name'], 'user_id' => $array['user_id']);
+        $results[] = array('work_id' => $array['work_id'], 'work_name' => $work_name, 'new' => $array['new'], 'work_content' => $work_decoded, 'file_id' => $array['file_id'], 'complete' => $array['complete'], 'day' => $array['day'], 'ch_id' => $array['ch_id'], 'user_name' => $array['name'], 'user_id' => $array['user_id']);
     }
 
     $data = array('week' => $results);
@@ -185,7 +185,7 @@ if ($_REQUEST['select'] == "reply") {
         $reply_decoded = htmlspecialchars_decode($array['content'], ENT_QUOTES);
         $datetime = new DateTime($array['time']);
         $time = $datetime -> format('y') . "." . $datetime -> format('m') . "." . $datetime -> format('d') . "." . $datetime -> format('H') . ":" . $datetime -> format('i');
-        $results[] = array('reply_id' => $array['reply_id'], 'content' => $reply_decoded, 'time' => $time, 'user_id' => $array['user_id'], 'work_id' => $array['work_id'], 'file_name' => $array['file_name'], 'file_hash' => $array['file_hash'], 'user_name' => $array['user_name']);
+        $results[] = array('reply_id' => $array['reply_id'], 'content' => $reply_decoded, 'time' => $time, 'user_id' => $array['user_id'], 'work_id' => $array['work_id'], 'file_name' => $array['file_name'], 'file_hash' => $array['file_hash'], 'name' => $array['name']);
     }
 
     $data = array('week' => $results);
