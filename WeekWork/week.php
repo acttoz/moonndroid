@@ -180,15 +180,13 @@ include_once ('./header.php');
                                          <td class="content"  style="width:10%;border-bottom-style:none;border-right-style:none; border-left-color:white; border-radius: 0 0 10px  0;">
                                           
                                         <div class="form-group" style="">
-                                            <div class="col-sm-8">
+                                            <div class="col-sm-9">
                                                 <textarea id="reply_input" type="text" name="reply_content" style="height:50px; width:100%" class="form-control"   checked="0" placeholder="댓글을 입력하세요."></textarea>
                                             </div>
-                                            <div class="col-sm-2">
+                                            <div class="col-sm-3">
                                                 <input id="reply_submit" class = "btn btn-info form-control" type="submit" name="submit" style="margin-top:1px;width: 100%px;height:50px;" value="저장"/>
                                             </div>
-                                            <div class="col-sm-2">
-                                                <input  class = "btn btn-info form-control" type="button" name="submit" style="margin-top:1px;width: 100%px;height:50px;" onclick="reply_complete()" value="완료"/>
-                                            </div>
+                                             
                                         </div>
                                           
                                           </td>

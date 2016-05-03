@@ -118,7 +118,6 @@
                             echo 'login_ch(0,'.$ch_login_list['school']['ch_id'].')';
                         else {
                             echo 'sign_ch(0,'.$_SESSION['school_id'].')';
-                            
                         }
                           
                                 echo '">';

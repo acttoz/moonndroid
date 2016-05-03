@@ -22,8 +22,8 @@ if ($_SESSION['ch_school']==0) {
 // $ch_ids[] = $row['ch_id'];
 // $ch_names[] = $row['ch_name'];
 // }
-$ch_ids = array($_SESSION['ch_school'],$_SESSION['ch_school'],$_SESSION['ch_school']);
-$ch_names = array($_SESSION['school'],$_SESSION['grade'].'학년',$_SESSION['name']);
+$ch_ids = array($_SESSION['ch_school'],$_SESSION['ch_grade'],$_SESSION['ch_me']);
+$ch_names = array('학교',$_SESSION['grade'].'학년',$_SESSION['name']);
 $ddate = date('Y-m-d');
 
 $date = new DateTime($ddate);

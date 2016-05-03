@@ -22,7 +22,7 @@
         <?php
         include_once ('./header.php');
         ?>
-        <div id="wrapper">
+       <!-- <div id="wrapper">
             <div  id='content'  >
                 <form class="form-horizontal" id="margin" name="select_school" method="post" style="">
                     <div class="form-group">
@@ -81,9 +81,8 @@
                 </form>
             </div>
 
-            <!-- /#page-content-wrapper -->
 
-        </div>
+        </div> -->
         <!-- /#wrapper -->
         <!-- Menu Toggle Script -->
         <script src="./account.js"></script>
