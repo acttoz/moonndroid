@@ -51,13 +51,13 @@
                         <a href="week.php">WeekWork</a>
                     </li>
                     <li >
-                        <a href="#">학년 설정</a>
+                        <a href="channel.php">학년 설정</a>
                     </li>
                     <li >
                         <a href="qna.php">문의 게시판</a>
                     </li>
                     <li >
-                        <a href="#"><?php echo $_SESSION['name']; ?></a>
+                        <a href="account.php"><?php echo $_SESSION['name']; ?></a>
                     </li>
 
                 </ul>
@@ -85,12 +85,14 @@
                     $results;
                     $ch_login_list = array();
                     while ($row = mysql_fetch_array($result)) {
-                        if($row['grade']==0)
-                            $ch_login_list['school'] = array('grade'=>$row['grade'],'ch_id' => $row['ch_id'], 'pw' => $row['pw']);
-                        else if($row['grade']==10)
-                            $ch_login_list['me'] = array('grade'=>$row['grade'],'ch_id' => $row['ch_id'], 'pw' => $row['pw']);
-                        else
-                            $ch_login_list['grade'] = array('grade'=>$row['grade'],'ch_id' => $row['ch_id'], 'pw' => $row['pw']);
+                        // if($row['grade']==0)
+                            // $ch_login_list['school'] = array('grade'=>$row['grade'],'ch_id' => $row['ch_id'], 'pw' => $row['pw']);
+                        // else if($row['grade']==10)
+                            // $ch_login_list['me'] = array('grade'=>$row['grade'],'ch_id' => $row['ch_id'], 'pw' => $row['pw']);
+                        // else
+                            // $ch_login_list['grade'] = array('grade'=>$row['grade'],'ch_id' => $row['ch_id'], 'pw' => $row['pw']);
+                            
+                            $ch_login_list[$row['grade']] = array('grade'=>$row['grade'],'ch_id' => $row['ch_id'], 'pw' => $row['pw']);
                     }
 
                     //로그인 됨  ch_school!=0 or ch_grade!=0
@@ -101,7 +103,7 @@
                         echo '
                           <div class="form-group" id="sign_school" style="display:block">
                            <h4 id="ch_name" style="white-space: pre-wrap">';
-                        if (!empty($ch_login_list['school']))
+                        if (!empty($ch_login_list[0]))
                             echo '학교 채널 생성자가 정한 비밀번호를 입력해주세요.';
                         else {
                             echo '학교 채널이 생성되지 않았습니다. 학교 채널 비밀번호를 생성해주세요.';
@@ -114,14 +116,14 @@
                             </div>
                             <div class="col-sm-4">
                                 <button type="button" class="btn btn-success form-control" onclick="';
-                                 if (!empty($ch_login_list['school']))
-                            echo 'login_ch(0,'.$ch_login_list['school']['ch_id'].')';
+                                 if (!empty($ch_login_list[0]))
+                            echo 'login_ch(0,'.$ch_login_list[0]['ch_id'].')';
                         else {
                             echo 'sign_ch(0,'.$_SESSION['school_id'].')';
                         }
                           
                                 echo '">';
-                      if (!empty($ch_login_list['school']))
+                      if (!empty($ch_login_list[0]))
                             echo '로그인';
                         else {
                             echo '암호 생성하기';
@@ -164,10 +166,10 @@
                         echo '
                           <div class="form-group" id="sign_school" style="display:block">
                            <h4 id="ch_name" style="white-space: pre-wrap">';
-                        if (!empty($ch_login_list['grade']))
-                            echo $ch_login_list['grade']['grade'].'학년 채널 생성자가 정한 비밀번호를 입력해주세요.';
+                        if (!empty($ch_login_list[$_SESSION['grade']]))
+                            echo $ch_login_list[$_SESSION['grade']]['grade'].'학년 채널 생성자가 정한 비밀번호를 입력해주세요.';
                         else {
-                            echo $_SESSION['grade'].'학년 채널이 생성되지 않았습니다. <br>학년 채널 비밀번호를 생성해주세요.';
+                            echo $_SESSION['grade'].'학년 채널이 생성되지 않았습니다. <br>'.$_SESSION['grade'].'학년 채널 비밀번호를 생성해주세요.';
                         }
                                 echo '</h4>
                                 
@@ -177,15 +179,15 @@
                             </div>
                             <div class="col-sm-4">
                                 <button type="button" class="btn btn-success form-control" onclick="';
-                                 if (!empty($ch_login_list['grade']))
-                            echo 'login_ch('.$ch_login_list['grade']['grade'].','.$ch_login_list['grade']['ch_id'].')';
+                                 if (!empty($ch_login_list[$_SESSION['grade']]))
+                            echo 'login_ch('.$ch_login_list[$_SESSION['grade']]['grade'].','.$ch_login_list[$_SESSION['grade']]['ch_id'].')';
                         else {
                             echo 'sign_ch('.$_SESSION['grade'].','.$_SESSION['school_id'].')';
                             
                         }
                           
                                 echo '">';
-                                                                                       if (!empty($ch_login_list['grade']))
+                                                                                       if (!empty($ch_login_list[$_SESSION['grade']]))
                             echo '로그인';
                         else {
                             echo '암호 생성하기';
@@ -209,8 +211,8 @@
         <!-- /#wrapper -->
         <!-- Menu Toggle Script -->
         <script src="./sign.js"></script>
-<script>var school_pw = '<?= $ch_login_list['school']['pw'] ?>';
-    var grade_pw =  '<?= $ch_login_list['grade']['pw'] ?>';
+<script>var school_pw = '<?= $ch_login_list[0]['pw'] ?>';
+    var grade_pw =  '<?= $ch_login_list[$_SESSION['grade']]['pw'] ?>';
     </script>
             <?php
             include_once ("./tail.php");

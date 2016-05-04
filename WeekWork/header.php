@@ -4,7 +4,7 @@ if (empty($_SESSION['is_logged']) || $_SESSION['is_logged'] == FALSE) {
     exit ;
 }
 
-if ($_SESSION['ch_school']==0) {
+if ($_SESSION['ch_school']==0||$_SESSION['ch_grade']==0) {
     echo "<script>";
     echo "if(!alert('학교와 학년 로그인이 필요합니다.'))";
     echo "location.href='channel.php';";

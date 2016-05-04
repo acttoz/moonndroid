@@ -31,11 +31,10 @@ var reply_file_add = $('#reply_file_add');
 //edit
 function viewWork(work_id) {
     resetWork();
-
     flag_work_id = work_id;
     $("#work_id").val(work_id);
     var date = new Date(workArray[work_id]["day"]);
-    $("#workDate").text((date.getMonth() + 1) + "월 " + date.getDate() + "일 / " + $("#" + workArray[work_id]["ch_id"]).attr("ch_name") + " / " + workArray[work_id]["user_name"] + '님이 생성함.');
+    $("#workDate").text((date.getMonth() + 1) + "월 " + date.getDate() + "일 / " + workArray[work_id]["grade"]+"학년 / " + workArray[work_id]["user_name"] + '님이 생성함.');
     $("#work_title").val(workArray[work_id]["work_name"]);
     $("#work_content").val(workArray[work_id]["work_content"]);
     $("#work_content_view").text(workArray[work_id]["work_content"]);
@@ -262,7 +261,8 @@ getItem = function() {
                     "complete" : this.complete,
                     "ch_id" : this.ch_id,
                     "user_id" : this.user_id,
-                    "user_name" : this.user_name
+                    "user_name" : this.user_name,
+                    "grade":this.grade
                 };
                 obj = $('#' + this.ch_id + ' #' + this.day);
                 htmls += '<div id=' + this.work_id + ' style="width:100%;text-align:right;padding-right:40px"><img id=' + this.work_id + ' src="./img/new.png" style="height:26px;width:40px;position:absolute;float:right"></img></div>';
@@ -600,13 +600,13 @@ function formValidate() {
 
 
 $('#work_file_add').bind('change', function() {
-    if (5050000 < this.files[0].size) {
+    if (15050000 < this.files[0].size) {
         alert('1MB이하의 용량만 업로드 가능합니다.');
         work_file_add.replaceWith( work_file_add = work_file_add.clone(true));
     }
 });
 $('#reply_file_add').bind('change', function() {
-    if (5050000 < this.files[0].size) {
+    if (15050000 < this.files[0].size) {
         alert('1MB이하의 용량만 업로드 가능합니다.');
         reply_file_add.replaceWith( reply_file_add = reply_file_add.clone(true));
     }

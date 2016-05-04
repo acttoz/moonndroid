@@ -19,72 +19,236 @@
     </head>
 
     <body >
-        <?php
-        include_once ('./header.php');
-        ?>
-       <!-- <div id="wrapper">
-            <div  id='content'  >
+        <header id="header">
+
+            <logo>
+                <a href="./index.php"></a>
+            </logo>
+            <nav id="mainMenu">
+                <ul>
+
+                    <li >
+                        <a href="week.php?week=<?php echo(int)$this_week - 4; ?>" class="glyphicon-text glyphicon-fast-backward"></a>
+                    </li>
+                    <li>
+                        <a href="week.php?week=<?php echo(int)$this_week - 1; ?>" class="glyphicon-text glyphicon-arrow-left"></a>
+                    </li>
+                    <li>
+                        <a href="week.php?week=<?php echo(int)$this_week + 1; ?>" class="glyphicon-text glyphicon-arrow-right"></a>
+                    </li>
+                    <li>
+                        <a href="week.php?week=<?php echo(int)$this_week + 4; ?>" class="glyphicon-text glyphicon-fast-forward"></a>
+                    </li>
+                    <li>
+                    </li>
+                    <li >
+                        <a href="week.php">WeekWork</a>
+                    </li>
+                    <li >
+                        <a href="channel.php">학년 설정</a>
+                    </li>
+                    <li >
+                        <a href="qna.php">문의 게시판</a>
+                    </li>
+                    <li >
+                        <a href="account.php"><?php echo $_SESSION['name']; ?></a>
+                    </li>
+
+                </ul>
+            </nav>
+        </header>
+       <div id="wrapper">
+           <div  id='content'  >
                 <form class="form-horizontal" id="margin" name="select_school" method="post" style="">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" >이     름</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="teacher_name" placeholder="작성자 항목에 표시되는 이름이므로 정확히 입력해 주세요." value="<?PHP echo $_SESSION['w_name'] ?>">
-                        </div>
+                   <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">이메일</label>
+                    <div class="col-sm-10">
+                        <input type="hidden" id="isaccount" value=1>
+                        <input readonly type="email" class="form-control" name="user_id" id="user_id" checked="1" placeholder="비밀번호 재발급에 이용되므로 사용중인 이메일을 입력하세요." value="<? echo $_SESSION['id']; ?>"/>
                     </div>
                     
-                    <div class="form-group" style="">
-                        <label  class="col-sm-2 control-label" >아이디</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="user_id" id="user_id" checked="0" placeholder="비밀번호 재발급에 이용되므로 사용중인 이메일을 입력하세요." value="<?PHP echo $_SESSION['w_id'] ?>" readonly>
-                        </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">비밀번호</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" name="user_pass" placeholder="비밀번호"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">비밀번호 확인</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control pass2" name="user_pass2" placeholder="비밀번호 확인"/>
+                    </div>
+                </div>
+             
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" >학년</label>
+                    <div class="col-sm-10">
+                        <select type="email" class="form-control grade" >
+                           <option value='1' <?php
+                            if ($_SESSION['grade'] == 1)
+                                echo 'selected';
+                            ?>>1학년</option>
+                            <option value='2' <?php
+                            if ($_SESSION['grade'] == 2)
+                                echo 'selected';
+                            ?>>2학년</option>
+                            <option value='3' <?php
+                            if ($_SESSION['grade'] == 3)
+                                echo 'selected';
+                            ?>>3학년</option>
+                            <option value='4' <?php
+                            if ($_SESSION['grade'] == 4)
+                                echo 'selected';
+                            ?>>4학년</option>
+                            <option value='5' <?php
+                            if ($_SESSION['grade'] == 5)
+                                echo 'selected';
+                            ?>>5학년</option>
+                            <option value='6' <?php
+                            if ($_SESSION['grade'] == 6)
+                                echo 'selected';
+                            ?>>6학년</option>
+                        </select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-2 control-label">비밀번호</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="user_pass" placeholder="비밀번호">
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" >학반</label>
+                    <div class="col-sm-10">
+                        <select type="email" class="form-control ban" >
+                            <option value='1' <?php
+                            if ($_SESSION['ban'] == 1)
+                                echo 'selected';
+                            ?>>1반</option>
+                            <option value='2' <?php
+                            if ($_SESSION['ban'] == 2)
+                                echo 'selected';
+                            ?>>2반</option>
+                            <option value='3' <?php
+                            if ($_SESSION['ban'] == 3)
+                                echo 'selected';
+                            ?>>3반</option>
+                            <option value='4' <?php
+                            if ($_SESSION['ban'] == 4)
+                                echo 'selected';
+                            ?>>4반</option>
+                            <option value='5' <?php
+                            if ($_SESSION['ban'] == 5)
+                                echo 'selected';
+                            ?>>5반</option>
+                            <option value='6' <?php
+                            if ($_SESSION['ban'] == 6)
+                                echo 'selected';
+                            ?>>6반</option>
+                            <option value='7' <?php
+                            if ($_SESSION['ban'] == 7)
+                                echo 'selected';
+                            ?>>7반</option>
+                            <option value='8' <?php
+                            if ($_SESSION['ban'] == 8)
+                                echo 'selected';
+                            ?>>8반</option>
+                            <option value='9' <?php
+                            if ($_SESSION['ban'] == 9)
+                                echo 'selected';
+                            ?>>9반</option>
+                            <option value='10' <?php
+                            if ($_SESSION['ban'] == 10)
+                                echo 'selected';
+                            ?>>10반</option>
+                            <option value='11' <?php
+                            if ($_SESSION['ban'] == 11)
+                                echo 'selected';
+                            ?>>11반</option>
+                            <option value='12' <?php
+                            if ($_SESSION['ban'] == 12)
+                                echo 'selected';
+                            ?>>12반</option>
+                            <option value='13' <?php
+                            if ($_SESSION['ban'] == 13)
+                                echo 'selected';
+                            ?>>13반</option>
+                            <option value='14' <?php
+                            if ($_SESSION['ban'] == 14)
+                                echo 'selected';
+                            ?>>14반</option>
+                            <option value='15' <?php
+                            if ($_SESSION['ban'] == 15)
+                                echo 'selected';
+                            ?>>15반</option>
+                            <option value='16' <?php
+                            if ($_SESSION['ban'] == 16)
+                                echo 'selected';
+                            ?>>16반</option>
+                            <option value='17' <?php
+                            if ($_SESSION['ban'] == 17)
+                                echo 'selected';
+                            ?>>17반</option>
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-2 control-label">비밀번호 확인</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control pass2" id="user_pass2" placeholder="비밀번호 확인">
-                        </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" >담임 성명</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="teacher_name" class="form-control" name="teacher_name" placeholder="학부모와 학생에게 표시되는 이름이므로 정확히 입력해주세요." value="<?echo $_SESSION['name'] ?>"/>
                     </div>
+                </div>
+               
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" >학교명</label>
+                    <div class="col-sm-8">
+                        <input type="text" id="search_input" class="form-control" name="school_word" placeholder="검색할 학교 이름을 입력하세요. 예> 대한초등학교의 경우 '대한'으로 검색"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" id="search_button" class="btn btn-info form-control" onclick=fnSchool()>
+                            검색하기
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" >선택한 학교</label>
+                   <div class="col-sm-8">
+                        <input type="text" class="form-control" id="selected_school" school_name="<?echo $_SESSION['school'] ?>" school_id="<?echo $_SESSION['school_id'] ?>" placeholder="선택한 학교 이름이 표시됩니다." readonly value="<?echo $_SESSION['school'] ?>"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-success form-control" onclick=toNext()>
+                            저장하기
+                        </button>
+                    </div>
+                    </div>
+            </form>
+            <div id="margin">
+                <label>학교 검색 목록</label>
+                <div class="list-group" id="school_list">
+                    <a href="#" class="list-group-item">검색 결과 없음</a>
+                </div>
+            </div>
+            </div>
                     
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" >이메일</label>
-                        <div class="col-sm-10">
-                            <input type="text" id="email" class="form-control" name="teacher_name" placeholder="비밀번호 재발급에 이용되므로 사용중인 이메일을 입력하세요." value="<?PHP echo $_SESSION['w_email'] ?>">
+                   <div id="margin">
+            <button type="button" style="width:100%;" class="btn btn-info" onclick=logOut()>
+                            로그아웃
+                        </button>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" ></label>
-                        <div class="col-sm-10">
-                            <button type="button" class="btn btn-success form-control" id="submit_btn" onclick=signUp()>
-                                변경하기
-                            </button>
+            <br/>
+            <div id="margin">
+            <button type="button" style="width:100%;" class="btn btn-danger" onclick=signOut()>
+                            회원탈퇴
+                        </button>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" ></label>
-                        <div class="col-sm-10">
-                            <button type="button" class="btn btn-warning form-control" id="submit_btn" onclick=logout()>
-                                로그아웃
-                            </button>
-                        </div>
-                    </div>
-                    
-                   
  
                   
-                </form>
             </div>
-
-
-        </div> -->
+        </div>
         <!-- /#wrapper -->
         <!-- Menu Toggle Script -->
+        <script>var origin_school = '<?= $_SESSION['school_id'] ?>';
+    var origin_grade =  '<?= $_SESSION['grade'] ?>';
+    </script>
+        
         <script src="./account.js"></script>
 
         <?php

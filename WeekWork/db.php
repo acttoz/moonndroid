@@ -100,13 +100,22 @@ if ($_REQUEST['select'] == "idcheck") {
 
 if ($_REQUEST['select'] == "account") {
 
-    $sql = "UPDATE member SET pass=";
-    $sql = $sql . "'" . $_REQUEST['user_pw'] . "',";
-    $sql = $sql . "name=";
-    $sql = $sql . "'" . $_REQUEST['user_name'] . "',";
-    $sql = $sql . " WHERE id='${_SESSION['id']}'";
-    echo $sql;
+    $sql = "UPDATE member SET school='" . $_REQUEST['school'] . "'";
+    if ($_REQUEST['school_logout'] == 1) {
+        $sql = $sql . ",ch_school=0 ,ch_grade=0,news=''";
+        $_SESSION['ch_school'] = 0;
+        $_SESSION['ch_grade'] = 0;
+    }
+    $sql = $sql . ",school_id='" . $_REQUEST['school_id'] . "' ,grade='" . $_REQUEST['grade'] . "' ,ban='" . $_REQUEST['ban'] . "' ,name='" . $_REQUEST['name'];
+    $sql = $sql . "' , pass='" . $_REQUEST['user_pass'] . "' WHERE id='" . $_REQUEST['user_id'] . "'";
     mysql_query($sql, $connect);
+    $_SESSION['id'] = $_REQUEST['user_id'];
+    $_SESSION['school'] = $_REQUEST['school'];
+    $_SESSION['school_id'] = $_REQUEST['school_id'];
+    $_SESSION['name'] = $_REQUEST['name'];
+    $_SESSION['grade'] = $_REQUEST['grade'];
+    $_SESSION['ban'] = $_REQUEST['ban'];
+    $_SESSION['is_logged'] = TRUE;
 }
 if ($_REQUEST['select'] == "sign") {
     $query = mysql_query("SELECT * FROM member WHERE school_id='" . $_REQUEST['school_id'] . "' and grade='" . $_REQUEST['grade'] . "' and name='" . $_REQUEST['name'] . "' and ban='" . $_REQUEST['ban'] . "'", $connect);
@@ -120,8 +129,8 @@ if ($_REQUEST['select'] == "sign") {
         $sql = $sql . "'" . $_REQUEST['grade'] . "',";
         $sql = $sql . "'" . $_REQUEST['ban'] . "')";
         mysql_query($sql, $connect);
-        $_SESSION['id'] = $_REQUEST['user_id'] ;
-        
+        $_SESSION['id'] = $_REQUEST['user_id'];
+
         $sql = "INSERT INTO w_channel (school_no,grade,pw) VALUE ('${_REQUEST['school_id']}',10,'0')";
         mysql_query($sql);
         logInCh(mysql_insert_id(), 10);
@@ -158,7 +167,7 @@ if ($_REQUEST['select'] == "login") {
 
 if ($_REQUEST['select'] == "week") {
 
-    $sql = "SELECT w_work.*,member.name,member.news FROM w_work INNER JOIN member ON w_work.user_id
+    $sql = "SELECT w_work.*,member.name,member.news,member.grade FROM w_work INNER JOIN member ON w_work.user_id
      = member.id WHERE ";
     $sql = $sql . " w_work.ch_id='" . $_SESSION['ch_school'] . "'";
     $sql = $sql . " OR w_work.ch_id='" . $_SESSION['ch_grade'] . "'";
@@ -168,7 +177,9 @@ if ($_REQUEST['select'] == "week") {
     while ($array = mysql_fetch_array($result)) {
         $work_name = htmlspecialchars_decode($array['work_name'], ENT_QUOTES);
         $work_decoded = htmlspecialchars_decode($array['work_content'], ENT_QUOTES);
-        $results[] = array('work_id' => $array['work_id'], 'work_name' => $work_name, 'new' => $array['new'], 'work_content' => $work_decoded, 'file_id' => $array['file_id'], 'complete' => $array['complete'], 'day' => $array['day'], 'ch_id' => $array['ch_id'], 'user_name' => $array['name'], 'user_id' => $array['user_id']);
+        $results[] = array('work_id' => $array['work_id'], 'work_name' => $work_name, 'new' => $array['new'],
+         'work_content' => $work_decoded, 'file_id' => $array['file_id'], 'complete' => $array['complete'],'grade' => $array['grade'],
+          'day' => $array['day'], 'ch_id' => $array['ch_id'], 'user_name' => $array['name'], 'user_id' => $array['user_id']);
     }
 
     $data = array('week' => $results);
