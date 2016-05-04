@@ -23,7 +23,7 @@ if ($_SESSION['ch_school']==0||$_SESSION['ch_grade']==0) {
 // $ch_names[] = $row['ch_name'];
 // }
 $ch_ids = array($_SESSION['ch_school'],$_SESSION['ch_grade'],$_SESSION['ch_me']);
-$ch_names = array('학교',$_SESSION['grade'].'학년',$_SESSION['name']);
+$ch_names = array('학교',$_SESSION['grade'].'학년(연구실)',$_SESSION['name'].'(즐겨찾기)');
 $ddate = date('Y-m-d');
 
 $date = new DateTime($ddate);

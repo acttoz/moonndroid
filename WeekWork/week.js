@@ -312,17 +312,11 @@ getItem = function() {
 };
 
 getEvent = function() {
-    var request = $.ajax("https://apis.sktelecom.com/v1/eventday/days", {
+    var request = $.ajax("event.php", {
         type : "GET",
         dataType : "json",
         contentType : "application/json; charset=utf-8",
-        data : {
-            year : year
-        },
-        beforeSend : function(xhr) {
-            xhr.setRequestHeader("TDCProjectKey", "5a83a756-bdf5-4b7c-9841-8b1e362c1f34");
-            xhr.setRequestHeader("Content-Type", "text/html; charset=UTF-8");
-        },
+        
     });
     request.done(function(json) {
         if (json.results != null && typeof json === "object" && json.results.length > 0) {

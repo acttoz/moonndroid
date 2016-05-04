@@ -23,8 +23,49 @@
  <?php
 include_once ('./header.php');
          ?>
+        
         <div id="wrapper">
+            <a href="#menu-toggle" class="btn btn-info" id="menu-toggle">T</a>
+                <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                       메뉴
+                </li>
+                <li>
+                    <a href="#" data-toggle="collapse" data-target="#month">1달보기</a>
+                    <div id="month" class="collapse">
+                        1달 보기 메뉴
+                    </div>
+                </li>
+                <li>
+                    <a href="#" data-toggle="collapse" data-target="#search">검색</a>
+                     <div id="search" class="collapse">
+                         검색 메뉴
+                    </div>
+                </li>
+                <li>
+                    <a href="#" data-toggle="collapse" data-target="#chat">연구실</a>
+                    <div id="chat" class="collapse">
+                     연구실 메뉴
+                    </div>
+                </li>
+                <li>
+                    <a href="#" data-toggle="collapse" data-target="#favorite">즐겨찾기</a>
+                    <div id="favorite" class="collapse">
+                    즐겨찾기 메뉴
+                    </div>
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+<div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
                             <div  id='content'  >
+                                
                                 <table class="time_table" style="table-layout: fixed;" align="center"  >
                                     <tr class="row1" style="border-radius: 10px 0 0 0; ">
                                         <td class=" cell1 center " style="width:120px;font-size:25px;border-top-style:none;border-left-style:none; border-radius: 10px 0 0 0; "><?php
@@ -205,15 +246,23 @@ include_once ('./header.php');
                                 </div>
                                 -->
                             </div>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                            <!-- /#page-content-wrapper -->
 
-            <!-- /#page-content-wrapper -->
-
-        </div>
-        <!-- /#wrapper -->
+        </div><!-- /#wrapper -->
 <div class="overlay overlay_ctrl" >
 </div>
 
         <!-- Menu Toggle Script -->
+        <script>
+            $("#menu-toggle").click(function(e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+    </script>
         <script src="week.js"></script>
         <script src="reply.js"></script>
 
