@@ -34,7 +34,7 @@ function viewWork(work_id) {
     flag_work_id = work_id;
     $("#work_id").val(work_id);
     var date = new Date(workArray[work_id]["day"]);
-    $("#workDate").text((date.getMonth() + 1) + "월 " + date.getDate() + "일 / " + workArray[work_id]["grade"]+"학년 / " + workArray[work_id]["user_name"] + '님이 생성함.');
+    $("#workDate").text((date.getMonth() + 1) + "월 " + date.getDate() + "일 / " + workArray[work_id]["grade"] + "학년 / " + workArray[work_id]["user_name"] + '님이 생성함.');
     $("#work_title").val(workArray[work_id]["work_name"]);
     $("#work_content").val(workArray[work_id]["work_content"]);
     $("#work_content_view").text(workArray[work_id]["work_content"]);
@@ -83,8 +83,8 @@ getNew = function() {
         if (news != "") {
             newArray = news.split("-");
             newArray = $.unique(newArray);
-            setNew();
         }
+            setNew();
 
     });
 
@@ -125,6 +125,10 @@ function setNew() {
             $(".work > div#" + value).remove();
         });
     }
+
+    $(".new_work").each(function() {
+        $(this).css("display", "block");
+    });
 }
 
 function resetWork() {
@@ -262,10 +266,10 @@ getItem = function() {
                     "ch_id" : this.ch_id,
                     "user_id" : this.user_id,
                     "user_name" : this.user_name,
-                    "grade":this.grade
+                    "grade" : this.grade
                 };
                 obj = $('#' + this.ch_id + ' #' + this.day);
-                htmls += '<div id=' + this.work_id + ' style="width:100%;text-align:right;padding-right:40px"><img id=' + this.work_id + ' src="./img/new.png" style="height:26px;width:40px;position:absolute;float:right"></img></div>';
+                htmls += '<div class="new_work" id=' + this.work_id + ' style="display:none;width:100%;text-align:right;padding-right:40px"><img id=' + this.work_id + ' src="./img/new.png" style="height:26px;width:40px;position:absolute;float:right"></img></div>';
                 htmls += '<p class="btn btn-default work" id="work_' + this.work_id + '"  style="border-color:#cfebf2;';
 
                 if (this.user_id == wUser_id)
@@ -295,8 +299,7 @@ getItem = function() {
         $.overlay.hide('ajax');
 
         getNew();
-        
-        
+
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
