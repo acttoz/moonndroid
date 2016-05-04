@@ -68,7 +68,7 @@
             <table class="time_table" style="table-layout: fixed;height: 400px;" align="center"  >
                 <tr class="" style="border-radius: 10px 0 0 0; ">
                     <!-- 학교제목  -->
-                    <td  class="content"  style="height:70px;width:10%;border-radius:10px 0 0 0; border-left-style:none;border-top-style:none;   font-weight: bold;font-size:25px "> 학교 </td>
+                    <td  class="content"  style="color: white;background-color: #59c2d8;height:70px;width:10%;border-radius:10px 0 0 0; border-left-style:none;border-top-style:none;   font-weight: bold;font-size:25px "> 학교 </td>
 
                     <!-- 학교   -->
                     <td  class="content"    style="width:40%;border-top-style:none; font-weight: bold;font-size:20px "><?php
@@ -97,16 +97,16 @@
 
                     //로그인 됨  ch_school!=0 or ch_grade!=0
                     if ($_SESSION['ch_school'] != 0) {
-                        echo '로그인됨';
+                        echo '로그인됨(코드:'.$ch_login_list[0]['pw'].')';
                     } else{
                         //채널이 생성 안됨  w_channel테이블의 school_no 컬럼이 일치하는 row가 없음.
                         echo '
                           <div class="form-group" id="sign_school" style="display:block">
                            <h4 id="ch_name" style="white-space: pre-wrap">';
                         if (!empty($ch_login_list[0]))
-                            echo '학교 채널 생성자가 정한 비밀번호를 입력해주세요.';
+                            echo '학교 채널 생성자가 정한 학교코드를 입력해주세요.';
                         else {
-                            echo '학교 채널이 생성되지 않았습니다. 학교 채널 비밀번호를 생성해주세요.';
+                            echo '학교 채널이 생성되지 않았습니다. 학교 코드를 생성해주세요.';
                         }
                                 echo '</h4>
                                 
@@ -141,7 +141,7 @@
                 </tr>
                 <tr style="">
                     <!-- 학년제목  -->
-                    <td  class="content"  style=" width:10%;border-radius:0 0 0 10px; border-left-style:none;border-bottom-style:none; font-weight: bold;font-size:25px "> 학년 </td>
+                    <td  class="content"  style="color: white; background-color: #59c2d8; width:10%;border-radius:0 0 0 10px; border-left-style:none;border-bottom-style:none; font-weight: bold;font-size:25px "> 학년 </td>
 
                     <!-- 학년 리스트  -->
                     <td  class="content"  style=" width:40%;border-style:none;border-bottom-style:none;border-left-color:white; font-weight: bold;font-size:20px "><?php
@@ -160,16 +160,16 @@
 
                    
                     if ($_SESSION['ch_grade'] != 0) {
-                        echo '로그인됨';
+                         echo '로그인됨(코드:'.$ch_login_list[$_SESSION['grade']]['pw'].')';
                     } else{
                         //채널이 생성 안됨  w_channel테이블의 school_no 컬럼이 일치하는 row가 없음.
                         echo '
                           <div class="form-group" id="sign_school" style="display:block">
                            <h4 id="ch_name" style="white-space: pre-wrap">';
                         if (!empty($ch_login_list[$_SESSION['grade']]))
-                            echo $ch_login_list[$_SESSION['grade']]['grade'].'학년 채널 생성자가 정한 비밀번호를 입력해주세요.';
+                            echo $ch_login_list[$_SESSION['grade']]['grade'].'학년 채널 생성자가 정한 코드를 입력해주세요.';
                         else {
-                            echo $_SESSION['grade'].'학년 채널이 생성되지 않았습니다. <br>'.$_SESSION['grade'].'학년 채널 비밀번호를 생성해주세요.';
+                            echo $_SESSION['grade'].'학년 채널이 생성되지 않았습니다. <br>'.$_SESSION['grade'].'학년 채널 코드를 생성해주세요.';
                         }
                                 echo '</h4>
                                 
