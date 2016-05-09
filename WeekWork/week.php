@@ -30,9 +30,9 @@ include_once ('./header.php');
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                       메뉴
+                      &nbsp; 메뉴
                 </li>
-                <li>
+              <!--  <li>
                     <a href="#" data-toggle="collapse" data-target="#month">1달보기</a>
                     <div id="month" class="collapse">
                         1달 보기 메뉴
@@ -44,14 +44,51 @@ include_once ('./header.php');
                          검색 메뉴
                     </div>
                 </li>
+            -->
                 <li>
-                    <a href="#" data-toggle="collapse" data-target="#chat">연구실</a>
+                    <a href="#" data-toggle="collapse" data-target="#chat">&nbsp;&nbsp;연구실</a>
                     <div id="chat" class="collapse">
-                     연구실 메뉴
+                   <table class="chat_table" style="table-layout: fixed" align="center"  >
+                                    <tr class="" style="border-radius: 10px 0 0 0; ">
+                                         
+                                         
+                                        
+                                        <td    class="content" style="vertical-align:top;  width:70%;border-top-style:none; border-right-style:none; border-radius: 0 10px 0 0;">
+                                            <div id="chat_list" style="text-align:left; overflow-y:scroll;margin:10px;">
+                                            대화창
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    
+                                    <tr>
+                                        
+                                    
+                                                        
+                                                
+
+                                         <td class="content"  style="width:10%;border-bottom-style:none;border-right-style:none; border-left-color:white; border-radius: 0 0 10px  0;">
+                                          
+                                        <div class="form-group" style="height:50px;margin-bottom:0px;line-height: 0px">
+                                            <div class="col-sm-8">
+                                                <input id="chat_input" type="text" name="reply_content" style="height:30px; width:100%" class="form-control"   checked="0" placeholder=""/>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <input id="chat_submit" class = "btn btn-info form-control" type="submit" name="submit" style="margin-top:1px;width: 100%px;height:30px;" value="저장"/>
+                                            </div>
+                                             
+                                        </div>
+                                          
+                                          </td>
+                                    </tr>
+                                    
+                                        
+                                    
+                                </table>
                     </div>
                 </li>
                 <li>
-                    <a href="#" data-toggle="collapse" data-target="#favorite">즐겨찾기</a>
+                    <a href="#" data-toggle="collapse" data-target="#favorite">&nbsp;&nbsp;즐겨찾기</a>
                     <div id="favorite" class="collapse">
                     즐겨찾기 메뉴
                     </div>

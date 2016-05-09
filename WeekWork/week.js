@@ -525,6 +525,7 @@ $('#reply_submit').click(function() {
             var title = $("#reply_input");
             if (title.val().replace(/\s/g, '') == "") {
                 alert("내용을 입력하세요.");
+                 $('#reply_input').val('');
                 return false;
             } else {
                 $.overlay.show('ajax');
@@ -640,6 +641,15 @@ function nl2br(str, is_xhtml) {
 $('.week-picker').click(function() {
     $('.week-picker').weekpicker();
 });
+
+$("#reply_input").keydown(function(event) {
+    if (event.keyCode == 13) {
+        $('#reply_submit').trigger('click');
+     
+    }
+});
+
+
 // setInterval(function() {
 // getItem();
 // drawChart();

@@ -79,7 +79,7 @@ function delReply(reply_id, hash) {
     return true;
 }
 
-function reply_complete() {
+function sendChat() {
 
     if (isLoading)
         return false;
@@ -112,3 +112,50 @@ function reply_complete() {
     return true;
 }
 
+function getChat() {
+
+    $.ajax("db.php", {
+        type : "GET",
+        dataType : "json",
+        complete : setTimeout(function() {getReply(flag_work_id);}, 10000),
+
+        contentType : "application/json; charset=utf-8",
+        data : {
+            select : "reply",
+            work_id : work_id
+        },
+        success : function(json) {
+            $("#reply").empty();
+            var obj = $("#reply");
+            var replyCount = 0;
+            htmls = "";
+            if ( typeof json === "object" && json.week.length > 0) {
+                $(json.week).each(function() {
+                    if (replyCount != 0)
+                        htmls += '<hr>';
+                    htmls += '<p style=" padding-right:5px;">' + this.content + '&nbsp;<span style="font-weight:bold">- '+this.ban+'반 ' + this.name + '</span>' + '<span style="font-size:12px">(' + this.time + ')</span>&nbsp;&nbsp;&nbsp;';
+                    if (this.file_name != '0') {
+                        htmls += '<a class="btn btn-info reply_clip" type="button" href="';
+                        htmls += './file.php?select=download&name=' + this.file_name + '&hash=' + this.file_hash;
+                        htmls += '">' + this.file_name + '</a>';
+                    }
+                    if (wUser_id == this.user_id)
+                        htmls += ' <button class="btn btn-danger reply_x glyphicon glyphicon-trash" type="button"  onclick=delReply(' + this.reply_id + ',"' + this.file_hash + '")></button>';
+                    htmls += '</p>';
+                    replyCount++;
+                });
+                obj.append(htmls);
+                htmls = "";
+                // obj.html(obj.html().replace(/\n/g, "<br>"));
+                obj.scrollTop(obj[0].scrollHeight);
+            }
+
+        },
+        fail : function(jqXHR, textStatus, errorThrown) {
+            // alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+
+        }
+        
+    });
+
+}

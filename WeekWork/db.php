@@ -60,7 +60,7 @@ function getCh($school_id) {
 function logInCh($ch_id, $grade) {
     if ($grade == 0) {
         $ch_num = '_school';
-    } else if ($grade == 10) {
+    } else if ($grade == 50) {
         $ch_num = '_me';
     } else {
         $ch_num = '_grade';
@@ -131,9 +131,9 @@ if ($_REQUEST['select'] == "sign") {
         mysql_query($sql, $connect);
         $_SESSION['id'] = $_REQUEST['user_id'];
 
-        $sql = "INSERT INTO w_channel (school_no,grade,pw) VALUE ('${_REQUEST['school_id']}',10,'0')";
+        $sql = "INSERT INTO w_channel (school_no,grade,pw) VALUE ('${_REQUEST['school_id']}',50,'0')";
         mysql_query($sql);
-        logInCh(mysql_insert_id(), 10);
+        logInCh(mysql_insert_id(), 50);
         echo "success";
     } else {
         echo "fail";
