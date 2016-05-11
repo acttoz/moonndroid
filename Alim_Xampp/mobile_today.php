@@ -210,7 +210,7 @@ if ($post_id == null && $_REQUEST[id] == null) {
                
                <?
             if ($platform == 1) {echo '<div id="margin">
-            <button type="button" style="width:100%;" class="btn btn-info" onclick=logout()>
+            <button type="button" style="width:100%;" class="btn btn-info" onclick="logout()">
 							로그아웃
 						</button>
                     </div>';
@@ -223,7 +223,7 @@ if ($post_id == null && $_REQUEST[id] == null) {
             </div>
          </div>
       </div>
-      <script src="mobile_today.js"></script>
+      <script src="mobile_today2.js"></script>
       <!-- Swiper JS -->
       <!-- Initialize Swiper -->
       <script></script>

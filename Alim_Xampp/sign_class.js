@@ -1,7 +1,4 @@
-/**
- * @author 문병무
- */
-
+ 
 var isLoading = false;
 var idChecked = false;
 var fnSchool = function() {
