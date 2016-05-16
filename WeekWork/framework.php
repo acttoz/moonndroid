@@ -2,7 +2,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name= "viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=no" />
 <link href="framework/css/bootstrap.css" rel="stylesheet" >
-
+<link href="framework/css/jquery-ui.min.css" rel="stylesheet" type="text/css">
 <link href="framework/css/index.css" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -13,8 +13,7 @@
 <link href="framework/css/timetable.css" rel="stylesheet" type="text/css">
 <link href="framework/css/loader.css" rel="stylesheet" type="text/css">
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"/>
-<link href="framework/css/simple-sidebar.css" rel="stylesheet" >
+
 
  <title>WeekWork</title>
 <!--[if lt IE 9]>

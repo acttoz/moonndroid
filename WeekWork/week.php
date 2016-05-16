@@ -13,10 +13,10 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-
         <?php
         include_once ('./framework.php');
         ?>
+<link href="framework/css/simple-sidebar.css" rel="stylesheet" >
     </head>
 
     <body >
@@ -24,7 +24,7 @@
 include_once ('./header.php');
          ?>
         
-        <div id="wrapper">
+        <div id="wrapper" style="padding-top: 0px;padding-bottom: 0px;padding-right: 0px; ">
             <a href="#menu-toggle" class="btn btn-info" id="menu-toggle">T</a>
                 <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -46,45 +46,29 @@ include_once ('./header.php');
                 </li>
             -->
                 <li>
-                    <a href="#" data-toggle="collapse" data-target="#chat">&nbsp;&nbsp;연구실</a>
-                    <div id="chat" class="collapse">
-                   <table class="chat_table" style="table-layout: fixed" align="center"  >
-                                    <tr class="" style="border-radius: 10px 0 0 0; ">
-                                         
-                                         
-                                        
-                                        <td    class="content" style="vertical-align:top;  width:70%;border-top-style:none; border-right-style:none; border-radius: 0 10px 0 0;">
-                                            <div id="chat_list" style="text-align:left; overflow-y:scroll;margin:10px;">
-                                            대화창
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    
-                                    
-                                    <tr>
-                                        
-                                    
-                                                        
-                                                
-
-                                         <td class="content"  style="width:10%;border-bottom-style:none;border-right-style:none; border-left-color:white; border-radius: 0 0 10px  0;">
-                                          
-                                        <div class="form-group" style="height:50px;margin-bottom:0px;line-height: 0px">
-                                            <div class="col-sm-8">
-                                                <input id="chat_input" type="text" name="reply_content" style="height:30px; width:100%" class="form-control"   checked="0" placeholder=""/>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <input id="chat_submit" class = "btn btn-info form-control" type="submit" name="submit" style="margin-top:1px;width: 100%px;height:30px;" value="저장"/>
-                                            </div>
-                                             
-                                        </div>
-                                          
-                                          </td>
-                                    </tr>
-                                    
-                                        
-                                    
-                                </table>
+                    <a href="#" data-toggle="collapse"   onclick=" ">&nbsp;&nbsp;연구실 쪽지함</a>
+                    <div id="chat_parent"  >
+                   <table class="chat_table" style="background:#F8F8F8;color:#666666; border-radius: 10px 10px 10px 10px; table-layout: fixed" align="center"  >
+                               <tr class="" style="border-radius: 10px 0 0 0; ">
+                                   <td    class="content" style="vertical-align:top;  width:70%;border-top-style:none; border-right-style:none; ">
+                                      <div id="chat" style="text-align:left; overflow-y:scroll;margin:10px;height: 300px;">
+                                         대화창
+                                      </div>
+                                   </td>
+                                </tr>
+                                <tr>
+                                   <td class="content"  style="width:10%;border-bottom-style:none;border-right-style:none; border-left-color:white; border-radius: 0 0 10px  0;">
+                                      <div class="form-group" style="height:50px;margin-bottom:0px;line-height: 0px">
+                                         <div class="col-sm-8">
+                                            <input id="chat_input" type="text" name="reply_content" style="height:30px; width:100%" class="form-control"   checked="0" placeholder=""/>
+                                         </div>
+                                         <div class="col-sm-4">
+                                            <button id="chat_submit" class = "btn btn-info form-control glyphicon-text glyphicon-envelope" type="button"  style=" width: 100%px;height:30px;" onclick="sendChat()"></button>
+                                         </div>
+                                      </div>
+                                   </td>
+                                </tr>
+                     </table>
                     </div>
                 </li>
                 <li>
@@ -290,6 +274,7 @@ include_once ('./header.php');
                             <!-- /#page-content-wrapper -->
 
         </div><!-- /#wrapper -->
+         
 <div class="overlay overlay_ctrl" >
 </div>
 
@@ -306,6 +291,9 @@ include_once ('./header.php');
         <?php
         include_once ("./tail.php");
         ?>
+        <div id="dialog" title="알림">
+  <p>연구실에 새 메세지가 도착했습니다.</p>
+</div>
     </body>
 
 </html>

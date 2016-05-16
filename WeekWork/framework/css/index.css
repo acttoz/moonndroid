@@ -40,7 +40,7 @@ section, article, aside, header, footer, nav, dialog, figure {
 
 #wrapper {
 
-	/*padding:20px;*/
+	padding:20px;
 	min-height:100vh;
 	position: relative;
 	width: 100%;

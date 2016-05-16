@@ -2,28 +2,37 @@
 include_once ('./config.php');
 
 ///////////////////////////////////////
-if ($_REQUEST['select'] == "sign_school") {
-    //make school
-    $sql = "INSERT INTO w_school (no,school_name) VALUE ('${_REQUEST['no']}','${_REQUEST['school_name']}')";
-    mysql_query($sql);
-    $school_id = mysql_insert_id();
-    //make ch_0
-    $sql = "INSERT INTO w_channel (school_id,ch_name,pw) VALUE (" . $school_id . ",'학교','${_REQUEST['pw']}')";
-    $sql = $sql . ",(" . $school_id . ",'1학년','0')";
-    $sql = $sql . ",(" . $school_id . ",'2학년','0')";
-    $sql = $sql . ",(" . $school_id . ",'3학년','0')";
-    $sql = $sql . ",(" . $school_id . ",'4학년','0')";
-    $sql = $sql . ",(" . $school_id . ",'5학년','0')";
-    $sql = $sql . ",(" . $school_id . ",'6학년','0');";
-    mysql_query($sql);
-    logInCh(mysql_insert_id(), 1);
-    header("location:channel.php");
-}
+// if ($_REQUEST['select'] == "sign_school") {
+// //make school
+// $sql = "INSERT INTO w_school (no,school_name) VALUE ('${_REQUEST['no']}','${_REQUEST['school_name']}')";
+// mysql_query($sql);
+// $school_id = mysql_insert_id();
+// //make ch_0
+// $sql = "INSERT INTO w_channel (school_id,ch_name,pw) VALUE (" . $school_id . ",'학교','${_REQUEST['pw']}')";
+// $sql = $sql . ",(" . $school_id . ",'1학년','0')";
+// $sql = $sql . ",(" . $school_id . ",'2학년','0')";
+// $sql = $sql . ",(" . $school_id . ",'3학년','0')";
+// $sql = $sql . ",(" . $school_id . ",'4학년','0')";
+// $sql = $sql . ",(" . $school_id . ",'5학년','0')";
+// $sql = $sql . ",(" . $school_id . ",'6학년','0');";
+// mysql_query($sql);
+// logInCh(mysql_insert_id(), 1);
+// header("location:channel.php");
+// }
 
 if ($_REQUEST['select'] == "sign_ch") {
     //make ch_0
     $sql = "INSERT INTO w_channel (school_no,grade,pw) VALUE ('${_REQUEST['school_no']}','${_REQUEST['grade']}','${_REQUEST['pw']}')";
     mysql_query($sql);
+
+    $grade = $_REQUEST['grade'];
+    if ($grade != 0 && $grade != 50) {
+        $sql = "INSERT INTO w_chat_polling (ch_id) VALUE (" . mysql_insert_id() . ")";
+        mysql_query($sql);
+    }
+    mysql_query("UPDATE member SET ch" . $ch_num . "=" . $ch_id . "  WHERE id='${_SESSION['id']}'");
+    $_SESSION['ch' . $ch_num] = $ch_id;
+
     logInCh(mysql_insert_id(), $_REQUEST['grade']);
     header("location:channel.php");
 }
@@ -36,17 +45,17 @@ if ($_REQUEST['select'] == "get_channel") {
     getCh($_REQUEST['school_id']);
 }
 
-if ($_REQUEST['select'] == "get_school") {
-    $query = mysql_query("SELECT school_id FROM w_school where no=${_REQUEST['no']}");
-    if (mysql_num_rows($query) != 0) {
-        //login
-        $school_id = mysql_result($query, 0);
-        getCh($school_id);
-    } else {
-        //sign
-        echo 0;
-    }
-}
+// if ($_REQUEST['select'] == "get_school") {
+// $query = mysql_query("SELECT school_id FROM w_school where no=${_REQUEST['no']}");
+// if (mysql_num_rows($query) != 0) {
+// //login
+// $school_id = mysql_result($query, 0);
+// getCh($school_id);
+// } else {
+// //sign
+// echo 0;
+// }
+// }
 
 function getCh($school_id) {
     $result2 = mysql_query("SELECT * FROM w_channel WHERE school_id =" . $school_id);
@@ -58,6 +67,7 @@ function getCh($school_id) {
 }
 
 function logInCh($ch_id, $grade) {
+    $ch_num = '';
     if ($grade == 0) {
         $ch_num = '_school';
     } else if ($grade == 50) {
@@ -177,9 +187,7 @@ if ($_REQUEST['select'] == "week") {
     while ($array = mysql_fetch_array($result)) {
         $work_name = htmlspecialchars_decode($array['work_name'], ENT_QUOTES);
         $work_decoded = htmlspecialchars_decode($array['work_content'], ENT_QUOTES);
-        $results[] = array('work_id' => $array['work_id'], 'work_name' => $work_name, 'new' => $array['new'],
-         'work_content' => $work_decoded, 'file_id' => $array['file_id'], 'complete' => $array['complete'],'grade' => $array['grade'],
-          'day' => $array['day'], 'ch_id' => $array['ch_id'], 'user_name' => $array['name'], 'user_id' => $array['user_id']);
+        $results[] = array('work_id' => $array['work_id'], 'work_name' => $work_name, 'new' => $array['new'], 'work_content' => $work_decoded, 'file_id' => $array['file_id'], 'complete' => $array['complete'], 'grade' => $array['grade'], 'day' => $array['day'], 'ch_id' => $array['ch_id'], 'user_name' => $array['name'], 'user_id' => $array['user_id']);
     }
 
     $data = array('week' => $results);
@@ -204,6 +212,34 @@ if ($_REQUEST['select'] == "reply") {
         echo json_encode($data);
 
 }
+if ($_REQUEST['select'] == "chat") {
+    $sql = "SELECT w_chat.*,member.name,member.ban FROM w_chat INNER JOIN member ON w_chat.user_id = member.id WHERE w_chat.ch_id=${_SESSION['ch_grade']} ORDER BY time ASC LIMIT 30";
+    $result = mysql_query($sql);
+    $results = array();
+    while ($array = mysql_fetch_array($result)) {
+        $reply_decoded = htmlspecialchars_decode($array['content'], ENT_QUOTES);
+        $datetime = new DateTime($array['time']);
+        $time = $datetime -> format('y') . "." . $datetime -> format('m') . "." . $datetime -> format('d') . "." . $datetime -> format('H') . ":" . $datetime -> format('i');
+        $results[] = array('chat_id' => $array['chat_id'], 'content' => $reply_decoded, 'ban' => $array['ban'], 'time' => $time, 'user_id' => $array['user_id'], 'ch_id' => $array['ch_id'], 'file_name' => $array['file_name'], 'file_hash' => $array['file_hash'], 'name' => $array['name']);
+    }
+    $data = array('week' => $results);
+    if (!empty($results))
+        echo json_encode($data);
+}
+
+if ($_REQUEST['select'] == "sendChat") {
+    $dt = new DateTime();
+    $time = $dt -> format('Y-m-d H:i:s');
+    $sql = "INSERT INTO w_chat (content,time,user_id,ch_id,file_name,file_hash) VALUE ('${_REQUEST['content']}','${time}','${_SESSION['id']}','${_SESSION['ch_grade']}','0','0')";
+    mysql_query($sql);
+    $sql = "UPDATE w_chat_polling SET chat_no = chat_no + 1 WHERE ch_id = ${_SESSION['ch_grade']}";
+    mysql_query($sql);
+}
+
+if ($_REQUEST['select'] == "chat_polling") {
+    echo mysql_result(mysql_query("SELECT chat_no FROM w_chat_polling where ch_id='${_SESSION['ch_grade']}'"), 0);
+}
+
 if ($_REQUEST['select'] == "file") {
     $sql = "SELECT * FROM w_files WHERE file_id=${_REQUEST['file_id']}";
     $result = mysql_query($sql);
@@ -253,12 +289,7 @@ if ($_REQUEST['select'] == "delWork") {
 // mysql_query($sql);
 // }
 //
-// if ($_REQUEST['select'] == "sendReply") {
-// $dt = new DateTime();
-// $time = $dt -> format('Y-m-d H:i:s');
-// $sql = "INSERT INTO w_reply (content,time,user_id,work_id,file_name,file_hash) VALUE ('완료','${time}','${_SESSION['w_id']}','${_REQUEST['work_id']}','0','0')";
-// mysql_query($sql);
-// }
+
 ///////////////////////////////////
 
 mysql_close($connect);

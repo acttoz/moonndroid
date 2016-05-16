@@ -279,7 +279,7 @@ getItem = function() {
 
                 htmls += 'display:block;margin-top:0px;margin-bottom:10px; " onclick="viewWork(' + this.work_id + ')">';
                 if (this.file_id != 0)
-                    htmls += '<span style="color:#eb625e" class="glyphicon glyphicon-paperclip">&nbsp;</span>';
+                    htmls += '<span style="color:#eb625e" class="glyphicon glyphicon-paperclip"></span>';
                 else
                     htmls += '⦁ ';
                 htmls += this.work_name;
@@ -579,6 +579,24 @@ $('#work_save_btn').click(function() {
 $(document).ready(function() {
     getItem();
     getEvent();
+    chatPolling();
+      $( "#dialog" ).dialog({
+        width : "400"            // dialog 넓이 지정
+        , height : "200"       // dialog 높이 지정
+        , resizeable : false    // 사이즈 조절가능 여부
+        , buttons : {            // dialog 하단 버튼들
+            "바로 보기" : function(){$("#wrapper").attr("class","");$(this).dialog("close");},    // dialog 하단 버튼 클릭시 실행할 함수. (함수는 $.ready안에 선언되어있어야 한다.)
+             
+        }
+        , show: {                // 애니메이션 효과 - 보여줄때
+            effect: "blind",
+            duration: 500
+        }
+        , hide: {                // 애니메이션 효과 - 감출때
+            effect: "explode",
+            duration: 500
+        }
+    });
 
 });
 
