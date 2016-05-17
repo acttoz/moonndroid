@@ -34,6 +34,7 @@ function viewWork(work_id) {
     flag_work_id = work_id;
     $("#work_id").val(work_id);
     var date = new Date(workArray[work_id]["day"]);
+    $("#work_day").val(workArray[work_id]["day"]);
     $("#workDate").text((date.getMonth() + 1) + "월 " + date.getDate() + "일 / " + workArray[work_id]["grade"] + "학년 / " + workArray[work_id]["user_name"] + '님이 생성함.');
     $("#work_title").val(workArray[work_id]["work_name"]);
     $("#work_content").val(workArray[work_id]["work_content"]);
@@ -518,6 +519,41 @@ $('#work_complete_btn').click(function() {
 
 });
 
+function toMyWork(){
+     
+
+
+    var request = $.ajax("db.php", {
+        type : "GET",
+        data : {
+            select : "my_work",
+            work_title : $("#work_title").val(),
+            day:$("#work_day").val()
+        }
+
+    });
+
+    request.done(function() {
+       
+
+        if (isComplete == 1) {
+            workArray[flag_work_id]["complete"] = 0;
+        } else {
+            workArray[flag_work_id]["complete"] = 1;
+        }
+
+    });
+
+    request.fail(function(jqXHR, textStatus, errorThrown) {
+        alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+        $("#work_complete_btn").buttonLoader('stop');
+
+        
+    });
+
+    
+}
+
 $('#reply_submit').click(function() {
     $('#workList').ajaxForm({
         //보내기전 validation check가 필요할경우
@@ -580,23 +616,7 @@ $(document).ready(function() {
     getItem();
     getEvent();
     chatPolling();
-      $( "#dialog" ).dialog({
-        width : "400"            // dialog 넓이 지정
-        , height : "200"       // dialog 높이 지정
-        , resizeable : false    // 사이즈 조절가능 여부
-        , buttons : {            // dialog 하단 버튼들
-            "바로 보기" : function(){$("#wrapper").attr("class","");$(this).dialog("close");},    // dialog 하단 버튼 클릭시 실행할 함수. (함수는 $.ready안에 선언되어있어야 한다.)
-             
-        }
-        , show: {                // 애니메이션 효과 - 보여줄때
-            effect: "blind",
-            duration: 500
-        }
-        , hide: {                // 애니메이션 효과 - 감출때
-            effect: "explode",
-            duration: 500
-        }
-    });
+      
 
 });
 

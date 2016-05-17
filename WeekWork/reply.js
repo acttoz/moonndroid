@@ -83,6 +83,12 @@ function delReply(reply_id, hash) {
 var sendingChat = false;
 function sendChat() {
 
+    if ($("#chat_input").val().replace(/\s/g, '') == "") {
+        alert("내용을 입력하세요.");
+        $("#chat_input").val("");
+        return false;
+    }
+
     if (sendingChat)
         return false;
 
@@ -130,10 +136,26 @@ function chatPolling() {
             select : "chat_polling"
         },
         success : function(args) {
-            if (chat_no != args){
-                getChat();
-                chat_no=args;
+            if (chat_no != args) {
+                if (chat_no != 0) {
+                    $("#dialog").dialog({
+                        width : "400"// dialog 넓이 지정
+                        ,
+                        height : "200"// dialog 높이 지정
+                        ,
+                        resizeable : false// 사이즈 조절가능 여부
+                        ,
+                        buttons : {// dialog 하단 버튼들
+                            "바로 보기" : function() {
+                                $("#wrapper").attr("class", "");
+                                $(this).dialog("close");
+                            },    // dialog 하단 버튼 클릭시 실행할 함수. (함수는 $.ready안에 선언되어있어야 한다.)
+                        }
+                    });
                 }
+                getChat();
+                chat_no = args;
+            }
             console.log(args);
         },
         fail : function(jqXHR, textStatus, errorThrown) {
@@ -166,7 +188,7 @@ function getChat() {
                     // htmls += '">' + this.file_name + '</a>';
                     // }
                     // if (wUser_id == this.user_id)
-                        // htmls += ' <button class="btn btn-danger reply_x glyphicon glyphicon-trash" type="button"  onclick=delReply(' + this.chat_id + ',"' + this.file_hash + '")></button>';
+                    // htmls += ' <button class="btn btn-danger reply_x glyphicon glyphicon-trash" type="button"  onclick=delReply(' + this.chat_id + ',"' + this.file_hash + '")></button>';
                     htmls += '</p>';
                     replyCount++;
                 });

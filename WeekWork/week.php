@@ -25,13 +25,13 @@ include_once ('./header.php');
          ?>
         
         <div id="wrapper" style="padding-top: 0px;padding-bottom: 0px;padding-right: 0px; ">
-            <a href="#menu-toggle" class="btn btn-info" id="menu-toggle">T</a>
+            <a href="#menu-toggle" style="background: #EB625E;color:#fff" class="btn glyphicon glyphicon-arrow-left" id="menu-toggle"></a>
                 <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                <li class="sidebar-brand">
+                <!-- <li class="sidebar-brand">
                       &nbsp; 메뉴
-                </li>
+                </li> -->
               <!--  <li>
                     <a href="#" data-toggle="collapse" data-target="#month">1달보기</a>
                     <div id="month" class="collapse">
@@ -45,8 +45,8 @@ include_once ('./header.php');
                     </div>
                 </li>
             -->
-                <li>
-                    <a href="#" data-toggle="collapse"   onclick=" ">&nbsp;&nbsp;연구실 쪽지함</a>
+                <li >
+                    <a href="#" data-toggle="collapse" style="font-size: 1.3em"  onclick=" ">&nbsp;&nbsp;연구실 쪽지함</a>
                     <div id="chat_parent"  >
                    <table class="chat_table" style="background:#F8F8F8;color:#666666; border-radius: 10px 10px 10px 10px; table-layout: fixed" align="center"  >
                                <tr class="" style="border-radius: 10px 0 0 0; ">
@@ -63,7 +63,7 @@ include_once ('./header.php');
                                             <input id="chat_input" type="text" name="reply_content" style="height:30px; width:100%" class="form-control"   checked="0" placeholder=""/>
                                          </div>
                                          <div class="col-sm-4">
-                                            <button id="chat_submit" class = "btn btn-info form-control glyphicon-text glyphicon-envelope" type="button"  style=" width: 100%px;height:30px;" onclick="sendChat()"></button>
+                                            <button id="chat_submit" class = "btn btn-info form-control " type="button"  style=" width: 100%px;height:30px;" onclick="sendChat()">보내기</button>
                                          </div>
                                       </div>
                                    </td>
@@ -71,12 +71,12 @@ include_once ('./header.php');
                      </table>
                     </div>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="#" data-toggle="collapse" data-target="#favorite">&nbsp;&nbsp;즐겨찾기</a>
                     <div id="favorite" class="collapse">
                     즐겨찾기 메뉴
                     </div>
-                </li>
+                </li> -->
                 
             </ul>
         </div>
@@ -86,7 +86,7 @@ include_once ('./header.php');
                 <div class="row">
                     <div class="col-lg-12">
                             <div  id='content'  >
-                                
+                                <br>
                                 <table class="time_table" style="table-layout: fixed;" align="center"  >
                                     <tr class="row1" style="border-radius: 10px 0 0 0; ">
                                         <td class=" cell1 center " style="width:120px;font-size:25px;border-top-style:none;border-left-style:none; border-radius: 10px 0 0 0; "><?php
@@ -162,7 +162,18 @@ include_once ('./header.php');
                                 <br>
                                 
                                 <form id="workList"  style="display: none;" action="file.php" method="post" enctype="multipart/form-data"  onsubmit="return formValidate();">
-                                <h2 id="workDate"  user="<?php echo $_SESSION["id"]; ?>" >제목</h2> 
+                                <table width="100%;">
+<tr>
+    <td style="width:70%;">
+        
+                                <h2 id="workDate" style="margin-top: 10px" user="<?php echo $_SESSION["id"]; ?>" >제목</h2> 
+    </td>
+    <td style="width: 30%;text-align: right">
+        <button style="height:35px;width:150px;" type="button"  class="btn btn-success" onclick="toMyWork()">나의 할일로 등록</button>
+    </td>
+</tr>                                    
+    
+                                </table>
                                 <input id="work_id" type="hidden" name="work_id" value=<?php
                                 if (isset($_REQUEST['work_id'])) {
                                     echo $_REQUEST['work_id'];
@@ -177,7 +188,7 @@ include_once ('./header.php');
                                     <tr class="" style="border-radius: 10px 0 0 0; ">
                                         <td   class="content " style=" width:7%;border-top-style:none;border-left-style:none; border-right-color:white; border-bottom-color:white; border-radius: 10px 0 0 0; font-weight: bold;font-size:20px ">
                                            
-                                            <button id="work_complete_btn" style="height: 50px;" type="button" class="btn btn-info has-spinner glyphicon">
+                                            <button id="work_complete_btn" style="height: 50px;padding:inherit ;text-align: center;" type="button" class="btn btn-info has-spinner glyphicon">
                                             </button>
                                          </td>
                                         <td  class="content"  style="width:40%;border-top-style:none;border-left-color:white;  border-bottom-color:white; font-weight: bold;font-size:20px ">
@@ -283,6 +294,10 @@ include_once ('./header.php');
             $("#menu-toggle").click(function(e) {
                 e.preventDefault();
                 $("#wrapper").toggleClass("toggled");
+                if ($("#wrapper").hasClass("toggled"))
+                    $(this).attr("class", "btn glyphicon glyphicon-menu-hamburger");
+                else
+                    $(this).attr("class", "btn glyphicon glyphicon-arrow-left");
             });
     </script>
         <script src="week.js"></script>
