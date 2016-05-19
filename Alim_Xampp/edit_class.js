@@ -64,7 +64,6 @@ var fnSchool = function() {
 		contentType : "application/json; charset=utf-8",
 		data : {
 			select : 'search',
-			grade : grade,
 			word : word
 		}
 
@@ -111,7 +110,6 @@ function toNext() {
 	var grade = $(".grade option:selected").attr("value");
 	var ban = $(".ban option:selected").attr("value");
 	var teacher = $("#teacher_name").val();
-	var class_key = $("#class_pass").val();
 	var school = $("#selected_school").attr("school_name");
 	var school_id = $("#selected_school").attr("school_id");
 	var mUserPass = select_school.user_pass.value;
@@ -120,10 +118,7 @@ function toNext() {
 	if (!teacher) {
 		alert("담임성명을 입력하세요..!!");
 		return;
-	} else if (!class_key) {
-		alert("학급 비밀번호를 입력하세요..!!");
-		return;
-	} else if (school == "null") {
+	}   else if (school == "null") {
 		alert("학교를 선택하세요..!!");
 		return;
 
@@ -140,7 +135,6 @@ function toNext() {
 
 	} else {
 
-		if (confirm("학급코드를 수정할경우 어플에서 다시 학급을 선택해야합니다.\n꼭필요한 경우만 수정해 주세요.")) {
 			if (isLoading)
 				return false;
 			isLoading = true;
@@ -154,7 +148,6 @@ function toNext() {
 					school_id : school_id,
 					grade : grade,
 					ban : ban,
-					class_key : class_key,
 					user_id : mUserid,
 					user_pass : mUserPass
 				},
@@ -168,56 +161,11 @@ function toNext() {
 					isLoading = false;
 				}
 			});
-			// Save it!
-		} else {
-			// Do nothing!
-		}
+			 
 	}
 }
 
-function fnSign() {
-	var mUserid = $("#user_id").val();
 
-	if (!mUserid) {
-		alert("이메일을 입력하세요..!!");
-		return;
-	} else if (!validateEmail(mUserid)) {
-		alert("올바른 이메일을 입력하세요..!!");
-		return;
-
-	} else {
-
-		if (isLoading)
-			return false;
-		isLoading = true;
-		$.ajax({
-			url : "signup_check.php",
-			type : 'POST',
-			cache : false,
-			data : {
-				user_id : mUserid
-			},
-			success : function(args) {
-
-				if (trim(args) == "success") {
-					alert("사용할 수 있는 이메일입니다.");
-					idChecked = true;
-				} else {
-					alert("이미 사용 중인 이메일입니다.");
-					idChecked = false;
-					select_school.user_id.focus();
-				}
-				isLoading = false;
-			},
-			fail : function(jqXHR, textStatus, errorThrown) {
-				alert("오류발생 \n jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
-				isLoading = false;
-			}
-		});
-
-	}
-
-}// end function fnLogin()
 
 function trim(str) {
 	return str.replace(/(^\s*)|(\s*$)/g, "");
@@ -244,7 +192,7 @@ $("#search_input").keyup(function(event) {
 
 function maxLengthCheck(object) {
 	if (object.value.length > object.maxLength)
-		object.value = object.value.slice(0, object.maxLength)
+		object.value = object.value.slice(0, object.maxLength);
 }
 
 function logOut() {

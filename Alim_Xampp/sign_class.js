@@ -36,7 +36,6 @@ var fnSchool = function() {
 		contentType : "application/json; charset=utf-8",
 		data : {
 			select : 'search',
-			grade : grade,
 			word : word
 		}
 
@@ -83,8 +82,6 @@ function toNext() {
 	var grade = $(".grade option:selected").attr("value");
 	var ban = $(".ban option:selected").attr("value");
 	var teacher = $("#teacher_name").val();
-	var class_key = $("#class_pass").val();
-	var class_key2 = $("#class_pass2").val();
 	var school = $("#selected_school").attr("school_name");
 	var school_id = $("#selected_school").attr("school_id");
 	var mUserPass = select_school.user_pass.value;
@@ -93,10 +90,7 @@ function toNext() {
 	if (!teacher) {
 		alert("담임성명을 입력하세요..!!");
 		return;
-	} else if (!class_key) {
-		alert("학급 비밀번호를 입력하세요..!!");
-		return;
-	} else if (school == "null") {
+	}  else if (school == "null") {
 		alert("학교를 선택하세요..!!");
 		return;
 	} else if (!idChecked) {
@@ -113,10 +107,6 @@ function toNext() {
 		alert("비밀번호가 일치하지 않습니다.");
 		select_school.user_pass2.focus();
 		return;
-	} else if (class_key != class_key2) {
-		alert("학급코드가 일치하지 않습니다.");
-		return;
-
 	} else {
 
 		if (confirm(school + "\n" + grade + "학년\n" + ban + "반\n" + teacher + "선생님\n" + "위의 정보가 맞습니까?")) {
@@ -133,7 +123,6 @@ function toNext() {
 					school_id : school_id,
 					grade : grade,
 					ban : ban,
-					class_key : class_key,
 					user_id : mUserid,
 					user_pass : mUserPass
 				},
@@ -168,11 +157,7 @@ function fnSign() {
 	if (!mUserid) {
 		alert("이메일을 입력하세요..!!");
 		return;
-	} else if (!validateEmail(mUserid)) {
-		alert("올바른 이메일을 입력하세요..!!");
-		return;
-
-	} else {
+	}   else {
 
 		if (isLoading)
 			return false;

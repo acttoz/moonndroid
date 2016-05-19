@@ -8,6 +8,7 @@ for ($i = 0; $i < count($mobileKeyWords); $i++) {
 		exit ;
 	}
 }
+
    ?>
 <!DOCTYPE html>
 <html lang="ko">
@@ -15,8 +16,8 @@ for ($i = 0; $i < count($mobileKeyWords); $i++) {
       <?
 	include_once ('./framework.php');
 
-	if ($_SESSION['class_key'] == "0000") {
-		header("Location: edit_class.php");
+	if ($_SESSION['class_key'] == ""||empty($_SESSION['class_key'])) {
+		header("Location: timetable.php");
 		exit ;
 	}
          ?>

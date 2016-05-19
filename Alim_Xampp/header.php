@@ -13,10 +13,10 @@
 		<ul>
 			 
 			<li >
-					<a href="timetable.php">기초 시간표</a>
+				<a href="today.php">알림장</a>
 			</li>
 			<li >
-				<a href="today.php">알림장</a>
+					<a href="timetable.php">기초 시간표</a>
 			</li>
 			<li >
 				<a href="help.php">고객지원</a>

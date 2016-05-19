@@ -25,21 +25,8 @@ session_start();
 			 
 <br>
 <div id='content'>
-	<div style="">
-					 
-					
-				</div>
 			<form class="form-horizontal" id="margin" name="select_school" method="post">
-				<div class="form-group">
-					<label   class="col-sm-2 control-label"></label>
-					<label   class="col-sm-2 control-label" style="text-align: left">회원가입</label>
-					<div class="col-sm-2">
-						<button type="button" class="btn btn-warning form-control" id="submit_btn" onclick=sign_help()>
-							잘안되요!!
-						</button>
-					</div>
-					<label   class="col-sm-6 control-label"></label>
-				</div>
+				 
 				<div class="form-group">
 					<label for="inputEmail3" class="col-sm-2 control-label">이메일</label>
 					<div class="col-sm-8">
@@ -66,14 +53,7 @@ session_start();
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" >학교급</label>
-					<div class="col-sm-10">
-						<select type="email" class="form-control school_grade" >
-							<option value='1' >초등</option>
-							<option value='2' >중등</option>
-							<option value='3'>고등</option>
-							<option value='4'>특수</option>
-						</select>
-					</div>
+					<label class="col-sm-10 control-label" style="text-align: left">현재 초등학교와 중학교를 지원합니다.그 외 학교는 acttoz@naver.com로 문의주세요.</label>
 
 				</div>
 				<div class="form-group">
@@ -121,19 +101,7 @@ session_start();
 						<input type="text" id="teacher_name" class="form-control" name="teacher_name" placeholder="학부모와 학생에게 표시되는 이름이므로 정확히 입력해주세요.">
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" style="font-size: 13px;" >학급코드(<red style="color: red; font-size: 12px;">숫자4자리</red>)</label>
-					<div class="col-sm-10">
-						<input  maxlength="4"  id="class_pass" class="form-control" placeholder="우리반의 알림장을 받기 위해서는 이 비밀번호를 알아야 합니다.학부모와 학생들에게 알려주세요.">
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<label class="col-sm-2 control-label" style="font-size: 13px;" >학급코드 한번더</label>
-					<div class="col-sm-10">
-						<input   maxlength="4"   id="class_pass2" class="form-control" placeholder="학급코드를 한번더 정확히 입력해주세요.">
-					</div>
-				</div>
+			 
 				<div class="form-group">
 					<label class="col-sm-2 control-label" >학교명</label>
 					<div class="col-sm-8">
@@ -163,19 +131,11 @@ session_start();
 					<a href="#" class="list-group-item">검색 결과 없음</a>
 				</div>
 			</div>
-			</div>
+		</div>
 			<footer><?php
 			include_once ('./footer.php');
 		?></footer>
-		<div id="dialog-confirm" title="알림" style="display:none;"> 
-			<IMG class="displayed" src="./img/sign_class_help.png" style="width:800px; display: block; margin-left: auto; margin-right: auto">
-				<br/>
-				<p style="text-align: left">
-					위 순서대로 차근차근 따라 해보셔요~.<br/> 
-					그래도 잘안되시는 분은 다음 양식에 맞게 입력하셔서 이메일로 보내주시면 학급 개설을 대행해드리겠습니다.<br/>이메일:<br/>비밀번호:<br/>담임성명:<br/>학급코드(숫자4자리):<br/>학교지역과이름:<br/>이메일 : acttoz@naver.com 
-				</p>
-			</div>
-		</div>
+	 
 		</div>
 		<script src="sign_class.js"></script>
 	</body>

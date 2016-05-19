@@ -49,30 +49,7 @@ session_start();
 						<input type="password" class="form-control pass2" name="user_pass2">
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" >학교급</label>
-					<div class="col-sm-10">
-						<select type="email" class="form-control school_grade" >
-							<option value='1' <?php
-							if ($_SESSION['school_id'] < 6284)
-								echo 'selected';
-							?>>초등</option>
-							<option value='2' <?php
-							if (6283 < $_SESSION['school_id'] && $_SESSION['school_id']  < 9332)
-								echo 'selected';
-							?>>중등</option>
-							<option value='3'<?php
-							if (9331<$_SESSION['school_id']&& $_SESSION['school_id']  < 11492)
-								echo 'selected';
-							?>>고등</option>
-							<option value='4'<?php
-							if (11491<$_SESSION['school_id'] )
-								echo 'selected';
-							?>>특수</option>
-						</select>
-					</div>
-
-				</div>
+				 
 				<div class="form-group">
 					<label class="col-sm-2 control-label" >학년</label>
 					<div class="col-sm-10">
@@ -187,13 +164,7 @@ session_start();
 						<input type="text" id="teacher_name" class="form-control" name="teacher_name" placeholder="학부모와 학생에게 표시되는 이름이므로 정확히 입력해주세요." value="<?echo $_SESSION['name'] ?>">
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" >학급 코드</label>
-					<div class="col-sm-10">
-						<input type="number" maxlength="4" oninput="maxLengthCheck(this)" id="class_pass" class="form-control" value="<?echo $_SESSION['class_key']; ?>">
-						</input>
-					</div>
-				</div>
+				 
 				<div class="form-group">
 					<label class="col-sm-2 control-label" >학교명</label>
 					<div class="col-sm-8">
