@@ -185,9 +185,16 @@ if ($_REQUEST['select'] == "week") {
     $sql = $sql . " ORDER BY work_id DESC";
     $result = mysql_query($sql);
     while ($array = mysql_fetch_array($result)) {
+        if ($array['ch_id'] == $_SESSION['ch_school'])
+            $ch_group = 'ch_school';
+        else if ($array['ch_id'] == $_SESSION['ch_grade'])
+            $ch_group = 'ch_grade';
+        else if ($array['ch_id'] == $_SESSION['ch_me'])
+            $ch_group = 'ch_me';
+
         $work_name = htmlspecialchars_decode($array['work_name'], ENT_QUOTES);
         $work_decoded = htmlspecialchars_decode($array['work_content'], ENT_QUOTES);
-        $results[] = array('work_id' => $array['work_id'], 'work_name' => $work_name, 'new' => $array['new'], 'work_content' => $work_decoded, 'file_id' => $array['file_id'], 'complete' => $array['complete'], 'grade' => $array['grade'], 'day' => $array['day'], 'ch_id' => $array['ch_id'], 'user_name' => $array['name'], 'user_id' => $array['user_id']);
+        $results[] = array('ch_group' => $ch_group, 'work_id' => $array['work_id'], 'work_name' => $work_name, 'new' => $array['new'], 'work_content' => $work_decoded, 'file_id' => $array['file_id'], 'complete' => $array['complete'], 'grade' => $array['grade'], 'day' => $array['day'], 'ch_id' => $array['ch_id'], 'user_name' => $array['name'], 'user_id' => $array['user_id']);
     }
 
     $data = array('week' => $results);
@@ -230,7 +237,8 @@ if ($_REQUEST['select'] == "chat") {
 if ($_REQUEST['select'] == "sendChat") {
     $dt = new DateTime();
     $time = $dt -> format('Y-m-d H:i:s');
-    $sql = "INSERT INTO w_chat (content,time,user_id,ch_id,file_name,file_hash) VALUE ('${_REQUEST['content']}','${time}','${_SESSION['id']}','${_SESSION['ch_grade']}','0','0')";
+    $chat_content = htmlspecialchars($_REQUEST['content'], ENT_QUOTES);
+    $sql = "INSERT INTO w_chat (content,time,user_id,ch_id,file_name,file_hash) VALUE ('${chat_content}','${time}','${_SESSION['id']}','${_SESSION['ch_grade']}','0','0')";
     mysql_query($sql);
     $sql = "UPDATE w_chat_polling SET chat_no = chat_no + 1 WHERE ch_id = ${_SESSION['ch_grade']}";
     mysql_query($sql);
@@ -252,6 +260,12 @@ if ($_REQUEST['select'] == "file") {
     if (!empty($results))
         echo json_encode($data);
 
+}
+if ($_REQUEST['select'] == "my_work") {
+    $work_name = htmlspecialchars($_REQUEST['work_title'], ENT_QUOTES);
+    $sql = "INSERT INTO w_work (work_name,work_content,day,ch_id,user_id,file_id) VALUE ('${work_name}'
+        ,'','${_REQUEST['day']}','${_SESSION['ch_me']}','${_SESSION['id']}',0)";
+    mysql_query($sql);
 }
 
 if ($_REQUEST['select'] == "complete") {

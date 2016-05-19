@@ -92,7 +92,7 @@ $eventyear = $eventyear1 -> format("Y");
                 <a href="channel.php">학년 설정</a>
             </li>
             <li >
-                <a href="qna.php">질문 게시판</a>
+                <a href="qna.php">고객지원</a>
             </li>
             <li >
                 <a href="account.php"><?php echo $_SESSION['name']; ?></a>

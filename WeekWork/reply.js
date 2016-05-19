@@ -181,7 +181,9 @@ function getChat() {
             htmls = "";
             if ( typeof json === "object" && json.week.length > 0) {
                 $(json.week).each(function() {
-                    htmls += '<p style="line-height=0px;  ">' + this.content + '&nbsp;<span style="font-weight:bold">- ' + this.ban + '반 ' + this.name + '</span>' + '<span style="font-size:12px">(' + this.time + ')</span>&nbsp;&nbsp;&nbsp;';
+                    if (replyCount != 0)
+                        htmls += '<hr>';
+                    htmls += '<p style="line-height=0px;  ">' + this.content + '&nbsp;<span style="font-weight:bold"><br> ' + this.ban + '반 ' + this.name + '</span>' + '<span style="font-size:12px">(' + this.time + ')</span>&nbsp;&nbsp;&nbsp;';
                     // if (this.file_name != '0') {
                     // htmls += '<a class="btn btn-info reply_clip" type="button" href="';
                     // htmls += './file.php?select=download&name=' + this.file_name + '&hash=' + this.file_hash;

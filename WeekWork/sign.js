@@ -96,7 +96,6 @@ var fnSchool = function() {
         contentType : "application/json; charset=utf-8",
         data : {
             select : 'search',
-            grade : grade,
             word : word
         }
 

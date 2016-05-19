@@ -48,11 +48,11 @@ include_once ('./header.php');
                 <li >
                     <a href="#" data-toggle="collapse" style="font-size: 1.3em"  onclick=" ">&nbsp;&nbsp;연구실 쪽지함</a>
                     <div id="chat_parent"  >
-                   <table class="chat_table" style="background:#F8F8F8;color:#666666; border-radius: 10px 10px 10px 10px; table-layout: fixed" align="center"  >
+                   <table class="chat_table" style="background:#F8F8F8;color:#000; border-radius: 10px 10px 10px 10px; table-layout: fixed" align="center"  >
                                <tr class="" style="border-radius: 10px 0 0 0; ">
                                    <td    class="content" style="vertical-align:top;  width:70%;border-top-style:none; border-right-style:none; ">
-                                      <div id="chat" style="text-align:left; overflow-y:scroll;margin:10px;height: 300px;">
-                                         대화창
+                                      <div id="chat" style="text-align:left; overflow-y:scroll;margin:10px;height: 600px;">
+                                          비어있음.
                                       </div>
                                    </td>
                                 </tr>
@@ -288,6 +288,9 @@ include_once ('./header.php');
          
 <div class="overlay overlay_ctrl" >
 </div>
+        <div id="dialog" title="알림" style="display: none">
+  <p>연구실에 새 메세지가 도착했습니다.</p>
+</div>
 
         <!-- Menu Toggle Script -->
         <script>
@@ -306,9 +309,6 @@ include_once ('./header.php');
         <?php
         include_once ("./tail.php");
         ?>
-        <div id="dialog" title="알림">
-  <p>연구실에 새 메세지가 도착했습니다.</p>
-</div>
     </body>
 
 </html>

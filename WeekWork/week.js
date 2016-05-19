@@ -85,7 +85,7 @@ getNew = function() {
             newArray = news.split("-");
             newArray = $.unique(newArray);
         }
-            setNew();
+        setNew();
 
     });
 
@@ -259,6 +259,7 @@ getItem = function() {
         if (json.week != null && typeof json === "object" && json.week.length > 0) {
             $(json.week).each(function() {
                 workArray[this.work_id] = {
+                    "ch_group" : this.ch_groupd,
                     "work_name" : this.work_name,
                     "work_content" : this.work_content,
                     "file_id" : this.file_id,
@@ -278,7 +279,10 @@ getItem = function() {
                 else
                     htmls += 'background:#cfebf2;';
 
-                htmls += 'display:block;margin-top:0px;margin-bottom:10px; " onclick="viewWork(' + this.work_id + ')">';
+                // if (this.ch_group == "ch_me")
+                    // htmls += 'display:block;margin-top:0px;margin-bottom:10px; " onclick="myWorkComplete(' + this.work_id + ')">';
+                // else
+                    htmls += 'display:block;margin-top:0px;margin-bottom:10px; " onclick="viewWork(' + this.work_id + ')">';
                 if (this.file_id != 0)
                     htmls += '<span style="color:#eb625e" class="glyphicon glyphicon-paperclip"></span>';
                 else
@@ -317,7 +321,7 @@ getEvent = function() {
         type : "GET",
         dataType : "json",
         contentType : "application/json; charset=utf-8",
-        
+
     });
     request.done(function(json) {
         if (json.results != null && typeof json === "object" && json.results.length > 0) {
@@ -469,6 +473,58 @@ function isEmpty(el) {
     return !$.trim(el.html());
 }
 
+function myWorkComplete(work_id) {
+    $("#workList").css("display", "none");
+    newArray.push("" + work_id);
+    newArray = $.unique(newArray);
+    upNew();
+    var isComplete = workArray[work_id]["complete"];
+    if (isLoading)
+        return false;
+
+    // var btn = $(this);
+
+    // $(btn).buttonLoader('start');
+
+    isLoading = true;
+
+    var request = $.ajax("db.php", {
+        type : "GET",
+        data : {
+            select : "complete",
+            work_id : work_id,
+            complete : ((isComplete - 1) * -1)
+        }
+
+    });
+
+    request.done(function() {
+        // setTimeout(function() {
+        // $(btn).buttonLoader('stop');
+        isLoading = false;
+
+        if (isComplete == 1) {
+            workArray[work_id]["complete"] = 0;
+            setComplete(false, work_id);
+        } else {
+            workArray[work_id]["complete"] = 1;
+            setComplete(true, work_id);
+        }
+        // }, 1500);
+        //do something special
+
+    });
+
+    request.fail(function(jqXHR, textStatus, errorThrown) {
+        alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+
+        isLoading = false;
+    });
+    // parsing end
+
+    return true;
+}
+
 
 $('#work_complete_btn').click(function() {
     var isComplete = workArray[flag_work_id]["complete"];
@@ -509,7 +565,6 @@ $('#work_complete_btn').click(function() {
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
         alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
-        $("#work_complete_btn").buttonLoader('stop');
 
         isLoading = false;
     });
@@ -519,28 +574,21 @@ $('#work_complete_btn').click(function() {
 
 });
 
-function toMyWork(){
-     
-
+function toMyWork() {
 
     var request = $.ajax("db.php", {
         type : "GET",
         data : {
             select : "my_work",
-            work_title : $("#work_title").val(),
-            day:$("#work_day").val()
+            work_title : $("input#work_title").val(),
+            day : $("#work_day").val()
         }
 
     });
 
     request.done(function() {
-       
 
-        if (isComplete == 1) {
-            workArray[flag_work_id]["complete"] = 0;
-        } else {
-            workArray[flag_work_id]["complete"] = 1;
-        }
+        getItem();
 
     });
 
@@ -548,11 +596,10 @@ function toMyWork(){
         alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
         $("#work_complete_btn").buttonLoader('stop');
 
-        
     });
 
-    
 }
+
 
 $('#reply_submit').click(function() {
     $('#workList').ajaxForm({
@@ -561,7 +608,7 @@ $('#reply_submit').click(function() {
             var title = $("#reply_input");
             if (title.val().replace(/\s/g, '') == "") {
                 alert("내용을 입력하세요.");
-                 $('#reply_input').val('');
+                $('#reply_input').val('');
                 return false;
             } else {
                 $.overlay.show('ajax');
@@ -616,7 +663,6 @@ $(document).ready(function() {
     getItem();
     getEvent();
     chatPolling();
-      
 
 });
 
@@ -683,10 +729,9 @@ $('.week-picker').click(function() {
 $("#reply_input").keydown(function(event) {
     if (event.keyCode == 13) {
         $('#reply_submit').trigger('click');
-     
+
     }
 });
-
 
 // setInterval(function() {
 // getItem();
