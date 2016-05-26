@@ -28,8 +28,11 @@ var work_file_down = $("#work_file_down");
 var work_file_del = $("#work_file_del");
 var reply_file_add = $('#reply_file_add');
 
+var reply_polling_time = 0;
+
 //edit
 function viewWork(work_id) {
+
     resetWork();
     flag_work_id = work_id;
     $("#work_id").val(work_id);
@@ -61,7 +64,7 @@ function viewWork(work_id) {
         //if file exist
         getFileInfo(workArray[flag_work_id]["file_id"]);
     }
-
+    reply_polling_time = 0;
     getReply(work_id);
     $("#workList").css("display", "block");
 
@@ -133,6 +136,7 @@ function setNew() {
 }
 
 function resetWork() {
+
     var title = $("#work_title");
     var content = $("#work_content");
     title.css("border", "0px solid #04a4b5");
@@ -280,9 +284,9 @@ getItem = function() {
                     htmls += 'background:#cfebf2;';
 
                 // if (this.ch_group == "ch_me")
-                    // htmls += 'display:block;margin-top:0px;margin-bottom:10px; " onclick="myWorkComplete(' + this.work_id + ')">';
+                // htmls += 'display:block;margin-top:0px;margin-bottom:10px; " onclick="myWorkComplete(' + this.work_id + ')">';
                 // else
-                    htmls += 'display:block;margin-top:0px;margin-bottom:10px; " onclick="viewWork(' + this.work_id + ')">';
+                htmls += 'display:block;margin-top:0px;margin-bottom:10px; " onclick="viewWork(' + this.work_id + ')">';
                 if (this.file_id != 0)
                     htmls += '<span style="color:#eb625e" class="glyphicon glyphicon-paperclip"></span>';
                 else
@@ -308,7 +312,7 @@ getItem = function() {
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("일시적인 오류입니다. 이 현상이 계속되면 관리자에게 문의해주세요.Item");
+        alert("오류 : 네트워크 연결을 확인해주세요.");
     });
     // parsing end
 
@@ -338,7 +342,7 @@ getEvent = function() {
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("일시적인 오류입니다. 이 현상이 계속되면 관리자에게 문의해주세요.Event");
+        alert("오류 : 네트워크 연결을 확인해주세요.");
     });
 
 };
@@ -418,7 +422,7 @@ $("#work_file_del").click(function() {
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+        alert("오류 : 네트워크 연결을 확인해주세요.");
 
         isLoading = false;
     });
@@ -460,7 +464,7 @@ $("#work_delete_btn").click(function() {
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+        alert("오류 : 네트워크 연결을 확인해주세요.");
 
         isLoading = false;
     });
@@ -516,7 +520,7 @@ function myWorkComplete(work_id) {
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+        alert("오류 : 네트워크 연결을 확인해주세요.");
 
         isLoading = false;
     });
@@ -564,7 +568,7 @@ $('#work_complete_btn').click(function() {
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+        alert("오류 : 네트워크 연결을 확인해주세요.");
 
         isLoading = false;
     });
@@ -593,7 +597,7 @@ function toMyWork() {
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+        alert("오류 : 네트워크 연결을 확인해주세요.");
         $("#work_complete_btn").buttonLoader('stop');
 
     });
@@ -606,8 +610,8 @@ $('#reply_submit').click(function() {
         //보내기전 validation check가 필요할경우
         beforeSubmit : function(data, frm, opt) {
             var title = $("#reply_input");
-            if (title.val().replace(/\s/g, '') == "") {
-                alert("내용을 입력하세요.");
+            if (title.val().replace(/\s/g, '') == "" && $("#reply_file_add").val()=="") {
+                alert("내용을 입력하거나 파일을 첨부하세요.");
                 $('#reply_input').val('');
                 return false;
             } else {
@@ -625,7 +629,7 @@ $('#reply_submit').click(function() {
         },
         //ajax error
         error : function() {
-            alert("에러발생!!");
+            alert("오류 : 네트워크 연결을 확인해주세요.");
         }
     });
 
@@ -653,7 +657,7 @@ $('#work_save_btn').click(function() {
         },
         //ajax error
         error : function() {
-            alert("에러발생!!");
+            alert("오류 : 네트워크 연결을 확인해주세요.");
         }
     });
 

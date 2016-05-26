@@ -294,13 +294,22 @@ include_once ('./header.php');
 
         <!-- Menu Toggle Script -->
         <script>
+            if (localStorage.getItem("SIDE") != null) {
+                if (localStorage.getItem("SIDE") == 0) {
+                    $("#menu-toggle").attr("class", "btn glyphicon glyphicon-menu-hamburger");
+                    $("#wrapper").attr("class", "toggled");
+                }
+            }
             $("#menu-toggle").click(function(e) {
                 e.preventDefault();
                 $("#wrapper").toggleClass("toggled");
-                if ($("#wrapper").hasClass("toggled"))
+                if ($("#wrapper").hasClass("toggled")) {
                     $(this).attr("class", "btn glyphicon glyphicon-menu-hamburger");
-                else
+                    localStorage.setItem("SIDE", 0);
+                } else {
                     $(this).attr("class", "btn glyphicon glyphicon-arrow-left");
+                    localStorage.setItem("SIDE", 1);
+                }
             });
     </script>
         <script src="week.js"></script>

@@ -8,6 +8,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <script src="framework/js/placeholder.js"></script>
+<script src="framework/js/jquery.playSound.js"></script>
 <script src="framework/js/jquery.form.min.js"></script>
 <script src="framework/js/jquery.overlay.min.js"></script>
 <link href="framework/css/timetable.css" rel="stylesheet" type="text/css">

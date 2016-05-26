@@ -265,9 +265,11 @@ function sign_ch(grade, school_no) {
 }
 
 function login_ch(grade, ch_id) {
+   
     var pw = 0;
     if (grade == 0) {
         pw = $("#school_pw").val();
+         console.log(school_pw+"="+pw);
         if (school_pw != pw) {
             alert("암호가 맞지 않습니다.");
             return false;

@@ -36,7 +36,10 @@ function getReply(work_id) {
                 obj.append(htmls);
                 htmls = "";
                 // obj.html(obj.html().replace(/\n/g, "<br>"));
-                obj.scrollTop(obj[0].scrollHeight);
+                if (reply_polling_time == 0) {
+                    reply_polling_time = 1;
+                    obj.scrollTop(obj[0].scrollHeight);
+                }
             }
 
         },
@@ -138,6 +141,7 @@ function chatPolling() {
         success : function(args) {
             if (chat_no != args) {
                 if (chat_no != 0) {
+                    $.playSound("img/noti");
                     $("#dialog").dialog({
                         width : "400"// dialog 넓이 지정
                         ,
@@ -156,7 +160,6 @@ function chatPolling() {
                 getChat();
                 chat_no = args;
             }
-            console.log(args);
         },
         fail : function(jqXHR, textStatus, errorThrown) {
             // alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);

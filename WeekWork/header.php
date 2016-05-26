@@ -70,21 +70,17 @@ $eventyear = $eventyear1 -> format("Y");
     <nav id="mainMenu">
         <ul>
 
-            <li >
-                <a href="week.php?week=<?php echo(int)$this_week - 4; ?>" class="glyphicon-text glyphicon-fast-backward"></a>
+            <li > 
+                <a href="http://alim.dothome.co.kr/today.php"><span style="color:#eb625e" >알림장</span></a>
             </li>
             <li>
                 <a href="week.php?week=<?php echo(int)$this_week - 1; ?>" class="glyphicon-text glyphicon-arrow-left"></a>
             </li>
-            <li>
-                <a href="week.php" class="glyphicon-text glyphicon-stop"></a>
-            </li>
+            
             <li>
                 <a href="week.php?week=<?php echo(int)$this_week + 1; ?>" class="glyphicon-text glyphicon-arrow-right"></a>
             </li>
-            <li>
-                <a href="week.php?week=<?php echo(int)$this_week + 4; ?>" class="glyphicon-text glyphicon-fast-forward"></a>
-            </li>
+           
             <li >
                 <a href="week.php">WeekWork</a>
             </li>
@@ -92,7 +88,7 @@ $eventyear = $eventyear1 -> format("Y");
                 <a href="channel.php">학년 설정</a>
             </li>
             <li >
-                <a href="qna.php">고객지원</a>
+                <a href="http://alim.dothome.co.kr/help_weekwork.php">고객지원</a>
             </li>
             <li >
                 <a href="account.php"><?php echo $_SESSION['name']; ?></a>

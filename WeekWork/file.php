@@ -25,7 +25,7 @@ if ($_REQUEST['select'] == "upload") {
         // values('" . $_FILES['file']['name'] . "',
         // '" . $file_hash . "')";
         $query = "insert into w_files (name, hash) 
-              values('(" . $_SESSION['name'] . ")" . $_FILES['file']['name'] . "','" . $file_hash . "')";
+              values('" . $_FILES['file']['name'] . "','" . $file_hash . "')";
         mysql_query($query);
         $file_id = mysql_insert_id();
     } else {
@@ -124,7 +124,7 @@ if ($_REQUEST['select'] == "reply") {
         }
         //auto file naming
         // $file_name = $_FILES['reply_file']['name'];
-        $file_name = "(" . $_SESSION['name'] . ")" . $_FILES['reply_file']['name'];
+        $file_name = "(" . $_SESSION['ban'] . "반)" . $_FILES['reply_file']['name'];
     } else {
         $file_name = '0';
         $file_hash = '0';
@@ -132,6 +132,10 @@ if ($_REQUEST['select'] == "reply") {
     $dt = new DateTime();
     $time = $dt -> format('Y-m-d H:i:s');
     $reply_content = nl2br(htmlspecialchars($_REQUEST['reply_content'], ENT_QUOTES));
+
+    if ($reply_content == "")
+        $reply_content = "제출";
+
     $sql = "INSERT INTO w_reply (content,time,user_id,work_id,file_name,file_hash) VALUE ('${reply_content}'
     ,'${time}','${_SESSION['id']}','${_REQUEST['work_id']}','${file_name}','${file_hash}')";
 
