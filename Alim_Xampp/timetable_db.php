@@ -22,7 +22,14 @@ if ($_REQUEST['select'] == "class_key") {
         $sql = "UPDATE member SET class_key='" . $_REQUEST['class_key'] . "' WHERE id='" . $_SESSION['id'] . "'";
         mysql_query($sql, $connect);
         $_SESSION['class_key'] = $_REQUEST['class_key'];
-        header("location:today.php");
+        mysql_query("INSERT INTO w_1 ( id ) VALUES ( '" . $_SESSION['id'] . "')", $connect);
+        mysql_query("INSERT INTO w_2 ( id ) VALUES ( '" . $_SESSION['id'] . "')", $connect);
+        mysql_query("INSERT INTO w_3 ( id ) VALUES ( '" . $_SESSION['id'] . "')", $connect);
+        mysql_query("INSERT INTO w_4 ( id ) VALUES ( '" . $_SESSION['id'] . "')", $connect);
+        mysql_query("INSERT INTO w_5 ( id ) VALUES ( '" . $_SESSION['id'] . "')", $connect);
+        
+        header("location:timetable.php");
+        
 }
 
 ///////////////////////////////////

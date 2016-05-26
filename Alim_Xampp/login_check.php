@@ -22,7 +22,10 @@ if (mysql_num_rows($result) == 1) {
 		$_SESSION['class_key']=$row['class_key'];
 		$_SESSION['grade']=$row['grade'];
 		$_SESSION['ban']=$row['ban'];
-		
+        $_SESSION['ch_school'] = $row['ch_school'];
+        $_SESSION['ch_grade'] = $row['ch_grade'];
+        $_SESSION['ch_me'] = $row['ch_me'];
+        
 		echo "success";
 
 } else {

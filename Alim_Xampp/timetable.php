@@ -12,27 +12,27 @@ session_start();
 	</head>
 
 	<body id="home">
-		<div id="wrapper">
+		<div id="wrapper" style="min-height: 0px;">
 			<?php
 
             include_once ('./header.php');
 			?>
-
-			<div  id='content' style="margin:30px 50px 10px 50px;">
-			    <h4 style="font-weight: bold">&lt;필수&gt; 학급코드를 정하셔야 스피드알림장을 이용하실 수 있습니다. 숫자 4자리로 정하고 학생과 학부모에게 알려주세요.</h4>
+<br>
+			<div  id='content' style="width:800px; display: block; margin-left: auto; margin-right: auto">
+			    <h4 style="font-weight: bold">&lt;필수&gt; 학급코드를 정하셔야 스피드알림장을 이용하실 수 있습니다. 숫자 4자리로 정하고 학생과<br> 학부모에게 알려주세요.</h4>
 			    <div style="padding-bottom: 30px" class="form-group">
-                   <div class="col-sm-1" style="padding: 0px">
+                   <div class="col-sm-3" style="padding: 0px">
                         <div class="btn btn-danger form-control" id="submit_btn">
                             학급코드
                         </div>
                     </div>
-                    <div class="col-sm-2" style="padding: 0px">
+                    <div class="col-sm-3" style="padding: 0px">
                         <input type="number" class="form-control" name="user_id" id="class_key" checked="0" value="<?
                         if ($_SESSION['class_key'] != '' && !empty($_SESSION['class_key'])) {echo $_SESSION['class_key'];
                         }
  ?>">
                     </div>
-                    <div class="col-sm-1" style="">
+                    <div class="col-sm-3" style="">
                         <button type="button" class="btn btn-info form-control" onclick="submit_class_key()">
                             저장
                         </button>
@@ -41,8 +41,25 @@ session_start();
                 <br>
                 <br>
                 
+                <div class="board" style=" text-align:center; font-size: 20px; width: 100%;display: block">
+               <table style="width:100%;margin-top: 13px;">
+                  <tr>
+                     <td style="width: 20%;font-weight: bold;">안내장 샘플</td>
+                     <td style="width: 40%"><a href="./sample/sample_iphone.hwp" download type="button" class="btn btn-info" onclick=toNext() style="width:80%">아이폰용 받기</a><br/><div style="text-align:center;width:100%;font-size: 0.7em">안내장의 <span style="color:red">빨간색</span> 부분을 수정하여 이용하세요.</div></td>
+                     <td style="width: 40%"><a href="./sample/sample_android.hwp" download type="button" class="btn btn-info" onclick=toNext() style="width:80%">안드로이드용 받기</a><br/><div style="text-align:center;width:100%;font-size: 0.7em">안내장의 <span style="color:red">빨간색</span> 부분을 수정하여 이용하세요.</div>
+                     </td>
+                  </tr>
+               </table>
+            </div>
+                <div style="display:<?
+                if ($_SESSION['class_key'] != '' && !empty($_SESSION['class_key'])) {echo "table";
+                } else { echo "none";
+                }
+                ?>">
+                <br>
+                <br>
 				    <h4 style="font-weight: bold">&lt;선택&gt; 기초시간표를 입력하시면 교사와 학생 모든 화면에 다음날 시간표가 표시되어 편리합니다.</h4>
-				<table class="time_table" align="center">
+				<table class="time_table" align="center" >
 					<tr class="row1" style="border-radius: 10px 0 0 0; ">
 						<td class="cell1" style="border-radius: 10px 0 0 0; "></td>
 						<td>월</td>
@@ -72,6 +89,7 @@ session_start();
                     mysql_close($connect);
 					?>
 				</table>
+				
 					<br/>
 					<br/>
 				<div id="margin" align="center">
@@ -80,13 +98,21 @@ session_start();
 						저장
 					</button>
 				</div>
+				</div>
 			</div>
-			<br> 
+			 <!-- <div id="content"  align="center" style="padding:30px; text-align: center;    margin-left: auto;  margin-right: auto;width:100%;display:table" > -->
+			     
+            
+         </div>
+          <div id="content">
+      <br>
+      <IMG class="displayed" src="./img/teaser.png" style="width:800px; display: block; margin-left: auto; margin-right: auto">  </biglogo>
+  </div>
 			<!-- <img src="./img/help.png" style="text-align: center;color: #ffffff;	width: 100%;position: absolute;	bottom: 0;	left: 0;width:100%; padding-left:10%;padding-right:10%;" class="center"> -->
 			<br>
-			<footer><?php
-            include_once ('./footer.php');
-		?></footer>
+			<br>
+			<br>
+		 
 		</div>
 
 		<script type="text/javascript">
@@ -125,6 +151,12 @@ session_start();
             }
 
             function submit_class_key() {
+                if ($("#class_key").val().replace(/\s/g, '') == "") {
+                    alert("학급코드를 입력해주세요.");
+                    return ;
+                } else {
+                     
+                }
                 location.href = "timetable_db.php?select=class_key&class_key=" + $("#class_key").val();
 
             }

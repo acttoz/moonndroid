@@ -11,7 +11,9 @@
 	</logo>
 	<nav id="mainMenu">
 		<ul>
-			 
+			 <li >
+                <a href="http://alim.dothome.co.kr/weekwork/week.php"><span style="color:#eb625e" >위크워크</span></a>
+            </li>
 			<li >
 				<a href="today.php">알림장</a>
 			</li>

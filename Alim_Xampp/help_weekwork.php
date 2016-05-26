@@ -8,13 +8,38 @@ session_start();
 	include_once ('./framework.php');
          ?>
       <link href="css/timetable.css" rel="stylesheet" type="text/css">
+      
    </head>
    <body id="home">
       <div id="wrapper">
-         <?php
-		include_once ('./header.php');
-            ?>
-         
+        <header id="header">
+
+            <logo style="width:400px;">
+                <a href="./index.php" style="width:400px; background: url(weekwork/img/logo.png) no-repeat;"></a>
+            </logo>
+            <nav id="mainMenu">
+                <ul>
+
+                    
+                   <li >
+                        <a href="http://alim.dothome.co.kr/today.php"><span style="color:#eb625e" >알림장</span></a>
+                    </li>
+                    <li >
+                        <a href="weekwork/week.php">WeekWork</a>
+                    </li>
+                    <li >
+                        <a href="weekwork/channel.php">학년 설정</a>
+                    </li>
+                    <li >
+                        <a href="http://alim.dothome.co.kr/help_weekwork.php">고객지원</a>
+                    </li>
+                    <li >
+                        <a href="weekwork/account.php"><?php echo $_SESSION['name']; ?></a>
+                    </li>
+
+                </ul>
+            </nav>
+        </header>
          <br>
          <div align="center" style="height:200px; text-align: center;	margin-left: auto;	margin-right: auto;width:80%;display:table" >
             <div class="board" style="font-size: 20px;">
@@ -38,7 +63,7 @@ session_start();
             </div>
          </div>
          <br>
-          <div align="center" style="height:40px; text-align: center;  margin-left: auto;  margin-right: auto;width:80%;display:table" >
+           <div align="center" style="height:40px; text-align: center;  margin-left: auto;  margin-right: auto;width:80%;display:table" >
             <div class="board" style="font-size: 15px;">
                 개발자 문샘의 이메일 : acttoz@naver.com 
             </div>

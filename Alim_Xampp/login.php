@@ -34,8 +34,8 @@ session_start();
   </header>
   <br>
   <div id="content">
-    <biglogo > <br><br><br>
-      <IMG class="displayed" src="./img/teaser.png" style="width:70%; display: block; margin-left: auto; margin-right: auto"> <IMG class="displayed" src="./img/tutorial.png" style="width:70%; display: block; margin-left: auto; margin-right: auto"> </biglogo>
+      <br>
+      <IMG class="displayed" src="./img/teaser.png" style="width:800px; display: block; margin-left: auto; margin-right: auto">  </biglogo>
   </div>
   <footer>
     <?php

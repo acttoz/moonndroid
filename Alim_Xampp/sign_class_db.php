@@ -45,11 +45,7 @@ if ($_REQUEST['select'] == "sign") {
 		$sql = "UPDATE member SET school='" . $_REQUEST['school'] . "' ,school_id='" . $_REQUEST['school_id'] . "' ,grade='" . $_REQUEST['grade'] . "' ,ban='" . $_REQUEST['ban'] . "' ,name='" . $_REQUEST['name'];
 		$sql = $sql . "' , pass='" . $_REQUEST['user_pass'] . "' WHERE id='" . $id . "'";
 		mysql_query($sql, $connect);
-		mysql_query("INSERT INTO w_1 ( id ) VALUES ( '" . $id . "')", $connect);
-		mysql_query("INSERT INTO w_2 ( id ) VALUES ( '" . $id . "')", $connect);
-		mysql_query("INSERT INTO w_3 ( id ) VALUES ( '" . $id . "')", $connect);
-		mysql_query("INSERT INTO w_4 ( id ) VALUES ( '" . $id . "')", $connect);
-		mysql_query("INSERT INTO w_5 ( id ) VALUES ( '" . $id . "')", $connect);
+		
 		$_SESSION['id'] = $id;
 		$_SESSION['school'] = $_REQUEST['school'];
 		$_SESSION['school_id'] = $_REQUEST['school_id'];
