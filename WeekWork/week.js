@@ -27,8 +27,10 @@ var work_file_add = $("#work_file_add");
 var work_file_down = $("#work_file_down");
 var work_file_del = $("#work_file_del");
 var reply_file_add = $('#reply_file_add');
+var interval;
 
 var reply_polling_time = 0;
+var reply_count=0;
 
 //edit
 function viewWork(work_id) {
@@ -65,6 +67,7 @@ function viewWork(work_id) {
         getFileInfo(workArray[flag_work_id]["file_id"]);
     }
     reply_polling_time = 0;
+    reply_count=workArray[flag_work_id]["reply"];
     getReply(work_id);
     $("#workList").css("display", "block");
 
@@ -242,7 +245,7 @@ function setComplete(bool, work_id) {
     }
 }
 
-getItem = function() {
+getItemPolling = function() {
     var request = $.ajax("db.php", {
         type : "GET",
         dataType : "json",
@@ -272,7 +275,84 @@ getItem = function() {
                     "ch_id" : this.ch_id,
                     "user_id" : this.user_id,
                     "user_name" : this.user_name,
-                    "grade" : this.grade
+                    "grade" : this.grade,
+                    "reply":this.reply
+                };
+                obj = $('#' + this.ch_id + ' #' + this.day);
+                htmls += '<div class="new_work" id=' + this.work_id + ' style="display:none;width:100%;text-align:right;padding-right:40px"><img id=' + this.work_id + ' src="./img/new.png" style="height:26px;width:40px;position:absolute;float:right"></img></div>';
+                htmls += '<p class="btn btn-default work" id="work_' + this.work_id + '"  style="border-color:#cfebf2;';
+
+                if (this.user_id == wUser_id)
+                    htmls += 'background:#cfdaf2;';
+                else
+                    htmls += 'background:#cfebf2;';
+
+                // if (this.ch_group == "ch_me")
+                // htmls += 'display:block;margin-top:0px;margin-bottom:10px; " onclick="myWorkComplete(' + this.work_id + ')">';
+                // else
+                htmls += 'display:block;margin-top:0px;margin-bottom:10px; " onclick="viewWork(' + this.work_id + ')">';
+                if (this.file_id != 0)
+                    htmls += '<span style="color:#eb625e" class="glyphicon glyphicon-paperclip"></span>';
+                else
+                    htmls += '⦁ ';
+                htmls += this.work_name;
+                htmls += '</p>';
+                obj.prepend(htmls);
+                htmls = "";
+                if (this.complete == 1)
+                    setComplete(true, this.work_id);
+
+            });
+
+        }
+        $("#workList").css("display", "none");
+        if (flag_work_id != 0)
+            viewWork(flag_work_id);
+
+        $.overlay.hide('ajax');
+
+        getNew();
+
+    });
+
+    request.fail(function(jqXHR, textStatus, errorThrown) {
+        alert("오류 : 네트워크 연결을 확인해주세요.");
+    });
+    // parsing end
+
+    return true;
+
+};
+
+getItem = function() {
+    var request = $.ajax("db.php", {
+        type : "GET",
+        dataType : "json",
+        contentType : "application/json; charset=utf-8",
+        data : {
+            select : "week"
+        }
+
+    });
+    $.overlay.show('ajax');
+    request.done(function(json) {
+        $(".work > p").remove();
+        $(".work > div").remove();
+        var obj;
+        if (json.week != null && typeof json === "object" && json.week.length > 0) {
+            $(json.week).each(function() {
+                workArray[this.work_id] = {
+                    "ch_group" : this.ch_groupd,
+                    "work_name" : this.work_name,
+                    "work_content" : this.work_content,
+                    "file_id" : this.file_id,
+                    "day" : this.day,
+                    "complete" : this.complete,
+                    "ch_id" : this.ch_id,
+                    "user_id" : this.user_id,
+                    "user_name" : this.user_name,
+                    "grade" : this.grade,
+                    "reply":this.reply
                 };
                 obj = $('#' + this.ch_id + ' #' + this.day);
                 htmls += '<div class="new_work" id=' + this.work_id + ' style="display:none;width:100%;text-align:right;padding-right:40px"><img id=' + this.work_id + ' src="./img/new.png" style="height:26px;width:40px;position:absolute;float:right"></img></div>';
@@ -664,7 +744,8 @@ $('#work_save_btn').click(function() {
 });
 
 $(document).ready(function() {
-    getItem();
+    getItemPolling();
+    pollingReply();
     getEvent();
     chatPolling();
 
@@ -686,14 +767,14 @@ function formValidate() {
 
 
 $('#work_file_add').bind('change', function() {
-    if (15050000 < this.files[0].size) {
-        alert('1MB이하의 용량만 업로드 가능합니다.');
+    if (3205000 < this.files[0].size) {
+        alert('3MB이하의 용량만 업로드 가능합니다.');
         work_file_add.replaceWith( work_file_add = work_file_add.clone(true));
     }
 });
 $('#reply_file_add').bind('change', function() {
-    if (15050000 < this.files[0].size) {
-        alert('1MB이하의 용량만 업로드 가능합니다.');
+    if (3205000 < this.files[0].size) {
+        alert('3MB이하의 용량만 업로드 가능합니다.');
         reply_file_add.replaceWith( reply_file_add = reply_file_add.clone(true));
     }
 });

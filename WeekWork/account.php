@@ -22,7 +22,7 @@
         <header id="header">
 
             <logo>
-                <a href="./index.php"></a>
+                <a href="./login.php"></a>
             </logo>
            <nav id="mainMenu">
                 <ul>
@@ -99,11 +99,24 @@
                             if ($_SESSION['grade'] == 6)
                                 echo 'selected';
                             ?>>6학년</option>
+                            <option value='10' <?php
+                            if ($_SESSION['grade'] == 10)
+                                echo 'selected';
+                            ?>>교무실</option>
+                            <option value='100' <?php
+                            if ($_SESSION['grade'] == 100)
+                                echo 'selected';
+                            ?>>행정실</option>
                         </select>
                     </div>
 
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="select_ban" style="display:<?
+                if($_SESSION['grade']==10||$_SESSION['grade']==100)
+                echo "none";
+                else
+                echo "block";
+                ?>">
                     <label class="col-sm-2 control-label" >학반</label>
                     <div class="col-sm-10">
                         <select type="email" class="form-control ban" >
@@ -179,8 +192,63 @@
                     </div>
 
                 </div>
+                
+                 <div class="form-group" id="select_position" style="display:<?
+                if($_SESSION['grade']==10||$_SESSION['grade']==100)
+                echo "block";
+                else
+                echo "none";
+                ?>">
+                    <label class="col-sm-2 control-label" >직책</label>
+                    <div class="col-sm-10">
+                        <select class="form-control position" >
+                            <option value='21' <?php
+                            if ($_SESSION['ban'] == 21)
+                                echo 'selected';
+                            ?>>교장</option>
+                            <option value='22' <?php
+                            if ($_SESSION['ban'] == 22)
+                                echo 'selected';
+                            ?>>교감</option>
+                            <option value='23' <?php
+                            if ($_SESSION['ban'] == 23)
+                                echo 'selected';
+                            ?>>교무</option>
+                            <option value='24' <?php
+                            if ($_SESSION['ban'] == 24)
+                                echo 'selected';
+                            ?>>보조교사</option>
+                            <option value='25' <?php
+                            if ($_SESSION['ban'] == 25)
+                                echo 'selected';
+                            ?>>행정실장</option>
+                            <option value='26' <?php
+                            if ($_SESSION['ban'] == 26)
+                                echo 'selected';
+                            ?>>행정차장</option>
+                            <option value='27' <?php
+                            if ($_SESSION['ban'] == 27)
+                                echo 'selected';
+                            ?>>주무관</option>
+                            <option value='28' <?php
+                            if ($_SESSION['ban'] == 28)
+                                echo 'selected';
+                            ?>>영양사</option>
+                            <option value='29' <?php
+                            if ($_SESSION['ban'] == 29)
+                                echo 'selected';
+                            ?>>조리사</option>
+                            <option value='30' <?php
+                            if ($_SESSION['ban'] == 30)
+                                echo 'selected';
+                            ?>>교직원</option>
+                        </select>
+                    </div>
+
+                </div>
+                
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" >담임 성명</label>
+                    <label class="col-sm-2 control-label" >성 명</label>
                     <div class="col-sm-10">
                         <input type="text" id="teacher_name" class="form-control" name="teacher_name" placeholder="학부모와 학생에게 표시되는 이름이므로 정확히 입력해주세요." value="<?echo $_SESSION['name'] ?>"/>
                     </div>

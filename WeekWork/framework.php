@@ -11,6 +11,7 @@
 <script src="framework/js/jquery.playSound.js"></script>
 <script src="framework/js/jquery.form.min.js"></script>
 <script src="framework/js/jquery.overlay.min.js"></script>
+<script src="framework/js/ban_array.js"></script>
 <link href="framework/css/timetable.css" rel="stylesheet" type="text/css">
 <link href="framework/css/loader.css" rel="stylesheet" type="text/css">
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>

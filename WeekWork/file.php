@@ -97,6 +97,10 @@ if ($_REQUEST['select'] == "delReply") {
     }
 
     mysql_query("DELETE FROM w_reply WHERE reply_id=${_REQUEST['reply_id']}");
+    
+    $reply_count= mysql_result(mysql_query("SELECT COUNT(reply_id) FROM w_reply where work_id='${_REQUEST['work_id']}'"), 0);
+    mysql_query("UPDATE w_work SET reply=${reply_count} WHERE work_id=${_REQUEST['work_id']}");
+    
     mysql_close($connect);
 }
 
@@ -138,8 +142,10 @@ if ($_REQUEST['select'] == "reply") {
 
     $sql = "INSERT INTO w_reply (content,time,user_id,work_id,file_name,file_hash) VALUE ('${reply_content}'
     ,'${time}','${_SESSION['id']}','${_REQUEST['work_id']}','${file_name}','${file_hash}')";
-
     mysql_query($sql);
+    
+    $reply_count= mysql_result(mysql_query("SELECT COUNT(reply_id) FROM w_reply where work_id='${_REQUEST['work_id']}'"), 0);
+    mysql_query("UPDATE w_work SET reply=${reply_count} WHERE work_id=${_REQUEST['work_id']}");
 
     mysql_close($connect);
 

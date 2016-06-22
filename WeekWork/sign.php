@@ -59,18 +59,20 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" >학년</label>
                     <div class="col-sm-10">
-                        <select type="email" class="form-control grade" >
+                        <select  class="form-control grade" >
                             <option value='1' >1학년</option>
                             <option value='2' >2학년</option>
                             <option value='3' >3학년</option>
                             <option value='4' >4학년</option>
                             <option value='5' >5학년</option>
                             <option value='6' >6학년</option>
+                            <option value='10' >교무실</option>
+                            <option value='100' >행정실</option>
                         </select>
                     </div>
 
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="select_ban">
                     <label class="col-sm-2 control-label" >학반</label>
                     <div class="col-sm-10">
                         <select type="email" class="form-control ban" >
@@ -91,12 +93,31 @@
                             <option value='15' >15반</option>
                             <option value='16' >16반</option>
                             <option value='17' >17반</option>
+                            <option value='0' >전담</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="form-group" id="select_position" style="display:none;">
+                    <label class="col-sm-2 control-label" >직책</label>
+                    <div class="col-sm-10">
+                        <select class="form-control position" >
+                            <option value='21' >교장</option>
+                            <option value='22' >교감</option>
+                            <option value='23' >교무</option>
+                            <option value='24' >보조교사</option>
+                            <option value='25' >행정실장</option>
+                            <option value='26' >행정차장</option>
+                            <option value='27' >주무관</option>
+                            <option value='28' >영양사</option>
+                            <option value='29' >조리사</option>
+                            <option value='30' >교직원</option>
                         </select>
                     </div>
 
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" >담임 성명</label>
+                    <label class="col-sm-2 control-label" >성 명</label>
                     <div class="col-sm-10">
                         <input type="text" id="teacher_name" class="form-control" name="teacher_name" placeholder="학부모와 학생에게 표시되는 이름이므로 정확히 입력해주세요.">
                     </div>

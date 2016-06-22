@@ -8,7 +8,7 @@ var currentSchoolNo = 0;
 var currentChId = 0;
 var currentChName = 0;
 var flag_isSchool = false;
-
+var flag_ban = true;
 // function school() {
 // var htmls = '';
 // $('#school_list').html(htmls);
@@ -254,10 +254,20 @@ var fnSchool = function() {
 
 function sign_ch(grade, school_no) {
     var pw = 0;
-    if (grade == 0)
+    if (grade == 0) {
+        if ($("#school_pw").val() == "") {
+            alert("비밀번호를 입력하세요.");
+            return;
+        }
+
         pw = $("#school_pw").val();
-    else
+    } else {
+        if ($("#grade_pw").val() == "") {
+            alert("비밀번호를 입력하세요.");
+            return;
+        }
         pw = $("#grade_pw").val();
+    }
 
     if (confirm("암호를 '" + pw + "'로 설정합니다.")) {
         location.href = "db.php?select=sign_ch&school_no=" + school_no + "&grade=" + grade + "&pw=" + pw;
@@ -265,11 +275,11 @@ function sign_ch(grade, school_no) {
 }
 
 function login_ch(grade, ch_id) {
-   
+
     var pw = 0;
     if (grade == 0) {
         pw = $("#school_pw").val();
-         console.log(school_pw+"="+pw);
+        console.log(school_pw + "=" + pw);
         if (school_pw != pw) {
             alert("암호가 맞지 않습니다.");
             return false;
@@ -335,16 +345,19 @@ function login_ch(grade, ch_id) {
 //
 function schoolClick(id, school) {
 
-$("#selected_school").val(school);
-$("#selected_school").attr("school_id", id);
-$("#selected_school").attr("school_name", school);
+    $("#selected_school").val(school);
+    $("#selected_school").attr("school_id", id);
+    $("#selected_school").attr("school_name", school);
 
 }
 
 function toNext() {
     var mUserid = $("#user_id").val();
     var grade = $(".grade option:selected").attr("value");
-    var ban = $(".ban option:selected").attr("value");
+    if (flag_ban)
+        var ban = $(".ban option:selected").attr("value");
+    else
+        var ban = $(".position option:selected").attr("value");
     var teacher = $("#teacher_name").val();
     var class_key = $("#class_pass").val();
     var class_key2 = $("#class_pass2").val();
@@ -375,47 +388,42 @@ function toNext() {
         return;
     } else {
 
-        if (confirm(school + "\n" + grade + "학년\n" + ban + "반\n" + teacher + "선생님\n" + "위의 정보가 맞습니까?")) {
-            if (isLoading)
-                return false;
-            isLoading = true;
-            $.ajax({
-                url : "db.php",
-                type : 'GET',
-                data : {
-                    select : "sign",
-                    name : teacher,
-                    school : school,
-                    school_id : school_id,
-                    grade : grade,
-                    ban : ban,
-                    user_id : mUserid,
-                    user_pass : mUserPass
-                },
-                success : function(args) {
-                    isLoading = false;
+        if (isLoading)
+            return false;
+        isLoading = true;
+        $.ajax({
+            url : "db.php",
+            type : 'GET',
+            data : {
+                select : "sign",
+                name : teacher,
+                school : school,
+                school_id : school_id,
+                grade : grade,
+                ban : ban,
+                user_id : mUserid,
+                user_pass : mUserPass
+            },
+            success : function(args) {
+                isLoading = false;
 
-                    if (args == "success") {
-                        if (window.confirm('회원가입이 완료되었습니다.\n로그인 화면으로 이동합니다.')) {
-                            localStorage.removeItem("ID");
-                            document.location.href = "index.php";
-                        }
-                    } else if (args == "fail") {
-                        alert("오류발생:이미 가입된 학급입니다. 관리자에게 문의하세요. acttoz@naver.com");
-                    } else {
-                        alert(args);
+                if (args == "success") {
+                    if (window.confirm('회원가입이 완료되었습니다.\n로그인 화면으로 이동합니다.')) {
+                        localStorage.removeItem("ID");
+                        document.location.href = "index.php";
                     }
-
-                },
-                fail : function(jqXHR, textStatus, errorThrown) {
-                    aler("오류 발생:" + jqXHR + " " + textStatus);
-                    isLoading = false;
+                } else if (args == "fail") {
+                    alert("오류발생:이미 가입된 학급입니다. 관리자에게 문의하세요. acttoz@naver.com");
+                } else {
+                    alert(args);
                 }
-            });
-            // Save it!
-        } else {
-            // Do nothing!
-        }
+
+            },
+            fail : function(jqXHR, textStatus, errorThrown) {
+                aler("오류 발생:" + jqXHR + " " + textStatus);
+                isLoading = false;
+            }
+        });
     }
 }
 
@@ -521,4 +529,18 @@ function fn_press_han(obj) {
 }
 
 
+$(".grade").change(function() {
+    var str = "";
+    $(".grade option:selected").each(function() {
+        if ($(this).val() == 10 || $(this).val() == 100) {
+            flag_ban = false;
+            $("#select_position").css("display", "block");
+            $("#select_ban").css("display", "none");
+        } else {
+            flag_ban = true;
+            $("#select_position").css("display", "none");
+            $("#select_ban").css("display", "block");
+        }
+    });
+}).change();
 

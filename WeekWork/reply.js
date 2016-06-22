@@ -1,20 +1,43 @@
 //reply
-function getReply(work_id) {
+function pollingReply() {
+    $.ajax("db.php", {
+        type : "GET",
+        complete : setTimeout(function() {
+            pollingReply();
+        }, 10000),
 
+        contentType : "application/json; charset=utf-8",
+        data : {
+            select : "reply_poll",
+            work_id : flag_work_id
+        },
+        success : function(args) {
+            if (args * 1 != reply_count) {
+                reply_count = args * 1;
+                getReply(flag_work_id);
+            }
+        },
+        fail : function(jqXHR, textStatus, errorThrown) {
+            // alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+
+        }
+    });
+
+}
+ 
+
+function getReply(work_id) {
+    $("#reply").empty();
     $.ajax("db.php", {
         type : "GET",
         dataType : "json",
-        complete : setTimeout(function() {
-            getReply(flag_work_id);
-        }, 10000),
-
         contentType : "application/json; charset=utf-8",
         data : {
             select : "reply",
             work_id : work_id
         },
         success : function(json) {
-            $("#reply").empty();
+
             var obj = $("#reply");
             var replyCount = 0;
             htmls = "";
@@ -22,7 +45,9 @@ function getReply(work_id) {
                 $(json.week).each(function() {
                     if (replyCount != 0)
                         htmls += '<hr>';
-                    htmls += '<p style=" padding-right:5px;">' + this.content + '&nbsp;<span style="font-weight:bold">- ' + this.ban + '반 ' + this.name + '</span>' + '<span style="font-size:12px">(' + this.time + ')</span>&nbsp;&nbsp;&nbsp;';
+                    htmls += '<p style=" padding-right:5px;">' + this.content + '&nbsp;<span style="font-weight:bold">- ';
+                    htmls += ban_array[this.ban];
+                    htmls += this.name + '</span>' + '<span style="font-size:12px">(' + this.time + ')</span>&nbsp;&nbsp;&nbsp;';
                     if (this.file_name != '0') {
                         htmls += '<a class="btn btn-info reply_clip" type="button" href="';
                         htmls += './file.php?select=download&name=' + this.file_name + '&hash=' + this.file_hash;
@@ -35,11 +60,9 @@ function getReply(work_id) {
                 });
                 obj.append(htmls);
                 htmls = "";
-                // obj.html(obj.html().replace(/\n/g, "<br>"));
-                if (reply_polling_time == 0) {
-                    reply_polling_time = 1;
-                    obj.scrollTop(obj[0].scrollHeight);
-                }
+                obj.scrollTop(obj[0].scrollHeight);
+            } else {
+
             }
 
         },
@@ -62,7 +85,8 @@ function delReply(reply_id, hash) {
         data : {
             select : "delReply",
             reply_id : reply_id,
-            hash : hash
+            hash : hash,
+            work_id:flag_work_id
         }
 
     });
@@ -139,7 +163,7 @@ function chatPolling() {
             select : "chat_polling"
         },
         success : function(args) {
-            if (chat_no != args) {
+            if (chat_no < args * 1) {
                 if (chat_no != 0) {
                     $.playSound("img/noti");
                     $("#dialog").dialog({
@@ -158,7 +182,7 @@ function chatPolling() {
                     });
                 }
                 getChat();
-                chat_no = args;
+                chat_no = args * 1;
             }
         },
         fail : function(jqXHR, textStatus, errorThrown) {
@@ -186,7 +210,9 @@ function getChat() {
                 $(json.week).each(function() {
                     if (replyCount != 0)
                         htmls += '<hr>';
-                    htmls += '<p style="line-height=0px;  ">' + this.content + '&nbsp;<span style="font-weight:bold"><br> ' + this.ban + '반 ' + this.name + '</span>' + '<span style="font-size:12px">(' + this.time + ')</span>&nbsp;&nbsp;&nbsp;';
+                    htmls += '<p style="line-height=0px;  ">' + this.content + '&nbsp;<span style="font-weight:bold"><br> ';
+                    htmls += ban_array[this.ban];
+                    htmls += this.name + '</span>' + '<span style="font-size:12px">(' + this.time + ')</span>&nbsp;&nbsp;&nbsp;';
                     // if (this.file_name != '0') {
                     // htmls += '<a class="btn btn-info reply_clip" type="button" href="';
                     // htmls += './file.php?select=download&name=' + this.file_name + '&hash=' + this.file_hash;

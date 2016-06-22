@@ -21,7 +21,10 @@ function schoolClick(id, school) {
 function toNext() {
 
     var grade = $(".grade option:selected").attr("value");
-    var ban = $(".ban option:selected").attr("value");
+     if (flag_ban)
+        var ban = $(".ban option:selected").attr("value");
+    else
+        var ban = $(".position option:selected").attr("value");
     var teacher = $("#teacher_name").val();
     var class_key = $("#class_pass").val();
     var school = $("#selected_school").attr("school_name");
@@ -196,3 +199,19 @@ function fn_press_han(obj) {
     //obj.value = obj.value.replace(/[\a-zㄱ-ㅎㅏ-ㅣ가-힣]/g, '');
     obj.value = obj.value.replace(/[\ㄱ-ㅎㅏ-ㅣ가-힣]/g, '');
 }
+
+
+$(".grade").change(function() {
+    var str = "";
+    $(".grade option:selected").each(function() {
+        if ($(this).val() == 10 || $(this).val() == 100) {
+            flag_ban = false;
+            $("#select_position").css("display", "block");
+            $("#select_ban").css("display", "none");
+        } else {
+            flag_ban = true;
+            $("#select_position").css("display", "none");
+            $("#select_ban").css("display", "block");
+        }
+    });
+}).change();

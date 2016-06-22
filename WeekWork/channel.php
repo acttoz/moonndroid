@@ -28,7 +28,7 @@
         <header id="header">
 
             <logo>
-                <a href="./index.php"></a>
+                <a href="./login.php"></a>
             </logo>
             <nav id="mainMenu">
                 <ul>
@@ -91,7 +91,7 @@
                         //채널이 생성 안됨  w_channel테이블의 school_no 컬럼이 일치하는 row가 없음.
                         echo '
                           <div class="form-group" id="sign_school" style="display:block">
-                           <h4 id="ch_name" style="white-space: pre-wrap">';
+                           <h5 id="ch_name" style="white-space: pre-wrap">';
                         if (!empty($ch_login_list[0]))
                             echo '학교 채널 생성자가 정한 학교코드를 입력해주세요.';
                         else {
@@ -142,7 +142,12 @@
                     // } else if (count($ch_ids) == 1) {
                     // echo "<button class='btn btn-info' style='height:70px;font-size:30px;' onclick='channel()' >+</button>";
                     // }
-                    echo $_SESSION['grade'] . '학년';
+                    if($_SESSION['grade']==10)
+                        echo '교무실';
+                    else if($_SESSION['grade']==100)
+                        echo '행정실';
+                    else
+                        echo $_SESSION['grade'] . '학년';
                     ?></td>
                     
                     <td    class="content" style=" width:50%;border-bottom-style:none; border-right-style:none; border-radius: 0 0 10px 0;"><?php
@@ -153,16 +158,32 @@
                         //채널이 생성 안됨  w_channel테이블의 school_no 컬럼이 일치하는 row가 없음.
                         echo '
                           <div class="form-group" id="sign_school" style="display:block">
-                           <h4 id="ch_name" style="white-space: pre-wrap">';
-                        if (!empty($ch_login_list[$_SESSION['grade']]))
-                            echo $ch_login_list[$_SESSION['grade']]['grade'] . '학년 채널 생성자가 정한 코드를 입력해주세요.';
-                        else {
-                            echo $_SESSION['grade'] . '학년 채널이 생성되지 않았습니다. <br>' . $_SESSION['grade'] . '학년 채널 코드를 생성해주세요.';
+                           <h5 id="ch_name" style="white-space: pre-wrap">';
+                        if (!empty($ch_login_list[$_SESSION['grade']])){
+                             $grade="";
+                            if($_SESSION['grade']==10)
+                                $grade='교무실';
+                            else if($_SESSION['grade']==100)
+                                $grade='행정실';
+                            else
+                                $grade=$_SESSION['grade'] . '학년';
+                            echo $grade . ' 채널 생성자가 정한 코드를 입력해주세요.';
+                        }else {
+                            $grade="";
+                            if($_SESSION['grade']==10)
+                                $grade='교무실';
+                            else if($_SESSION['grade']==100)
+                                $grade='행정실';
+                            else
+                                $grade=$_SESSION['grade'] . '학년';
+                            
+                            echo $grade. ' 채널이 생성되지 않았습니다. <br>채널의 코드를 생성해주세요.';
                         }
                         echo '</h4>
                                 
                                 
                             <div class="col-sm-8">
+                            
                                 <input type="text" id="grade_pw" class="form-control numeric" placeholder="숫자 네자리" maxlength="4" style="ime-mode:disabled;"/>
                             </div>
                             <div class="col-sm-4">
@@ -178,7 +199,7 @@
                         if (!empty($ch_login_list[$_SESSION['grade']]))
                             echo '로그인';
                         else {
-                            echo '암호 생성하기';
+                            echo '암호 생성';
                         }
 
                         echo '</button>

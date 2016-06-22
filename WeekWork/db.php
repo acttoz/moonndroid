@@ -30,8 +30,7 @@ if ($_REQUEST['select'] == "sign_ch") {
         $sql = "INSERT INTO w_chat_polling (ch_id) VALUE (" . mysql_insert_id() . ")";
         mysql_query($sql);
     }
-    mysql_query("UPDATE member SET ch" . $ch_num . "=" . $ch_id . "  WHERE id='${_SESSION['id']}'");
-    $_SESSION['ch' . $ch_num] = $ch_id;
+     
 
     logInCh(mysql_insert_id(), $_REQUEST['grade']);
     header("location:channel.php");
@@ -74,6 +73,10 @@ function logInCh($ch_id, $grade) {
         $ch_num = '_me';
     } else {
         $ch_num = '_grade';
+        
+        $sql = "INSERT INTO w_channel (school_no,grade,pw) VALUE ('${_SESSION['school_id']}',50,'0')";
+        mysql_query($sql);
+        logInCh(mysql_insert_id(), 50);
     }
     mysql_query("UPDATE member SET ch" . $ch_num . "=" . $ch_id . "  WHERE id='${_SESSION['id']}'");
     $_SESSION['ch' . $ch_num] = $ch_id;
@@ -141,9 +144,7 @@ if ($_REQUEST['select'] == "sign") {
         mysql_query($sql, $connect);
         $_SESSION['id'] = $_REQUEST['user_id'];
 
-        $sql = "INSERT INTO w_channel (school_no,grade,pw) VALUE ('${_REQUEST['school_id']}',50,'0')";
-        mysql_query($sql);
-        logInCh(mysql_insert_id(), 50);
+        
         echo "success";
     } else {
         echo "fail";
@@ -194,7 +195,7 @@ if ($_REQUEST['select'] == "week") {
 
         $work_name = htmlspecialchars_decode($array['work_name'], ENT_QUOTES);
         $work_decoded = htmlspecialchars_decode($array['work_content'], ENT_QUOTES);
-        $results[] = array('ch_group' => $ch_group, 'work_id' => $array['work_id'], 'work_name' => $work_name, 'new' => $array['new'], 'work_content' => $work_decoded, 'file_id' => $array['file_id'], 'complete' => $array['complete'], 'grade' => $array['grade'], 'day' => $array['day'], 'ch_id' => $array['ch_id'], 'user_name' => $array['name'], 'user_id' => $array['user_id']);
+        $results[] = array('ch_group' => $ch_group, 'work_id' => $array['work_id'], 'work_name' => $work_name, 'new' => $array['new'], 'work_content' => $work_decoded, 'file_id' => $array['file_id'], 'complete' => $array['complete'], 'grade' => $array['grade'], 'day' => $array['day'], 'ch_id' => $array['ch_id'], 'user_name' => $array['name'], 'user_id' => $array['user_id'],'reply' => $array['reply']);
     }
 
     $data = array('week' => $results);
@@ -219,8 +220,11 @@ if ($_REQUEST['select'] == "reply") {
         echo json_encode($data);
 
 }
+if ($_REQUEST['select'] == "reply_poll") {
+    echo mysql_result(mysql_query("SELECT COUNT(reply_id) FROM w_reply where work_id='${_REQUEST['work_id']}'"), 0);
+}
 if ($_REQUEST['select'] == "chat") {
-    $sql = "SELECT w_chat.*,member.name,member.ban FROM w_chat INNER JOIN member ON w_chat.user_id = member.id WHERE w_chat.ch_id=${_SESSION['ch_grade']} ORDER BY time ASC LIMIT 30";
+    $sql = "SELECT * from(SELECT w_chat.*,member.name,member.ban FROM w_chat INNER JOIN member ON w_chat.user_id = member.id WHERE w_chat.ch_id=${_SESSION['ch_grade']} ORDER BY time DESC LIMIT 30)tmp ORDER BY tmp.time ASC";
     $result = mysql_query($sql);
     $results = array();
     while ($array = mysql_fetch_array($result)) {

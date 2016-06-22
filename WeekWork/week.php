@@ -46,7 +46,7 @@ include_once ('./header.php');
                 </li>
             -->
                 <li >
-                    <a href="#" data-toggle="collapse" style="font-size: 1.3em"  onclick=" ">&nbsp;&nbsp;연구실 쪽지함</a>
+                    <a href="#" data-toggle="collapse" style="font-size: 1.3em">&nbsp;&nbsp;<? echo $temp_grade.' 쪽지함'; ?></a>
                     <div id="chat_parent"  >
                    <table class="chat_table" style="background:#F8F8F8;color:#000; border-radius: 10px 10px 10px 10px; table-layout: fixed" align="center"  >
                                <tr class="" style="border-radius: 10px 0 0 0; ">
@@ -77,7 +77,9 @@ include_once ('./header.php');
                     즐겨찾기 메뉴
                     </div>
                 </li> -->
-                
+                <h5 style="width:100%;text-align: center">  
+&lt;알림  
+&gt;위크워크는 인터넷 익스플로러 11,<br> 크롬브라우저에 최적화 되어있습니다.</h5>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
