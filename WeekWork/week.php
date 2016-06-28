@@ -25,7 +25,7 @@ include_once ('./header.php');
          ?>
         
         <div id="wrapper" style="padding-top: 0px;padding-bottom: 0px;padding-right: 0px; ">
-            <a href="#menu-toggle" style="background: #EB625E;color:#fff;" class="btn glyphicon glyphicon-arrow-left" id="menu-toggle"></a>
+            
                 <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
@@ -83,8 +83,23 @@ include_once ('./header.php');
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
-<div id="page-content-wrapper">
-            <div class="container-fluid">
+<div id="page-content-wrapper" style="">
+            <div class="container-fluid" style="">
+                <table style="width:100%;height:30px;margin-top: 10px;">
+                    <tr>
+                        <td style="width:20%;">
+                             <a href="#menu-toggle" style="background: #EB625E;color:#fff;" class="btn glyphicon glyphicon-arrow-left" id="menu-toggle">
+                        </td>
+                        <td style="width:20%;text-align: right"><a href="week.php?week=<?php echo(int)$this_week - 1; ?>" style="width: 50%" class="btn btn-info glyphicon-text glyphicon-arrow-left" ></a>
+                        </td>
+                        <td style="width:20%;text-align: center"><a href="week.php" style="width: 50%" class="btn btn-info " >이번주</button>                              
+                        </td>
+                        <td style="width:20%;text-align: left"><a href="week.php?week=<?php echo(int)$this_week + 1; ?>" style="width: 50%" class="btn btn-info glyphicon-text glyphicon-arrow-right" ></a>                              
+                        </td>
+                        <td style="width:20%;">  
+                        </td>
+                    </tr>
+                </table>
                 <div class="row">
                     <div class="col-lg-12">
                             <div  id='content'  >

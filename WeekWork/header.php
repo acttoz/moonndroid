@@ -80,13 +80,6 @@ $eventyear = $eventyear1 -> format("Y");
             <li > 
                 <a href="http://alim.dothome.co.kr/today.php"><span style="color:#eb625e" >알림장</span></a>
             </li>
-            <li>
-                <a href="week.php?week=<?php echo(int)$this_week - 1; ?>" class="glyphicon-text glyphicon-arrow-left"></a>
-            </li>
-            
-            <li>
-                <a href="week.php?week=<?php echo(int)$this_week + 1; ?>" class="glyphicon-text glyphicon-arrow-right"></a>
-            </li>
            
             <li >
                 <a href="week.php">WeekWork</a>
