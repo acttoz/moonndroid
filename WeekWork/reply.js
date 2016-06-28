@@ -24,7 +24,6 @@ function pollingReply() {
     });
 
 }
- 
 
 function getReply(work_id) {
     $("#reply").empty();
@@ -86,7 +85,7 @@ function delReply(reply_id, hash) {
             select : "delReply",
             reply_id : reply_id,
             hash : hash,
-            work_id:flag_work_id
+            work_id : flag_work_id
         }
 
     });
@@ -148,6 +147,7 @@ function sendChat() {
 
 var showChat = false;
 var chat_no = 0;
+var server_chat_no = 0;
 
 function chatPolling() {
     if (sendingChat)
@@ -164,25 +164,34 @@ function chatPolling() {
         },
         success : function(args) {
             if (chat_no < args * 1) {
+
                 if (chat_no != 0) {
-                    $.playSound("img/noti");
-                    $("#dialog").dialog({
-                        width : "400"// dialog 넓이 지정
-                        ,
-                        height : "200"// dialog 높이 지정
-                        ,
-                        resizeable : false// 사이즈 조절가능 여부
-                        ,
-                        buttons : {// dialog 하단 버튼들
-                            "바로 보기" : function() {
-                                $("#wrapper").attr("class", "");
-                                $(this).dialog("close");
-                            },    // dialog 하단 버튼 클릭시 실행할 함수. (함수는 $.ready안에 선언되어있어야 한다.)
-                        }
-                    });
+                    if (localStorage.getItem("SIDE") == 0) {
+                        $("#menu-toggle").attr("class", "btn glyphicon glyphicon-bell");
+                        $("#menu-toggle").text(args - chat_no);
+                    }
+                    // $.playSound("img/noti");
+                    // $("#dialog").dialog({
+                    // width : "400"// dialog 넓이 지정
+                    // ,
+                    // height : "200"// dialog 높이 지정
+                    // ,
+                    // resizeable : false// 사이즈 조절가능 여부
+                    // ,
+                    // buttons : {// dialog 하단 버튼들
+                    // "바로 보기" : function() {
+                    // $("#wrapper").attr("class", "");
+                    // $(this).dialog("close");
+                    // },    // dialog 하단 버튼 클릭시 실행할 함수. (함수는 $.ready안에 선언되어있어야 한다.)
+                    // }
+                    // });
                 }
+                server_chat_no = args * 1;
+                
+                if (chat_no == 0)
+                    chat_no = args * 1;
+                    
                 getChat();
-                chat_no = args * 1;
             }
         },
         fail : function(jqXHR, textStatus, errorThrown) {

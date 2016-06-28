@@ -30,7 +30,7 @@ var reply_file_add = $('#reply_file_add');
 var interval;
 
 var reply_polling_time = 0;
-var reply_count=0;
+var reply_count = 0;
 
 //edit
 function viewWork(work_id) {
@@ -67,7 +67,7 @@ function viewWork(work_id) {
         getFileInfo(workArray[flag_work_id]["file_id"]);
     }
     reply_polling_time = 0;
-    reply_count=workArray[flag_work_id]["reply"];
+    reply_count = workArray[flag_work_id]["reply"];
     getReply(work_id);
     $("#workList").css("display", "block");
 
@@ -275,7 +275,7 @@ getItemPolling = function() {
                     "user_id" : this.user_id,
                     "user_name" : this.user_name,
                     "grade" : this.grade,
-                    "reply":this.reply
+                    "reply" : this.reply
                 };
                 obj = $('#' + this.ch_id + ' #' + this.day);
                 htmls += '<table  style="width:100%;table-layout: fixed;" class="work_name">';
@@ -300,7 +300,7 @@ getItemPolling = function() {
                 htmls += '</p>';
                 htmls += '</td>';
                 htmls += '<td style="width:15%;font-size:10px;border:none;padding:0px;height:auto;background-color:rgba(0, 0, 0, 0); ">';
-                
+
                 htmls += '<p class="btn btn-default work" style="border-color:#geeef2;';
                 htmls += 'background:#fdc7e8;';
                 htmls += 'display:block;margin-top:0px;margin-bottom:10px;padding:">';
@@ -346,7 +346,7 @@ getItem = function() {
     });
     $.overlay.show('ajax');
     request.done(function(json) {
-         $(".work > table").remove();
+        $(".work > table").remove();
         var obj;
         if (json.week != null && typeof json === "object" && json.week.length > 0) {
             $(json.week).each(function() {
@@ -361,7 +361,7 @@ getItem = function() {
                     "user_id" : this.user_id,
                     "user_name" : this.user_name,
                     "grade" : this.grade,
-                    "reply":this.reply
+                    "reply" : this.reply
                 };
                 obj = $('#' + this.ch_id + ' #' + this.day);
                 htmls += '<table  style="width:100%;table-layout: fixed;" class="work_name">';
@@ -386,7 +386,7 @@ getItem = function() {
                 htmls += '</p>';
                 htmls += '</td>';
                 htmls += '<td style="width:15%;font-size:10px;border:none;padding:0px;height:auto;background-color:rgba(0, 0, 0, 0); ">';
-                
+
                 htmls += '<p class="btn btn-default work" style="border-color:#geeef2;';
                 htmls += 'background:#fdc7e8;';
                 htmls += 'display:block;margin-top:0px;margin-bottom:10px;padding:">';
@@ -408,7 +408,6 @@ getItem = function() {
         $.overlay.hide('ajax');
 
         getNew();
-
 
     });
 
@@ -711,7 +710,7 @@ $('#reply_submit').click(function() {
         //보내기전 validation check가 필요할경우
         beforeSubmit : function(data, frm, opt) {
             var title = $("#reply_input");
-            if (title.val().replace(/\s/g, '') == "" && $("#reply_file_add").val()=="") {
+            if (title.val().replace(/\s/g, '') == "" && $("#reply_file_add").val() == "") {
                 alert("내용을 입력하거나 파일을 첨부하세요.");
                 $('#reply_input').val('');
                 return false;
@@ -725,7 +724,8 @@ $('#reply_submit').click(function() {
             $.overlay.hide('ajax');
             reply_file_add.replaceWith( reply_file_add = reply_file_add.clone(true));
             $("#reply_input").val("");
-            getReply(flag_work_id);
+            // getReply(flag_work_id);
+            getItem();
 
         },
         //ajax error
@@ -753,6 +753,9 @@ $('#work_save_btn').click(function() {
         success : function(responseText, statusText) {
             $.overlay.hide('ajax');
             flag_work_id = responseText;
+            newArray.push("" + responseText);
+            newArray = $.unique(newArray);
+            upNew();
             getItem();
 
         },

@@ -25,7 +25,7 @@ include_once ('./header.php');
          ?>
         
         <div id="wrapper" style="padding-top: 0px;padding-bottom: 0px;padding-right: 0px; ">
-            <a href="#menu-toggle" style="background: #EB625E;color:#fff" class="btn glyphicon glyphicon-arrow-left" id="menu-toggle"></a>
+            <a href="#menu-toggle" style="background: #EB625E;color:#fff;" class="btn glyphicon glyphicon-arrow-left" id="menu-toggle"></a>
                 <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
@@ -52,7 +52,7 @@ include_once ('./header.php');
                                <tr class="" style="border-radius: 10px 0 0 0; ">
                                    <td    class="content" style="vertical-align:top;  width:70%;border-top-style:none; border-right-style:none; ">
                                       <div id="chat" style="text-align:left; overflow-y:scroll;margin:10px;height: 600px;">
-                                          비어있음.
+                                          대화를 주고 받을 수 있는 쪽지함입니다.<br>대화내용은 동학년 선생님만 볼 수 있습니다.
                                       </div>
                                    </td>
                                 </tr>
@@ -296,20 +296,23 @@ include_once ('./header.php');
 
         <!-- Menu Toggle Script -->
         <script>
+        
             if (localStorage.getItem("SIDE") != null) {
                 if (localStorage.getItem("SIDE") == 0) {
-                    $("#menu-toggle").attr("class", "btn glyphicon glyphicon-menu-hamburger");
+                    $("#menu-toggle").attr("class", "btn glyphicon glyphicon-envelope");
                     $("#wrapper").attr("class", "toggled");
                 }
             }
             $("#menu-toggle").click(function(e) {
                 e.preventDefault();
                 $("#wrapper").toggleClass("toggled");
+                    chat_no=server_chat_no;
                 if ($("#wrapper").hasClass("toggled")) {
-                    $(this).attr("class", "btn glyphicon glyphicon-menu-hamburger");
+                    $(this).attr("class", "btn glyphicon glyphicon-envelope");
                     localStorage.setItem("SIDE", 0);
                 } else {
                     $(this).attr("class", "btn glyphicon glyphicon-arrow-left");
+                     $("#menu-toggle").text("");
                     localStorage.setItem("SIDE", 1);
                 }
             });
