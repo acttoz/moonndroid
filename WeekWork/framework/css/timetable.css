@@ -61,6 +61,12 @@ table {
     text-overflow: ellipsis; /*overflow: hidden; 속성과 같이 써줘야 말줄임 기능이 적용된다.*/
     white-space: nowrap; /*<td>보다 내용이 길경우 줄바꿈 되는것을 막아준다.*/
 }
+.work_name .work {
+    width: 100%; /* width값을 주어야 ...(말줄임)가 적용된다. */
+    overflow: hidden;
+    text-overflow: ellipsis; /*overflow: hidden; 속성과 같이 써줘야 말줄임 기능이 적용된다.*/
+    white-space: nowrap; /*<td>보다 내용이 길경우 줄바꿈 되는것을 막아준다.*/
+}
 
 .time_table #work_file_down{
     width: 100%; /* width값을 주어야 ...(말줄임)가 적용된다. */
