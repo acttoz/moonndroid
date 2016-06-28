@@ -203,6 +203,10 @@ for ($i = 0; $i < count($mobileKeyWords); $i++) {
          
         
       </div>  <!--wrapper-->
+       <div id="dialog-confirm" title="알림" style="display:none;"><?php
+        include_once ('./today_notice.php');
+            ?></div>
+        </div>
       <script src="today.js"></script>
    </body>
 </html>

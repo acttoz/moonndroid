@@ -215,10 +215,7 @@ session_start();
 			<footer><?php
 			include_once ('./footer.php');
 		?></footer>
-		 <div id="dialog-confirm" title="알림" style="display:none;"><?php
-		include_once ('./today_notice.php');
-            ?></div>
-		</div>
+		
 		<script src="edit_class.js"></script>
 	</body>
 </html>

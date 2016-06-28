@@ -1,4 +1,28 @@
-
+$(function() {
+    var ver = $("#notice").attr("ver") * 1;
+    var local_ver = localStorage.getItem("TODAY_NOTICE") * 1;
+    if (local_ver == null || ver > local_ver) {
+        $("#dialog-confirm").css("display", "block");
+        $("#dialog-confirm").dialog({
+            resizable : false,
+            width : 1024,
+            height : 800,
+            modal : true,
+            buttons : {
+                "다시 보지 않기" : function() {
+                    $(this).dialog("close");
+                    localStorage.setItem("TODAY_NOTICE", ver);
+                },
+                "닫기" : function() {
+                    $(this).dialog("close");
+                }
+            },
+            open : function() {
+                $(this).scrollTop(0);
+            }
+        });
+    }
+});
 
 
 function fontResize(num) {
