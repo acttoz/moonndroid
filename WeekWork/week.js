@@ -129,7 +129,7 @@ function setNew() {
 
     if (newArray.length > 0) {
         $.each(newArray, function(id, value) {
-            $(".work > div#" + value).remove();
+            $("div.new_work#" + value).remove();
         });
     }
 
@@ -250,7 +250,7 @@ getItemPolling = function() {
         type : "GET",
         dataType : "json",
         complete : setTimeout(function() {
-            getItem();
+            getItemPolling();
         }, 600000),
         contentType : "application/json; charset=utf-8",
         data : {
@@ -260,8 +260,7 @@ getItemPolling = function() {
     });
     $.overlay.show('ajax');
     request.done(function(json) {
-        $(".work > p").remove();
-        $(".work > div").remove();
+        $(".work > table").remove();
         var obj;
         if (json.week != null && typeof json === "object" && json.week.length > 0) {
             $(json.week).each(function() {
@@ -279,6 +278,8 @@ getItemPolling = function() {
                     "reply":this.reply
                 };
                 obj = $('#' + this.ch_id + ' #' + this.day);
+                htmls += '<table  style="width:100%;table-layout: fixed;" class="work_name">';
+                htmls += '<td style="width:85%;padding:0px;border:none;background-color:rgba(0, 0, 0, 0);height:auto;">';
                 htmls += '<div class="new_work" id=' + this.work_id + ' style="display:none;width:100%;text-align:right;padding-right:40px"><img id=' + this.work_id + ' src="./img/new.png" style="height:26px;width:40px;position:absolute;float:right"></img></div>';
                 htmls += '<p class="btn btn-default work" id="work_' + this.work_id + '"  style="border-color:#cfebf2;';
 
@@ -297,6 +298,15 @@ getItemPolling = function() {
                     htmls += '⦁ ';
                 htmls += this.work_name;
                 htmls += '</p>';
+                htmls += '</td>';
+                htmls += '<td style="width:15%;font-size:10px;border:none;padding:0px;height:auto;background-color:rgba(0, 0, 0, 0); ">';
+                
+                htmls += '<p class="btn btn-default work" style="border-color:#geeef2;';
+                htmls += 'background:#fdc7e8;';
+                htmls += 'display:block;margin-top:0px;margin-bottom:10px;padding:">';
+                htmls += this.reply;
+                htmls += '</p>';
+                htmls += '</td>';
                 obj.prepend(htmls);
                 htmls = "";
                 if (this.complete == 1)
@@ -336,8 +346,7 @@ getItem = function() {
     });
     $.overlay.show('ajax');
     request.done(function(json) {
-        $(".work > p").remove();
-        $(".work > div").remove();
+         $(".work > table").remove();
         var obj;
         if (json.week != null && typeof json === "object" && json.week.length > 0) {
             $(json.week).each(function() {
@@ -355,6 +364,8 @@ getItem = function() {
                     "reply":this.reply
                 };
                 obj = $('#' + this.ch_id + ' #' + this.day);
+                htmls += '<table  style="width:100%;table-layout: fixed;" class="work_name">';
+                htmls += '<td style="width:85%;padding:0px;border:none;background-color:rgba(0, 0, 0, 0);height:auto;">';
                 htmls += '<div class="new_work" id=' + this.work_id + ' style="display:none;width:100%;text-align:right;padding-right:40px"><img id=' + this.work_id + ' src="./img/new.png" style="height:26px;width:40px;position:absolute;float:right"></img></div>';
                 htmls += '<p class="btn btn-default work" id="work_' + this.work_id + '"  style="border-color:#cfebf2;';
 
@@ -373,6 +384,15 @@ getItem = function() {
                     htmls += '⦁ ';
                 htmls += this.work_name;
                 htmls += '</p>';
+                htmls += '</td>';
+                htmls += '<td style="width:15%;font-size:10px;border:none;padding:0px;height:auto;background-color:rgba(0, 0, 0, 0); ">';
+                
+                htmls += '<p class="btn btn-default work" style="border-color:#geeef2;';
+                htmls += 'background:#fdc7e8;';
+                htmls += 'display:block;margin-top:0px;margin-bottom:10px;padding:">';
+                htmls += this.reply;
+                htmls += '</p>';
+                htmls += '</td>';
                 obj.prepend(htmls);
                 htmls = "";
                 if (this.complete == 1)
@@ -388,6 +408,7 @@ getItem = function() {
         $.overlay.hide('ajax');
 
         getNew();
+
 
     });
 
