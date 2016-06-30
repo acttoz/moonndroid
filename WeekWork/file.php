@@ -97,10 +97,10 @@ if ($_REQUEST['select'] == "delReply") {
     }
 
     mysql_query("DELETE FROM w_reply WHERE reply_id=${_REQUEST['reply_id']}");
-    
-    $reply_count= mysql_result(mysql_query("SELECT COUNT(reply_id) FROM w_reply where work_id='${_REQUEST['work_id']}'"), 0);
+
+    $reply_count = mysql_result(mysql_query("SELECT COUNT(reply_id) FROM w_reply where work_id='${_REQUEST['work_id']}'"), 0);
     mysql_query("UPDATE w_work SET reply=${reply_count} WHERE work_id=${_REQUEST['work_id']}");
-    
+
     mysql_close($connect);
 }
 
@@ -128,7 +128,20 @@ if ($_REQUEST['select'] == "reply") {
         }
         //auto file naming
         // $file_name = $_FILES['reply_file']['name'];
-        $file_name = "(" . $_SESSION['ban'] . "반)" . $_FILES['reply_file']['name'];
+
+        switch($_REQUEST["work_ch_id"]) {
+            case $_SESSION['ch_school'] :
+                $file_name = "(". $_SESSION['grade'] . "학년) ";
+                break;
+            case $_SESSION['ch_grade'] :
+                $file_name = "(". $_SESSION['ban'] . "반) ";
+                break;
+            case $_SESSION['ch_me'] :
+                $file_name =  "";
+                break;
+        }
+
+        $file_name = $file_name . $_FILES['reply_file']['name'];
     } else {
         $file_name = '0';
         $file_hash = '0';
@@ -143,8 +156,8 @@ if ($_REQUEST['select'] == "reply") {
     $sql = "INSERT INTO w_reply (content,time,user_id,work_id,file_name,file_hash) VALUE ('${reply_content}'
     ,'${time}','${_SESSION['id']}','${_REQUEST['work_id']}','${file_name}','${file_hash}')";
     mysql_query($sql);
-    
-    $reply_count= mysql_result(mysql_query("SELECT COUNT(reply_id) FROM w_reply where work_id='${_REQUEST['work_id']}'"), 0);
+
+    $reply_count = mysql_result(mysql_query("SELECT COUNT(reply_id) FROM w_reply where work_id='${_REQUEST['work_id']}'"), 0);
     mysql_query("UPDATE w_work SET reply=${reply_count} WHERE work_id=${_REQUEST['work_id']}");
 
     mysql_close($connect);

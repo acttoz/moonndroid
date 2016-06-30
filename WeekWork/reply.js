@@ -4,7 +4,7 @@ function pollingReply() {
         type : "GET",
         complete : setTimeout(function() {
             pollingReply();
-        }, 10000),
+        }, 100000),
 
         contentType : "application/json; charset=utf-8",
         data : {
@@ -45,7 +45,17 @@ function getReply(work_id) {
                     if (replyCount != 0)
                         htmls += '<hr>';
                     htmls += '<p style=" padding-right:5px;">' + this.content + '&nbsp;<span style="font-weight:bold">- ';
-                    htmls += ban_array[this.ban];
+                    console.log(this.grade);
+                    switch(workArray[flag_work_id]["ch_id"]) {
+                    case this.ch_school :
+                        htmls += grade_array[this.grade] + " ";
+                        break;
+                    case this.ch_grade :
+                        htmls += ban_array[this.ban] + " ";
+                        break;
+                    default :
+                        break;
+                    }
                     htmls += this.name + '</span>' + '<span style="font-size:12px">(' + this.time + ')</span>&nbsp;&nbsp;&nbsp;';
                     if (this.file_name != '0') {
                         htmls += '<a class="btn btn-info reply_clip" type="button" href="';
@@ -187,10 +197,10 @@ function chatPolling() {
                     // });
                 }
                 server_chat_no = args * 1;
-                
+
                 if (chat_no == 0)
                     chat_no = args * 1;
-                    
+
                 getChat();
             }
         },

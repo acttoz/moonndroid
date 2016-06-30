@@ -23,8 +23,13 @@
  <?php
 include_once ('./header.php');
          ?>
-        
-        <div id="wrapper" style="padding-top: 0px;padding-bottom: 0px;padding-right: 0px; ">
+         
+        <div id="wrapper" class="<?
+                             if($_SESSION['side']==0)
+                                echo 'toggled';
+                             else
+                                 echo '';
+                             ?>" style="padding-top: 0px;padding-bottom: 0px;padding-right: 0px; ">
             
                 <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -83,14 +88,21 @@ include_once ('./header.php');
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
-<div id="page-content-wrapper" style="">
+       
+        
+        <div id="page-content-wrapper" style="">
             <div class="container-fluid" style="">
                 <table style="width:100%;height:30px;margin-top: 10px;">
                     <tr>
                         <td style="width:20%;">
-                             <a href="#menu-toggle" style="background: #EB625E;color:#fff;" class="btn glyphicon glyphicon-arrow-left" id="menu-toggle">
+                             <a href="#menu-toggle" style="background: #EB625E;color:#fff;" class="btn glyphicon <?
+                             if($_SESSION['side']==0)
+                                 echo 'glyphicon-envelope';
+                             else
+                                echo 'glyphicon-arrow-left';
+                             ?>" id="menu-toggle">
                         </td>
-                        <td style="width:20%;text-align: right"><a href="week.php?week=<?php echo(int)$this_week - 1; ?>" style="width: 50%" class="btn btn-info glyphicon-text glyphicon-arrow-left" ></a>
+                        <td style="width:20%;text-align: right"><? echo $_SESSION['SIDE']; ?><a href="week.php?week=<?php echo(int)$this_week - 1; ?>" style="width: 50%" class="btn btn-info glyphicon-text glyphicon-arrow-left" ></a>
                         </td>
                         <td style="width:20%;text-align: center"><a href="week.php" style="width: 50%" class="btn btn-info " >이번주</button>                              
                         </td>
@@ -312,25 +324,40 @@ include_once ('./header.php');
         <!-- Menu Toggle Script -->
         <script>
         
-            if (localStorage.getItem("SIDE") != null) {
-                if (localStorage.getItem("SIDE") == 0) {
-                    $("#menu-toggle").attr("class", "btn glyphicon glyphicon-envelope");
-                    $("#wrapper").attr("class", "toggled");
-                }
-            }
+          
             $("#menu-toggle").click(function(e) {
                 e.preventDefault();
                 $("#wrapper").toggleClass("toggled");
                     chat_no=server_chat_no;
                 if ($("#wrapper").hasClass("toggled")) {
                     $(this).attr("class", "btn glyphicon glyphicon-envelope");
-                    localStorage.setItem("SIDE", 0);
+                     side(0);
+                
                 } else {
                     $(this).attr("class", "btn glyphicon glyphicon-arrow-left");
                      $("#menu-toggle").text("");
-                    localStorage.setItem("SIDE", 1);
+                     side(1);
                 }
             });
+            
+            function side(side) {
+
+                    var request = $.ajax("db.php", {
+                        type : "GET",
+                        data : {
+                            select : "side",
+                            side:side
+                        }
+                
+                    });
+                
+                    request.done(function() {
+                    });
+                
+                    request.fail(function(jqXHR, textStatus, errorThrown) {
+                    });
+
+              }
     </script>
         <script src="week.js"></script>
         <script src="reply.js"></script>

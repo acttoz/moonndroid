@@ -119,7 +119,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" >성 명</label>
                     <div class="col-sm-10">
-                        <input type="text" id="teacher_name" class="form-control" name="teacher_name" placeholder="학부모와 학생에게 표시되는 이름이므로 정확히 입력해주세요.">
+                        <input type="text" id="teacher_name" class="form-control" name="teacher_name" placeholder="선생님의 이름을 입력해주세요.">
                     </div>
                 </div>
                

@@ -40,7 +40,19 @@ function viewWork(work_id) {
     $("#work_id").val(work_id);
     var date = new Date(workArray[work_id]["day"]);
     $("#work_day").val(workArray[work_id]["day"]);
-    $("#workDate").text((date.getMonth() + 1) + "월 " + date.getDate() + "일 / " + workArray[work_id]["grade"] + "학년 / " + workArray[work_id]["user_name"] + '님이 생성함.');
+
+    var workDate;
+    workDate = (date.getMonth() + 1) + "월 " + date.getDate() + "일 / ";
+    console.log("a"+workArray[work_id]["grade"]+"a");
+    if (workArray[work_id]["grade"] == 10)
+        workDate += "교무실 / ";
+    else if (workArray[work_id]["grade"] == 100)
+        workDate += "행정실 / ";
+    else
+        workDate += workArray[work_id]["grade"] + "학년 / ";
+    workDate += workArray[work_id]["user_name"] + '님이 생성함.';
+    $("#workDate").text(workDate);
+
     $("#work_title").val(workArray[work_id]["work_name"]);
     $("#work_content").val(workArray[work_id]["work_content"]);
     $("#work_content_view").text(workArray[work_id]["work_content"]);
@@ -74,6 +86,9 @@ function viewWork(work_id) {
     newArray.push("" + work_id);
     newArray = $.unique(newArray);
     upNew();
+
+    $("#work_ch_id").val(workArray[flag_work_id]["ch_id"]);
+
 }
 
 getNew = function() {
