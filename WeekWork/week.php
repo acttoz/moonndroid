@@ -233,7 +233,7 @@ include_once ('./header.php');
                                     </tr>
                                     <tr class="" style="border-radius: 10px 0 0 0; ">
                                         <td class="content " colspan="2" style="border-bottom-style:none;border-left-style:none;">
-                                                <textarea class="contents" type="text" name="work_content" id="work_content" placeholder="설명" ></textarea>                                                                                           
+                                                <textarea class="contents" type="text" name="work_content" id="work_content" placeholder="내용" ></textarea>                                                                                           
                                                 <p style="white-space: pre-wrap" class="contents" id="work_content_view"></p>                                                                                           
 
 

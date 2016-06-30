@@ -1,11 +1,3 @@
-// var console = console || {
-// log : function() {
-// },
-// warn : function() {
-// },
-// error : function() {
-// }
-// };
 var isLoading = false;
 var isLoadingFile = false;
 var tClass = localStorage.getItem("tClass");
