@@ -1,31 +1,42 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" >
+
+    <?php
+    include_once ('./config.php');
+    ?>
+
     <head>
-        <?
-        include_once ('./framework.php');
-        ?>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>WeekWork</title>
+        <link href="framework/css/sign.css" rel="stylesheet" type="text/css">
         <link href="framework/css/jssor.slider.css" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="framework/js/jssor.slider.mini.js"></script>
-    </head>
-    <body id="home">
         <?php
-        include_once ('./header_login.php');
+        include_once ('./framework.php');
+        if (empty($_SESSION['is_logged']) || $_SESSION['is_logged'] == FALSE) {
+            header("location:index.php");
+            exit ;
+        }
         ?>
-        <div id="wrapper">
-            <div id="content">
-                
-                <br>
-                
-                <!-- <IMG class="displayed" src=" " style="width:70%; display: block; margin-left: auto; margin-right: auto"> -->
-                <IMG class="displayed" src="./img/tutorial.png" style="width:800px; display: block; margin-left: auto; margin-right: auto">
-                <br>
-                <div id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 800px; height: 650px; overflow: hidden; visibility: hidden;">
+    </head>
+
+    <body style="background:#000000" >
+
+        <div id="wrapper" >
+            <button class="btn btn-info" style="width: 100px;float:right;position: relative;" onclick="goBack()">
+                뒤로
+            </button>
+            <div id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 1024px; height: 832px; overflow: hidden; visibility: hidden;">
                 <!-- Loading Screen -->
                 <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
                     <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
                     <div style="position:absolute;display:block;background:url('./img/tutorial/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
                 </div>
-                <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 800px; height: 650px; overflow: hidden;">
+                <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 1024px; height: 832px; overflow: hidden;">
                     <div data-p="112.50" style="display: none;">
                         <img data-u="image" src="./img/tutorial/1.png" />
                     </div>
@@ -84,82 +95,12 @@
                 <span data-u="arrowleft" class="jssora02l" style="top:0px;left:8px;width:55px;height:55px;" data-autocenter="2"></span>
                 <span data-u="arrowright" class="jssora02r" style="top:0px;right:8px;width:55px;height:55px;" data-autocenter="2"></span>
             </div>
-            </div>
-            <footer>
-                <?php
-                include_once ('./footer.php');
-                ?>
-            </footer>
-            <div id="dialog-confirm" title="알림" style="display:none;">
-                <?php
-                include_once ('./index_notice.php');
-                ?>
-            </div>
+
         </div>
-        <script type="text/javascript">
-           
-
-            function fnSign() {
-
-                var mUserid = $("#user_id").val();
-                var mUserPass = $("#user_pass").val();
-
-                if (!mUserid) {
-                    alert("이메일을 입력하세요..!!");
-                    return;
-                } else if (!validateEmail(mUserid)) {
-                    alert("올바른 이메일을 입력하세요..!!");
-                    return;
-                } else if (!mUserPass) {
-                    alert("비밀번호를 입력하세요..!!");
-                    return;
-                } else {
-
-                    $.ajax({
-                        url : "db.php",
-                        type : 'POST',
-                        cache : false,
-                        data : {
-                            select : "login",
-                            user_id : mUserid,
-                            user_pass : mUserPass
-                        },
-                        success : function(args) {
-                            if (args == "success") {
-
-                                if (document.getElementById("login_save").checked) {
-                                    localStorage.setItem("ID", mUserid);
-                                    localStorage.setItem("PASS", mUserPass);
-                                } else {
-                                    window.localStorage.clear();
-                                }
-
-                                document.location.href = "week.php";
-                            } else {
-                                alert("아이디나 비밀번호가 맞지 않습니다.");
-
-                            }
-                        }
-                    });
-
-                }
-
-            }// end function fnLogin()
-
-            function validateEmail(email) {
-                // var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-                // return re.test(email);
-                return true;
-            }
-
-
-            $("#user_pass").keyup(function(event) {
-                if (event.keyCode == 13) {
-                    fnSign();
-                }
-            });
-
-jQuery(document).ready(function($) {
+        <!-- /#wrapper -->
+        <!-- Menu Toggle Script -->
+        <script>
+            jQuery(document).ready(function($) {
 
                 var jssor_1_SlideoTransitions = [[{
                     b : 0,
@@ -392,6 +333,7 @@ jQuery(document).ready(function($) {
 
                 var jssor_1_options = {
                     $AutoPlay : true,
+                    $Idle : 10000,
                     $CaptionSliderOptions : {
                         $Class : $JssorCaptionSlideo$,
                         $Transitions : jssor_1_SlideoTransitions,
@@ -415,7 +357,7 @@ jQuery(document).ready(function($) {
                 function ScaleSlider() {
                     var refSize = jssor_1_slider.$Elmt.parentNode.clientWidth;
                     if (refSize) {
-                        refSize = Math.min(refSize, 800);
+                        refSize = Math.min(refSize, 1024);
                         jssor_1_slider.$ScaleWidth(refSize);
                     } else {
                         window.setTimeout(ScaleSlider, 5000);
@@ -429,6 +371,10 @@ jQuery(document).ready(function($) {
                 //responsive code end
             });
 
+            function goBack() {
+                window.history.back();
+            }
         </script>
     </body>
+
 </html>

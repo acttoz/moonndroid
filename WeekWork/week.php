@@ -365,6 +365,7 @@ include_once ('./header.php');
         <?php
         include_once ("./tail.php");
         ?>
+        
     </body>
 
 </html>

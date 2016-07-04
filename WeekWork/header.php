@@ -82,7 +82,7 @@ $eventyear = $eventyear1 -> format("Y");
             </li>
            
             <li >
-                <a href="week.php">WeekWork</a>
+                <a href="week.php">위크워크</a>
             </li>
             <li >
                 <a href="channel.php">학년 설정</a>

@@ -489,7 +489,8 @@ function getFileInfo(file_id) {
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
-        alert("getFile jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+        alert("오류 : 네트워크 연결을 확인해주세요.");
+        // alert("getFile jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
 
         isLoadingFile = false;
     });

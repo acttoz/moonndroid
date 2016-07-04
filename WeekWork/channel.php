@@ -24,34 +24,7 @@
 
     <body > 
 
-        <LINK REL="SHORTCUT ICON" HREF="./favicon.ico" />
-        <header id="header">
-
-            <logo>
-                <a href="./login.php"></a>
-            </logo>
-            <nav id="mainMenu">
-                <ul>
-                    <li >
-                        <a href="http://alim.dothome.co.kr/today.php"><span style="color:#eb625e" >알림장</span></a>
-                    </li>
-                   
-                    <li >
-                        <a href="week.php">WeekWork</a>
-                    </li>
-                    <li >
-                        <a href="channel.php">학년 설정</a>
-                    </li>
-                    <li >
-                        <a href="http://alim.dothome.co.kr/help_weekwork.php">고객지원</a>
-                    </li>
-                    <li >
-                        <a href="account.php"><?php echo $_SESSION['name']; ?></a>
-                    </li>
-
-                </ul>
-            </nav>
-        </header>
+        <? include_once ('./header2.php'); ?>
         <div id="wrapper" >
             <br>
             <table class="time_table" style="width: 800px;table-layout: fixed;height: 200px;display: table; margin-left: auto; margin-right: auto" >
