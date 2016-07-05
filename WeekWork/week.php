@@ -56,7 +56,7 @@ include_once ('./header.php');
                    <table class="chat_table" style="background:#F8F8F8;color:#000; border-radius: 10px 10px 10px 10px; table-layout: fixed" align="center"  >
                                <tr class="" style="border-radius: 10px 0 0 0; ">
                                    <td    class="content" style="vertical-align:top;  width:70%;border-top-style:none; border-right-style:none; ">
-                                      <div id="chat" style="text-align:left; overflow-y:scroll;margin:10px;height: 600px;">
+                                      <div id="chat" style="text-align:left; overflow-y:scroll;margin:10px;width:360px;height: 60vh;">
                                           대화를 주고 받을 수 있는 쪽지함입니다.<br>대화내용은 동학년 선생님만 볼 수 있습니다.
                                       </div>
                                    </td>
@@ -64,10 +64,10 @@ include_once ('./header.php');
                                 <tr>
                                    <td class="content"  style="width:10%;border-bottom-style:none;border-right-style:none; border-left-color:white; border-radius: 0 0 10px  0;">
                                       <div class="form-group" style="height:50px;margin-bottom:0px;line-height: 0px">
-                                         <div class="col-sm-8">
+                                         <div class="col-sm-8" style="padding:5px;">
                                             <input id="chat_input" type="text" name="reply_content" style="height:30px; width:100%" class="form-control"   checked="0" placeholder=""/>
                                          </div>
-                                         <div class="col-sm-4">
+                                         <div class="col-sm-4" style="padding:5px;padding-right: 35px">
                                             <button id="chat_submit" class = "btn btn-info form-control " type="button"  style=" width: 100%px;height:30px;" onclick="sendChat()">보내기</button>
                                          </div>
                                       </div>
@@ -320,6 +320,35 @@ include_once ('./header.php');
         <div id="dialog" title="알림" style="display: none">
   <p>연구실에 새 메세지가 도착했습니다.</p>
 </div>
+<div id="help_chat" class="hide">
+     <div id="help_chat_parent"  >
+                   <table class="help_chat_table" style="background:#F8F8F8;color:#000; border-radius: 10px 10px 10px 10px; table-layout: fixed" align="center"  >
+                               <tr class="" style="border-radius: 10px 0 0 0; ">
+                                   <td class="content" style="vertical-align:top;  width:70%;border-top-style:none; border-right-style:none; ">
+                                      <div id="help_chat_content" style="text-align:left; overflow-y:scroll;margin:10px;height: 400px;">
+                                          안녕하세요. 문샘입니다.
+                                      </div>
+                                   </td>
+                                </tr>
+                                <tr>
+                                   <td class="content"  style="width:10%;border-bottom-style:none;border-right-style:none; border-left-color:white; border-radius: 0 0 10px  0;">
+                                      <div class="form-group" style="height:50px;margin-bottom:0px;line-height: 0px">
+                                         <div class="col-sm-8" style="padding:5px;">
+                                            <input id="help_chat_input" type="text" name="reply_content" style="height:30px; width:100%" class="form-control"   checked="0" placeholder=""/>
+                                         </div>
+                                         <div class="col-sm-4" style="padding:5px;">
+                                            <button id="help_chat_submit" class = "btn btn-info form-control " type="button"  style=" width: 100%px;height:30px;" onclick="sendChat()">보내기</button>
+                                         </div>
+                                      </div>
+                                   </td>
+                                </tr>
+                     </table>
+                    </div>
+</div>
+<div id="help_btn" class="hide">
+    <img style="width:62px;height:64px" src="img/help.png" onclick="toggle_help()" />
+</div>
+
 
         <!-- Menu Toggle Script -->
         <script>
@@ -332,13 +361,16 @@ include_once ('./header.php');
                 if ($("#wrapper").hasClass("toggled")) {
                     $(this).attr("class", "btn glyphicon glyphicon-envelope");
                      side(0);
-                
                 } else {
                     $(this).attr("class", "btn glyphicon glyphicon-arrow-left");
                      $("#menu-toggle").text("");
                      side(1);
                 }
             });
+            
+            function toggle_help(){
+                $("#help_chat").toggleClass("hide");
+            }
             
             function side(side) {
 
@@ -358,6 +390,8 @@ include_once ('./header.php');
                     });
 
               }
+              
+              
     </script>
         <script src="week.js"></script>
         <script src="reply.js"></script>

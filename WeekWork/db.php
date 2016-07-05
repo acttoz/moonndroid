@@ -221,6 +221,23 @@ if ($_REQUEST['select'] == "reply") {
         echo json_encode($data);
 
 }
+if ($_REQUEST['select'] == "help") {
+    $sql = "SELECT * FROM w_help WHERE user_id='${_SESSION['id']}' ORDER BY id";
+    $result = mysql_query($sql);
+    $results = array();
+    while ($array = mysql_fetch_array($result)) {
+        $reply_decoded = htmlspecialchars_decode($array['content'], ENT_QUOTES);
+        $results[] = array('content' => $reply_decoded, 'me' => $array['me']);
+    }
+    $data = array('week' => $results);
+    if (!empty($results))
+        echo json_encode($data);
+}
+
+if ($_REQUEST['select'] == "help_poll") {
+    echo mysql_result(mysql_query("SELECT COUNT(id) FROM w_help where user_id='${_SESSION['id']}'"), 0);
+}
+
 if ($_REQUEST['select'] == "reply_poll") {
     echo mysql_result(mysql_query("SELECT COUNT(reply_id) FROM w_reply where work_id='${_REQUEST['work_id']}'"), 0);
 }

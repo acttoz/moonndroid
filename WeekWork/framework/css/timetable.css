@@ -136,4 +136,23 @@ button {
     padding:5px;
 }
 
- 
+
+#help_btn {
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    text-align: center;
+    width: 62px;
+    height:64px;
+    float: right;
+}
+
+#help_chat {
+    position:fixed;
+    right:20px;
+    bottom:100px;
+    text-align: center;
+    width: 262px;
+    height:466px;
+    float: right;
+}

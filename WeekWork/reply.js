@@ -168,7 +168,6 @@ function chatPolling() {
         complete : setTimeout(function() {
             chatPolling();
         }, 5000),
-
         data : {
             select : "chat_polling"
         },
@@ -229,7 +228,7 @@ function getChat() {
                 $(json.week).each(function() {
                     if (replyCount != 0)
                         htmls += '<hr>';
-                    htmls += '<p style="line-height=0px;  ">' + this.content + '&nbsp;<span style="font-weight:bold"><br> ';
+                    htmls += '<p style="line-height=0px;padding-right:10px  ">' + this.content + '&nbsp;<span style="font-weight:bold"><br> ';
                     htmls += ban_array[this.ban];
                     htmls += this.name + '</span>' + '<span style="font-size:12px">(' + this.time + ')</span>&nbsp;&nbsp;&nbsp;';
                     // if (this.file_name != '0') {
@@ -248,6 +247,50 @@ function getChat() {
                 obj.scrollTop(obj[0].scrollHeight);
             }
 
+        },
+        fail : function(jqXHR, textStatus, errorThrown) {
+            // alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+
+        }
+    });
+
+}
+
+function get_help() {
+
+    $.ajax("db.php", {
+        type : "GET",
+        dataType : "json",
+        contentType : "application/json; charset=utf-8",
+        data : {
+            select : "help"
+        },
+        success : function(json) {
+            $("#help_chat_content").empty();
+            var obj = $("#help_chat_content");
+            var replyCount = 0;
+            htmls = "";
+            if ( typeof json === "object" && json.week.length > 0) {
+                $(json.week).each(function() {
+                    if (replyCount != 0)
+                        htmls += '<hr>';
+                    htmls += '<p style="line-height=0px;padding-right:10px  ">' + this.content + '&nbsp;<span style="font-weight:bold"><br> ';
+                    htmls +=   '</span>' + '<span style="font-size:12px">(' + this.me + ')</span>&nbsp;&nbsp;&nbsp;';
+                    // if (this.file_name != '0') {
+                    // htmls += '<a class="btn btn-info reply_clip" type="button" href="';
+                    // htmls += './file.php?select=download&name=' + this.file_name + '&hash=' + this.file_hash;
+                    // htmls += '">' + this.file_name + '</a>';
+                    // }
+                    // if (wUser_id == this.user_id)
+                    // htmls += ' <button class="btn btn-danger reply_x glyphicon glyphicon-trash" type="button"  onclick=delReply(' + this.chat_id + ',"' + this.file_hash + '")></button>';
+                    htmls += '</p>';
+                    replyCount++;
+                });
+                obj.append(htmls);
+                htmls = "";
+                // obj.html(obj.html().replace(/\n/g, "<br>"));
+                obj.scrollTop(obj[0].scrollHeight);
+            }
         },
         fail : function(jqXHR, textStatus, errorThrown) {
             // alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);

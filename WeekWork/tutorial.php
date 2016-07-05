@@ -333,7 +333,7 @@
 
                 var jssor_1_options = {
                     $AutoPlay : true,
-                    $Idle : 10000,
+                    $Idle : 20000,
                     $CaptionSliderOptions : {
                         $Class : $JssorCaptionSlideo$,
                         $Transitions : jssor_1_SlideoTransitions,

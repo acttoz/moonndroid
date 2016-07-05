@@ -780,7 +780,7 @@ $(document).ready(function() {
     pollingReply();
     getEvent();
     chatPolling();
-
+    get_help();
 });
 
 $(".overlay_ctrl").click(function() {
@@ -846,6 +846,20 @@ $('.week-picker').click(function() {
 $("#reply_input").keydown(function(event) {
     if (event.keyCode == 13) {
         $('#reply_submit').trigger('click');
+
+    }
+});
+
+$("#chat_input").keydown(function(event) {
+    if (event.keyCode == 13) {
+        $('#chat_submit').trigger('click');
+
+    }
+});
+
+$("#help_chat_input").keydown(function(event) {
+    if (event.keyCode == 13) {
+        $('#help_chat_submit').trigger('click');
 
     }
 });
