@@ -780,7 +780,7 @@ $(document).ready(function() {
     pollingReply();
     getEvent();
     chatPolling();
-    get_help();
+    pollingHelp();
 });
 
 $(".overlay_ctrl").click(function() {

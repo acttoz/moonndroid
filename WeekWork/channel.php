@@ -36,7 +36,8 @@
                     <td  class="content"    style="width:40%;border-top-style:none; font-weight: bold;font-size:20px "><?php
 
                     echo $_SESSION['school'];
-                    ?></td>
+                    ?>
+                    </td>
 
                     <!-- 검색리스트  -->
                     <td    class="content" style=" width:50%;border-top-style:none; border-right-style:none; border-radius: 0 10px 0 0;"><?php

@@ -2,7 +2,7 @@
         <header id="header">
 
             <logo>
-                <a href="./login.php"></a>
+                <a href="./week.php"></a>
             </logo>
             <nav id="mainMenu">
                 <ul>

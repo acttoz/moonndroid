@@ -221,8 +221,22 @@ if ($_REQUEST['select'] == "reply") {
         echo json_encode($data);
 
 }
+
 if ($_REQUEST['select'] == "help") {
     $sql = "SELECT * FROM w_help WHERE user_id='${_SESSION['id']}' ORDER BY id";
+    $result = mysql_query($sql);
+    $results = array();
+    while ($array = mysql_fetch_array($result)) {
+        $reply_decoded = htmlspecialchars_decode($array['content'], ENT_QUOTES);
+        $results[] = array('content' => $reply_decoded, 'me' => $array['me']);
+    }
+    $data = array('week' => $results);
+    if (!empty($results))
+        echo json_encode($data);
+}
+
+if ($_REQUEST['select'] == "answer") {
+    $sql = "SELECT * FROM w_help WHERE user_id='${_REQUEST['user_id']}' ORDER BY id";
     $result = mysql_query($sql);
     $results = array();
     while ($array = mysql_fetch_array($result)) {
@@ -263,6 +277,17 @@ if ($_REQUEST['select'] == "sendChat") {
     $sql = "INSERT INTO w_chat (content,time,user_id,ch_id,file_name,file_hash) VALUE ('${chat_content}','${time}','${_SESSION['id']}','${_SESSION['ch_grade']}','0','0')";
     mysql_query($sql);
     $sql = "UPDATE w_chat_polling SET chat_no = chat_no + 1 WHERE ch_id = ${_SESSION['ch_grade']}";
+    mysql_query($sql);
+}
+
+if ($_REQUEST['select'] == "sendHelp") {
+    $chat_content = htmlspecialchars($_REQUEST['content'], ENT_QUOTES);
+    $sql = "INSERT INTO w_help (content,user_id,me) VALUE ('${chat_content}','${_SESSION['id']}',0)";
+    mysql_query($sql);
+}
+if ($_REQUEST['select'] == "sendAnswer") {
+    $chat_content = htmlspecialchars($_REQUEST['content'], ENT_QUOTES);
+    $sql = "INSERT INTO w_help (content,user_id,me) VALUE ('${chat_content}','${_REQUEST['user_id']}',1)";
     mysql_query($sql);
 }
 

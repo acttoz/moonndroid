@@ -16,7 +16,7 @@
         <?php
         include_once ('./framework.php');
         ?>
-<link href="framework/css/simple-sidebar.css" rel="stylesheet" >
+    <link href="framework/css/simple-sidebar.css" rel="stylesheet" >
     </head>
 
     <body >
@@ -83,8 +83,8 @@ include_once ('./header.php');
                     </div>
                 </li> -->
                 <h5 style="width:100%;text-align: center">  
-&lt;알림  
-&gt;위크워크는 인터넷 익스플로러 11,<br> 크롬브라우저에 최적화 되어있습니다.</h5>
+                    <span style="font-style: bold">&lt;알림 &gt;</span> 위크워크는 인터넷 익스플로러 11,<br> 크롬브라우저에 최적화 되어있습니다.
+                </h5>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -108,7 +108,7 @@ include_once ('./header.php');
                         </td>
                         <td style="width:20%;text-align: left"><a href="week.php?week=<?php echo(int)$this_week + 1; ?>" style="width: 50%" class="btn btn-info glyphicon-text glyphicon-arrow-right" ></a>                              
                         </td>
-                        <td style="width:20%;">  
+                        <td style="width:20%;">
                         </td>
                     </tr>
                 </table>
@@ -192,16 +192,14 @@ include_once ('./header.php');
                                 
                                 <form id="workList"  style="display: none;" action="file.php" method="post" enctype="multipart/form-data"  onsubmit="return formValidate();">
                                 <table width="100%;">
-<tr>
-    <td style="width:70%;">
-        
-                                <h2 id="workDate" style="margin-top: 10px" user="<?php echo $_SESSION["id"]; ?>" >제목</h2> 
-    </td>
-    <td style="width: 30%;text-align: right">
-        <button style="height:35px;width:150px;" type="button"  class="btn btn-success" onclick="toMyWork()">나의 할일로 등록</button>
-    </td>
-</tr>                                    
-    
+                                    <tr>
+                                        <td style="width:70%;">
+                                            <h2 id="workDate" style="margin-top: 10px" user="<?php echo $_SESSION["id"]; ?>" >제목</h2> 
+                                        </td>
+                                        <td style="width: 30%;text-align: right">
+                                            <button style="height:35px;width:150px;" type="button"  class="btn btn-success" onclick="toMyWork()">나의 할일로 등록</button>
+                                        </td>
+                                    </tr>                                    
                                 </table>
                                 <input id="work_id" type="hidden" name="work_id" value=<?php
                                 if (isset($_REQUEST['work_id'])) {
@@ -235,11 +233,7 @@ include_once ('./header.php');
                                         <td class="content " colspan="2" style="border-bottom-style:none;border-left-style:none;">
                                                 <textarea class="contents" type="text" name="work_content" id="work_content" placeholder="내용" ></textarea>                                                                                           
                                                 <p style="white-space: pre-wrap" class="contents" id="work_content_view"></p>                                                                                           
-
-
-                                             </td>    
-                             
-                                          
+                                         </td>    
                                     </tr>
                                     <tr>
                                         <td colspan="2" class="content" style="width:15%;border-left-style:none;border-top-style:none;border-bottom-color:white; ">
@@ -262,7 +256,6 @@ include_once ('./header.php');
                                          </td> 
                                     </tr>
                                     <tr>
-                                        
                                           <td colspan="2"  class="content" style="width:40%;border-left-style:none;border-bottom-style:none;   font-weight: bold;font-size:10px;border-radius: 0 0 0 10px  ;  ">
                                              <div class="btn-group" style=" width:100%;">
                                             <button id="work_edit_btn" type="button" style="width:80%;height: 50px;" class="btn btn-info" onclick="editMode()">
@@ -275,27 +268,17 @@ include_once ('./header.php');
                                             </button>
                                             </div>
                                          </td>
-                                         
-                                                        
-                                                
-
                                          <td class="content"  style="width:10%;border-bottom-style:none;border-right-style:none; border-left-color:white; border-radius: 0 0 10px  0;">
-                                          
-                                        <div class="form-group" style="">
-                                            <div class="col-sm-9">
-                                                <textarea id="reply_input" type="text" name="reply_content" style="height:50px; width:100%" class="form-control"   checked="0" placeholder="댓글을 입력하세요."></textarea>
+                                            <div class="form-group" style="">
+                                                <div class="col-sm-9">
+                                                    <textarea id="reply_input" type="text" name="reply_content" style="height:50px; width:100%" class="form-control"   checked="0" placeholder="댓글을 입력하세요."></textarea>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <input id="reply_submit" class = "btn btn-info form-control" type="submit" name="submit" style="margin-top:1px;width: 100%px;height:50px;" value="저장"/>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-3">
-                                                <input id="reply_submit" class = "btn btn-info form-control" type="submit" name="submit" style="margin-top:1px;width: 100%px;height:50px;" value="저장"/>
-                                            </div>
-                                             
-                                        </div>
-                                          
                                           </td>
                                     </tr>
-                                    
-                                        
-                                    
                                 </table>
                                 </form>
                                 <!--
@@ -337,7 +320,7 @@ include_once ('./header.php');
                                             <input id="help_chat_input" type="text" name="reply_content" style="height:30px; width:100%" class="form-control"   checked="0" placeholder=""/>
                                          </div>
                                          <div class="col-sm-4" style="padding:5px;">
-                                            <button id="help_chat_submit" class = "btn btn-info form-control " type="button"  style=" width: 100%px;height:30px;" onclick="sendChat()">보내기</button>
+                                            <button id="help_chat_submit" class = "btn btn-info form-control " type="button"  style=" width: 100%px;height:30px;" onclick="sendHelp()">보내기</button>
                                          </div>
                                       </div>
                                    </td>
@@ -345,11 +328,9 @@ include_once ('./header.php');
                      </table>
                     </div>
 </div>
-<div id="help_btn" class="hide">
+<div id="help_btn" class="">
     <img style="width:62px;height:64px" src="img/help.png" onclick="toggle_help()" />
 </div>
-
-
         <!-- Menu Toggle Script -->
         <script>
         
