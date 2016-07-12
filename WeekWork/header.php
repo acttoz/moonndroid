@@ -4,12 +4,12 @@ if (empty($_SESSION['is_logged']) || $_SESSION['is_logged'] == FALSE) {
     exit ;
 }
 
-if ($_SESSION['ch_school'] == 0 || $_SESSION['ch_grade'] == 0) {
-    echo "<script>";
-    echo "if(!alert('학교와 학년 로그인이 필요합니다.'))";
-    echo "location.href='channel.php';";
-    echo "</script>";
-}
+// if ($_SESSION['ch_school'] == 0 || $_SESSION['ch_grade'] == 0) {
+    // echo "<script>";
+    // echo "if(!alert('학교와 학년 로그인이 필요합니다.'))";
+    // echo "location.href='channel.php';";
+    // echo "</script>";
+// }
 
 // $sql = "SELECT ch_id,ch_name FROM w_channel WHERE ";
 // $sql = $sql . "ch_id='" . $_SESSION['w_ch1'] . "'";
@@ -85,10 +85,7 @@ $eventyear = $eventyear1 -> format("Y");
                 <a href="week.php">위크워크</a>
             </li>
             <li >
-                <a href="channel.php">학년 설정</a>
-            </li>
-            <li >
-                <a href="http://alim.dothome.co.kr/help_weekwork.php">고객지원</a>
+                <a href="tutorial.php">사용방법</a>
             </li>
             <li >
                 <a href="account.php"><?php echo $_SESSION['name']; ?></a>

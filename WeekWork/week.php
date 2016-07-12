@@ -309,7 +309,7 @@ include_once ('./header.php');
                                <tr class="" style="border-radius: 10px 0 0 0; ">
                                    <td class="content" style="vertical-align:top;  width:70%;border-top-style:none; border-right-style:none; ">
                                       <div id="help_chat_content" style="text-align:left; overflow-y:scroll;margin:10px;height: 400px;">
-                                          안녕하세요. 문샘입니다.
+                                          안녕하세요. 선생님!<br><br> 저희 위크워크를 사용하시면서 궁금하신 점이나 불편하신 점이 있으면 언제든 말씀해 주시기 바랍니다.<br><br> 이 곳은 선생님과 저희 위크워크만 볼 수 있는 공간이니 편하게 말씀하셔도 됩니다.^^
                                       </div>
                                    </td>
                                 </tr>
@@ -331,6 +331,43 @@ include_once ('./header.php');
 <div id="help_btn" class="">
     <img style="width:62px;height:64px" src="img/help.png" onclick="toggle_help()" />
 </div>
+ <div id="dialog-confirm" title="알림" style="display:none;">
+                <?php
+                include_once ('./channel.php');
+                ?>
+            </div>
+            
+            
+            
+            <?php
+            
+            if ($_SESSION['ch_school'] == 0 || $_SESSION['ch_grade'] == 0) {
+                echo '
+                    <script type="text/javascript">
+                        $(function() {
+                                $("#dialog-confirm").css("display", "block");
+                                $("#dialog-confirm").dialog({
+                                    resizable : false,
+                                    width : 800,
+                                    height : 400,
+                                    modal : true,
+                                    buttons : {
+                                        "확인" : function() {
+                                            
+                                        }
+                                    },
+                                    open : function() {
+                                        $(this).scrollTop(0);
+                                    }
+                                });
+                        });
+                    </script>
+                ';
+            } 
+            
+            ?>
+            
+    
         <!-- Menu Toggle Script -->
         <script>
         
@@ -351,6 +388,7 @@ include_once ('./header.php');
             
             function toggle_help(){
                 $("#help_chat").toggleClass("hide");
+                getHelp();
             }
             
             function side(side) {

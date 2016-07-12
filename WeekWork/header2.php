@@ -14,10 +14,7 @@
                         <a href="week.php">위크워크</a>
                     </li>
                     <li >
-                        <a href="channel.php">학년 설정</a>
-                    </li>
-                    <li >
-                        <a href="http://alim.dothome.co.kr/help_weekwork.php">고객지원</a>
+                        <a href="tutorial.php">사용방법</a>
                     </li>
                     <li >
                         <a href="account.php"><?php echo $_SESSION['name']; ?></a>

@@ -13,77 +13,77 @@
         ?>
         <div id="wrapper">
             <div id="content">
-                
+
                 <br>
-                
+
                 <!-- <IMG class="displayed" src=" " style="width:70%; display: block; margin-left: auto; margin-right: auto"> -->
                 <IMG class="displayed" src="./img/tutorial.png" style="width:800px; display: block; margin-left: auto; margin-right: auto">
                 <br>
                 <div id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 800px; height: 650px; overflow: hidden; visibility: hidden;">
-                <!-- Loading Screen -->
-                <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
-                    <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
-                    <div style="position:absolute;display:block;background:url('./img/tutorial/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
-                </div>
-                <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 800px; height: 650px; overflow: hidden;">
-                    <div data-p="112.50" style="display: none;">
-                        <img data-u="image" src="./img/tutorial/1.png" />
+                    <!-- Loading Screen -->
+                    <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
+                        <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
+                        <div style="position:absolute;display:block;background:url('./img/tutorial/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
                     </div>
-                    <div data-p="112.50" style="display: none;">
-                        <img data-u="image" src="./img/tutorial/2.png" />
-                    </div>
-                    <div data-p="112.50" style="display: none;">
-                        <img data-u="image" src="./img/tutorial/3.png" />
-                    </div>
-                    <div data-p="112.50" style="display: none;">
-                        <img data-u="image" src="./img/tutorial/4.png" />
-                    </div>
-                    <div data-p="112.50" style="display: none;">
-                        <img data-u="image" src="./img/tutorial/5.png" />
-                    </div>
-                    <div data-p="112.50" style="display: none;">
-                        <img data-u="image" src="./img/tutorial/6.png" />
-                    </div>
-                    <div data-p="112.50" style="display: none;">
-                        <img data-u="image" src="./img/tutorial/7.png" />
-                    </div>
-                    <div data-b="0" data-p="112.50" style="display: none;">
-                        <img data-u="image" src="./img/tutorial/8.png" />
-                    </div>
-                    <div data-b="0" data-p="112.50" style="display: none;">
-                        <img data-u="image" src="./img/tutorial/9.png" />
-                    </div>
-                    <div data-b="0" data-p="112.50" style="display: none;">
-                        <img data-u="image" src="./img/tutorial/10.png" />
-                    </div>
-                    <div data-b="0" data-p="112.50" style="display: none;">
-                        <img data-u="image" src="./img/tutorial/11.png" />
-                    </div>
-                    <div data-b="0" data-p="112.50" style="display: none;">
-                        <img data-u="image" src="./img/tutorial/12.png" />
-                    </div>
-                    <div data-b="0" data-p="112.50" style="display: none;">
-                        <img data-u="image" src="./img/tutorial/13.png" />
-                    </div>
-                    <div data-p="112.50" style="display: none;">
-                        <img data-u="image" src="./img/tutorial/14.png" />
-                    </div>
-                    <div data-p="112.50" style="display: none;">
-                        <img data-u="image" src="./img/tutorial/15.png" />
-                    </div>
-                    <div data-p="112.50" style="display: none;">
-                        <img data-u="image" src="./img/tutorial/16.png" />
-                    </div>
+                    <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 800px; height: 650px; overflow: hidden;">
+                        <div data-p="112.50" style="display: none;">
+                            <img data-u="image" src="./img/tutorial/1.png" />
+                        </div>
+                        <div data-p="112.50" style="display: none;">
+                            <img data-u="image" src="./img/tutorial/2.png" />
+                        </div>
+                        <div data-p="112.50" style="display: none;">
+                            <img data-u="image" src="./img/tutorial/3.png" />
+                        </div>
+                        <div data-p="112.50" style="display: none;">
+                            <img data-u="image" src="./img/tutorial/4.png" />
+                        </div>
+                        <div data-p="112.50" style="display: none;">
+                            <img data-u="image" src="./img/tutorial/5.png" />
+                        </div>
+                        <div data-p="112.50" style="display: none;">
+                            <img data-u="image" src="./img/tutorial/6.png" />
+                        </div>
+                        <div data-p="112.50" style="display: none;">
+                            <img data-u="image" src="./img/tutorial/7.png" />
+                        </div>
+                        <div data-b="0" data-p="112.50" style="display: none;">
+                            <img data-u="image" src="./img/tutorial/8.png" />
+                        </div>
+                        <div data-b="0" data-p="112.50" style="display: none;">
+                            <img data-u="image" src="./img/tutorial/9.png" />
+                        </div>
+                        <div data-b="0" data-p="112.50" style="display: none;">
+                            <img data-u="image" src="./img/tutorial/10.png" />
+                        </div>
+                        <div data-b="0" data-p="112.50" style="display: none;">
+                            <img data-u="image" src="./img/tutorial/11.png" />
+                        </div>
+                        <div data-b="0" data-p="112.50" style="display: none;">
+                            <img data-u="image" src="./img/tutorial/12.png" />
+                        </div>
+                        <div data-b="0" data-p="112.50" style="display: none;">
+                            <img data-u="image" src="./img/tutorial/13.png" />
+                        </div>
+                        <div data-p="112.50" style="display: none;">
+                            <img data-u="image" src="./img/tutorial/14.png" />
+                        </div>
+                        <div data-p="112.50" style="display: none;">
+                            <img data-u="image" src="./img/tutorial/15.png" />
+                        </div>
+                        <div data-p="112.50" style="display: none;">
+                            <img data-u="image" src="./img/tutorial/16.png" />
+                        </div>
 
+                    </div>
+                    <!-- Bullet Navigator -->
+                    <div data-u="navigator" class="jssorb01" style="bottom:16px;right:16px;">
+                        <div data-u="prototype" style="width:12px;height:12px;"></div>
+                    </div>
+                    <!-- Arrow Navigator -->
+                    <span data-u="arrowleft" class="jssora02l" style="top:0px;left:8px;width:55px;height:55px;" data-autocenter="2"></span>
+                    <span data-u="arrowright" class="jssora02r" style="top:0px;right:8px;width:55px;height:55px;" data-autocenter="2"></span>
                 </div>
-                <!-- Bullet Navigator -->
-                <div data-u="navigator" class="jssorb01" style="bottom:16px;right:16px;">
-                    <div data-u="prototype" style="width:12px;height:12px;"></div>
-                </div>
-                <!-- Arrow Navigator -->
-                <span data-u="arrowleft" class="jssora02l" style="top:0px;left:8px;width:55px;height:55px;" data-autocenter="2"></span>
-                <span data-u="arrowright" class="jssora02r" style="top:0px;right:8px;width:55px;height:55px;" data-autocenter="2"></span>
-            </div>
             </div>
             <footer>
                 <?php
@@ -92,12 +92,31 @@
             </footer>
             <div id="dialog-confirm" title="알림" style="display:none;">
                 <?php
-                include_once ('./index_notice.php');
+                include_once ('./terms.php');
                 ?>
             </div>
         </div>
         <script type="text/javascript">
-           
+        function terms(){
+            $(function() {
+                    $("#dialog-confirm").css("display", "block");
+                    $("#dialog-confirm").dialog({
+                        resizable : false,
+                        width : 800,
+                        height : 600,
+                        modal : true,
+                        buttons : {
+                            "닫기" : function() {
+                                $(this).dialog("close");
+                            }
+                        },
+                        open : function() {
+                            $(this).scrollTop(0);
+                        }
+                    });
+            });
+        }
+            
 
             function fnSign() {
 
@@ -159,7 +178,7 @@
                 }
             });
 
-jQuery(document).ready(function($) {
+            jQuery(document).ready(function($) {
 
                 var jssor_1_SlideoTransitions = [[{
                     b : 0,
@@ -392,7 +411,7 @@ jQuery(document).ready(function($) {
 
                 var jssor_1_options = {
                     $AutoPlay : true,
-                     $Idle : 20000,
+                    $Idle : 20000,
                     $CaptionSliderOptions : {
                         $Class : $JssorCaptionSlideo$,
                         $Transitions : jssor_1_SlideoTransitions,

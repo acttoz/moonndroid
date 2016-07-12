@@ -1,46 +1,17 @@
-<!DOCTYPE html>
-<html lang="ko" >
-
-    <?php
-    include_once ('./config.php');
-    ?>
-
-    <head>
-
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>WeekWork</title>
-        <link href="framework/css/sign.css" rel="stylesheet" type="text/css">
-        <?php
-        include_once ('./framework.php');
-        if (empty($_SESSION['is_logged']) || $_SESSION['is_logged'] == FALSE) {
-            header("location:index.php");
-            exit ;
-        }
-        ?>
-    </head>
-
-    <body > 
-
-        <? include_once ('./header2.php'); ?>
-        <div id="wrapper" >
-            <br>
-            <table class="time_table" style="width: 800px;table-layout: fixed;height: 200px;display: table; margin-left: auto; margin-right: auto" >
+<br>
+            <table class="time_table" style="width: 80%;table-layout: fixed;height: 200px;display: table; margin-left: auto; margin-right: auto" >
                 <tr class="" style="border-radius: 10px 0 0 0; ">
                     <!-- 학교제목  -->
                     <td  class="content"  style="color: white;background-color: #59c2d8;height:70px;width:10%;border-radius:10px 0 0 0; border-left-style:none;border-top-style:none;   font-weight: bold;font-size:25px "> 학교 </td>
 
                     <!-- 학교   -->
-                    <td  class="content"    style="width:40%;border-top-style:none; font-weight: bold;font-size:20px "><?php
-
+                    <td  class="content"    style="width:30%; font-weight: bold;font-size:15px "><?php
                     echo $_SESSION['school'];
                     ?>
                     </td>
 
                     <!-- 검색리스트  -->
-                    <td    class="content" style=" width:50%;border-top-style:none; border-right-style:none; border-radius: 0 10px 0 0;"><?php
+                    <td    class="content" style=" width:60%;  border-radius: 0 10px 0 0;"><?php
 
                     $sql = "SELECT * FROM w_channel WHERE ";
                     $sql = $sql . "school_no='" . $_SESSION['school_id'] . "'";
@@ -69,7 +40,7 @@
                         if (!empty($ch_login_list[0]))
                             echo '학교 채널 생성자가 정한 학교코드를 입력해주세요.';
                         else {
-                            echo '학교 채널이 생성되지 않았습니다. 학교 코드를 생성해주세요.';
+                            echo '학교 채널이 생성되지 않았습니다.<br> 학교 코드를 생성해주세요.';
                         }
                         echo '</h4>
                                 
@@ -107,7 +78,7 @@
                     <td  class="content"  style="color: white; background-color: #59c2d8; width:10%;border-radius:0 0 0 10px; border-left-style:none;border-bottom-style:none; font-weight: bold;font-size:25px "> 학년 </td>
 
                     <!-- 학년 리스트  -->
-                    <td  class="content"  style=" width:40%;border-style:none;border-bottom-style:none;border-left-color:white; font-weight: bold;font-size:20px "><?php
+                    <td  class="content"  style=" width:40%; border-left-color:white; font-weight: bold;font-size:15px "><?php
                     // if (count($ch_ids) > 1) {
                     // for ($i = 1; $i < count($ch_ids); $i++) {
                     //
@@ -116,15 +87,15 @@
                     // } else if (count($ch_ids) == 1) {
                     // echo "<button class='btn btn-info' style='height:70px;font-size:30px;' onclick='channel()' >+</button>";
                     // }
-                    if($_SESSION['grade']==10)
+                    if ($_SESSION['grade'] == 10)
                         echo '교무실';
-                    else if($_SESSION['grade']==100)
+                    else if ($_SESSION['grade'] == 100)
                         echo '행정실';
                     else
                         echo $_SESSION['grade'] . '학년';
                     ?></td>
                     
-                    <td    class="content" style=" width:50%;border-bottom-style:none; border-right-style:none; border-radius: 0 0 10px 0;"><?php
+                    <td    class="content" style=" width:50%; border-radius: 0 0 10px 0;"><?php
 
                     if ($_SESSION['ch_grade'] != 0) {
                         echo '로그인됨(코드:' . $ch_login_list[$_SESSION['grade']]['pw'] . ')';
@@ -133,25 +104,25 @@
                         echo '
                           <div class="form-group" id="sign_school" style="display:block">
                            <h5 id="ch_name" style="white-space: pre-wrap">';
-                        if (!empty($ch_login_list[$_SESSION['grade']])){
-                             $grade="";
-                            if($_SESSION['grade']==10)
-                                $grade='교무실';
-                            else if($_SESSION['grade']==100)
-                                $grade='행정실';
+                        if (!empty($ch_login_list[$_SESSION['grade']])) {
+                            $grade = "";
+                            if ($_SESSION['grade'] == 10)
+                                $grade = '교무실';
+                            else if ($_SESSION['grade'] == 100)
+                                $grade = '행정실';
                             else
-                                $grade=$_SESSION['grade'] . '학년';
+                                $grade = $_SESSION['grade'] . '학년';
                             echo $grade . ' 채널 생성자가 정한 코드를 입력해주세요.';
-                        }else {
-                            $grade="";
-                            if($_SESSION['grade']==10)
-                                $grade='교무실';
-                            else if($_SESSION['grade']==100)
-                                $grade='행정실';
+                        } else {
+                            $grade = "";
+                            if ($_SESSION['grade'] == 10)
+                                $grade = '교무실';
+                            else if ($_SESSION['grade'] == 100)
+                                $grade = '행정실';
                             else
-                                $grade=$_SESSION['grade'] . '학년';
-                            
-                            echo $grade. ' 채널이 생성되지 않았습니다. <br>채널의 코드를 생성해주세요.';
+                                $grade = $_SESSION['grade'] . '학년';
+
+                            echo $grade . ' 채널이 생성되지 않았습니다. <br>채널의 코드를 생성해주세요.';
                         }
                         echo '</h4>
                                 
@@ -173,7 +144,7 @@
                         if (!empty($ch_login_list[$_SESSION['grade']]))
                             echo '로그인';
                         else {
-                            echo '암호 생성';
+                            echo '암호생성';
                         }
 
                         echo '</button>
@@ -188,24 +159,10 @@
                 </tr>
             </table>
             
-                <br>
-                <br>
-                <!-- <IMG class="displayed" src=" " style="width:70%; display: block; margin-left: auto; margin-right: auto"> -->
-                <IMG class="displayed" src="./img/tutorial.png" style="width:800px; display: block; margin-left: auto; margin-right: auto">
-                <br>
-
-            <!-- /#page-content-wrapper -->
-
-        </div>
-        <!-- /#wrapper -->
-        <!-- Menu Toggle Script -->
-        <script src="./sign.js"></script>
+             <script src="./sign.js"></script>
 <script>var school_pw =  '<?= $ch_login_list[0]['pw'] ?>';
         var grade_pw =  '<?= $ch_login_list[$_SESSION['grade']]['pw'] ?>';
     </script>
             <?php
             include_once ("./tail.php");
         ?>
-    </body>
-
-</html>

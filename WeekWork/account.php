@@ -24,6 +24,13 @@
            <div id='content'>
                 <form class="form-horizontal" id="margin" name="select_school" method="post" style="">
                    <div class="form-group">
+                    <label  class="col-sm-2 control-label"></label>
+                    <div class="col-sm-4">
+                        <input type="button" class="form-control btn-info" id="channel" value="학년설정" onclick="channel2()"/>
+                    </div>
+                    
+                </div>
+                   <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">이메일</label>
                     <div class="col-sm-10">
                         <input type="hidden" id="isaccount" value=1>
@@ -35,7 +42,7 @@
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">비밀번호</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" name="user_pass" placeholder="비밀번호"/>
+                        <input type="password" class="form-control" name="user_pass" placeholder="변경할 비밀번호"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -276,6 +283,32 @@
         </div>
         <!-- /#wrapper -->
         <!-- Menu Toggle Script -->
+         <div id="dialog-confirm" title="알림" style="display:none;">
+                <?php
+                include_once ('./channel.php');
+                ?>
+            </div>
+        <script type="text/javascript">
+        function channel2(){
+            $(function() {
+                    $("#dialog-confirm").css("display", "block");
+                    $("#dialog-confirm").dialog({
+                        resizable : false,
+                        width : 800,
+                        height : 400,
+                        modal : true,
+                        buttons : {
+                            "닫기" : function() {
+                                $(this).dialog("close");
+                            }
+                        },
+                        open : function() {
+                            $(this).scrollTop(0);
+                        }
+                    });
+            });
+        }
+        </script>
         <script>var origin_school = '<?= $_SESSION['school_id'] ?>';
     var origin_grade =  '<?= $_SESSION['grade'] ?>';
     </script>

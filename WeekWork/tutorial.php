@@ -24,19 +24,19 @@
         ?>
     </head>
 
-    <body style="background:#000000" >
-
+    <body  >
+<?php
+include_once ('./header.php');
+         ?>
         <div id="wrapper" >
-            <button class="btn btn-info" style="width: 100px;float:right;position: relative;" onclick="goBack()">
-                뒤로
-            </button>
-            <div id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 1024px; height: 832px; overflow: hidden; visibility: hidden;">
+            <br>
+            <div id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 800px; height: 650px; overflow: hidden; visibility: hidden;">
                 <!-- Loading Screen -->
                 <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
                     <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
                     <div style="position:absolute;display:block;background:url('./img/tutorial/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
                 </div>
-                <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 1024px; height: 832px; overflow: hidden;">
+                <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 800px; height: 650px; overflow: hidden;">
                     <div data-p="112.50" style="display: none;">
                         <img data-u="image" src="./img/tutorial/1.png" />
                     </div>
@@ -357,7 +357,7 @@
                 function ScaleSlider() {
                     var refSize = jssor_1_slider.$Elmt.parentNode.clientWidth;
                     if (refSize) {
-                        refSize = Math.min(refSize, 1024);
+                        refSize = Math.min(refSize, 800);
                         jssor_1_slider.$ScaleWidth(refSize);
                     } else {
                         window.setTimeout(ScaleSlider, 5000);

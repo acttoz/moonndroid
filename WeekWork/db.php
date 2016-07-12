@@ -33,12 +33,12 @@ if ($_REQUEST['select'] == "sign_ch") {
      
 
     logInCh(mysql_insert_id(), $_REQUEST['grade']);
-    header("location:channel.php");
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
 if ($_REQUEST['select'] == "login_ch") {
     logInCh($_REQUEST['ch_id'], $_REQUEST['grade']);
-    header("location:channel.php");
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 if ($_REQUEST['select'] == "get_channel") {
     getCh($_REQUEST['school_id']);
