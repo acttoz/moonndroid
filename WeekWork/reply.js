@@ -45,7 +45,6 @@ function getReply(work_id) {
                     if (replyCount != 0)
                         htmls += '<hr>';
                     htmls += '<p style=" padding-right:5px;">' + this.content + '&nbsp;<span style="font-weight:bold">- ';
-                    console.log(this.grade);
                     switch(workArray[flag_work_id]["ch_id"]) {
                     case this.ch_school :
                         htmls += grade_array[this.grade] + " ";

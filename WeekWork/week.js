@@ -35,7 +35,6 @@ function viewWork(work_id) {
 
     var workDate;
     workDate = (date.getMonth() + 1) + "월 " + date.getDate() + "일 / ";
-    console.log("a"+workArray[work_id]["grade"]+"a");
     if (workArray[work_id]["grade"] == 10)
         workDate += "교무실 / ";
     else if (workArray[work_id]["grade"] == 100)
@@ -80,6 +79,8 @@ function viewWork(work_id) {
     upNew();
 
     $("#work_ch_id").val(workArray[flag_work_id]["ch_id"]);
+    
+    set_work_content_td();
 
 }
 
@@ -781,6 +782,7 @@ $(document).ready(function() {
     getEvent();
     chatPolling();
     pollingHelp();
+    
 });
 
 $(".overlay_ctrl").click(function() {
@@ -795,6 +797,10 @@ function formValidate() {
     } else {
         return true;
     }
+}
+
+function set_work_content_td(){
+     $("#reply").css("height",$("#work_content_td").css("height"));   
 }
 
 

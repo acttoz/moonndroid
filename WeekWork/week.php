@@ -56,7 +56,7 @@ include_once ('./header.php');
                    <table class="chat_table" style="background:#F8F8F8;color:#000; border-radius: 10px 10px 10px 10px; table-layout: fixed" align="center"  >
                                <tr class="" style="border-radius: 10px 0 0 0; ">
                                    <td    class="content" style="vertical-align:top;  width:70%;border-top-style:none; border-right-style:none; ">
-                                      <div id="chat" style="text-align:left; overflow-y:scroll;margin:10px;width:360px;height: 60vh;">
+                                      <div id="chat" style="text-align:left; overflow-y:scroll;margin:10px;width:360px;height: 70vh;">
                                           대화를 주고 받을 수 있는 쪽지함입니다.<br>대화내용은 동학년 선생님만 볼 수 있습니다.
                                       </div>
                                    </td>
@@ -230,7 +230,7 @@ include_once ('./header.php');
                                         </td>
                                     </tr>
                                     <tr class="" style="border-radius: 10px 0 0 0; ">
-                                        <td class="content " colspan="2" style="border-bottom-style:none;border-left-style:none;">
+                                        <td class="content " id="work_content_td" colspan="2" style="border-bottom-style:none;border-left-style:none;">
                                                 <textarea class="contents" type="text" name="work_content" id="work_content" placeholder="내용" ></textarea>                                                                                           
                                                 <p style="white-space: pre-wrap" class="contents" id="work_content_view"></p>                                                                                           
                                          </td>    
