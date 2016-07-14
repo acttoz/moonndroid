@@ -72,7 +72,7 @@ $eventyear = $eventyear1 -> format("Y");
 <header id="header">
 
     <logo>
-        <a href="./week.php"></a>
+        <a href="./login.php"></a>
     </logo>
     <nav id="mainMenu">
         <ul>

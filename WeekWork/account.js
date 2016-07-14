@@ -21,7 +21,7 @@ function schoolClick(id, school) {
 function toNext() {
 
     var grade = $(".grade option:selected").attr("value");
-     if (flag_ban)
+    if (flag_ban)
         var ban = $(".ban option:selected").attr("value");
     else
         var ban = $(".position option:selected").attr("value");
@@ -120,7 +120,7 @@ var fnSchool = function() {
     });
 
     request.done(function(json) {
-        if ( typeof json === "object" && json.list.length > 0) {
+        if (json != null && json.list != null && typeof json === "object" && json.list.length > 0) {
             $(json.list).each(function() {
 
                 htmls += '<a onclick="schoolClick(\'' + this.no + '\',\'' + this.school + '\')" class="list-group-item" >' + this.school + '</a>';

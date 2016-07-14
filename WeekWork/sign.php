@@ -45,20 +45,25 @@
 
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">비밀번호</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                         <input type="password" class="form-control" name="user_pass" placeholder="비밀번호">
                     </div>
-                </div>
-                <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">비밀번호 확인</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                         <input type="password" class="form-control pass2" name="user_pass2" placeholder="비밀번호 확인">
                     </div>
                 </div>
-             
+             <div class="form-group">
+                    <label class="col-sm-2 control-label" >성 명</label>
+                    <div class="col-sm-4">
+                        <input type="text" id="teacher_name" class="form-control" name="teacher_name" placeholder="선생님의 이름을 입력해주세요.">
+                    </div>
+                </div>
+                <br>
+                <br>
                 <div class="form-group">
                     <label class="col-sm-2 control-label" >학년</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                         <select  class="form-control grade" >
                             <option value='1' >1학년</option>
                             <option value='2' >2학년</option>
@@ -70,11 +75,10 @@
                             <option value='100' >행정실</option>
                         </select>
                     </div>
-
-                </div>
-                <div class="form-group" id="select_ban">
+                    
+                    <div   id="select_ban">
                     <label class="col-sm-2 control-label" >학반</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                         <select type="email" class="form-control ban" >
                             <option value='1' >1반</option>
                             <option value='2' >2반</option>
@@ -96,11 +100,10 @@
                             <option value='0' >전담</option>
                         </select>
                     </div>
-
                 </div>
-                <div class="form-group" id="select_position" style="display:none;">
+                <div  id="select_position" style="display:none;">
                     <label class="col-sm-2 control-label" >직책</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                         <select class="form-control position" >
                             <option value='21' >교장</option>
                             <option value='22' >교감</option>
@@ -116,12 +119,10 @@
                     </div>
 
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" >성 명</label>
-                    <div class="col-sm-10">
-                        <input type="text" id="teacher_name" class="form-control" name="teacher_name" placeholder="선생님의 이름을 입력해주세요.">
-                    </div>
+
                 </div>
+                
+                
                
                 <div class="form-group">
                     <label class="col-sm-2 control-label" >학교명</label>
@@ -145,14 +146,16 @@
                         </button>
                     </div>
                     </div>
-            </form>
-            <div id="margin">
-                <label>학교 검색 목록</label>
-                <div class="list-group" id="school_list">
+             <div class="form-group">
+                    <label class="col-sm-2 control-label" >학교 검색 목록</label>
+                    <div class="col-sm-10">
+                  <div class="list-group" id="school_list">
                     <a href="#" class="list-group-item">검색 결과 없음</a>
                 </div>
+                
+                 </div>
             </div>
-            </div>
+            </form>
                     
                    
  

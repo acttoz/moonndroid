@@ -26,7 +26,7 @@
                    <div class="form-group">
                     <label  class="col-sm-2 control-label"></label>
                     <div class="col-sm-4">
-                        <input type="button" class="form-control btn-info" id="channel" value="학년설정" onclick="channel2()"/>
+                        <input type="button" class="form-control btn-info" id="channel" value="코드 확인" onclick="channel2()"/>
                     </div>
                     
                 </div>
@@ -41,20 +41,26 @@
 
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">비밀번호</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                         <input type="password" class="form-control" name="user_pass" placeholder="변경할 비밀번호"/>
                     </div>
-                </div>
-                <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">비밀번호 확인</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                         <input type="password" class="form-control pass2" name="user_pass2" placeholder="비밀번호 확인"/>
                     </div>
                 </div>
              
+               <div class="form-group">
+                    <label class="col-sm-2 control-label" >성 명</label>
+                    <div class="col-sm-4">
+                        <input type="text" id="teacher_name" class="form-control" name="teacher_name" placeholder="학부모와 학생에게 표시되는 이름이므로 정확히 입력해주세요." value="<?echo $_SESSION['name'] ?>"/>
+                    </div>
+                </div>
+             <br>
+             <br>
                 <div class="form-group">
                     <label class="col-sm-2 control-label" >학년</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                         <select type="email" class="form-control grade" >
                            <option value='1' <?php
                             if ($_SESSION['grade'] == 1)
@@ -91,15 +97,14 @@
                         </select>
                     </div>
 
-                </div>
-                <div class="form-group" id="select_ban" style="display:<?
+<div   id="select_ban" style="display:<?
                 if($_SESSION['grade']==10||$_SESSION['grade']==100)
                 echo "none";
                 else
                 echo "block";
                 ?>">
                     <label class="col-sm-2 control-label" >학반</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                         <select type="email" class="form-control ban" >
                             <option value='1' <?php
                             if ($_SESSION['ban'] == 1)
@@ -169,19 +174,23 @@
                             if ($_SESSION['ban'] == 17)
                                 echo 'selected';
                             ?>>17반</option>
+                             <option value='0' <?php
+                            if ($_SESSION['ban'] == 0)
+                                echo 'selected';
+                            ?>>전담</option>
                         </select>
                     </div>
 
                 </div>
                 
-                 <div class="form-group" id="select_position" style="display:<?
+                 <div   id="select_position" style="display:<?
                 if($_SESSION['grade']==10||$_SESSION['grade']==100)
                 echo "block";
                 else
                 echo "none";
                 ?>">
                     <label class="col-sm-2 control-label" >직책</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                         <select class="form-control position" >
                             <option value='21' <?php
                             if ($_SESSION['ban'] == 21)
@@ -227,13 +236,12 @@
                     </div>
 
                 </div>
-                
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" >성 명</label>
-                    <div class="col-sm-10">
-                        <input type="text" id="teacher_name" class="form-control" name="teacher_name" placeholder="학부모와 학생에게 표시되는 이름이므로 정확히 입력해주세요." value="<?echo $_SESSION['name'] ?>"/>
-                    </div>
+
+
                 </div>
+                
+                
+              
                
                 <div class="form-group">
                     <label class="col-sm-2 control-label" >학교명</label>
@@ -256,29 +264,35 @@
                             저장하기
                         </button>
                     </div>
-                    </div>
-            </form>
-            <div id="margin">
-                <label>학교 검색 목록</label>
-                <div class="list-group" id="school_list">
+                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" >학교 검색 목록</label>
+                    <div class="col-sm-10">
+                  <div class="list-group" id="school_list">
                     <a href="#" class="list-group-item">검색 결과 없음</a>
                 </div>
-            </div>
+                
+                 </div>
             </div>
                     
-                   <div id="margin">
+                <div class="form-group">
+                   <div class="col-sm-2">
+                    </div>
+                   <div class="col-sm-5">
             <button type="button" style="width:100%;" class="btn btn-info" onclick=logOut()>
                             로그아웃
                         </button>
-                        </div>
-            <br/>
-            <div id="margin">
+                    </div>
+                    <div class="col-sm-5">
             <button type="button" style="width:100%;" class="btn btn-danger" onclick=signOut()>
                             회원탈퇴
                         </button>
-                        </div>
+                    </div>
+                    </div>
+            <br/>
  
                   
+            </form>
             </div>
         </div>
         <!-- /#wrapper -->

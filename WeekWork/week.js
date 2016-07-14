@@ -205,6 +205,7 @@ function newWork(ch_id, ch_name, mDate) {
     editMode();
 
     $("#workList").css("display", "block");
+    $("html, body").animate({ scrollTop: $(document).height() }, "slow");
 }
 
 function editMode() {

@@ -102,15 +102,15 @@ var fnSchool = function() {
     });
 
     request.done(function(json) {
-        if ( typeof json === "object" && json.list.length > 0) {
+        if (json != null && json.list != null && typeof json === "object" && json.list.length > 0) {
             $(json.list).each(function() {
 
-                htmls += '<a onclick="schoolClick(\'' + this.no + '\',\'' + this.school + '\')" class="list-group-item" >' + this.school + '</a>';
+                htmls += '<a id="school_element" onclick="schoolClick(\'' + this.no + '\',\'' + this.school + '\')" class="list-group-item" >' + this.school + '</a>';
 
             });
             $('#school_list').html(htmls);
         } else {
-            htmls = '<a href="#"  class="list-group-item" value="' + '0' + '">' + '검색결과가 없습니다.  <br/>대한초등학교의 경우 "대한"만 입력해보세요.<br/>2005년이후 개교한 학교는 서버에 없을 수 있으니 메일주시면 바로 추가해드리겠습니다.<br/> 문의(acttoz@naver.com).' + '</a>';
+            htmls = '<a href="#"  class="list-group-item">검색결과가 없습니다.  <br/>대한초등학교의 경우 "대한"만 입력해보세요.<br/>2005년이후 개교한 학교는 서버에 없을 수 있으니 메일주시면 바로 추가해드리겠습니다.<br/> 문의(acttoz@naver.com)</a>';
             $('#school_list').html(htmls);
         }
         htmls = "";
