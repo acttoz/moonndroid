@@ -15,7 +15,9 @@ function schoolClick(id, school) {
     $("#selected_school").val(school);
     $("#selected_school").attr("school_id", id);
     $("#selected_school").attr("school_name", school);
-
+    $(".school_element").each(function() {
+        $(this).remove();
+    });
 }
 
 function toNext() {
@@ -123,7 +125,7 @@ var fnSchool = function() {
         if (json != null && json.list != null && typeof json === "object" && json.list.length > 0) {
             $(json.list).each(function() {
 
-                htmls += '<a onclick="schoolClick(\'' + this.no + '\',\'' + this.school + '\')" class="list-group-item" >' + this.school + '</a>';
+                htmls += '<a onclick="schoolClick(\'' + this.no + '\',\'' + this.school + '\')" class="list-group-item school_element" >' + this.school + '</a>';
 
             });
             $('#school_list').html(htmls);

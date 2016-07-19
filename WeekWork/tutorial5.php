@@ -1,170 +1,105 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" >
+
+    <?php
+    include_once ('./config.php');
+    ?>
+
     <head>
-        <?
-        include_once ('./framework.php');
-        ?>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>WeekWork</title>
+        <link href="framework/css/sign.css" rel="stylesheet" type="text/css">
         <link href="framework/css/jssor.slider.css" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="framework/js/jssor.slider.mini.js"></script>
-    </head>
-    <body id="home">
         <?php
-        include_once ('./header_login.php');
-        ?>
-        <div id="wrapper">
-            <div id="content">
-
-                <br>
-
-                <!-- <IMG class="displayed" src=" " style="width:70%; display: block; margin-left: auto; margin-right: auto"> -->
-                <IMG class="displayed" src="./img/tutorial.png" style="width:800px; display: block; margin-left: auto; margin-right: auto">
-                <br>
-                
-            </div>
-            <footer>
-                <?php
-                include_once ('./footer.php');
-                ?>
-            </footer>
-            <div id="dialog-confirm" title="알림" style="display:none;">
-                <?php
-                include_once ('./terms.php');
-                ?>
-            </div>
-            <div id="dialog-confirm2" title="알림" style="display:none;">
-                <div id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 800px; height: 650px; overflow: hidden; visibility: hidden;">
-                    <!-- Loading Screen -->
-                    <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
-                        <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
-                        <div style="position:absolute;display:block;background:url('./img/tutorial/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
-                    </div>
-                    <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 800px; height: 650px; overflow: hidden;">
-                        <div data-p="112.50" style="display: none;">
-                            <img data-u="image" src="./img/tutorial5/0.png" />z
-                        </div>
-                        <div data-p="112.50" style="display: none;">
-                            <img data-u="image" src="./img/tutorial5/1.png" />z
-                        </div>
-                        <div data-p="112.50" style="display: none;">
-                            <img data-u="image" src="./img/tutorial5/2.png" />
-                        </div>
-                        <div data-p="112.50" style="display: none;">
-                            <img data-u="image" src="./img/tutorial5/3.png" />
-                        </div>
-                        <div data-p="112.50" style="display: none;">
-                            <img data-u="image" src="./img/tutorial5/4.png" />
-                        </div>
-
-                    </div>
-                    <!-- Bullet Navigator -->
-                    <div data-u="navigator" class="jssorb01" style="bottom:16px;right:16px;">
-                        <div data-u="prototype" style="width:12px;height:12px;"></div>
-                    </div>
-                    <!-- Arrow Navigator -->
-                    <span data-u="arrowleft" class="jssora02l" style="top:0px;left:8px;width:55px;height:55px;" data-autocenter="2"></span>
-                    <span data-u="arrowright" class="jssora02r" style="top:0px;right:8px;width:55px;height:55px;" data-autocenter="2"></span>
-                </div>
-            </div>
-        </div>
-        <script type="text/javascript">
-        $(function() {
-                    $("#dialog-confirm2").css("display", "block");
-                    $("#dialog-confirm2").dialog({
-                        resizable : false,
-                        width : 900,
-                        height : 800,
-                        modal : true,
-                        buttons : {
-                            "닫기" : function() {
-                                $(this).dialog("close");
-                            }
-                        },
-                        open : function() {
-                            $(this).scrollTop(0);
-                        }
-                    });
-            });
-        function terms(){
-            $(function() {
-                    $("#dialog-confirm").css("display", "block");
-                    $("#dialog-confirm").dialog({
-                        resizable : false,
-                        width : 800,
-                        height : 600,
-                        modal : true,
-                        buttons : {
-                            "닫기" : function() {
-                                $(this).dialog("close");
-                            }
-                        },
-                        open : function() {
-                            $(this).scrollTop(0);
-                        }
-                    });
-            });
+        include_once ('./framework.php');
+        if (empty($_SESSION['is_logged']) || $_SESSION['is_logged'] == FALSE) {
+            header("location:index.php");
+            exit ;
         }
-            
+        ?>
+    </head>
 
-            function fnSign() {
+    <body  >
+<?php
+include_once ('./header.php');
+         ?>
+        <div id="wrapper" >
+            <br>
+            <div id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 800px; height: 650px; overflow: hidden; visibility: hidden;">
+                <!-- Loading Screen -->
+                <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
+                    <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
+                    <div style="position:absolute;display:block;background:url('./img/tutorial/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
+                </div>
+                <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 800px; height: 650px; overflow: hidden;">
+                    <div data-p="112.50" style="display: none;">
+                        <img data-u="image" src="./img/tutorial/1.png" />
+                    </div>
+                    <div data-p="112.50" style="display: none;">
+                        <img data-u="image" src="./img/tutorial/2.png" />
+                    </div>
+                    <div data-p="112.50" style="display: none;">
+                        <img data-u="image" src="./img/tutorial/3.png" />
+                    </div>
+                    <div data-p="112.50" style="display: none;">
+                        <img data-u="image" src="./img/tutorial/4.png" />
+                    </div>
+                    <div data-p="112.50" style="display: none;">
+                        <img data-u="image" src="./img/tutorial/5.png" />
+                    </div>
+                    <div data-p="112.50" style="display: none;">
+                        <img data-u="image" src="./img/tutorial/6.png" />
+                    </div>
+                    <div data-p="112.50" style="display: none;">
+                        <img data-u="image" src="./img/tutorial/7.png" />
+                    </div>
+                    <div data-b="0" data-p="112.50" style="display: none;">
+                        <img data-u="image" src="./img/tutorial/8.png" />
+                    </div>
+                    <div data-b="0" data-p="112.50" style="display: none;">
+                        <img data-u="image" src="./img/tutorial/9.png" />
+                    </div>
+                    <div data-b="0" data-p="112.50" style="display: none;">
+                        <img data-u="image" src="./img/tutorial/10.png" />
+                    </div>
+                    <div data-b="0" data-p="112.50" style="display: none;">
+                        <img data-u="image" src="./img/tutorial/11.png" />
+                    </div>
+                    <div data-b="0" data-p="112.50" style="display: none;">
+                        <img data-u="image" src="./img/tutorial/12.png" />
+                    </div>
+                    <div data-b="0" data-p="112.50" style="display: none;">
+                        <img data-u="image" src="./img/tutorial/13.png" />
+                    </div>
+                    <div data-p="112.50" style="display: none;">
+                        <img data-u="image" src="./img/tutorial/14.png" />
+                    </div>
+                    <div data-p="112.50" style="display: none;">
+                        <img data-u="image" src="./img/tutorial/15.png" />
+                    </div>
+                    <div data-p="112.50" style="display: none;">
+                        <img data-u="image" src="./img/tutorial/16.png" />
+                    </div>
 
-                var mUserid = $("#user_id").val();
-                var mUserPass = $("#user_pass").val();
+                </div>
+                <!-- Bullet Navigator -->
+                <div data-u="navigator" class="jssorb01" style="bottom:16px;right:16px;">
+                    <div data-u="prototype" style="width:12px;height:12px;"></div>
+                </div>
+                <!-- Arrow Navigator -->
+                <span data-u="arrowleft" class="jssora02l" style="top:0px;left:8px;width:55px;height:55px;" data-autocenter="2"></span>
+                <span data-u="arrowright" class="jssora02r" style="top:0px;right:8px;width:55px;height:55px;" data-autocenter="2"></span>
+            </div>
 
-                if (!mUserid) {
-                    alert("이메일을 입력하세요..!!");
-                    return;
-                } else if (!validateEmail(mUserid)) {
-                    alert("올바른 이메일을 입력하세요..!!");
-                    return;
-                } else if (!mUserPass) {
-                    alert("비밀번호를 입력하세요..!!");
-                    return;
-                } else {
-
-                    $.ajax({
-                        url : "db.php",
-                        type : 'POST',
-                        cache : false,
-                        data : {
-                            select : "login",
-                            user_id : mUserid,
-                            user_pass : mUserPass
-                        },
-                        success : function(args) {
-                            if (args == "success") {
-
-                                if (document.getElementById("login_save").checked) {
-                                    localStorage.setItem("ID", mUserid);
-                                    localStorage.setItem("PASS", mUserPass);
-                                } else {
-                                    localStorage.removeItem("ID");
-                                }
-
-                                document.location.href = "week.php";
-                            } else {
-                                alert("아이디나 비밀번호가 맞지 않습니다.");
-
-                            }
-                        }
-                    });
-
-                }
-
-            }// end function fnLogin()
-
-            function validateEmail(email) {
-                // var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-                // return re.test(email);
-                return true;
-            }
-
-
-            $("#user_pass").keyup(function(event) {
-                if (event.keyCode == 13) {
-                    fnSign();
-                }
-            });
-
+        </div>
+        <!-- /#wrapper -->
+        <!-- Menu Toggle Script -->
+        <script>
             jQuery(document).ready(function($) {
 
                 var jssor_1_SlideoTransitions = [[{
@@ -436,6 +371,10 @@
                 //responsive code end
             });
 
+            function goBack() {
+                window.history.back();
+            }
         </script>
     </body>
+
 </html>

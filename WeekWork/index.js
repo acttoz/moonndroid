@@ -1,11 +1,3 @@
-// var console = console || {
-// log : function() {
-// },
-// warn : function() {
-// },
-// error : function() {
-// }
-// };
 var isLoading = false;
 var isLoadingFile = false;
 var tClass = localStorage.getItem("tClass");
@@ -302,6 +294,8 @@ $("#work_file_del").click(function() {
 
     return true;
 });
+
+
 $("#work_delete_btn").click(function() {
     if (!isEmpty($('#reply'))) {
         alert("댓글이 있는 글은 삭제가 불가능합니다.");
@@ -516,18 +510,3 @@ function isEmpty(el) {
 $('.week-picker').click(function() {
     $('.week-picker').weekpicker();
 });
-// setInterval(function() {
-// getItem();
-// drawChart();
-// }, 5000);
-
-/*
- ajax form data listing
- $.each(data, function(key, value) {
- $.each(value, function(key, value) {
- console.log(key + value);
- });
- });
-
- */
-

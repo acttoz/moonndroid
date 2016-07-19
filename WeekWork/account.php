@@ -154,26 +154,6 @@
                             if ($_SESSION['ban'] == 12)
                                 echo 'selected';
                             ?>>12반</option>
-                            <option value='13' <?php
-                            if ($_SESSION['ban'] == 13)
-                                echo 'selected';
-                            ?>>13반</option>
-                            <option value='14' <?php
-                            if ($_SESSION['ban'] == 14)
-                                echo 'selected';
-                            ?>>14반</option>
-                            <option value='15' <?php
-                            if ($_SESSION['ban'] == 15)
-                                echo 'selected';
-                            ?>>15반</option>
-                            <option value='16' <?php
-                            if ($_SESSION['ban'] == 16)
-                                echo 'selected';
-                            ?>>16반</option>
-                            <option value='17' <?php
-                            if ($_SESSION['ban'] == 17)
-                                echo 'selected';
-                            ?>>17반</option>
                              <option value='0' <?php
                             if ($_SESSION['ban'] == 0)
                                 echo 'selected';
@@ -266,10 +246,9 @@
                     </div>
                  </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" >학교 검색 목록</label>
+                    <label class="col-sm-2 control-label" > </label>
                     <div class="col-sm-10">
                   <div class="list-group" id="school_list">
-                    <a href="#" class="list-group-item">검색 결과 없음</a>
                 </div>
                 
                  </div>

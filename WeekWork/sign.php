@@ -92,11 +92,6 @@
                             <option value='10' >10반</option>
                             <option value='11' >11반</option>
                             <option value='12' >12반</option>
-                            <option value='13' >13반</option>
-                            <option value='14' >14반</option>
-                            <option value='15' >15반</option>
-                            <option value='16' >16반</option>
-                            <option value='17' >17반</option>
                             <option value='0' >전담</option>
                         </select>
                     </div>
@@ -147,19 +142,14 @@
                     </div>
                     </div>
              <div class="form-group">
-                    <label class="col-sm-2 control-label" >학교 검색 목록</label>
+                    <label class="col-sm-2 control-label" > </label>
                     <div class="col-sm-10">
                   <div class="list-group" id="school_list">
-                    <a href="#" class="list-group-item">검색 결과 없음</a>
                 </div>
                 
                  </div>
             </div>
             </form>
-                    
-                   
- 
-                  
             </div>
 
             <!-- /#page-content-wrapper -->
@@ -167,6 +157,34 @@
         </div>
         <!-- /#wrapper -->
         <!-- Menu Toggle Script -->
+        
+        <div id="dialog-confirm" title="알림" style="display:none;">
+                <?php
+                include_once ('./terms.php');
+                ?>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(function() {
+                    $("#dialog-confirm").css("display", "block");
+                    $("#dialog-confirm").dialog({
+                        resizable : false,
+                        width : 800,
+                        height : 600,
+                        modal : true,
+                        buttons : {
+                            "동의" : function() {
+                                $(this).dialog("close");
+                            }
+                        },
+                        open : function() {
+                            $(this).scrollTop(0);
+                        }
+                    });
+            });
+        
+        </script>
+        
         <script src="./sign.js"></script>
 
         <?php

@@ -55,7 +55,7 @@ function getReply(work_id) {
                     default :
                         break;
                     }
-                    htmls += this.name + '</span>' + '<span style="font-size:12px">(' + this.time + ')</span>&nbsp;&nbsp;&nbsp;';
+                    htmls += this.name + '</span>' + '<span style="font-size:12px">'+'</span>&nbsp;&nbsp;&nbsp;';
                     if (this.file_name != '0') {
                         htmls += '<a class="btn btn-info reply_clip" type="button" href="';
                         htmls += './file.php?select=download&name=' + this.file_name + '&hash=' + this.file_hash;
@@ -230,7 +230,7 @@ function getChat() {
                         htmls += '<hr>';
                     htmls += '<p style="line-height=0px;padding-right:10px  ">' + this.content + '&nbsp;<span style="font-weight:bold"><br> ';
                     htmls += ban_array[this.ban];
-                    htmls += this.name + '</span>' + '<span style="font-size:12px">(' + this.time + ')</span>&nbsp;&nbsp;&nbsp;';
+                    htmls += this.name + '</span>' + '<span style="font-size:12px">'+ '</span>&nbsp;&nbsp;&nbsp;';
                     // if (this.file_name != '0') {
                     // htmls += '<a class="btn btn-info reply_clip" type="button" href="';
                     // htmls += './file.php?select=download&name=' + this.file_name + '&hash=' + this.file_hash;

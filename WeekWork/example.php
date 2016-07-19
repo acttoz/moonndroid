@@ -25,15 +25,79 @@
 
     <body >
  <?php
-include_once ('./header.php');
-         ?>
+ 
+ 
+ 
+$_SESSION['ch_school']=246;
+$_SESSION['ch_grade']=247;
+$_SESSION['ch_me']=249;
+ 
+ 
+$ch_ids = array($_SESSION['ch_school'], $_SESSION['ch_grade'], $_SESSION['ch_me']);
+if (1 == 10)
+    $temp_grade = '교무실';
+else if (1 == 100)
+    $temp_grade = '행정실';
+else {
+    $temp_grade = 1 . '학년';
+}
+$ch_names = array('학교', $temp_grade, 송중기);
+$ddate = date('Y-m-d');
+
+$date = new DateTime($ddate);
+$week = 10;
+$year = 2016;
+
+if (empty($_REQUEST['week'])) {
+
+    echo $array[0];
+    echo $array[1];
+
+    $this_week = 0;
+} else {
+    $this_week = $_REQUEST['week'];
+}
+$week += $this_week;
+
+
+$weeks = getStartAndEndDate($week, $year);
+function getStartAndEndDate($week, $year) {
+
+    $time = strtotime("1 January $year", time());
+    $day = date('w', $time);
+    $time += ((7 * $week) + 1 - $day) * 24 * 3600;
+
+    for ($i = 0; $i < 5; $i++) {
+        $return[$i] = date('Y-m-d', $time);
+        $time += 24 * 3600;
+    }
+    return $return;
+}
+
+$eventyear1 = new DateTime($weeks[0]);
+$eventyear = $eventyear1 -> format("Y");
+?>
+
+<script>var year =   '<?= $eventyear ?>';</script>
+
+<LINK REL="SHORTCUT ICON" HREF="./favicon.ico" />
+<header id="header">
+
+    <logo>
+        <a href="./login.php"></a>
+    </logo>
+    <nav id="mainMenu">
+        <ul>
+
+            <li >
+                <a href="index.php">위크워크 가입하기</a>
+            </li>
+
+        </ul>
+    </nav>
+</header>
          
-        <div id="wrapper" class="<?
-                             if($_SESSION['side']==0)
-                                echo 'toggled';
-                             else
-                                 echo '';
-                             ?>" style="padding-top: 0px;padding-bottom: 0px;padding-right: 0px; ">
+        <div id="wrapper" class=" " style="padding-top: 0px;padding-bottom: 0px;padding-right: 0px; ">
             
                 <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -65,18 +129,7 @@ include_once ('./header.php');
                                       </div>
                                    </td>
                                 </tr>
-                                <tr>
-                                   <td class="content"  style="width:10%;border-bottom-style:none;border-right-style:none; border-left-color:white; border-radius: 0 0 10px  0;">
-                                      <div class="form-group" style="height:50px;margin-bottom:0px;line-height: 0px">
-                                         <div class="col-sm-8" style="padding:5px;">
-                                            <input id="chat_input" type="text" name="reply_content" style="height:30px; width:100%" class="form-control"   checked="0" placeholder=""/>
-                                         </div>
-                                         <div class="col-sm-4" style="padding:5px;padding-right: 35px">
-                                            <button id="chat_submit" class = "btn btn-info form-control " type="button"  style=" width: 100%px;height:30px;" onclick="sendChat()">보내기</button>
-                                         </div>
-                                      </div>
-                                   </td>
-                                </tr>
+                                 
                      </table>
                     </div>
                 </li>
@@ -104,15 +157,15 @@ include_once ('./header.php');
                                  echo 'glyphicon-envelope';
                              else
                                 echo 'glyphicon-arrow-left';
-                             ?>" id="menu-toggle">
+                             ?>" id="menu-toggle"></a>
                         </td>
-                        <td style="width:20%;text-align: right"><? echo $_SESSION['SIDE']; ?><a href="week.php?week=<?php echo(int)$this_week - 1; ?>" style="width: 50%" class="btn btn-info glyphicon-text glyphicon-arrow-left" ></a>
+                        <td style="width:20%;text-align: right">
                         </td>
-                        <td style="width:20%;text-align: center"><a href="week.php" style="width: 50%" class="btn btn-info " >이번주</a>                              
+                        <td style="width:20%;text-align: center">                              
                         </td>
-                        <td style="width:20%;text-align: left"><a href="week.php?week=<?php echo(int)$this_week + 1; ?>" style="width: 50%" class="btn btn-info glyphicon-text glyphicon-arrow-right" ></a>                              
+                        <td style="width:20%;text-align: left">                              
                         </td>
-                        <td style="width:20%;text-align:right"><a  style="width: 50%" class="btn btn-info glyphicon glyphicon-search" onclick="toggle_search()" ></a>  
+                        <td style="width:20%;">
                         </td>
                     </tr>
                 </table>
@@ -198,7 +251,7 @@ include_once ('./header.php');
                                 <table width="100%;">
                                     <tr>
                                         <td style="width:70%;">
-                                            <h2 id="workDate" style="margin-top: 10px" user="<?php echo $_SESSION["id"]; ?>" >제목</h2> 
+                                            <h2 id="workDate" style="margin-top: 10px" user="<?php echo "thdwndrl"; ?>" >제목</h2> 
                                         </td>
                                         <td style="width: 30%;text-align: right">
                                             <button style="height:35px;width:150px;" type="button"  class="btn btn-success" onclick="toMyWork()">나의 할일로 등록</button>
@@ -260,28 +313,11 @@ include_once ('./header.php');
                                          </td> 
                                     </tr>
                                     <tr>
-                                          <td colspan="2"  class="content" style="width:40%;border-left-style:none;border-bottom-style:none;   font-weight: bold;font-size:10px;border-radius: 0 0 0 10px  ;  ">
-                                             <div class="btn-group" style=" width:100%;">
-                                            <button id="work_edit_btn" type="button" style="width:80%;height: 50px;" class="btn btn-info" onclick="editMode()">
-                                                                                        수정
-                                            </button>
-                                            <button id="work_save_btn" name="submit" style="width:80%;height: 50px;display:none" type="submit" class="btn btn-info btn-warning" >
-                                                                                        저장
-                                            </button>
-                                            <button id="work_delete_btn" style="width:20%;height: 50px;" type="button" class="btn btn-danger glyphicon glyphicon-trash">
-                                            </button>
-                                            </div>
+                                          <td colspan="5"  class="content" style="width:40%;border-left-style:none;border-bottom-style:none;   font-weight: bold;font-size:10px;border-radius: 0 0 0 10px  ;  ">
+                                              <h4>워크와 댓글은 작성할 수 없어요~!<br>
+ 위크워크에 가입해서  직접 이용해볼까요?<br>
+가입은 오른쪽 위에 있어요~</h4>
                                          </td>
-                                         <td class="content"  style="width:10%;border-bottom-style:none;border-right-style:none; border-left-color:white; border-radius: 0 0 10px  0;">
-                                            <div class="form-group" style="">
-                                                <div class="col-sm-9">
-                                                    <textarea id="reply_input" type="text" name="reply_content" style="height:50px; width:100%" class="form-control"   checked="0" placeholder="댓글을 입력하세요."></textarea>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input id="reply_submit" class = "btn btn-info form-control" type="submit" name="submit" style="margin-top:1px;width: 100%px;height:50px;" value="저장"/>
-                                                </div>
-                                            </div>
-                                          </td>
                                     </tr>
                                 </table>
                                 </form>
@@ -332,72 +368,10 @@ include_once ('./header.php');
                      </table>
                     </div>
 </div>
-
-<div id="cover" class="hide"> </div>
-
-
-<div id="search_board" class="hide">
-                   <table class=" " style="width:100%; background:#F8F8F8;color:#000; border-radius: 10px 10px 10px 10px; table-layout: fixed" align="center"  >
-                                <tr>
-                                   <td class="content"  style="width:10%;border-bottom-style:none;border-right-style:none; border-left-color:white; border-radius: 0 0 10px  0;">
-                                      <div class="form-group" style="height:50px;margin-bottom:0px;line-height: 0px">
-                                         <div class="col-sm-8" style="padding:5px;">
-                                            <input id="search_input" type="text" name="reply_content" style="height:30px; width:100%" class="form-control"   checked="0" placeholder=""/>
-                                         </div>
-                                         <div class="col-sm-4" style="padding:5px;">
-                                            <button id="search_submit" class = "btn btn-info form-control " type="button"  style=" width: 100%px;height:30px;" onclick="search()">검색</button>
-                                         </div>
-                                      </div>
-                                   </td>
-                                </tr>
-                               <tr class="" style="border-radius: 10px 0 0 0; ">
-                                   <td class="content" style="vertical-align:top;  width:70%;border-top-style:none; border-right-style:none; ">
-                                      <div id="search_result" style="text-align:left; overflow-y:scroll;margin:10px;height: 600px;">
-                                          입력한 단어가 들어가는 모든 워크가 표시됩니다.
-                                      </div>
-                                   </td>
-                                </tr>
-                     </table>
-</div>
- 
-<div id="help_btn" class="">
+<div id="help_btn" class="hide">
     <img style="width:62px;height:64px" src="img/help.png" onclick="toggle_help()" />
 </div>
- <div id="dialog-confirm" title="알림" style="display:none;">
-                <?php
-                include_once ('./channel.php');
-                ?>
-            </div>
-            
-            
-            
-            <?php
-            
-            if ($_SESSION['ch_school'] == 0 || $_SESSION['ch_grade'] == 0) {
-                echo '
-                    <script type="text/javascript">
-                        $(function() {
-                                $("#dialog-confirm").css("display", "block");
-                                $("#dialog-confirm").dialog({
-                                    resizable : false,
-                                    width : 800,
-                                    height : 400,
-                                    modal : true,
-                                    buttons : {
-                                        "확인" : function() {
-                                            
-                                        }
-                                    },
-                                    open : function() {
-                                        $(this).scrollTop(0);
-                                    }
-                                });
-                        });
-                    </script>
-                ';
-            } 
-            
-            ?>
+ 
             
     
         <!-- Menu Toggle Script -->
@@ -420,21 +394,8 @@ include_once ('./header.php');
                 }
             });
             
-            $("#cover").click(
-                function(){
-                    toggle_search();
-                }
-            );
-            
-            
             function toggle_help(){
                 $("#help_chat").toggleClass("hide");
-                getHelp();
-            }
-            
-            function toggle_search(){
-                $("#search_board").toggleClass("hide");
-                $("#cover").toggleClass("hide");
                 getHelp();
             }
             
@@ -459,9 +420,8 @@ include_once ('./header.php');
               
               
     </script>
-        <script src="week.js"></script>
-        <script src="reply.js"></script>
-        <script src="search.js"></script>
+        <script src="example.js"></script>
+        <script src="example_reply.js"></script>
 
         <?php
         include_once ("./tail.php");

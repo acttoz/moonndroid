@@ -2,24 +2,24 @@ table {
     /*line-height: 2em*/
 }
 
-.reply_clip{
-    max-width:200px;
-    height:28px;
-    font-size:12px;
-      width: 100%; /* width값을 주어야 ...(말줄임)가 적용된다. */
+.reply_clip {
+    max-width: 200px;
+    height: 28px;
+    font-size: 12px;
+    width: 100%; /* width값을 주어야 ...(말줄임)가 적용된다. */
     overflow: hidden;
     text-overflow: ellipsis; /*overflow: hidden; 속성과 같이 써줘야 말줄임 기능이 적용된다.*/
     white-space: nowrap; /*<td>보다 내용이 길경우 줄바꿈 되는것을 막아준다.*/
 }
 
-.work{
+.work {
     border: none;
 }
 
-.reply_x{
-    width:auto;
-    height:28px;
-    font-size:12px;
+.reply_x {
+    width: auto;
+    height: 28px;
+    font-size: 12px;
 }
 
 .time_table {
@@ -31,8 +31,8 @@ table {
     padding: 100px;
 }
 
-.btn-sky{
-    
+.btn-sky {
+
 }
 
 #week {
@@ -68,14 +68,12 @@ table {
     white-space: nowrap; /*<td>보다 내용이 길경우 줄바꿈 되는것을 막아준다.*/
 }
 
-.time_table #work_file_down{
+.time_table #work_file_down {
     width: 100%; /* width값을 주어야 ...(말줄임)가 적용된다. */
     overflow: hidden;
     text-overflow: ellipsis; /*overflow: hidden; 속성과 같이 써줘야 말줄임 기능이 적용된다.*/
     white-space: nowrap; /*<td>보다 내용이 길경우 줄바꿈 되는것을 막아준다.*/
 }
-
- 
 
 .time_table .center {
     text-align: center;
@@ -87,9 +85,8 @@ table a {
     display: block;
 }
 
-
 #work_content {
-    resize:none;
+    resize: none;
     border-radius: 10px;
     border: none;
     font-size: 16px;
@@ -105,7 +102,7 @@ table a {
     border: 1px solid #04A4B5;
 }
 #work_content_view {
-    resize:none;
+    resize: none;
     border-radius: 10px;
     border: none;
     font-size: 16px;
@@ -114,16 +111,15 @@ table a {
     text-align: left;
 }
 
-.file{
-    width:100%;
-    height:35px;
+.file {
+    width: 100%;
+    height: 35px;
     line-height: normal;
 }
 
-#reply{
+#reply {
     /*height:260px;*/
 }
-
 
 *:focus {
     outline: 0;
@@ -132,27 +128,67 @@ button {
     width: 100%;
 }
 
-.work{
-    padding:5px;
+.work {
+    padding: 5px;
 }
 
-
 #help_btn {
-    position:fixed;
-    right:20px;
-    bottom:20px;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
     text-align: center;
     width: 62px;
-    height:64px;
+    height: 64px;
     float: right;
 }
 
 #help_chat {
-    position:fixed;
-    right:20px;
-    bottom:100px;
+    position: fixed;
+    right: 20px;
+    bottom: 100px;
     text-align: center;
     width: 262px;
-    height:466px;
+    height: 466px;
     float: right;
+}
+#search_btn {
+    position: fixed;
+    right: 20px;
+    top: 70px;
+    text-align: center;
+    width: 62px;
+    z-index: 10000;
+    height: 38px;
+    float: right;
+}
+
+#search_board {
+    position: fixed;
+    right: 3%;
+    top: 124px;
+    text-align: center;
+    width: 30%;
+    height: 866px;
+    z-index: 10000;
+    float: right;
+}
+#search_view_board {
+    position: fixed;
+    left: 3%;
+    top: 124px;
+    text-align: center;
+    width: 60%;
+    height: 866px;
+    z-index: 10000;
+    float: right;
+}
+
+#cover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 5000;
+    width: 100%;
+    height: 100%;
 }

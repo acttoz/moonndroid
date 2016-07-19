@@ -31,7 +31,15 @@ else {
     $temp_grade = $_SESSION['grade'] . '학년';
 }
 $ch_names = array('학교', $temp_grade, $_SESSION['name']);
-$ddate = date('Y-m-d');
+
+if (empty($_REQUEST['search_date'])) {
+    $ddate = date('Y-m-d');
+} else {
+    $ddate = $_REQUEST['search_date'];
+}
+
+
+
 
 $date = new DateTime($ddate);
 $week = $date -> format("W");
@@ -47,6 +55,8 @@ if (empty($_REQUEST['week'])) {
     $this_week = $_REQUEST['week'];
 }
 $week += $this_week;
+
+
 
 $weeks = getStartAndEndDate($week, $year);
 function getStartAndEndDate($week, $year) {
