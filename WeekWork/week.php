@@ -104,7 +104,7 @@ include_once ('./header.php');
                                  echo 'glyphicon-envelope';
                              else
                                 echo 'glyphicon-arrow-left';
-                             ?>" id="menu-toggle">
+                             ?>" id="menu-toggle"></a>
                         </td>
                         <td style="width:20%;text-align: right"><? echo $_SESSION['SIDE']; ?><a href="week.php?week=<?php echo(int)$this_week - 1; ?>" style="width: 50%" class="btn btn-info glyphicon-text glyphicon-arrow-left" ></a>
                         </td>

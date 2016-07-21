@@ -17,7 +17,7 @@
                 <br>
 
                 <!-- <IMG class="displayed" src=" " style="width:70%; display: block; margin-left: auto; margin-right: auto"> -->
-                <IMG class="displayed" src="./img/tutorial.png" style="width:800px; display: block; margin-left: auto; margin-right: auto">
+                <a href="./example.php" class="displayed" style="width:800px; display: block; margin-left: auto; margin-right: auto"><img style="width:100%" src="./img/main1.png" ></img></a>
                 <br>
                 
             </div>

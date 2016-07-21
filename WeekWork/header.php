@@ -39,6 +39,12 @@ if (empty($_REQUEST['search_date'])) {
 }
 
 
+if (empty($_REQUEST['search_work'])) {
+    $work_id=0;
+} else {
+    $work_id=$_REQUEST['search_work'];
+}
+
 
 
 $date = new DateTime($ddate);
@@ -77,6 +83,7 @@ $eventyear = $eventyear1 -> format("Y");
 ?>
 
 <script>var year =   '<?= $eventyear ?>';</script>
+<script>var flag_work_id =   '<?= $work_id ?>';</script>
 
 <LINK REL="SHORTCUT ICON" HREF="./favicon.ico" />
 <header id="header">

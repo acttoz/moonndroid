@@ -32,7 +32,7 @@
 
 #sidebar-wrapper {
   
-    z-index: 1000;
+    z-index: 10;
     position: absolute;
     left: 350px;
     width: 0;

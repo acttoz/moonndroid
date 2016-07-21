@@ -27,7 +27,7 @@
  <?php
  
  
- 
+ $_SESSION['is_logged']=false;
 $_SESSION['ch_school']=246;
 $_SESSION['ch_grade']=247;
 $_SESSION['ch_me']=249;
@@ -87,10 +87,10 @@ $eventyear = $eventyear1 -> format("Y");
         <a href="./login.php"></a>
     </logo>
     <nav id="mainMenu">
-        <ul>
+        <ul style="height:40px;top:11px">
 
             <li >
-                <a href="index.php">위크워크 가입하기</a>
+                <a class="btn btn-info" href="sign.php">위크워크 가입하기</a>
             </li>
 
         </ul>
@@ -372,11 +372,29 @@ $eventyear = $eventyear1 -> format("Y");
     <img style="width:62px;height:64px" src="img/help.png" onclick="toggle_help()" />
 </div>
  
-            
+            <div id="dialog-confirm2" title="알림" style="display:none;">
+                  <img src="./img/example_main.png"  class="displayed" style="width:800px; display: block; margin-left: auto; margin-right: auto"></img>
+            </div>
     
         <!-- Menu Toggle Script -->
         <script>
-               
+               $(function() {
+                    $("#dialog-confirm2").css("display", "block");
+                    $("#dialog-confirm2").dialog({
+                        resizable : false,
+                        width : 900,
+                        height : 730,
+                        modal : true,
+                        buttons : {
+                            "닫기" : function() {
+                                $(this).dialog("close");
+                            }
+                        },
+                        open : function() {
+                            $(this).scrollTop(0);
+                        }
+                    });
+            });
           var is_side;
             $("#menu-toggle").click(function(e) {
                 e.preventDefault();

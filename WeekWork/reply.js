@@ -1,3 +1,5 @@
+var isLoadingReply = false;
+
 //reply
 function pollingReply() {
     $.ajax("db.php", {
@@ -19,13 +21,15 @@ function pollingReply() {
         },
         fail : function(jqXHR, textStatus, errorThrown) {
             // alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
-
         }
     });
-
 }
 
-function getReply(work_id) {
+getReply = function(work_id) {
+    if (isLoadingReply)
+        return false;
+    isLoadingReply = true;
+    //console.log(isLoadingReply + "\ncaller is " + arguments.callee.caller.toString());
     $("#reply").empty();
     $.ajax("db.php", {
         type : "GET",
@@ -72,15 +76,16 @@ function getReply(work_id) {
             } else {
 
             }
-
+            isLoadingReply = false;
         },
         fail : function(jqXHR, textStatus, errorThrown) {
             // alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
-
+            isLoadingReply = false;
         }
     });
 
-}
+    return true;
+};
 
 function delReply(reply_id, hash) {
 
@@ -174,10 +179,16 @@ function chatPolling() {
             if (chat_no < args * 1) {
 
                 if (chat_no != 0) {
-                    if (is_side==0) {
+                    if (is_side == 0) {
                         $("#menu-toggle").attr("class", "btn glyphicon glyphicon-bell");
                         $("#menu-toggle").text(args - chat_no);
-                         $('#menu-toggle').pulse({backgroundColor : '#ffe200'},{duration : 4250,pulses   : 500,interval : 0});
+                        $('#menu-toggle').pulse({
+                            backgroundColor : '#ffe200'
+                        }, {
+                            duration : 4250,
+                            pulses : 500,
+                            interval : 0
+                        });
                     }
                     // $.playSound("img/noti");
                     // $("#dialog").dialog({
@@ -256,13 +267,12 @@ function getChat() {
 
 }
 
-
 function pollingHelp() {
-     $.ajax("db.php", {
+    $.ajax("db.php", {
         type : "GET",
         dataType : "json",
         complete : setTimeout(function() {
-           pollingHelp();
+            pollingHelp();
         }, 10000),
         contentType : "application/json; charset=utf-8",
         data : {
@@ -281,7 +291,7 @@ function pollingHelp() {
                     if (this.me != 0) {
                         htmls += 'text-align:right;';
                     }
-                    
+
                     htmls += '">' + this.content + '&nbsp;';
                     // <span style="font-weight:bold"><br> ';
                     // htmls += '<a class="btn btn-info reply_clip" type="button" href="';
@@ -304,10 +314,8 @@ function pollingHelp() {
 
         }
     });
-    
-    
-}
 
+}
 
 function getHelp() {
 
@@ -331,7 +339,7 @@ function getHelp() {
                     if (this.me != 0) {
                         htmls += 'text-align:right;';
                     }
-                    
+
                     htmls += '">' + this.content + '&nbsp;';
                     // <span style="font-weight:bold"><br> ';
                     // htmls += '<a class="btn btn-info reply_clip" type="button" href="';

@@ -6,7 +6,6 @@ var htmls = '';
 var workArray = [];
 var newArray = [];
 var fileInfo = [];
-var flag_work_id = 0;
 var flag_isEditing = false;
 var wUser_id = $("#workDate").attr("user");
 
@@ -71,12 +70,10 @@ function viewWork(work_id) {
     }
     reply_polling_time = 0;
     reply_count = workArray[flag_work_id]["reply"];
-    getReply(work_id);
+
     $("#workList").css("display", "block");
 
-    newArray.push("" + work_id);
-    newArray = $.unique(newArray);
-    upNew();
+    
 
     $("#work_ch_id").val(workArray[flag_work_id]["ch_id"]);
 
@@ -84,6 +81,14 @@ function viewWork(work_id) {
     $("html, body").animate({
         scrollTop : $(document).height()
     }, "swing");
+
+    $(".work_p").each(function() {
+
+        $(this).css("border-color", "#cfebf2");
+    });
+    $("#work_" + work_id).css("border-color", "#ff0000");
+    getReply(work_id);
+    getNew();
 }
 
 getNew = function() {
@@ -101,6 +106,10 @@ getNew = function() {
             newArray = news.split("-");
             newArray = $.unique(newArray);
         }
+        
+        newArray.push("" + flag_work_id);
+        upNew();
+        
         setNew();
 
     });
@@ -209,7 +218,7 @@ function newWork(ch_id, ch_name, mDate) {
     $("#workList").css("display", "block");
     $("html, body").animate({
         scrollTop : $(document).height()
-    }, "slow");
+    }, "swing");
 }
 
 function editMode() {
@@ -294,7 +303,7 @@ getItemPolling = function() {
                 htmls += '<table  style="width:100%;table-layout: fixed;" class="work_name">';
                 htmls += '<td style="width:85%;padding:0px;border:none;background-color:rgba(0, 0, 0, 0);height:auto;">';
                 htmls += '<div class="new_work" id=' + this.work_id + ' style="display:none;width:100%;text-align:right;padding-right:40px"><img id=' + this.work_id + ' src="./img/new.png" style="height:26px;width:40px;position:absolute;float:right"></img></div>';
-                htmls += '<p data-toggle="tooltip" title="'+this.work_name+'" class="btn btn-default work" id="work_' + this.work_id + '"  style="border-color:#cfebf2;';
+                htmls += '<p data-toggle="tooltip" title="' + this.work_name + '" class="btn btn-default work work_p" id="work_' + this.work_id + '"  style="border-color:#cfebf2;';
 
                 if (this.user_id == wUser_id)
                     htmls += 'background:#cfdaf2;';
@@ -329,12 +338,12 @@ getItemPolling = function() {
 
         }
         $("#workList").css("display", "none");
+        getNew();
+        pollingReply();
         if (flag_work_id != 0)
             viewWork(flag_work_id);
 
         $.overlay.hide('ajax');
-
-        getNew();
 
     });
 
@@ -380,7 +389,7 @@ getItem = function() {
                 htmls += '<table  style="width:100%;table-layout: fixed;" class="work_name">';
                 htmls += '<td style="width:85%;padding:0px;border:none;background-color:rgba(0, 0, 0, 0);height:auto;">';
                 htmls += '<div class="new_work" id=' + this.work_id + ' style="display:none;width:100%;text-align:right;padding-right:40px"><img id=' + this.work_id + ' src="./img/new.png" style="height:26px;width:40px;position:absolute;float:right"></img></div>';
-                htmls += '<p data-toggle="tooltip" title="'+this.work_name+'" class="btn btn-default work" id="work_' + this.work_id + '"  style="border-color:#cfebf2;';
+                htmls += '<p data-toggle="tooltip" title="' + this.work_name + '" class="btn btn-default work" id="work_' + this.work_id + '"  style="border-color:#cfebf2;';
 
                 if (this.user_id == wUser_id)
                     htmls += 'background:#cfdaf2;';
@@ -415,12 +424,11 @@ getItem = function() {
 
         }
         $("#workList").css("display", "none");
+        getNew();
         if (flag_work_id != 0)
             viewWork(flag_work_id);
 
         $.overlay.hide('ajax');
-
-        getNew();
 
     });
 
@@ -468,7 +476,6 @@ function getFileInfo(file_id) {
             select : "file",
             file_id : file_id
         }
-
     });
 
     request.done(function(json) {
@@ -773,7 +780,6 @@ $('#work_save_btn').click(function() {
 
 $(document).ready(function() {
     getItemPolling();
-    pollingReply();
     getEvent();
     chatPolling();
     pollingHelp();
